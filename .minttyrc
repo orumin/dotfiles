@@ -1,0 +1,10 @@
+BoldAsFont=no
+Transparency=high
+FontHeight=12
+Locale=ja_JP
+Charset=UTF-8
+CursorBlinks=yes
+CursorType=underscore
+Font=Consolas
+CursorColour=255,255,255
+IMECursorColour=0,100,150
