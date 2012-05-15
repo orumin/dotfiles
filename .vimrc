@@ -48,17 +48,22 @@ NeoBundle 'git://github.com/Shougo/neocomplcache.git'
 NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
 NeoBundle 'git://github.com/Shougo/unite.vim.git'
 NeoBundle 'git://github.com/Shougo/vimshell.git'
-"NeoBundle 'git://github.com/Shougo/vimproc.git'
+NeoBundle 'git://github.com/Shougo/vimproc.git'
 NeoBundle 'git://github.com/Shougo/vinarise.git'
+NeoBundle 'git://github.com/thinca/vim-quickrun.git'
 NeoBundle 'git://github.com/tyru/open-browser.vim.git'
 NeoBundle 'git://github.com/basyura/twibill.vim.git'
 NeoBundle 'git://github.com/basyura/webapi-vim.git'
 NeoBundle 'git://github.com/basyura/bitly.vim.git'
 NeoBundle 'git://github.com/basyura/TweetVim.git'
 NeoBundle 'git://github.com/h1mesuke/unite-outline.git'
+NeoBundle 'git://github.com/yuratomo/w3m.vim.git'
 
 filetype plugin indent on
 
 
 "neocomplcache
 let g:neocomplcache_enable_at_startup = 1 " 起動時に有効化
+
+"w3m.vim
+let g:w3m#command = "/usr/bin/w3m"
