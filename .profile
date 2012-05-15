@@ -35,10 +35,3 @@ if [ -n "${BASH_VERSION}" ]; then
     source "${HOME}/.bashrc"
   fi
 fi
-
-alias ifconfig='cocot ipconfig'
-alias arp='cocot arp'
-alias nslookup='cocot nslookup'
-alias traceroute='cocot tracert'
-alias route='cocot route'
-alias netstat='cocot netstat'
