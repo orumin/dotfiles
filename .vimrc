@@ -81,7 +81,17 @@ set showcmd
 set number
 set matchtime=3
 set laststatus=2
+set cmdheight=2
+set wildmenu
 syntax on
+
+" setting backup
+if ( ostype == 'Win' )
+  set backupdir=$VIM/vimfiles/backup
+else
+  set backupdir=~/backup
+endif
+let &directory = &backupdir
 
 colorscheme desert
 
