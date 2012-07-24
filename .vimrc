@@ -1,69 +1,113 @@
 set nocompatible
-set tags=~/.tags
-
-set encoding=utf-8
-set ambw=double
-set fileencodings=iso-2022-jp,utf-8,euc-jp,cp932
-let $LANG='ja_JP.UTF-8'
-set nowrap
-set number
-set modifiable
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
-if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
+autocmd!
+if has('win32') || has('win64')
+  let ostype='Win'
+elseif has('mac')
+  let ostype='Mac'
 else
-  set backup		" keep a backup file
+  let ostype=system('uname')
 endif
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
-set autoindent
-colorscheme desert
 
-syntax on
-set hlsearch
-
-filetype plugin indent on
-augroup vimrcEx
- au!
-
-autocmd FileType text setlocal textwidth=78
-
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
-set laststatus=2
-
-
-" Setting for NeoBundle
-filetype plugin indent off
+"---------------------------------------------------
+" setting NeoBundle
+filetype off
 
 if has('vim_starting')
-	set runtimepath+=~/.vim/bundle/neobundle.vim
-	call neobundle#rc(expand('~/.vim/bundle/'))
-endif
+  if ( ostype == 'Win' )
+	set runtimepath+=$VIM/vimfiles/bundle/neobundle
+	call neobundle#rc(expand('$VIM/vimfiles/bundle'))
+  else
+	set runtimepath+=~/.vim/bundle/neobundle
+	call neobundle#rc(expand('~/.vim/bundle'))
+  endif
+endif 
 
-NeoBundle 'git://github.com/Shougo/neocomplcache.git'
-NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
-NeoBundle 'git://github.com/Shougo/unite.vim.git'
-NeoBundle 'git://github.com/Shougo/vimshell.git'
-NeoBundle 'git://github.com/Shougo/vimproc.git'
-NeoBundle 'git://github.com/Shougo/vinarise.git'
-NeoBundle 'git://github.com/thinca/vim-quickrun.git'
-NeoBundle 'git://github.com/tyru/open-browser.vim.git'
-NeoBundle 'git://github.com/basyura/twibill.vim.git'
-NeoBundle 'git://github.com/basyura/webapi-vim.git'
-NeoBundle 'git://github.com/basyura/bitly.vim.git'
-NeoBundle 'git://github.com/basyura/TweetVim.git'
-NeoBundle 'git://github.com/h1mesuke/unite-outline.git'
-NeoBundle 'git://github.com/yuratomo/w3m.vim.git'
+NeoBundle 'Shougo/neobundle.vim', {'directory' : 'neobundle'}
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/unite.vim', {'directory' : 'unite'}
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/vimfiler'
+
+NeoBundle 'trinity.vim', {'directory' : 'trinity'}
+
+" tweetvim
+NeoBundle 'basyura/TweetVim'
+NeoBundle 'basyura/twibill.vim', {'directory' : 'twibill'}
+NeoBundle 'basyura/bitly.vim', {'directory' : 'bitly'}
+NeoBundle 'tyru/open-browser.vim', {'directory' : 'open-browser'}
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'h1mesuke/unite-outline'
 
 filetype plugin indent on
+"---------------------------------------------------
 
+" setting encoding
+set fileencoding=UTF-8
+set encoding=UTF-8
+if ( ostype=='Win')
+  set termencoding=CP932
+else
+  set termencoding=UTF-8
+endif
 
-"neocomplcache
-let g:neocomplcache_enable_at_startup = 1 " 起動時に有効化
+set hidden " open file ignoring modify files
+set autoread
 
-"w3m.vim
-let g:w3m#command = "/usr/bin/w3m"
+"indent, tabwidth
+set shiftwidth=2
+set tabstop=4
+set softtabstop=4
+set noexpandtab
+set textwidth=78
+set ambiwidth=single
+
+" setting search
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set wrapscan
+
+" setting edit
+set backspace=indent,eol,start
+set showmatch
+set autoindent
+set cindent
+
+" setting display
+set ruler
+set showcmd
+set number
+set matchtime=3
+set laststatus=2
+syntax on
+
+colorscheme desert
+
+"------------------------------------------
+" disable default vim plugin of Kaoriya ver
+let plugin_autodata_diable	= 1
+let plugin_cmdex_disable	= 1
+let plugin_dicwin_disable	= 1
+let plugin_format_disable	= 1
+let plugin_hz_ja_disable	= 1
+let plugin_scrnmode_disable	= 1
+" let plugin_verifyenc_disable	= 1
+"------------------------------------------
+
+"---------------------------------------------
+" other setting
+nmap ; :
+autocmd FileType tweetvim set wrap
+autocmd FileType !tweetvim set nowrap
+
+"---------------------------------------------
+" setting plugin
+
+nnoremap <silent> t :Unite tweetvim<CR>
+nnoremap <silent> s :TweetVimSay<CR>
+
+" neocomplcache
+let g:neocomplcache_enable_at_startup = 1
+
