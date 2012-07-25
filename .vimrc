@@ -9,8 +9,10 @@ else
 endif
 
 if ( ostype=='Win' )
-  let $PATH='Y:/application/msysGit/bin;'.
-	  \'Y:/application/msysGit/mingw/bin;'.$PATH
+  let $PATH='D:/MinGW/bin;'.$PATH
+  let $PATH='D:/MinGW/msys/1.0/bin;'.$PATH
+  let $PATH='D:/Program Files (x86)/Git/bin;'.$PATH
+  let $PATH=expand('$VIM/vimfiles/bin').';'.$PATH
 endif
 
 "---------------------------------------------------
@@ -27,6 +29,7 @@ if has('vim_starting')
   endif
 endif 
 
+" Must have at least
 NeoBundle 'Shougo/neobundle.vim', {'directory' : 'neobundle'}
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/unite.vim', {'directory' : 'unite'}
@@ -40,7 +43,9 @@ NeoBundle 'Shougo/vimproc', {
 	\     'unix' : 'make -f make_unix.mak',
 	\    },
 	\ }
+NeoBundle 'thinca/vim-quickrun'
 
+" like IDE
 NeoBundle 'trinity.vim', {'directory' : 'trinity'}
 
 " tweetvim
@@ -53,7 +58,28 @@ NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'yomi322/neco-tweetvim'
 NeoBundle 'yomi322/unite-tweetvim'
 
+" doc
+NeoBundle 'vim-jp/vimdoc-ja'
+
+" ctags
+NeoBundle 'taglist.vim', {'directory' : 'taglist'}
+NeoBundle 'abudden/TagHighlight'
+
+" colorscheme
 NeoBundle 'Color-Sampler-Pack'
+
+" all break and unite
+NeoBundle 'Shougo/unite-build'
+NeoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'sgur/unite-qf'
+NeoBundle 'tsukkee/unite-help'
+NeoBundle 'tsukkee/unite-tag'
+
+if ( ostype == 'Win' )
+  NeoBundle 'im_control', {'type' : 'nosync', 'base' : '$VIM/vimfiles/manual'}
+else
+  NeoBundle 'im_control', {'type' : 'nosync', 'base' : '~/.vim/manual'}
+endif
 
 filetype plugin indent on
 "---------------------------------------------------
@@ -83,7 +109,7 @@ set shiftwidth=2
 set tabstop=4
 set softtabstop=4
 set noexpandtab
-set textwidth=78
+autocmd FileType text setlocal textwidth=78
 if has( 'kaoriya' )
   set ambiwidth=auto
 else
@@ -107,6 +133,7 @@ set cindent
 set ruler
 set showcmd
 set number
+set nowrap
 set matchtime=3
 set laststatus=2
 set cmdheight=2
@@ -137,14 +164,17 @@ let plugin_scrnmode_disable	= 1
 "---------------------------------------------
 " other setting
 nmap ; :
-autocmd FileType tweetvim set wrap
-autocmd FileType !tweetvim set nowrap
+autocmd FileType tweetvim setlocal wrap
+autocmd FileType tweetvim_say setlocal wrap
 
 "---------------------------------------------
 " setting plugin
 
+" TweetVim
 nnoremap <silent> t :Unite tweetvim<CR>
 nnoremap <silent> s :TweetVimSay<CR>
+let g:tweetvim_display_source=1
+let g:tweetvim_open_buffer_cmd='split'
 
 " neocomplcache
 let g:neocomplcache_enable_at_startup = 1
