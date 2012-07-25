@@ -8,6 +8,11 @@ else
   let ostype=system('uname')
 endif
 
+if ( ostype=='Win' )
+  let $PATH='Y:/application/msysGit/bin;'.
+	  \'Y:/application/msysGit/mingw/bin;'.$PATH
+endif
+
 "---------------------------------------------------
 " setting NeoBundle
 filetype off
@@ -24,10 +29,17 @@ endif
 
 NeoBundle 'Shougo/neobundle.vim', {'directory' : 'neobundle'}
 NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/unite.vim', {'directory' : 'unite'}
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/vimproc', {
+	\ 'build' : {
+	\     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+	\     'cygwin' : 'make -f make_cygwin.mak',
+	\     'mac' : 'make -f make_mac.mak',
+	\     'unix' : 'make -f make_unix.mak',
+	\    },
+	\ }
 
 NeoBundle 'trinity.vim', {'directory' : 'trinity'}
 
@@ -38,9 +50,21 @@ NeoBundle 'basyura/bitly.vim', {'directory' : 'bitly'}
 NeoBundle 'tyru/open-browser.vim', {'directory' : 'open-browser'}
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'yomi322/neco-tweetvim'
+NeoBundle 'yomi322/unite-tweetvim'
+
+NeoBundle 'Color-Sampler-Pack'
 
 filetype plugin indent on
 "---------------------------------------------------
+
+source $VIMRUNTIME/delmenu.vim
+set langmenu=none
+source $VIMRUNTIME/menu.vim
+
+if has('multi_lang')
+  language C
+endif
 
 " setting encoding
 set fileencoding=UTF-8
@@ -60,7 +84,11 @@ set tabstop=4
 set softtabstop=4
 set noexpandtab
 set textwidth=78
-set ambiwidth=single
+if has( 'kaoriya' )
+  set ambiwidth=auto
+else
+  set ambiwidth=single
+endif
 
 " setting search
 set hlsearch
@@ -93,7 +121,7 @@ else
 endif
 let &directory = &backupdir
 
-colorscheme desert
+colorscheme neon
 
 "------------------------------------------
 " disable default vim plugin of Kaoriya ver
