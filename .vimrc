@@ -9,9 +9,9 @@ else
 endif
 
 if ( ostype=='Win' )
-  let $PATH='D:/MinGW/bin;'.$PATH
-  let $PATH='D:/MinGW/msys/1.0/bin;'.$PATH
   let $PATH='D:/Program Files (x86)/Git/bin;'.$PATH
+  let $PATH='D:/MinGW/msys/1.0/bin;'.$PATH
+  let $PATH='D:/MinGW/bin;'.$PATH
   let $PATH=expand('$VIM/vimfiles/bin').';'.$PATH
 endif
 
@@ -37,7 +37,7 @@ NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimproc', {
 	\ 'build' : {
-	\     'windows' : 'echo "Sorry, cannot update vimproc binary file in Windows."',
+	\     'windows' : 'make -f make_mingw32.mak',
 	\     'cygwin' : 'make -f make_cygwin.mak',
 	\     'mac' : 'make -f make_mac.mak',
 	\     'unix' : 'make -f make_unix.mak',
@@ -45,18 +45,12 @@ NeoBundle 'Shougo/vimproc', {
 	\ }
 NeoBundle 'thinca/vim-quickrun'
 
-" like IDE
-NeoBundle 'trinity.vim', {'directory' : 'trinity'}
+NeoBundle 'Shougo/vinarise'
 
-" tweetvim
-NeoBundle 'basyura/TweetVim'
-NeoBundle 'basyura/twibill.vim', {'directory' : 'twibill'}
-NeoBundle 'basyura/bitly.vim', {'directory' : 'bitly'}
-NeoBundle 'tyru/open-browser.vim', {'directory' : 'open-browser'}
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'yomi322/neco-tweetvim'
-NeoBundle 'yomi322/unite-tweetvim'
+" like IDE
+" NeoBundle 'trinity.vim', {'directory' : 'trinity'}
+NeoBundle 'orumin/trinity.vim', {'directory' : 'trinity'}
+NeoBundle 'scrooloose/nerdtree'
 
 " doc
 NeoBundle 'vim-jp/vimdoc-ja'
@@ -64,6 +58,7 @@ NeoBundle 'vim-jp/vimdoc-ja'
 " ctags
 NeoBundle 'taglist.vim', {'directory' : 'taglist'}
 NeoBundle 'abudden/TagHighlight'
+NeoBundle 'Source-Explorer-srcexpl.vim', {'direcotry' : 'SourceExplorer'}
 
 " colorscheme
 NeoBundle 'Color-Sampler-Pack'
@@ -74,6 +69,16 @@ NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'sgur/unite-qf'
 NeoBundle 'tsukkee/unite-help'
 NeoBundle 'tsukkee/unite-tag'
+
+" tweetvim
+NeoBundle 'basyura/TweetVim'
+NeoBundle 'basyura/twibill.vim', {'directory' : 'twibill'}
+NeoBundle 'basyura/bitly.vim', {'directory' : 'bitly'}
+NeoBundle 'tyru/open-browser.vim', {'directory' : 'open-browser'}
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'h1mesuke/unite-outline'
+NeoBundle 'yomi322/neco-tweetvim'
+NeoBundle 'yomi322/unite-tweetvim'
 
 if ( ostype == 'Win' )
   NeoBundle 'im_control', {'type' : 'nosync', 'base' : '$VIM/vimfiles/manual'}
@@ -170,12 +175,18 @@ autocmd FileType tweetvim_say setlocal wrap
 "---------------------------------------------
 " setting plugin
 
+" neocomplcache
+let g:neocomplcache_enable_at_startup = 1
+
+" setting trinity
+nmap <F8> :TrinityToggleAll<CR>
+nmap <F9> :TrinityToggleSourceExplorer<CR>
+nmap <F10> :TrinityToggleTagList<CR>
+nmap <F11> :TrinityToggleNERDTree<CR>
+
 " TweetVim
 nnoremap <silent> t :Unite tweetvim<CR>
 nnoremap <silent> s :TweetVimSay<CR>
 let g:tweetvim_display_source=1
 let g:tweetvim_open_buffer_cmd='split'
-
-" neocomplcache
-let g:neocomplcache_enable_at_startup = 1
 
