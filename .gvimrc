@@ -1,5 +1,8 @@
 colorscheme wombat256
 
+set columns=80
+set lines=40
+
 set guioptions=aerL
 set guifont=Consolas:h10:Lucida_Console:h10:w5
 set guifontwide=MS_Gothic:h10
