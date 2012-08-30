@@ -58,7 +58,7 @@ NeoBundle 'vim-jp/vimdoc-ja'
 " ctags
 NeoBundle 'taglist.vim', {'directory' : 'taglist'}
 NeoBundle 'abudden/TagHighlight'
-NeoBundle 'Source-Explorer-srcexpl.vim', {'direcotry' : 'SourceExplorer'}
+NeoBundle 'SrcExpl'
 
 " colorscheme
 NeoBundle 'Color-Sampler-Pack'
