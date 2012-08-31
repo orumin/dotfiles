@@ -1,7 +1,7 @@
 autoload -U compinit
 compinit
-autoload predict-on
-predict-on
+#autoload predict-on
+#predict-on
 
 bindkey -v
 
@@ -19,7 +19,7 @@ setopt share_history
 
 alias h="history 25"
 alias j="jobs -l"
-alias ls="ls -G"
+alias ls="ls -G -w"
 alias la="ls -aF"
 alias lf="ls -FA"
 alias ll="ls -lAF"
@@ -27,3 +27,5 @@ alias ll="ls -lAF"
 alias vi=vim
 alias less=lv
 
+alias jfbterm="env LANG=ja_JP.UTF-8 jfbterm -e uim-fep"
+alias jman="env LANG=ja_JP.eucJP GROFF_NO_SGR=true jman"

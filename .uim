@@ -1,0 +1,7 @@
+(define default-im-name 'anthy)
+(require-module "anthy")
+(define-key generic-on-key? '("<Control>j"))
+(define-key generic-off-key? '("<Control>j"))
+(define-key anthy-shrink-segment-key? '("tab"
+										"<IgnoreCase?><Control>i" "<Shift>left))
+(define anthy-use-with-vi? #t)

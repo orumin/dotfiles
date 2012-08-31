@@ -5,6 +5,7 @@ export FTP_PASSIVE_MODE=yes
 
 export	EDITOR=vim
 export	PAGER=lv
+export  LV=-Ou8
 export	BLOCKSIZE=K
 
 PROMPTTTY=`tty | sed -e 's/\/dev\///'`
