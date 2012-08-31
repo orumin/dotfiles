@@ -29,4 +29,4 @@ alias less=lv
 
 alias jfbterm="env LANG=ja_JP.UTF-8 jfbterm -e uim-fep"
 alias jman="env LANG=ja_JP.eucJP GROFF_NO_SGR=true jman"
-alias ctags=jexctags
+alias exctags=jexctags
