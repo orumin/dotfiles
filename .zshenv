@@ -8,6 +8,8 @@ export	PAGER=lv
 export  LV=-Ou8
 export	BLOCKSIZE=K
 
+export PATH="/sbin:/usr/sbin:/usr/local/sbin:$PATH"
+
 PROMPTTTY=`tty | sed -e 's/\/dev\///'`
 PROMPT="%b%{[32m%}%n%{[m%}@%{[32m%}%m%{[m%}<%B${PROMPTTTY}%b>
 $ "

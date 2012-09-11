@@ -80,11 +80,13 @@ NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'yomi322/neco-tweetvim'
 NeoBundle 'yomi322/unite-tweetvim'
 
-if ( ostype == 'Win' )
-  NeoBundle 'im_control', {'type' : 'nosync', 'base' : '$VIM/vimfiles/manual'}
-else
-  NeoBundle 'im_control', {'type' : 'nosync', 'base' : '~/.vim/manual'}
-endif
+"if ( ostype == 'Win' )
+"  NeoBundle 'im_control', {'type' : 'nosync', 'base' : '$VIM/vimfiles/manual'}
+"else
+"  NeoBundle 'im_control', {'type' : 'nosync', 'base' : '~/.vim/manual'}
+"endif
+
+NeoBundle 'bouzuya/vim-ibus'
 
 filetype plugin indent on
 "---------------------------------------------------
@@ -169,6 +171,8 @@ let plugin_scrnmode_disable	= 1
 "---------------------------------------------
 " other setting
 nmap ; :
+:map <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
+:map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
 autocmd FileType tweetvim setlocal wrap
 autocmd FileType tweetvim_say setlocal wrap
 
@@ -183,6 +187,11 @@ nmap <F8> :TrinityToggleAll<CR>
 nmap <F9> :TrinityToggleSourceExplorer<CR>
 nmap <F10> :TrinityToggleTagList<CR>
 nmap <F11> :TrinityToggleNERDTree<CR>
+
+" vim-ibus
+"inoremap <silent> <Esc> <Esc>:<C-u>call ibus#disable()<CR>
+"inoremap <silent> <C-j> <C-\><C-o>:<C-u>call ibus#toggle()<CR>
+"set statusline+=[%{ibus#is_enabled()?'あ':'aA'}]
 
 " TweetVim
 nnoremap <silent> t :Unite tweetvim<CR>

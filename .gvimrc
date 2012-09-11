@@ -21,11 +21,11 @@ elseif executable('vimtweak.dll')
   autocmd FocusLost * call libcallnr('vimtweak.dll', 'SetAlpha', 156)
 endif
 
-" setting IME
-if has('multi_byte_ime') || has('xim')
-  highlight CursorIM guibg=Purple guifg=NONE
-endif
-
-let IM_CtrlMode = 4
-inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
+"" setting IME
+"if has('multi_byte_ime') || has('xim')
+"  highlight CursorIM guibg=Purple guifg=NONE
+"endif
+"
+"let IM_CtrlMode = 4
+"inoremap <silent> <C-j> <C-^><C-r>=IMState('FixMode')<CR>
 
