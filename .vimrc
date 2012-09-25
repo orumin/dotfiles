@@ -47,6 +47,8 @@ NeoBundle 'thinca/vim-quickrun'
 
 NeoBundle 'Shougo/vinarise'
 
+NeoBundle 'sudo.vim', {'directory' : 'sudo'}
+
 " like IDE
 " NeoBundle 'trinity.vim', {'directory' : 'trinity'}
 NeoBundle 'orumin/trinity.vim', {'directory' : 'trinity'}
@@ -86,6 +88,7 @@ NeoBundle 'yomi322/unite-tweetvim'
 "  NeoBundle 'im_control', {'type' : 'nosync', 'base' : '~/.vim/manual'}
 "endif
 
+NeoBundle 'skk.vim', {'directory' : 'skk'}
 NeoBundle 'bouzuya/vim-ibus'
 
 filetype plugin indent on
@@ -121,6 +124,7 @@ if has( 'kaoriya' )
   set ambiwidth=auto
 else
   set ambiwidth=single
+"  set ambiwidth=double
 endif
 
 " setting search
@@ -192,6 +196,15 @@ nmap <F11> :TrinityToggleNERDTree<CR>
 "inoremap <silent> <Esc> <Esc>:<C-u>call ibus#disable()<CR>
 "inoremap <silent> <C-j> <C-\><C-o>:<C-u>call ibus#toggle()<CR>
 "set statusline+=[%{ibus#is_enabled()?'あ':'aA'}]
+
+" skk.vim
+let skk_jisyo = '~/.skk_jisyo'
+let skk_large_jisyo = '~/.vim/dict/skk/SKK-JISYO.L'
+let skk_auto_save_jisyo = 1
+let skk_keep_state = 0
+let skk_egg_like_newline = 1
+let skk_show_annotation = 1
+let skk_use_fase = 1
 
 " TweetVim
 nnoremap <silent> t :Unite tweetvim<CR>
