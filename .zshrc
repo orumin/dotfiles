@@ -1,5 +1,6 @@
 export PSPDEV="/opt/pspsdk"
 export PATH="$PATH:$PSPDEV/bin:$HOME/bin"
+export PATH="/home/orumin/.gem/ruby/1.9.1/bin:$PATH"
 
 autoload -U compinit
 compinit
@@ -32,7 +33,6 @@ alias ll="ls -lAF"
 alias vi=vim
 alias less=lv
 
-alias pacman=pacman-color
 alias ttytter="ttytter -ansi"
 
 alias unzip="unzip -Ocp932"

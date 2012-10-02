@@ -1,48 +1,119 @@
 set nocompatible
 autocmd!
 if has('win32') || has('win64')
-  let ostype='Win'
+	let ostype='Win'
 elseif has('mac')
-  let ostype='Mac'
+	let ostype='Mac'
 else
-  let ostype=system('uname')
+	let ostype=system('uname')
 endif
 
 if ( ostype=='Win' )
-  let $PATH='D:/Program Files (x86)/Git/bin;'.$PATH
-  let $PATH='D:/MinGW/msys/1.0/bin;'.$PATH
-  let $PATH='D:/MinGW/bin;'.$PATH
-  let $PATH=expand('$VIM/vimfiles/bin').';'.$PATH
+	let $PATH='D:/Program Files (x86)/Git/bin;'.$PATH
+	let $PATH='D:/MinGW/msys/1.0/bin;'.$PATH
+	let $PATH='D:/MinGW/bin;'.$PATH
+	let $PATH=expand('$VIM/vimfiles/bin').';'.$PATH
+	set runtimepath^=$HOME/.vim
+	set runtimepath+=$HOME/.vim/after
 endif
+
+
+"---------------------------------------------------
+" setting encoding and lang
+if has('multi_lang')
+"	language C
+	language ja_JP.UTF-8
+endif
+
+filetype plugin off
+if &encoding !=# 'utf-8'
+	set encoding=japan
+	set fileencoding=japan
+endif
+if has('iconv')
+	let s:enc_euc = 'euc-jp'
+	let s:enc_jis = 'iso-2022-jp'
+	" check iconv supporting eucJP-ms
+	if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
+		let s:enc_euc = 'eucjp-ms'
+		let s:enc_jis = 'iso-2022-jp-3'
+		" check iconv supporting JISX0213
+	elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
+		let s:enc_euc = 'euc-jisx0213'
+		let s:enc_jis = 'iso-2022-jp-3'
+	endif
+	" setting fileencodings
+	if &encoding ==# 'utf-8'
+		let s:fileencodings_default = &fileencodings
+		let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
+		let &fileencodings = &fileencodings .','. s:fileencodings_default
+		unlet s:fileencodings_default
+	else
+		let &fileencodings = &fileencodings .','. s:enc_jis
+		set fileencodings+=utf-8,ucs-2le,ucs-2
+		if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
+			set fileencodings+=cp932
+			set fileencodings-=euc-jp
+			set fileencodings-=euc-jisx0213
+			set fileencodings-=eucjp-ms
+			let &encoding = s:enc_euc
+			let &fileencoding = s:enc_euc
+		else
+			let &fileencodings = &fileencodings .','. s:enc_euc
+		endif
+	endif
+	" delete variable
+	unlet s:enc_euc
+	unlet s:enc_jis
+endif
+" if don't have Japanese, set fileencoding same to encoding
+if has('autocmd')
+	function! AU_ReCheck_FENC()
+		if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
+			let &fileencoding=&encoding
+		endif
+	endfunction
+	autocmd BufReadPost * call AU_ReCheck_FENC()
+endif
+" auto understanding newline character
+set fileformats=unix,dos,mac
+if exists('&ambiwidth')
+	if has( 'kaoriya' )
+		set ambiwidth=auto
+	else
+		set ambiwidth=double
+	endif
+endif
+filetype plugin on
+
+"---------------------------------------------------
+
 
 "---------------------------------------------------
 " setting NeoBundle
 filetype off
 
 if has('vim_starting')
-  if ( ostype == 'Win' )
-	set runtimepath+=$VIM/vimfiles/bundle/neobundle
-	call neobundle#rc(expand('$VIM/vimfiles/bundle'))
-  else
-	set runtimepath+=~/.vim/bundle/neobundle
-	call neobundle#rc(expand('~/.vim/bundle'))
-  endif
+	set runtimepath+=$HOME/.vim/bundle/neobundle
+	call neobundle#rc(expand('$HOME/.vim/bundle'))
 endif 
 
 " Must have at least
 NeoBundle 'Shougo/neobundle.vim', {'directory' : 'neobundle'}
 NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neocomplcache-clang'
+NeoBundle 'ujihisa/neco-look'
 NeoBundle 'Shougo/unite.vim', {'directory' : 'unite'}
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimproc', {
-	\ 'build' : {
-	\     'windows' : 'make -f make_mingw32.mak',
-	\     'cygwin' : 'make -f make_cygwin.mak',
-	\     'mac' : 'make -f make_mac.mak',
-	\     'unix' : 'make -f make_unix.mak',
-	\    },
-	\ }
+			\ 'build' : {
+			\     'windows' : 'make -f make_mingw32.mak',
+			\     'cygwin' : 'make -f make_cygwin.mak',
+			\     'mac' : 'make -f make_mac.mak',
+			\     'unix' : 'make -f make_unix.mak',
+			\    },
+			\ }
 NeoBundle 'thinca/vim-quickrun'
 
 NeoBundle 'Shougo/vinarise'
@@ -82,50 +153,34 @@ NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'yomi322/neco-tweetvim'
 NeoBundle 'yomi322/unite-tweetvim'
 
-"if ( ostype == 'Win' )
-"  NeoBundle 'im_control', {'type' : 'nosync', 'base' : '$VIM/vimfiles/manual'}
-"else
-"  NeoBundle 'im_control', {'type' : 'nosync', 'base' : '~/.vim/manual'}
-"endif
+" ime
+NeoBundle 'tyru/eskk.vim', {'directory' : 'eskk'}
+" NeoBundle 'bouzuya/vim-ibus'
 
-NeoBundle 'skk.vim', {'directory' : 'skk'}
-NeoBundle 'bouzuya/vim-ibus'
+" reference
+NeoBundle 'thinca/vim-ref'
+
+" Haskell
+NeoBundle 'ujihisa/ref-hoogle'
+NeoBundle 'ujihisa/neco-ghc'
+NeoBundle 'dag/vim2hs'
 
 filetype plugin indent on
 "---------------------------------------------------
 
-source $VIMRUNTIME/delmenu.vim
-set langmenu=none
-source $VIMRUNTIME/menu.vim
-
-if has('multi_lang')
-  language C
-endif
-
-" setting encoding
-set fileencoding=UTF-8
-set encoding=UTF-8
-if ( ostype=='Win')
-  set termencoding=CP932
-else
-  set termencoding=UTF-8
-endif
+"source $VIMRUNTIME/delmenu.vim
+"set langmenu=none
+"source $VIMRUNTIME/menu.vim
 
 set hidden " open file ignoring modify files
 set autoread
 
 "indent, tabwidth
-set shiftwidth=2
+set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 set noexpandtab
 autocmd FileType text setlocal textwidth=78
-if has( 'kaoriya' )
-  set ambiwidth=auto
-else
-  set ambiwidth=single
-"  set ambiwidth=double
-endif
 
 " setting search
 set hlsearch
@@ -152,14 +207,10 @@ set wildmenu
 syntax on
 
 " setting backup
-if ( ostype == 'Win' )
-  set backupdir=$VIM/vimfiles/backup
-else
-  set backupdir=~/backup
-endif
+set backupdir=$HOME/.vim/backup
 let &directory = &backupdir
 
-colorscheme neon
+colorscheme wombat256
 
 "------------------------------------------
 " disable default vim plugin of Kaoriya ver
@@ -177,14 +228,32 @@ let plugin_scrnmode_disable	= 1
 nmap ; :
 :map <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
 :map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
-autocmd FileType tweetvim setlocal wrap
-autocmd FileType tweetvim_say setlocal wrap
+nmap <ESC><ESC> ;nohlsearch<CR><ESC>
+nnoremap \s :set spell!<CR>
 
 "---------------------------------------------
 " setting plugin
 
 " neocomplcache
+set completeopt=menuone
 let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_max_list = 20
+let g:neocomplcache_enable_ignore_case = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion = 0
+let g:neocomplcache_use_vimproc = 1
+if( ostype=='Linux' )
+	let g:neocomplcache_temporary_dir = '/dev/shm/.neocon'
+endif
+let g:neocomplcache_plugin_enable = {
+			\ 'syntax_complete' : 1,
+			\ }
+
+" neocomplcache-clang
+let g:neocomplcache_clang_use_library = 1
+let g:neocomplcache_clang_library_path = '/usr/lib/llvm'
+let g:neocomplcache_max_list = 1000
 
 " setting trinity
 nmap <F8> :TrinityToggleAll<CR>
@@ -197,18 +266,26 @@ nmap <F11> :TrinityToggleNERDTree<CR>
 "inoremap <silent> <C-j> <C-\><C-o>:<C-u>call ibus#toggle()<CR>
 "set statusline+=[%{ibus#is_enabled()?'あ':'aA'}]
 
-" skk.vim
-let skk_jisyo = '~/.skk_jisyo'
-let skk_large_jisyo = '~/.vim/dict/skk/SKK-JISYO.L'
-let skk_auto_save_jisyo = 1
-let skk_keep_state = 0
-let skk_egg_like_newline = 1
-let skk_show_annotation = 1
-let skk_use_fase = 1
+" eskk.vim
+set imdisable
+set iminsert=0
+let g:eskk#directory = "$HOME/.eskk"
+let g:eskk#dictionary = { 'path' : "$HOME/.skk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
+let g:eskk#large_dictionary = { 'path': "$HOME/.vim/dict/skk/SKK-JISYO.XXL", 'sorted': 1, 'encoding': 'euc-jp', }
+let g:eskk#enable_completion = 1
+let g:eskk#egg_like_newline = 1
+
+" VimSHell
+let g:vimshell_interactive_update_time = 10
+nnoremap <silent> vs :VimShell<CR>
+nnoremap <silent> vsc :VimShellCreate<CR>
+nnoremap <silent> vp :VimShellPop<CR>
 
 " TweetVim
 nnoremap <silent> t :Unite tweetvim<CR>
 nnoremap <silent> s :TweetVimSay<CR>
 let g:tweetvim_display_source=1
 let g:tweetvim_open_buffer_cmd='split'
+autocmd FileType tweetvim setlocal wrap
+autocmd FileType tweetvim_say setlocal wrap
 
