@@ -1,88 +1,88 @@
 set nocompatible
 autocmd!
 if has('win32') || has('win64')
-	let ostype='Win'
+    let ostype='Win'
 elseif has('mac')
-	let ostype='Mac'
+    let ostype='Mac'
 else
-	let ostype=system('uname')
+    let ostype=system('uname')
 endif
 
 if ( ostype=='Win' )
-	let $PATH='D:/Program Files (x86)/Git/bin;'.$PATH
-	let $PATH='D:/MinGW/msys/1.0/bin;'.$PATH
-	let $PATH='D:/MinGW/bin;'.$PATH
-	let $PATH=expand('$VIM/vimfiles/bin').';'.$PATH
-	set runtimepath^=$HOME/.vim
-	set runtimepath+=$HOME/.vim/after
+    let $PATH='D:/Program Files (x86)/Git/bin;'.$PATH
+    let $PATH='D:/MinGW/msys/1.0/bin;'.$PATH
+    let $PATH='D:/MinGW/bin;'.$PATH
+    let $PATH=expand('$VIM/vimfiles/bin').';'.$PATH
+    set runtimepath^=$HOME/.vim
+    set runtimepath+=$HOME/.vim/after
 endif
 
 
 "---------------------------------------------------
 " setting encoding and lang
 if has('multi_lang')
-"	language C
-	language ja_JP.UTF-8
+"    language C
+    language ja_JP.UTF-8
 endif
 
 filetype plugin off
 if &encoding !=# 'utf-8'
-	set encoding=japan
-	set fileencoding=japan
+    set encoding=japan
+    set fileencoding=japan
 endif
 if has('iconv')
-	let s:enc_euc = 'euc-jp'
-	let s:enc_jis = 'iso-2022-jp'
-	" check iconv supporting eucJP-ms
-	if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
-		let s:enc_euc = 'eucjp-ms'
-		let s:enc_jis = 'iso-2022-jp-3'
-		" check iconv supporting JISX0213
-	elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
-		let s:enc_euc = 'euc-jisx0213'
-		let s:enc_jis = 'iso-2022-jp-3'
-	endif
-	" setting fileencodings
-	if &encoding ==# 'utf-8'
-		let s:fileencodings_default = &fileencodings
-		let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
-		let &fileencodings = &fileencodings .','. s:fileencodings_default
-		unlet s:fileencodings_default
-	else
-		let &fileencodings = &fileencodings .','. s:enc_jis
-		set fileencodings+=utf-8,ucs-2le,ucs-2
-		if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
-			set fileencodings+=cp932
-			set fileencodings-=euc-jp
-			set fileencodings-=euc-jisx0213
-			set fileencodings-=eucjp-ms
-			let &encoding = s:enc_euc
-			let &fileencoding = s:enc_euc
-		else
-			let &fileencodings = &fileencodings .','. s:enc_euc
-		endif
-	endif
-	" delete variable
-	unlet s:enc_euc
-	unlet s:enc_jis
+    let s:enc_euc = 'euc-jp'
+    let s:enc_jis = 'iso-2022-jp'
+    " check iconv supporting eucJP-ms
+    if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
+        let s:enc_euc = 'eucjp-ms'
+        let s:enc_jis = 'iso-2022-jp-3'
+        " check iconv supporting JISX0213
+    elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
+        let s:enc_euc = 'euc-jisx0213'
+        let s:enc_jis = 'iso-2022-jp-3'
+    endif
+    " setting fileencodings
+    if &encoding ==# 'utf-8'
+        let s:fileencodings_default = &fileencodings
+        let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
+        let &fileencodings = &fileencodings .','. s:fileencodings_default
+        unlet s:fileencodings_default
+    else
+        let &fileencodings = &fileencodings .','. s:enc_jis
+        set fileencodings+=utf-8,ucs-2le,ucs-2
+        if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
+            set fileencodings+=cp932
+            set fileencodings-=euc-jp
+            set fileencodings-=euc-jisx0213
+            set fileencodings-=eucjp-ms
+            let &encoding = s:enc_euc
+            let &fileencoding = s:enc_euc
+        else
+            let &fileencodings = &fileencodings .','. s:enc_euc
+        endif
+    endif
+    " delete variable
+    unlet s:enc_euc
+    unlet s:enc_jis
 endif
 " if don't have Japanese, set fileencoding same to encoding
 if has('autocmd')
-	function! AU_ReCheck_FENC()
-		if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
-			let &fileencoding=&encoding
-		endif
-	endfunction
-	autocmd BufReadPost * call AU_ReCheck_FENC()
+    function! AU_ReCheck_FENC()
+        if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
+            let &fileencoding=&encoding
+        endif
+    endfunction
+    autocmd BufReadPost * call AU_ReCheck_FENC()
 endif
 " auto understanding newline character
 set fileformats=unix,dos,mac
 if exists('&ambiwidth')
-	if has( 'kaoriya' )
-		set ambiwidth=auto
-	else
-		set ambiwidth=double
-	endif
+    if has( 'kaoriya' )
+        set ambiwidth=auto
+    else
+        set ambiwidth=double
+    endif
 endif
 filetype plugin on
 
@@ -94,8 +94,8 @@ filetype plugin on
 filetype off
 
 if has('vim_starting')
-	set runtimepath+=$HOME/.vim/bundle/neobundle
-	call neobundle#rc(expand('$HOME/.vim/bundle'))
+    set runtimepath+=$HOME/.vim/bundle/neobundle
+    call neobundle#rc(expand('$HOME/.vim/bundle'))
 endif 
 
 " Must have at least
@@ -107,13 +107,13 @@ NeoBundle 'Shougo/unite.vim', {'directory' : 'unite'}
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimproc', {
-			\ 'build' : {
-			\     'windows' : 'make -f make_mingw32.mak',
-			\     'cygwin' : 'make -f make_cygwin.mak',
-			\     'mac' : 'make -f make_mac.mak',
-			\     'unix' : 'make -f make_unix.mak',
-			\    },
-			\ }
+            \ 'build' : {
+            \     'windows' : 'make -f make_mingw32.mak',
+            \     'cygwin' : 'make -f make_cygwin.mak',
+            \     'mac' : 'make -f make_mac.mak',
+            \     'unix' : 'make -f make_unix.mak',
+            \    },
+            \ }
 NeoBundle 'thinca/vim-quickrun'
 
 NeoBundle 'Shougo/vinarise'
@@ -131,10 +131,12 @@ NeoBundle 'vim-jp/vimdoc-ja'
 " ctags
 NeoBundle 'taglist.vim', {'directory' : 'taglist'}
 NeoBundle 'abudden/TagHighlight'
-NeoBundle 'SrcExpl'
+NeoBundle 'SrcExpl' 
 
 " colorscheme
 NeoBundle 'Color-Sampler-Pack'
+NeoBundle 'blackgate/tropikos-vim-theme'
+NeoBundle 'apribase/ap_dark8'
 
 " all break and unite
 NeoBundle 'Shougo/unite-build'
@@ -155,7 +157,6 @@ NeoBundle 'yomi322/unite-tweetvim'
 
 " ime
 NeoBundle 'tyru/eskk.vim', {'directory' : 'eskk'}
-" NeoBundle 'bouzuya/vim-ibus'
 
 " reference
 NeoBundle 'thinca/vim-ref'
@@ -164,6 +165,9 @@ NeoBundle 'thinca/vim-ref'
 NeoBundle 'ujihisa/ref-hoogle'
 NeoBundle 'ujihisa/neco-ghc'
 NeoBundle 'dag/vim2hs'
+
+" indent
+NeoBundle 'nathanaelkane/vim-indent-guides'
 
 filetype plugin indent on
 "---------------------------------------------------
@@ -179,7 +183,7 @@ set autoread
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
-set noexpandtab
+set expandtab
 autocmd FileType text setlocal textwidth=78
 
 " setting search
@@ -211,16 +215,17 @@ set backupdir=$HOME/.vim/backup
 let &directory = &backupdir
 
 colorscheme wombat256
+set t_Co=8
 
 "------------------------------------------
 " disable default vim plugin of Kaoriya ver
-let plugin_autodata_diable	= 1
-let plugin_cmdex_disable	= 1
-let plugin_dicwin_disable	= 1
-let plugin_format_disable	= 1
-let plugin_hz_ja_disable	= 1
-let plugin_scrnmode_disable	= 1
-" let plugin_verifyenc_disable	= 1
+let plugin_autodata_diable    = 1
+let plugin_cmdex_disable    = 1
+let plugin_dicwin_disable    = 1
+let plugin_format_disable    = 1
+let plugin_hz_ja_disable    = 1
+let plugin_scrnmode_disable    = 1
+" let plugin_verifyenc_disable    = 1
 "------------------------------------------
 
 "---------------------------------------------
@@ -244,11 +249,11 @@ let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 0
 let g:neocomplcache_use_vimproc = 1
 if( ostype=='Linux' )
-	let g:neocomplcache_temporary_dir = '/dev/shm/.neocon'
+    let g:neocomplcache_temporary_dir = '/dev/shm/.neocon'
 endif
 let g:neocomplcache_plugin_enable = {
-			\ 'syntax_complete' : 1,
-			\ }
+            \ 'syntax_complete' : 1,
+            \ }
 
 " neocomplcache-clang
 let g:neocomplcache_clang_use_library = 1
@@ -261,11 +266,6 @@ nmap <F9> :TrinityToggleSourceExplorer<CR>
 nmap <F10> :TrinityToggleTagList<CR>
 nmap <F11> :TrinityToggleNERDTree<CR>
 
-" vim-ibus
-"inoremap <silent> <Esc> <Esc>:<C-u>call ibus#disable()<CR>
-"inoremap <silent> <C-j> <C-\><C-o>:<C-u>call ibus#toggle()<CR>
-"set statusline+=[%{ibus#is_enabled()?'あ':'aA'}]
-
 " eskk.vim
 set imdisable
 set iminsert=0
@@ -275,11 +275,33 @@ let g:eskk#large_dictionary = { 'path': "$HOME/.vim/dict/skk/SKK-JISYO.XXL", 'so
 let g:eskk#enable_completion = 1
 let g:eskk#egg_like_newline = 1
 
-" VimSHell
+" VimShell
 let g:vimshell_interactive_update_time = 10
+if ( ostype=='Win' )
+    let g:vimshell_prompt = $USRNAME."$ "
+else
+    let g:vimshell_prompt = $USER."$ "
+endif
 nnoremap <silent> vs :VimShell<CR>
 nnoremap <silent> vsc :VimShellCreate<CR>
 nnoremap <silent> vp :VimShellPop<CR>
+
+" indent-guides
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 1
+let g:indent_guides_autocmds_enabled = 1
+let g:indent_guides_color_change_percent = 30
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red ctermbg=3
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
+if 'dark' == &background
+    hi IndentGuidesOdd  ctermbg=black
+    hi IndentGuidesEven ctermbg=darkgrey
+else
+    hi IndentGuidesOdd  ctermbg=white
+    hi IndentGuidesEven ctermbg=lightgrey
+endif
+let g:indent_guides_enable_on_vim_startup = 1
 
 " TweetVim
 nnoremap <silent> t :Unite tweetvim<CR>
