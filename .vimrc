@@ -215,7 +215,7 @@ set backupdir=$HOME/.vim/backup
 let &directory = &backupdir
 
 colorscheme wombat256
-set t_Co=8
+set t_Co=256
 
 "------------------------------------------
 " disable default vim plugin of Kaoriya ver
