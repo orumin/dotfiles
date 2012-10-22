@@ -1,9 +1,25 @@
+export	EDITOR=vim
+export	PAGER=lv
+export  LV=-Ou8
+export	BLOCKSIZE=K
+
+export BROWSER=opera
+export PSPDEV="/opt/pspsdk"
+export CCACHE_PATH="/usr/bin"
+export CCACHE_DIR="/dev/shm"
+
 export PATH="$PATH:$PSPDEV/bin:$HOME/bin"
 export PATH="/home/orumin/.gem/ruby/1.9.1/bin:$PATH"
 export PATH="/usr/lib/colorgcc/bin:$PATH"
 export MANPATH="/usr/share/man/ja:/usr/share/man:/usr/local/man:/usr/local/share/man"
 export MANPATH="$MANPATH:/usr/i486-mingw32/share/man:/opt/qt/man"
 export MANPATH="$MANPATH:/opt/pspsdk/man:/opt/pspsdk/psp/man:/opt/pspsdk/psp/share/man"
+
+PROMPTTTY=`tty | sed -e 's/\/dev\///'`
+PROMPT="%b%{[32m%}%n%{[m%}@%{[32m%}%m%{[m%}<%B${PROMPTTTY}%b>
+%(?..%{[44m%}%?)%{[m%}%(!.#.$) "
+RPROMPT=" %B%(?.%{[33m%}[%39<...<%~]%b%{[m%}.:()"
+SPROMPT="correct: %R -> %r ? "
 
 autoload -U compinit promptinit
 compinit promptinit
@@ -44,11 +60,7 @@ alias ll="ls -lAF"
 alias vi=vim
 alias less=lv
 
-alias ttytter="ttytter -ansi"
-
 alias unzip="unzip -Ocp932"
-
-alias opera=opera-next
 
 #alias jfbterm="env LANG=ja_JP.UTF-8 jfbterm -e uim-fep"
 #alias jman="env LANG=ja_JP.eucJP GROFF_NO_SGR=true jman"
