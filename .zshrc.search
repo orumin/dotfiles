@@ -1,0 +1,24 @@
+function google() {
+    local str opt
+    if [ $# != 0 ]; then
+        for i in $*; do
+            str="$str+$i"
+        done
+        str=`echo $str | sed 's/^\+//'`
+        opt='search?num=50&hl=ja&ie=utf-8&oe=utf-8&lr=lang_ja'
+        opt="${opt}&q=${str}"
+    fi
+    w3m http://www.google.com/$opt
+}
+
+function alc() {
+    if [ $ != 0 ]; then
+        w3m "http://eow.alc.co.jp/$*/UTF-8/?ref=sa"
+    else
+        w3m "http://www.alc.co.jp/"
+    fi
+}
+
+alias ggrks=google
+
+#http://blog.takapra.com/?p=866
