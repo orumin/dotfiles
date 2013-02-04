@@ -9,8 +9,8 @@ if has('win32')
   set guifont=Consolas:h10:Lucida_Console:h10:w5
   set guifontwide=MS_Gothic:h10
 else
-    set guifont=Ricty\ 10
-    set guifontwide=Ricty\ 10
+    set guifont=Source\ Code\ Pro\ 10
+    set guifontwide=Source\ Code\ Pro\ 10
 endif
 
 if has('kaoriya')
