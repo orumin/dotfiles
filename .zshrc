@@ -15,11 +15,9 @@ SAVEHIST=10000
 umask 022
 
 # most necesary setting
-autoload -U compinit promptinit
-compinit promptinit
+autoload -U compinit promptinit colors
+compinit promptinit colors
 
-autoload colors
-colors
 
 ## prompt preset
 #prompt walters
@@ -31,6 +29,12 @@ colors
 
 # set keybind like vi
 bindkey -v
+# bindkey hjkl to select complete menu
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
 
 # grouping complete command
 zstyle ':completion:*' menu select
@@ -74,8 +78,6 @@ alias -g A='| awk'
 
 GREP_OPTIONS="--color=auto $GREP_OPTIONS"
 
-alias vi=vim
-alias lv='lv -c'
 alias less=lv
 
 alias unzip='unzip -Ocp932'
@@ -127,6 +129,7 @@ setopt notify # quick display background job status
 setopt list_types # display file type when compliting
 setopt list_packed # packed disoplay when compliting
 setopt nolistbeep # mute beep
+setopt completeinword
 # complete from command history
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -193,6 +196,21 @@ precmd_functions=($precmd_functions update_prompt)
 #    zstyle ':completion:*' list-colors 'di=;36;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
 #    ;;
 #esac
+
+#
+# Colored man page
+#
+man() {
+    env \
+        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+        LESS_TERMCAP_md=$(printf "\e[1;31m") \
+        LESS_TERMCAP_me=$(printf "\e[0m") \
+        LESS_TERMCAP_se=$(printf "\e[0m") \
+        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+        LESS_TERMCAP_ue=$(printf "\e[0m") \
+        LESS_TERMCAP_us=$(printf "\e[1;32m") \
+                    man "$@"
+}
 
 #
 # Include other files
