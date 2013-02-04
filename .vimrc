@@ -22,10 +22,18 @@ endif
 " setting encoding and lang
 if has('multi_lang')
 "    language C
-    language ja_JP.UTF-8
+    language en_US.UTF-8
 endif
 
 filetype plugin off
+
+if ostype !='Win'
+    set termencoding=utf-8
+    set encoding=utf-8
+    set fileencoding=utf-8
+    set fileencodings=utf-8,cp932
+endif
+
 if &encoding !=# 'utf-8'
     set encoding=japan
     set fileencoding=japan
@@ -45,7 +53,10 @@ if has('iconv')
     " setting fileencodings
     if &encoding ==# 'utf-8'
         let s:fileencodings_default = &fileencodings
-        let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
+"        let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
+        if ostype != 'Win'
+            let &fileencodings = s:enc_jis .','. s:enc_euc
+        endif
         let &fileencodings = &fileencodings .','. s:fileencodings_default
         unlet s:fileencodings_default
     else
@@ -214,6 +225,9 @@ syntax on
 set backupdir=$HOME/.vim/backup
 let &directory = &backupdir
 
+" copy to clipboard
+set clipboard=unnamed
+
 colorscheme wombat256
 set t_Co=256
 
@@ -235,6 +249,10 @@ nmap ; :
 :map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
 nmap <ESC><ESC> ;nohlsearch<CR><ESC>
 nnoremap \s :set spell!<CR>
+
+autocmd BufWritePost .vimrc source ~/.vimrc
+autocmd BufWritePost .gvimrc source ~/.gvimrc
+set ft=vim
 
 "---------------------------------------------
 " setting plugin
