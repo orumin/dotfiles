@@ -10,8 +10,9 @@ export MANPATH="$MANPATH:/opt/pspsdk/man:/opt/pspsdk/psp/man:/opt/pspsdk/psp/sha
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
+REPORTTIME=3
 
-# set default permision file -> 644 directory -> 755
+# set default permission file -> 644 directory -> 755
 umask 022
 
 # most necesary setting
@@ -83,6 +84,7 @@ alias less=lv
 alias unzip='unzip -Ocp932'
 alias info='info --vi-keys'
 alias maxima='rlwrap maxima'
+alias pacman='sudo pacman_program=pacman-color pacmatic'
 
 #alias jfbterm='env LANG=ja_JP.UTF-8 jfbterm -e uim-fep'
 #alias jman='env LANG=ja_JP.eucJP GROFF_NO_SGR=true jman'
@@ -219,5 +221,6 @@ man() {
 [ -f ~/.zshrc.search ] && source ~/.zshrc.search
 [ -f ~/.zshrc.tmux ] && source ~/.zshrc.tmux
 [ -f ~/.zshrc.vimode ] && source ~/.zshrc.vimode
+[ -f ~/alias-sradio.txt ] && source ~/alias-sradio.txt
 
 #vim:set ft=zsh:
