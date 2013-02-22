@@ -145,7 +145,7 @@ NeoBundle 'abudden/TagHighlight'
 NeoBundle 'SrcExpl' 
 
 " colorscheme
-NeoBundle 'Color-Sampler-Pack'
+NeoBundle 'vim-script/Colour-Sampler-Pack'
 NeoBundle 'blackgate/tropikos-vim-theme'
 NeoBundle 'apribase/ap_dark8'
 
