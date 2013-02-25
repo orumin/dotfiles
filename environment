@@ -1,0 +1,24 @@
+#
+# This file is parsed by pam_env module
+#
+# Syntax: simple "KEY=VAL" pairs on separate lines
+#
+
+EDITOR=vim
+PAGER=lv
+LV="-Ou8 -c -l"
+BLOCKSIZE=K
+
+BROWSER=opera
+PSPDEV="/opt/pspsdk"
+CCACHE_PATH="/usr/bin"
+CCACHE_DIR="/dev/shm"
+
+LIBVA_DRIVER_NAME=xvba
+LIBVA_DRIVERS_PATH=/usr/lib/dri
+
+GDK_USE_XFT=1
+QT_XFT=true
+
+VTE_CJK_WIDTH=1
+
