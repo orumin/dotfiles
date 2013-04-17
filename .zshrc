@@ -1,6 +1,6 @@
 # environment variable
 export PATH="$PATH:$PSPDEV/bin:$HOME/bin"
-export PATH="/home/orumin/.gem/ruby/1.9.1/bin:$PATH"
+export PATH="/home/orumin/.gem/ruby/2.0.0/bin:$PATH"
 export PATH="/usr/lib/colorgcc/bin:$PATH"
 export MANPATH="/usr/share/man/ja:/usr/share/man:/usr/local/man:/usr/local/share/man"
 export MANPATH="$MANPATH:/usr/i486-mingw32/share/man:/opt/qt/man"
@@ -14,6 +14,9 @@ REPORTTIME=3
 
 # set default permission file -> 644 directory -> 755
 umask 022
+
+# set dircolors
+eval `dircolors ~/.dir_colors`
 
 # most necesary setting
 autoload -U compinit promptinit colors
@@ -84,7 +87,7 @@ alias less=lv
 alias unzip='unzip -Ocp932'
 alias info='info --vi-keys'
 alias maxima='rlwrap maxima'
-alias pacman='sudo pacman_program=pacman-color pacmatic'
+alias pacman='pacmatic'
 
 #alias jfbterm='env LANG=ja_JP.UTF-8 jfbterm -e uim-fep'
 #alias jman='env LANG=ja_JP.eucJP GROFF_NO_SGR=true jman'
