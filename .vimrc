@@ -109,10 +109,11 @@ if has('vim_starting')
     call neobundle#rc(expand('$HOME/.vim/bundle'))
 endif 
 
+NeoBundle 'itchyny/landscape.vim', {'directory' : 'landscape'}
+
 " Must have at least
 NeoBundle 'Shougo/neobundle.vim', {'directory' : 'neobundle'}
 NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neocomplcache-clang'
 NeoBundle 'ujihisa/neco-look'
 NeoBundle 'Shougo/unite.vim', {'directory' : 'unite'}
 NeoBundle 'Shougo/vimshell'
@@ -173,9 +174,12 @@ NeoBundle 'tyru/eskk.vim', {'directory' : 'eskk'}
 NeoBundle 'thinca/vim-ref'
 
 " Haskell
-NeoBundle 'ujihisa/ref-hoogle'
-NeoBundle 'ujihisa/neco-ghc'
-NeoBundle 'dag/vim2hs'
+NeoBundleLazy 'ujihisa/ref-hoogle', {
+        \ "autoload" : { "filetypes" : [ "haskell" ] } }
+NeoBundleLazy 'ujihisa/neco-ghc', {
+        \ "autoload" : { "filetypes" : [ "haskell" ] } }
+NeoBundleLazy 'dag/vim2hs', {
+        \ "autoload" : { "filetypes" : [ "haskell" ] } }
 
 " indent
 NeoBundle 'nathanaelkane/vim-indent-guides'
