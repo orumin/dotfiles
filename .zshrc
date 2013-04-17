@@ -93,10 +93,13 @@ alias pacman='sudo pacman_program=pacman-color pacmatic'
 # history
 #
 setopt hist_ignore_dups # no recoding duplicate command
+setopt hist_save_no_dups # no recoding duplicate command in history
 setopt share_history # sharing history between other session in real time
 setopt hist_reduce_blanks # recoding history its removed extra space
 setopt incappend_history # recoding history in order on multiple session
 setopt histnostore # no recoding history command in history
+setopt inc_append_history # add history as increment
+setopt EXTENDED_HISTORY
 
 # fileglob
 #
@@ -138,6 +141,7 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "" history-beginning-search-backward-end
 bindkey "" history-beginning-search-forward-end
+#bindkey "^h" zaw-history #qiita.com/item/c1a1567b2b76051f50c4
 
 # bindkey
 #
@@ -163,41 +167,6 @@ update_prompt(){
 
 precmd_functions=($precmd_functions update_prompt)
 
-## terminal color
-## http://news.mynavi.jp/column/zsh/024/
-#case "${TERM}" in
-#screen)
-#    TERM=xterm
-#    ;;
-#esac
-#
-#case "${TERM}" in
-#xterm|xterm-color)
-#    export LSCOLORS=exfxcxdxbxegedabagacad
-#    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-#    zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-#    ;;
-#kterm-color)
-#    stty erase '^H'
-#    export LSCOLORS=exfxcxdxbxegedabagacad
-#    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-#    zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-#    ;;
-#kterm)
-#    stty erase '^H'
-#    ;;
-#cons25)
-#    unset LANG
-#    export LSCOLORS=ExFxCxdxBxegedabagacad
-#    export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-#    zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-#    ;;
-#jfbterm-color)
-#    export LSCOLORS=gxFxCxdxBxegedabagacad
-#    export LS_COLORS='di=01;36:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-#    zstyle ':completion:*' list-colors 'di=;36;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-#    ;;
-#esac
 
 #
 # Colored man page
@@ -213,6 +182,11 @@ man() {
         LESS_TERMCAP_us=$(printf "\e[1;32m") \
                     man "$@"
 }
+
+#
+# show all history
+#
+history-all() { history -E 1 }
 
 #
 # Include other files
