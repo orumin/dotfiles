@@ -80,14 +80,15 @@ alias -g W='| wc'
 alias -g S='| sed'
 alias -g A='| awk'
 
-GREP_OPTIONS="--color=auto $GREP_OPTIONS"
+export GREP_OPTIONS="-n --color=auto $GREP_OPTIONS"
 
-alias less=lv
+#alias less=lv
 
 alias unzip='unzip -Ocp932'
 alias info='info --vi-keys'
+alias verynice='ionice -c3 nice -n 15'
 alias maxima='rlwrap maxima'
-alias pacman='pacmatic'
+alias pacman='sudo pacmatic'
 
 #alias jfbterm='env LANG=ja_JP.UTF-8 jfbterm -e uim-fep'
 #alias jman='env LANG=ja_JP.eucJP GROFF_NO_SGR=true jman'
@@ -114,8 +115,8 @@ setopt magic_equal_subst # glob after = (ex. ./configure --prefix=...)
 # I/O
 #
 setopt noclobber # show error for overwrite redirect
-setopt correct # correcting spell for command
-setopt correctall # correcting spell for command argument
+#setopt correct # correcting spell for command
+#setopt correctall # correcting spell for command argument
 
 # changing directory
 #
@@ -144,7 +145,7 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "" history-beginning-search-backward-end
 bindkey "" history-beginning-search-forward-end
-#bindkey "^h" zaw-history #qiita.com/item/c1a1567b2b76051f50c4
+bindkey "" zaw-history # plugin
 
 # bindkey
 #
@@ -199,5 +200,6 @@ history-all() { history -E 1 }
 [ -f ~/.zshrc.tmux ] && source ~/.zshrc.tmux
 [ -f ~/.zshrc.vimode ] && source ~/.zshrc.vimode
 [ -f ~/alias-sradio.txt ] && source ~/alias-sradio.txt
+[ -f ~/zsh_plugin/zaw/zaw.zsh ] && source ~/zsh_plugin/zaw/zaw.zsh
 
 #vim:set ft=zsh:

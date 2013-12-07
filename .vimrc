@@ -104,6 +104,8 @@ endif
 
 NeoBundle 'itchyny/landscape.vim', {'directory' : 'landscape'}
 
+NeoBundle 'thinca/vim-splash'
+
 " Must have at least
 NeoBundle 'Shougo/neobundle.vim', {'directory' : 'neobundle'}
 NeoBundle 'Shougo/neocomplcache'
@@ -126,18 +128,8 @@ NeoBundle 'Shougo/vinarise'
 
 NeoBundle 'sudo.vim', {'directory' : 'sudo'}
 
-" like IDE
-" NeoBundle 'trinity.vim', {'directory' : 'trinity'}
-NeoBundle 'orumin/trinity.vim', {'directory' : 'trinity'}
-NeoBundle 'scrooloose/nerdtree'
-
 " doc
 NeoBundle 'vim-jp/vimdoc-ja'
-
-" ctags
-NeoBundle 'taglist.vim', {'directory' : 'taglist'}
-NeoBundle 'abudden/TagHighlight'
-NeoBundle 'SrcExpl' 
 
 " git
 NeoBundle 'tpope/vim-fugitive'
