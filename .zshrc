@@ -88,11 +88,16 @@ alias unzip='unzip -Ocp932'
 alias info='info --vi-keys'
 alias verynice='ionice -c3 nice -n 15'
 alias maxima='rlwrap maxima'
+alias chkccopt="gcc -march=native -E -v - </dev/null 2>&1 | sed -n 's/.* -v - //p'"
 alias pacman='sudo pacmatic'
 
 #alias jfbterm='env LANG=ja_JP.UTF-8 jfbterm -e uim-fep'
 #alias jman='env LANG=ja_JP.eucJP GROFF_NO_SGR=true jman'
 #alias exctags=jexctags
+
+lsofcmd() { lsof -o0 -o -p $(pidof "$@") }
+
+findgrep() { find . -name '*.c' -or -name '*.h' -exec grep -H "$@" {} \; }
 
 # history
 #

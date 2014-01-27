@@ -5,7 +5,7 @@ function google() {
             str="$str+$i"
         done
         str=`echo $str | sed 's/^\+//'`
-        opt='search?num=50&hl=ja&ie=utf-8&oe=utf-8&lr=lang_ja'
+        opt='search?num=50&hl=ja&ie=utf-8&oe=utf-8' #&lr=lang_ja
         opt="${opt}&q=${str}"
     fi
     w3m http://www.google.com/$opt

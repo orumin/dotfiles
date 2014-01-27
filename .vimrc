@@ -128,6 +128,9 @@ NeoBundle 'Shougo/vinarise'
 
 NeoBundle 'sudo.vim', {'directory' : 'sudo'}
 
+" tags
+NeoBundle '5t111111/alt-gtags.vim', {'directory' : 'alt-gtags'}
+
 " doc
 NeoBundle 'vim-jp/vimdoc-ja'
 
@@ -145,6 +148,9 @@ NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'sgur/unite-qf'
 NeoBundle 'tsukkee/unite-help'
 NeoBundle 'tsukkee/unite-tag'
+
+" disasm
+NeoBundle 'shiracamus/vim-syntax-x86-objdump-d'
 
 " tweetvim
 NeoBundle 'basyura/TweetVim'
@@ -169,6 +175,9 @@ NeoBundleLazy 'ujihisa/neco-ghc', {
         \ "autoload" : { "filetypes" : [ "haskell" ] } }
 NeoBundleLazy 'dag/vim2hs', {
         \ "autoload" : { "filetypes" : [ "haskell" ] } }
+
+" Rust
+NeoBundle "wting/rust.vim", {'directory' : 'rust'}
 
 " indent
 NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -270,12 +279,6 @@ let g:neocomplcache_plugin_enable = {
 let g:neocomplcache_clang_use_library = 1
 let g:neocomplcache_clang_library_path = '/usr/lib/llvm'
 let g:neocomplcache_max_list = 1000
-
-" setting trinity
-nmap <F8> :TrinityToggleAll<CR>
-nmap <F9> :TrinityToggleSourceExplorer<CR>
-nmap <F10> :TrinityToggleTagList<CR>
-nmap <F11> :TrinityToggleNERDTree<CR>
 
 " eskk.vim
 set imdisable
