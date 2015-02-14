@@ -99,9 +99,9 @@ filetype off
 
 if has('vim_starting')
     set runtimepath+=$HOME/.vim/bundle/neobundle
-    call neobundle#rc(expand('$HOME/.vim/bundle'))
 endif 
 
+call neobundle#begin(expand('$HOME/.vim/bundle'))
 NeoBundle 'itchyny/landscape.vim', {'directory' : 'landscape'}
 
 NeoBundle 'thinca/vim-splash'
@@ -136,6 +136,8 @@ NeoBundle 'vim-jp/vimdoc-ja'
 
 " git
 NeoBundle 'tpope/vim-fugitive'
+
+NeoBundle 'mattn/gist-vim'
 
 " colorscheme
 NeoBundle 'vim-scripts/Colour-Sampler-Pack'
@@ -176,11 +178,15 @@ NeoBundleLazy 'ujihisa/neco-ghc', {
 NeoBundleLazy 'dag/vim2hs', {
         \ "autoload" : { "filetypes" : [ "haskell" ] } }
 
+" Pandoc
+NeoBundle 'vim-pandoc/vim-pandoc'
+
 " Rust
 NeoBundle "wting/rust.vim", {'directory' : 'rust'}
 
 " indent
 NeoBundle 'nathanaelkane/vim-indent-guides'
+call neobundle#end()
 
 filetype plugin indent on
 "---------------------------------------------------
@@ -209,8 +215,12 @@ set wrapscan
 " setting edit
 set backspace=indent,eol,start
 set showmatch
+" set autoindent
+" set cindent
 set autoindent
-set cindent
+set smartindent
+" set spell
+set spelllang+=cjk
 
 " setting display
 set ruler
@@ -252,9 +262,16 @@ nmap ; :
 nmap <ESC><ESC> ;nohlsearch<CR><ESC>
 nnoremap \s :set spell!<CR>
 
+"My autocmd setting
+augroup MyAutoGroup
+
 "autocmd BufWritePost .vimrc source ~/.vimrc
 "autocmd BufWritePost .gvimrc source ~/.gvimrc
-set ft=vim
+"set ft=vim
+
+" md as markdown, instead of modula2
+autocmd MyAutoGroup BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set ft=markdown
+augroup END
 
 "---------------------------------------------
 " setting plugin
@@ -432,7 +449,9 @@ let g:vimshell_force_overwrite_statusline = 0
 " TweetVim
 nnoremap <silent> t :Unite tweetvim<CR>
 nnoremap <silent> s :TweetVimSay<CR>
+nnoremap <leader>us :TweetVimUserStream<CR>
 let g:tweetvim_display_source=1
+let g:tweetvim_display_icon=1
 let g:tweetvim_open_buffer_cmd='split'
 autocmd FileType tweetvim setlocal wrap
 autocmd FileType tweetvim_say setlocal wrap

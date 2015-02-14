@@ -1,7 +1,9 @@
 # environment variable
 export PATH="$PATH:$PSPDEV/bin:$HOME/bin"
-export PATH="/home/orumin/.gem/ruby/2.0.0/bin:$PATH"
-export PATH="/usr/lib/colorgcc/bin:$PATH"
+export PATH="$(ruby -rubygems -e "puts Gem.user_dir")/bin:/home/orumin/.cabal/bin:$PATH"
+export PATH="/usr/lib/ccache/bin:$PATH"
+export PATH="/usr/share/git/diff-highlight:$PATH"
+export PATH="/usr/lib/smlnj/bin:$PATH"
 export MANPATH="/usr/share/man/ja:/usr/share/man:/usr/local/man:/usr/local/share/man"
 export MANPATH="$MANPATH:/usr/i486-mingw32/share/man:/opt/qt/man"
 export MANPATH="$MANPATH:/opt/pspsdk/man:/opt/pspsdk/psp/man:/opt/pspsdk/psp/share/man"
@@ -58,6 +60,12 @@ setopt complete_aliases
 alias h='history 25'
 alias j='jobs -l'
 
+alias gcc='gcc -fdiagnostics-color'
+
+alias grep='grep -n --color=auto'
+
+alias less='/usr/share/vim/vim74/macros/less.sh'
+
 case `uname` in
     FreeBSD)
         alias ls='ls -G -w'
@@ -80,8 +88,6 @@ alias -g W='| wc'
 alias -g S='| sed'
 alias -g A='| awk'
 
-export GREP_OPTIONS="-n --color=auto $GREP_OPTIONS"
-
 #alias less=lv
 
 alias unzip='unzip -Ocp932'
@@ -89,6 +95,7 @@ alias info='info --vi-keys'
 alias verynice='ionice -c3 nice -n 15'
 alias maxima='rlwrap maxima'
 alias chkccopt="gcc -march=native -E -v - </dev/null 2>&1 | sed -n 's/.* -v - //p'"
+#echo | gcc -E -v -march=native - 2>&1 | sed '/march/!d;s/.*\(-march\)/\1/'
 alias pacman='sudo pacmatic'
 
 #alias jfbterm='env LANG=ja_JP.UTF-8 jfbterm -e uim-fep'
