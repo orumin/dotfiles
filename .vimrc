@@ -102,7 +102,6 @@ if has('vim_starting')
 endif 
 
 call neobundle#begin(expand('$HOME/.vim/bundle'))
-NeoBundle 'itchyny/landscape.vim', {'directory' : 'landscape'}
 
 NeoBundle 'thinca/vim-splash'
 
@@ -141,8 +140,6 @@ NeoBundle 'mattn/gist-vim'
 
 " colorscheme
 NeoBundle 'vim-scripts/Colour-Sampler-Pack'
-NeoBundle 'blackgate/tropikos-vim-theme'
-NeoBundle 'apribase/ap_dark8'
 
 " all break and unite
 NeoBundle 'Shougo/unite-build'
@@ -152,7 +149,8 @@ NeoBundle 'tsukkee/unite-help'
 NeoBundle 'tsukkee/unite-tag'
 
 " disasm
-NeoBundle 'shiracamus/vim-syntax-x86-objdump-d'
+NeoBundleLazy 'shiracamus/vim-syntax-x86-objdump-d', {
+        \ "autoload" : { "filetypes" : ["asm"] } }
 
 " tweetvim
 NeoBundle 'basyura/TweetVim'
@@ -179,10 +177,17 @@ NeoBundleLazy 'dag/vim2hs', {
         \ "autoload" : { "filetypes" : [ "haskell" ] } }
 
 " Pandoc
-NeoBundle 'vim-pandoc/vim-pandoc'
+"NeoBundle 'vim-pandoc/vim-pandoc'
+
+" Markdown and previewer
+NeoBundleLazy 'plasticboy/vim-markdown', {
+        \ "autoload" : { "filetypes" : [ "markdown" ] } }
+NeoBundleLazy 'kannokanno/previm', {
+        \ "autoload" : { "filetypes" : [ "markdown" ] } }
 
 " Rust
-NeoBundle "wting/rust.vim", {'directory' : 'rust'}
+NeoBundleLazy 'wting/rust.vim', {'directory' : 'rust',
+        \ "autoload" : { "filetypes" : [ "rust" ] } }
 
 " indent
 NeoBundle 'nathanaelkane/vim-indent-guides'
