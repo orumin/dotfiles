@@ -352,16 +352,19 @@ let g:lightline = {
       \   'mode': 'MyMode',
       \   'syntastic': 'SyntasticStatuslineFlag',
       \ },
-      \ 'separator': { 'left': '⮀', 'right': '⮂' },
-      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+      \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \ }
+"      \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
+"      \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" }
 
 function! MyModified()
   return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
 function! MyReadonly()
-  return &ft !~? 'help' && &readonly ? '⭤' : ''
+"  return &ft !~? 'help' && &readonly ? "\u2b64" : ''
+  return &ft !~? 'help' && &readonly ? "\ue0a2" : ''
 endfunction
 
 function! MyFilename()
@@ -379,7 +382,8 @@ endfunction
 function! MyFugitive()
   try
     if expand('%:t') !~? 'Tagbar\|Gundo\|NERD' && &ft !~? 'vimfiler' && exists('*fugitive#head')
-      let mark = '⭠'
+"      let mark = "\u2b60"
+      let mark = "\ue0a0"
       let _ = fugitive#head()
       return strlen(_) ? mark._ : ''
     endif
