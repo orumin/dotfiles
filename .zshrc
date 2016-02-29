@@ -61,7 +61,7 @@ alias gcc='gcc -fdiagnostics-color'
 
 alias grep='grep -n --color=auto'
 
-alias less='/usr/share/vim/vim74/macros/less.sh'
+#alias less='/usr/share/vim/vim74/macros/less.sh'
 
 case `uname` in
     FreeBSD)
@@ -161,7 +161,7 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "" history-beginning-search-backward-end
 bindkey "" history-beginning-search-forward-end
-bindkey "" zaw-history # plugin
+[ -f ~/zsh_plugin/zaw/zaw.zsh ] && bindkey "" zaw-history # plugin
 
 # bindkey
 #
