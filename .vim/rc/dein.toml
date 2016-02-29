@@ -1,0 +1,68 @@
+#[[plugins]]
+#repo = 'thinca/vim-splash'
+
+# Must have at least
+
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/neocomplcache'
+
+[[plugins]]
+repo = 'ujihisa/neco-look'
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+
+[[plugins]]
+repo = 'Shougo/vimfiler'
+
+[[plugins]]
+repo = 'Shougo/vimproc'
+
+    [plugins.build]
+    windows = 'tools\\update-dll-mingw'
+    cygwin  = 'make -f make_cygwin.mak'
+    mac     = 'make -f make_mac.mak'
+    linux   = 'make'
+    unix    = 'gmake'
+
+[[plugins]]
+repo = 'thinca/vim-quickrun'
+
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+
+[[plugins]]
+repo = 'Shougo/vinarise'
+
+[[plugins]]
+repo = 'vim-scripts/sudo.vim'
+
+# tags
+[[plugins]]
+repo = '5t111111/alt-gtags.vim'
+
+# doc
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+
+# git
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+[[plugins]]
+repo = 'mattn/gist-vim'
+
+# colorscheme
+[[plugins]]
+repo = 'vim-scripts/Colour-Sampler-Pack'
+
+# ime
+[[plugins]]
+repo = 'tyru/eskk.vim'
+
+# indent
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'

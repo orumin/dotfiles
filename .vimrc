@@ -94,107 +94,43 @@ filetype plugin on
 
 
 "---------------------------------------------------
-" setting NeoBundle
-filetype off
+" plugin directory
+let s:dein_dir = expand('~/.vim/bundle')
 
-if has('vim_starting')
-    set runtimepath+=$HOME/.vim/bundle/neobundle
-endif 
+" dein.vim
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
-call neobundle#begin(expand('$HOME/.vim/bundle'))
+" download dein.vim if it's not installed
+if &runtimepath !~# '/dein.vim'
+    if !isdirectory(s:dein_repo_dir)
+        execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+    endif
+    execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+endif
 
-NeoBundle 'thinca/vim-splash'
+" start configuration for dein.vim
+call dein#begin(s:dein_dir)
 
-" Must have at least
-NeoBundle 'Shougo/neobundle.vim', {'directory' : 'neobundle'}
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'ujihisa/neco-look'
-NeoBundle 'Shougo/unite.vim', {'directory' : 'unite'}
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/vimproc', {
-            \ 'build' : {
-            \     'windows' : 'make -f make_mingw32.mak',
-            \     'cygwin' : 'make -f make_cygwin.mak',
-            \     'mac' : 'make -f make_mac.mak',
-            \     'unix' : 'make -f make_unix.mak',
-            \    },
-            \ }
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'itchyny/lightline.vim', {'directory' : 'lightline'}
+" TOML File for plugin list
+let s:toml          = '~/.vim/rc/dein.toml'
+let s:lazy_toml     = '~/.vim/rc/dein_lazy.toml'
 
-NeoBundle 'Shougo/vinarise'
+" caching TOML
+if dein#load_cache([expand('<sfile>'), s:toml, s:lazy_toml])
+    call dein#load_toml(s:toml,      {'lazy': 0})
+    call dein#load_toml(s:lazy_toml, {'lazy': 1})
+    call dein#save_cache()
+endif
 
-NeoBundle 'sudo.vim', {'directory' : 'sudo'}
+" finish configuration for dein.vim
+call dein#end()
 
-" tags
-NeoBundle '5t111111/alt-gtags.vim', {'directory' : 'alt-gtags'}
+" install plugins (if it have not installed that)
+if dein#check_install()
+    call dein#install()
+endif
 
-" doc
-NeoBundle 'vim-jp/vimdoc-ja'
-
-" git
-NeoBundle 'tpope/vim-fugitive'
-
-NeoBundle 'mattn/gist-vim'
-
-" colorscheme
-NeoBundle 'vim-scripts/Colour-Sampler-Pack'
-
-" all break and unite
-NeoBundle 'Shougo/unite-build'
-NeoBundle 'ujihisa/unite-colorscheme'
-NeoBundle 'sgur/unite-qf'
-NeoBundle 'tsukkee/unite-help'
-NeoBundle 'tsukkee/unite-tag'
-
-" disasm
-NeoBundleLazy 'shiracamus/vim-syntax-x86-objdump-d', {
-        \ "autoload" : { "filetypes" : ["asm"] } }
-
-" tweetvim
-NeoBundle 'basyura/TweetVim'
-NeoBundle 'basyura/twibill.vim', {'directory' : 'twibill'}
-NeoBundle 'basyura/bitly.vim', {'directory' : 'bitly'}
-NeoBundle 'tyru/open-browser.vim', {'directory' : 'open-browser'}
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'yomi322/neco-tweetvim'
-NeoBundle 'yomi322/unite-tweetvim'
-
-" ime
-NeoBundle 'tyru/eskk.vim', {'directory' : 'eskk'}
-
-" reference
-NeoBundle 'thinca/vim-ref'
-
-" Haskell
-NeoBundleLazy 'ujihisa/ref-hoogle', {
-        \ "autoload" : { "filetypes" : [ "haskell" ] } }
-NeoBundleLazy 'ujihisa/neco-ghc', {
-        \ "autoload" : { "filetypes" : [ "haskell" ] } }
-NeoBundleLazy 'dag/vim2hs', {
-        \ "autoload" : { "filetypes" : [ "haskell" ] } }
-
-" Pandoc
-"NeoBundle 'vim-pandoc/vim-pandoc'
-
-" Markdown and previewer
-NeoBundleLazy 'plasticboy/vim-markdown', {
-        \ "autoload" : { "filetypes" : [ "markdown" ] } }
-NeoBundleLazy 'kannokanno/previm', {
-        \ "autoload" : { "filetypes" : [ "markdown" ] } }
-
-" Rust
-NeoBundleLazy 'wting/rust.vim', {'directory' : 'rust',
-        \ "autoload" : { "filetypes" : [ "rust" ] } }
-
-" indent
-NeoBundle 'nathanaelkane/vim-indent-guides'
-call neobundle#end()
-
-filetype plugin indent on
-"---------------------------------------------------
+"------------------------------------------------------
 
 "source $VIMRUNTIME/delmenu.vim
 "set langmenu=none
@@ -261,10 +197,10 @@ let plugin_scrnmode_disable    = 1
 
 "---------------------------------------------
 " other setting
-nmap ; :
+nnoremap ; :
 :map <C-U> <C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>
 :map <C-D> <C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>
-nmap <ESC><ESC> ;nohlsearch<CR><ESC>
+nnoremap <ESC><ESC> :nohlsearch<CR><ESC>
 nnoremap \s :set spell!<CR>
 
 "My autocmd setting
@@ -459,6 +395,7 @@ let g:vimshell_force_overwrite_statusline = 0
 nnoremap <silent> t :Unite tweetvim<CR>
 nnoremap <silent> s :TweetVimSay<CR>
 nnoremap <leader>us :TweetVimUserStream<CR>
+nmap <space>t <Plug>(tweetvim)
 let g:tweetvim_display_source=1
 let g:tweetvim_display_icon=1
 let g:tweetvim_open_buffer_cmd='split'
