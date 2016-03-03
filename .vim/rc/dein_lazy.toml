@@ -1,3 +1,22 @@
+# complete
+[[plugins]]
+repo     = 'Shougo/neocomplete.vim'
+on_i     = 1
+if       = '''! has('nvim')'''
+
+[[plugins]]
+repo     = 'Shougo/deoplete.nvim'
+on_i     = 1
+if       = '''has('nvim')'''
+
+[[plugins]]
+repo     = 'Shougo/neco-syntax'
+on_i     = 1
+
+[[plugins]]
+repo     = 'ujihisa/neco-look'
+on_i     = 1
+
 # unite
 [[plugins]]
 repo      = 'h1mesuke/unite-outline'
@@ -17,6 +36,11 @@ on_ft     = ['asm']
 [[plugins]]
 repo      = 'plasticboy/vim-markdown'
 on_ft     = ['markdown']
+
+# c++
+[[plugins]]
+repo      = 'osyo-manga/vim-snowdrop'
+on_ft     = ['c', 'cpp']
 
 # haskell
 [[plugins]]
@@ -61,8 +85,9 @@ on_source = ['TweetVim']
 
 [[plugins]]
 repo      = 'yomi322/neco-tweetvim'
-depends   = ['neocomplcache']
+depends   = ['neocomplete']
 on_source = ['TweetVim']
+if        = '''! has('nvim')'''
 
 [[plugins]]
 repo      = 'yomi322/unite-tweetvim'

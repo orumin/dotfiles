@@ -1,14 +1,6 @@
-set nocompatible
 autocmd!
-if has('win32') || has('win64')
-    let ostype='Win'
-elseif has('mac')
-    let ostype='Mac'
-else
-    let ostype=system('uname')
-endif
 
-if ( ostype=='Win' )
+if has('win32') || has('win64')
     let $PATH='D:/Program Files (x86)/Git/bin;'.$PATH
     let $PATH='D:/MinGW/msys/1.0/bin;'.$PATH
     let $PATH='D:/MinGW/bin;'.$PATH
@@ -27,7 +19,7 @@ endif
 
 filetype plugin off
 
-if ostype !='Win'
+if has('win32') || has('win64')
     set termencoding=utf-8
     set encoding=utf-8
     set fileencoding=utf-8
@@ -53,8 +45,8 @@ if has('iconv')
     " setting fileencodings
     if &encoding ==# 'utf-8'
         let s:fileencodings_default = &fileencodings
-"        let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
-        if ostype != 'Win'
+        " let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
+        if has('win32') || has('win64')
             let &fileencodings = s:enc_jis .','. s:enc_euc
         endif
         let &fileencodings = &fileencodings .','. s:fileencodings_default
@@ -161,7 +153,7 @@ set showmatch
 set autoindent
 set smartindent
 " set spell
-set spelllang+=cjk
+set spelllang=en_us,cjk
 
 " setting display
 set ruler
@@ -217,26 +209,81 @@ augroup END
 "---------------------------------------------
 " setting plugin
 
-" neocomplcache
+" neocomplete/deoplete
 set completeopt=menuone
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_max_list = 20
-let g:neocomplcache_enable_ignore_case = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_camel_case_completion = 1
-let g:neocomplcache_enable_underbar_completion = 0
-let g:neocomplcache_use_vimproc = 1
-if( ostype=='Linux' )
-    let g:neocomplcache_temporary_dir = '/dev/shm/.neocon'
-endif
-let g:neocomplcache_plugin_enable = {
-            \ 'syntax_complete' : 1,
-            \ }
 
-" neocomplcache-clang
-let g:neocomplcache_clang_use_library = 1
-let g:neocomplcache_clang_library_path = '/usr/lib/llvm'
-let g:neocomplcache_max_list = 1000
+if !has('nvim')
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#max_list = 20
+    let g:neocomplete#enable_ignore_case = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#enable_camel_case_completion = 1
+    let g:neocomplete#enable_underbar_completion = 0
+    let g:neocomplete#use_vimproc = 1
+    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+    if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
+    endif
+    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+    let g:neocomplete#text_mode_filetypes = {
+                \ 'rst': 1,
+                \ 'markdown': 1,
+                \ 'gitrebase': 1,
+                \ 'gitcommit': 1,
+                \ 'vcs-commit': 1,
+                \ 'hybrid': 1,
+                \ 'text': 1,
+                \ 'help': 1,
+                \ 'tex': 1,
+                \ }
+    
+else
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#max_list = 20
+    let g:deoplete#enable_ignore_case = 1
+    let g:deoplete#enable_smart_case = 1
+    let g:deoplete#enable_camel_case_completion = 1
+    let g:deoplete#enable_underbar_completion = 0
+    let g:deoplete#use_vimproc = 1
+    let g:deoplete#lock_buffer_name_pattern = '\*ku\*'
+    if !exists('g:deoplete#keyword_patterns')
+        let g:deoplete#keyword_patterns = {}
+    endif
+    let g:deoplete#keyword_patterns['default'] = '\h\w*'
+    let g:deoplete#text_mode_filetypes = {
+                \ 'rst': 1,
+                \ 'markdown': 1,
+                \ 'gitrebase': 1,
+                \ 'gitcommit': 1,
+                \ 'vcs-commit': 1,
+                \ 'hybrid': 1,
+                \ 'text': 1,
+                \ 'help': 1,
+                \ 'tex': 1,
+                \ }
+                
+endif
+
+" vim-snowdrop(complete using clang)
+if has('unix')
+    let g:snowdrop#libclang_directory = '/usr/lib'
+    let g:snowdrop#include_paths = {
+    \   'c' : [
+    \       '/usr/include',
+    \       '/usr/lib/gcc/x86_64-unknown-linux-gnu/5.3.0/include',
+    \   ],
+    \   'cpp' : [
+    \       '/usr/include',
+    \       '/usr/include/c++/5.3.0',
+    \       '/usr/lib/gcc/x86_64-unknown-linux-gnu/5.3.0/include',
+    \       '/usr/include/boost',
+    \   ]
+    \}
+    let g:snowdrop#command_options = {
+    \   'c' : '-std=c11',
+    \   'cpp' : '-std=c++1z -stdlib=libc++ --pedantic-errors'
+    \}
+endif
 
 " eskk.vim
 set imdisable

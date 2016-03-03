@@ -7,13 +7,10 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'Shougo/neocomplcache'
-
-[[plugins]]
-repo = 'ujihisa/neco-look'
-
-[[plugins]]
 repo = 'Shougo/unite.vim'
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
 repo = 'Shougo/vimfiler'
