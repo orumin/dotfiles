@@ -302,6 +302,11 @@ nnoremap <silent> vs :VimShell<CR>
 nnoremap <silent> vsc :VimShellCreate<CR>
 nnoremap <silent> vp :VimShellPop<CR>
 
+" terminal
+if has('nvim')
+    nnoremap <silent> vt :terminal<CR>
+endif
+
 " indent-guides
 let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 1

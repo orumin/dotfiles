@@ -63,3 +63,7 @@ repo = 'tyru/eskk.vim'
 # indent
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
+
+# english words dictionary
+[[plugins]]
+repo = 'koron/codic-vim'

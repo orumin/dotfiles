@@ -79,18 +79,20 @@ case `uname` in
         ;;
 esac
 
+alias vim='nvim'
+
 alias la='ls -aF'
 alias lf='ls -FA'
 alias ll='ls -lAF'
 alias lsd='ls -ld *(-/DN)' # display only Directory and DirectorySymbolicLink
 
-alias -g L='| less'
-alias -g H='| head'
-alias -g T='| tail'
-alias -g G='| grep'
-alias -g W='| wc'
-alias -g S='| sed'
-alias -g A='| awk'
+#alias -g L='| less'
+#alias -g H='| head'
+#alias -g T='| tail'
+#alias -g G='| grep'
+#alias -g W='| wc'
+#alias -g S='| sed'
+#alias -g A='| awk'
 
 #alias less=lv
 
