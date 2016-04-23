@@ -51,6 +51,7 @@ repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'mattn/gist-vim'
+depends = ['webapi-vim']
 
 # colorscheme
 [[plugins]]

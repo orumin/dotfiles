@@ -6,6 +6,12 @@ if       = '''! has('nvim')'''
 
 [[plugins]]
 repo     = 'Shougo/deoplete.nvim'
+dependes = ['FastFold']
+on_i     = 1
+if       = '''has('nvim')'''
+
+[[plugins]]
+repo     = 'Konfekt/FastFold'
 on_i     = 1
 if       = '''has('nvim')'''
 
@@ -16,6 +22,11 @@ on_i     = 1
 [[plugins]]
 repo     = 'ujihisa/neco-look'
 on_i     = 1
+
+# grammer checker ( need Java runtime for LanguageTool )
+[[plugins]]
+repo     = 'rhysd/vim-grammarous'
+on_ft    = ['rst', 'markdown', 'gitrebase', 'gitcommit', 'vcs-commit', 'hybrid', 'text', 'help', 'tex']
 
 # unite
 [[plugins]]
@@ -59,6 +70,11 @@ on_ft     = ['haskell']
 [[plugins]]
 repo      = 'wting/rust.vim'
 on_ft     = ['rust']
+
+# ansible yaml
+[[plugins]]
+repo      = 'chase/vim-ansible-yaml'
+on_ft     = ['ansible']
 
 # tweetvim
 [[plugins]]
