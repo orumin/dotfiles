@@ -101,6 +101,7 @@ alias info='info --vi-keys'
 alias verynice='ionice -c3 nice -n 15'
 alias maxima='rlwrap maxima'
 alias chkccopt="gcc -march=native -E -v - </dev/null 2>&1 | sed -n 's/.* -v - //p'"
+alias chkccdef="echo | gcc -E -xc -dM - | sort | uniq"
 #echo | gcc -E -v -march=native - 2>&1 | sed '/march/!d;s/.*\(-march\)/\1/'
 alias pacman='sudo pacmatic'
 
@@ -209,6 +210,29 @@ man() {
 # show all history
 #
 history-all() { history -E 1 }
+
+#
+# setting city by geoiplookup
+#
+
+if [ -z "$CITY" ]; then
+    ping google.com -c 1 >> /dev/null
+    if [ $? -eq 0 ] && [ -e /usr/bin/geoiplookup ] && [ -e /usr/bin/dig ]; then
+#        export CITY=$(echo $(geoiplookup $(curl -s4 inet-ip.info) | grep City | awk -F , '{print $4}'))
+#        export CITY=$( curl -s4 ipinfo.io | grep city | cut -d: -f 3 | sed -e 's/ *"\(.*\)",/\1/' )
+        PUBLIC_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
+        if [ -z "$PUBLIC_IP" ]; then
+            export CITY=$( curl -s4 ipinfo.io | grep city | cut -d: -f 3 | sed -e 's/ *"\(.*\)",/\1/' )
+        else
+            export CITY=$(echo $(geoiplookup $(dig +short myip.opendns.com @resolver1.opendns.com) | grep City | awk -F , '{print $4}'))
+        fi
+        if [ "$CITY" = "N/A" ] || [ "$CITY" = "" ] ; then
+            export CITY=Tokyo
+        fi
+    else
+        export CITY=Tokyo
+    fi
+fi
 
 #
 # Include other files
