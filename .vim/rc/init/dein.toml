@@ -17,13 +17,7 @@ repo = 'Shougo/vimfiler'
 
 [[plugins]]
 repo = 'Shougo/vimproc'
-
-    [plugins.build]
-    windows = 'tools\\update-dll-mingw'
-    cygwin  = 'make -f make_cygwin.mak'
-    mac     = 'make -f make_mac.mak'
-    linux   = 'make'
-    unix    = 'gmake'
+build   = 'make'
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
@@ -56,6 +50,19 @@ depends = ['webapi-vim']
 # colorscheme
 [[plugins]]
 repo = 'vim-scripts/Colour-Sampler-Pack'
+
+[[plugins]]
+repo = 'aereal/vim-colors-japanesque'
+
+[[plugins]]
+repo = 'miyakogi/seiya.vim'
+
+# pandoc markdown
+[[plugins]]
+repo      = 'vim-pandoc/vim-pandoc'
+
+[[plugins]]
+repo      = 'vim-pandoc/vim-pandoc-syntax'
 
 # ime
 [[plugins]]

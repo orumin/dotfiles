@@ -1,4 +1,4 @@
-nnoremap <silent> t :Unite tweetvim<CR>
+"nnoremap <silent> t :Unite tweetvim<CR>
 nnoremap <silent> s :TweetVimSay<CR>
 nnoremap <leader>us :TweetVimUserStream<CR>
 nmap <space>t <Plug>(tweetvim)

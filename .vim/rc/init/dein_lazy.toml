@@ -26,7 +26,12 @@ on_i     = 1
 # grammer checker ( need Java runtime for LanguageTool )
 [[plugins]]
 repo     = 'rhysd/vim-grammarous'
-on_ft    = ['rst', 'markdown', 'gitrebase', 'gitcommit', 'vcs-commit', 'hybrid', 'text', 'help', 'tex']
+on_ft    = ['rst', 'markdown', 'pandoc', 'gitrebase', 'gitcommit', 'vcs-commit', 'hybrid', 'text', 'help', 'tex']
+
+# writing table in plain text
+[[plugins]]
+repo     = 'dhruvasagar/vim-table-mode'
+on_ft    = ['rst', 'markdown', 'pandoc', 'gitrebase', 'gitcommit', 'vcs-commit', 'hybrid', 'text', 'help', 'tex']
 
 # unite
 [[plugins]]
@@ -42,11 +47,6 @@ on_cmd    = ['VimShell', 'VimShellCreate', 'VimShellPop']
 [[plugins]]
 repo      = 'shiracamus/vim-syntax-x86-objdump-d'
 on_ft     = ['asm']
-
-# markdown
-[[plugins]]
-repo      = 'plasticboy/vim-markdown'
-on_ft     = ['markdown']
 
 # c++
 [[plugins]]

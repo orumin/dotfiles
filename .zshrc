@@ -1,5 +1,6 @@
 # environment variable
 export PATH="$PATH:$PSPDEV/bin:$HOME/bin"
+export PATH="$PATH:$VITASDK/bin"
 export PATH="$(ruby -rubygems -e "puts Gem.user_dir")/bin:/home/orumin/.cabal/bin:$PATH"
 export PATH="/usr/lib/ccache/bin:$PATH"
 export PATH="/usr/share/git/diff-highlight:$PATH"
@@ -80,6 +81,7 @@ case `uname` in
 esac
 
 alias vim='nvim'
+alias tmux='env TERM=xterm-256color tmux'
 
 alias la='ls -aF'
 alias lf='ls -FA'
@@ -100,10 +102,13 @@ alias unzip='unzip -Ocp932'
 alias info='info --vi-keys'
 alias verynice='ionice -c3 nice -n 15'
 alias maxima='rlwrap maxima'
+alias clipin='xsel --clipboard --input'
+alias clipout='xsel --clipboard --output'
 alias chkccopt="gcc -march=native -E -v - </dev/null 2>&1 | sed -n 's/.* -v - //p'"
 alias chkccdef="echo | gcc -E -xc -dM - | sort | uniq"
 #echo | gcc -E -v -march=native - 2>&1 | sed '/march/!d;s/.*\(-march\)/\1/'
 alias pacman='sudo pacmatic'
+alias mksrcinfo='makepkg --printsrcinfo > .SRCINFO'
 
 #alias jfbterm='env LANG=ja_JP.UTF-8 jfbterm -e uim-fep'
 #alias jman='env LANG=ja_JP.eucJP GROFF_NO_SGR=true jman'
@@ -112,6 +117,12 @@ alias pacman='sudo pacmatic'
 lsofcmd() { lsof -o0 -o -p $(pidof "$@") }
 
 findgrep() { find . -name '*.c' -or -name '*.h' -exec grep -H "$@" {} \; }
+
+play_tv() { mpv "http://mani:40772/api/channels/$1/$2/stream?decode=1" }
+
+alias tokyomx='play_tv GR 16'
+alias ud='play_tv GR 28'
+alias bs11='play_tv BS BS09_0'
 
 # history
 #
@@ -133,7 +144,7 @@ setopt magic_equal_subst # glob after = (ex. ./configure --prefix=...)
 
 # I/O
 #
-setopt noclobber # show error for overwrite redirect
+#setopt noclobber # show error for overwrite redirect
 #setopt correct # correcting spell for command
 #setopt correctall # correcting spell for command argument
 

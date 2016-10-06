@@ -26,7 +26,7 @@ resolve_alias() {
 if ! is_screen_or_tmux_running && shell_has_started_interactively; then
     for cmd in tmux tscreen screen; do
         if whence $cmd >/dev/null 2>/dev/null; then
-            $(resolve_alias "$cmd") -2
+            $(resolve_alias "$cmd")
             break
         fi
     done
