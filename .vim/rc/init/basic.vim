@@ -1,7 +1,7 @@
 set hidden " open file ignoring modify files
-set autoread
+set autoread " reload file if file is editted by external system
 
-"indent, tabwidth
+" indent, tabwidth
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
@@ -9,16 +9,17 @@ set expandtab
 autocmd FileType text setlocal textwidth=78
 
 " setting search
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
+set hlsearch " hilighting
+set incsearch " increment search
+set ignorecase " no differentiate char case
+set smartcase " differentiate char case if search by mixed case word
 set wrapscan
 
 " setting edit
 set backspace=indent,eol,start
 set showmatch
 set smartindent
+"set iminsert=2 " disable IME when escape from insert mode
 " set spell
 set spelllang=en_us,cjk
 
@@ -27,6 +28,8 @@ set ruler
 set showcmd
 set number
 set nowrap
+"set list " display invisible character
+"set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮
 set matchtime=3
 set laststatus=2
 set cmdheight=2
@@ -42,3 +45,6 @@ set clipboard=unnamed
 
 " disable mouse
 set mouse=
+
+" disable changing current director automatically
+set noautochdir

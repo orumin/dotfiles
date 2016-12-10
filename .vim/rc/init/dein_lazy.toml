@@ -68,7 +68,16 @@ on_ft     = ['haskell']
 
 # rust
 [[plugins]]
-repo      = 'wting/rust.vim'
+repo      = 'rust-lang/rust.vim'
+on_ft     = ['rust']
+
+[[plugins]]
+repo      = 'racer-rust/vim-racer'
+on_ft     = ['rust']
+
+[[plugins]]
+#repo      = 'Nonius/cargo.vim'
+repo      = '887/cargo.vim'
 on_ft     = ['rust']
 
 # ansible yaml

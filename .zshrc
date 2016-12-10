@@ -4,7 +4,8 @@ export PATH="$PATH:$VITASDK/bin"
 export PATH="$(ruby -rubygems -e "puts Gem.user_dir")/bin:/home/orumin/.cabal/bin:$PATH"
 export PATH="/usr/lib/ccache/bin:$PATH"
 export PATH="/usr/share/git/diff-highlight:$PATH"
-export PATH="/usr/lib/smlnj/bin:$PATH"
+#export PATH="$HOME/.cargo/bin:$PATH"
+#export PATH="/usr/lib/smlnj/bin:$PATH"
 export MANPATH="/usr/share/man/ja:/usr/share/man:/usr/local/man:/usr/local/share/man"
 export MANPATH="$MANPATH:/usr/i486-mingw32/share/man:/opt/qt/man"
 export MANPATH="$MANPATH:/opt/pspsdk/man:/opt/pspsdk/psp/man:/opt/pspsdk/psp/share/man"
@@ -17,6 +18,11 @@ REPORTTIME=3
 
 # set default permission file -> 644 directory -> 755
 umask 022
+
+[ ! -d $HOME/.zfunc ] && mkdir $HOME/.zfunc
+[ ! -f $HOME/.zfunc/_rustup ] && [ -f /usr/bin/rustup ] && rustup completions zsh > $HOME/.zfunc/_rustup
+
+fpath+=$HOME/.zfunc
 
 # most necesary setting
 autoload -U compinit promptinit colors

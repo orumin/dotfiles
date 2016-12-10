@@ -72,6 +72,10 @@ repo = 'tyru/eskk.vim'
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
 
+# syntax checker
+[[plugins]]
+repo = 'vim-syntastic/syntastic'
+
 # english words dictionary
 [[plugins]]
 repo = 'koron/codic-vim'
