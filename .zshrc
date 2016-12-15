@@ -24,9 +24,11 @@ umask 022
 
 fpath+=$HOME/.zfunc
 
+[ -f ~/.zshrc.color ] && source ~/.zshrc.color
+
 # most necesary setting
-autoload -U compinit promptinit colors
-compinit promptinit colors
+autoload -U compinit promptinit 
+compinit promptinit 
 
 
 ## prompt preset
@@ -50,7 +52,7 @@ bindkey -M menuselect 'l' vi-forward-char
 zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' group-name ''
-zstyle ':completion:*' format '%B%{[31m%}completing %B%{[4;33m%}%d%b'
+zstyle ':completion:*' format "%B${fg_red}completing %B${underline}${fg_yellow}%d%b"
 
 # display vcs infomation
 autoload -Uz vcs_info
@@ -208,13 +210,17 @@ bindkey '' push-line-or-edit # to use buffer stack on vi keybind
 
 update_prompt(){
     PROMPTTTY=`tty | sed -e 's/\/dev\///'`
-    PROMPT="%b%{[32m%}%n%{[m%}@%{[32m%}%m%{[m%}<%B${PROMPTTTY}%b>
-%(?..%{[44m%}%?)%{[m%}%(!.#.$) "
-    if [ ! -z "$(echo $PATH | grep Gentoo)" ]; then
-        PROMPT="%b%{[32m%}%n%{[m%}@%{[33m%}Gentoo%{[m%} on %{[32m%}%m%{[m%}<%B${PROMPTTTY}%b>
-%(?..%{[44m%}%?)%{[m%}%(!.#.$) "
+    if [ -n "$(echo $PATH | grep Gentoo)" ]; then
+        gentoo_prompt="${fg_default}Gentoo on "
     fi
-    RPROMPT=" %B%(?.%{[33m%}[%39<...<%~]%b%{[m%}.:()"
+    if [ -n "$SSH_CONNECTION" ]; then
+        prompt_hostname="${fg_yellow}${underline}%m${clear}"
+    else
+        prompt_hostname="${fg_green}%m${fg_default}"
+    fi
+    PROMPT="%b${fg_green}%n${fg_default}@${gentoo_prompt}${prompt_hostname}<%B${PROMPTTTY}%b>
+%(?..${bg_blue}%?)${clear}%(!.#.$) "
+    RPROMPT=" %B%(?.${fg_yellow}[%39<...<%~]%b${fg_default}.:()"
     SPROMPT="correct: %R -> %r ? "
 
     LANG=C vcs_info >&/dev/null

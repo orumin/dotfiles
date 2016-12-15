@@ -1,0 +1,102 @@
+clear="%{[m%}"
+bold="%{[1m%}"
+reset_bold="%{[21m%}"
+dim="%{[2m%}"
+reset_dim="%{[22m%}"
+underline="%{[4m%}"
+reset_underline="%{[24m%}"
+blink="%{[5m%}"
+reset_blink="%{[25m%}"
+inverted="%{[7m%}"
+reset_inverted="%{[27m%}"
+hidden="%{[8m%}"
+reset_hidden="%{[28m%}"
+
+fg_default="%{[39m%}"
+fg_black="%{[30m%}"
+fg_red="%{[31m%}"
+fg_green="%{[32m%}"
+fg_yellow="%{[33m%}"
+fg_blue="%{[34m%}"
+fg_magenta="%{[35m%}"
+fg_cyan="%{[36m%}"
+fg_lightgray="%{[37m%}"
+fg_darkgray="%{[90m%}"
+fg_lightred="%{[91m%}"
+fg_lightgreen="%{[92m%}"
+fg_lightyellow="%{[93m%}"
+fg_lightblue="%{[94m%}"
+fg_lightmagenta="%{[95m%}"
+fg_lightcyan="%{[96m%}"
+fg_white="%{[97m%}"
+
+
+bg_default="%{[49m%}"
+bg_black="%{[40m%}"
+bg_red="%{[41m%}"
+bg_green="%{[42m%}"
+bg_yellow="%{[43m%}"
+bg_blue="%{[44m%}"
+bg_magenta="%{[45m%}"
+bg_cyan="%{[46m%}"
+bg_lightgray="%{[47m%}"
+bg_darkgray="%{[90m%}"
+bg_lightred="%{[101m%}"
+bg_lightgreen="%{[102m%}"
+bg_lightyellow="%{[103m%}"
+bg_lightblue="%{[104m%}"
+bg_lightmagenta="%{[105m%}"
+bg_lightcyan="%{[106m%}"
+bg_white="%{[107m%}"
+
+# 256color
+# [38;5;${fg_color_number}m
+# [48;5;${bg_color_number}m
+
+# truecolor
+# \x1b[${bg};2;${red};${green};${blue}m
+# e.g) \x1b[$38;2;$255;100;0m -> orange
+
+function 16color_test() {
+    for clbg in {40..47} {100..107} 49 ; do
+        #Foreground
+        for clfg in {30..37} {90..97} 39 ; do
+            #Formatting
+            for attr in 0 1 2 4 5 7 ; do
+                #Print the result
+                echo -en "\e[${attr};${clbg};${clfg}m ^[${attr};${clbg};${clfg}m \e[0m"
+            done
+            echo #Newline
+        done
+    done
+}
+
+function 256color_test() {
+    for fgbg in 38 48 ; do #Foreground/Background
+        for color in {0..256} ; do #Colors
+        	    #Display the color
+        	    echo -en "\e[${fgbg};5;${color}m ${color}\t\e[0m"
+        	    #Display 10 colors per lines
+        	    if [ $(expr "$(expr $color + 1)" % 10) -eq 0 ] ; then
+        	        echo #New line
+        	    fi
+        	    done
+        	echo #New line
+    done
+}
+
+function truecolor_test() {
+    awk 'BEGIN{
+        s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
+        for (colnum = 0; colnum<77; colnum++) {
+            r = 255-(colnum*255/76);
+            g = (colnum*510/76);
+            b = (colnum*255/76);
+            if (g>255) g = 510-g;
+            printf "\033[48;2;%d;%d;%dm", r,g,b;
+            printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
+            printf "%s\033[0m", substr(s,colnum+1,1);
+        }
+        printf "\n";
+    }'
+}
