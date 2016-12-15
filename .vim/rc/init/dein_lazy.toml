@@ -2,7 +2,7 @@
 [[plugins]]
 repo     = 'Shougo/neocomplete.vim'
 on_i     = 1
-if       = '''! has('nvim')'''
+if       = '''! has('nvim') && has('lua')'''
 
 [[plugins]]
 repo     = 'Shougo/deoplete.nvim'
