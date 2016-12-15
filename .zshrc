@@ -210,6 +210,10 @@ update_prompt(){
     PROMPTTTY=`tty | sed -e 's/\/dev\///'`
     PROMPT="%b%{[32m%}%n%{[m%}@%{[32m%}%m%{[m%}<%B${PROMPTTTY}%b>
 %(?..%{[44m%}%?)%{[m%}%(!.#.$) "
+    if [ ! -z "$(echo $PATH | grep Gentoo)" ]; then
+        PROMPT="%b%{[32m%}%n%{[m%}@%{[33m%}Gentoo%{[m%} on %{[32m%}%m%{[m%}<%B${PROMPTTTY}%b>
+%(?..%{[44m%}%?)%{[m%}%(!.#.$) "
+    fi
     RPROMPT=" %B%(?.%{[33m%}[%39<...<%~]%b%{[m%}.:()"
     SPROMPT="correct: %R -> %r ? "
 
@@ -245,6 +249,8 @@ history-all() { history -E 1 }
 #
 # setting city by geoiplookup
 #
+
+[ "ping not found" = "$(which ping)" ] && export CITY=Tokyo
 
 if [ -z "$CITY" ]; then
     ping google.com -c 1 >> /dev/null
