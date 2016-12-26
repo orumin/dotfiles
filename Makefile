@@ -13,6 +13,7 @@ list:
 init:
 	@test -d $(CONFIG_DIR) || mkdir $(CONFIG_DIR)
 	@test -L $(NVIM_PATH) || ln -sfnv $(HOME)/.vim $(NVIM_PATH)
+	@test -d $(NVIM_PATH)/backup || mkdir $(NVIM_PATH)/backup
 	@test -L $(INIT_VIM_PATH) || ln -sfnv $(HOME)/.vimrc $(INIT_VIM_PATH)
 
 deploy:
