@@ -20,6 +20,7 @@ case `uname` in
     # work arround for totem error(intel_do_flush_locked failed: No such file or directory)
     #export LIBGL_DRI3_DISABLE=1
     export LIBVA_DRIVER_NAME=i965
+    export VDPAU_DRIVER=va_gl
 
     #source /home/orumin/scripts/infinality-settings.sh
     export FREETYPE_PROPERTIES="truetype:interpreter-version=35 cff:no-stem-darkening=1 autofitter:warping=1"
