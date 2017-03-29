@@ -10,6 +10,8 @@ export MANPATH="/usr/share/man/ja:/usr/share/man:/usr/local/man:/usr/local/share
 export MANPATH="$MANPATH:/usr/i486-mingw32/share/man:/opt/qt/man"
 export MANPATH="$MANPATH:/opt/pspsdk/man:/opt/pspsdk/psp/man:/opt/pspsdk/psp/share/man"
 
+eval "$(rbenv init -)"
+
 # other environment variable
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
@@ -131,6 +133,8 @@ alias chkccdef="echo | gcc -E -xc -dM - | sort | uniq"
 #echo | gcc -E -v -march=native - 2>&1 | sed '/march/!d;s/.*\(-march\)/\1/'
 alias pacman='sudo pacmatic'
 alias mksrcinfo='makepkg --printsrcinfo > .SRCINFO'
+alias pacmanlist='/usr/bin/pacman -Qqettn'
+alias aurlist='/usr/bin/pacman -Qqettm'
 
 #alias jfbterm='env LANG=ja_JP.UTF-8 jfbterm -e uim-fep'
 #alias jman='env LANG=ja_JP.eucJP GROFF_NO_SGR=true jman'
