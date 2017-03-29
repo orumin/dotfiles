@@ -1,7 +1,8 @@
 # environment variable
 export PATH="$PATH:$PSPDEV/bin:$HOME/bin"
 export PATH="$PATH:$VITASDK/bin"
-export PATH="$(ruby -rubygems -e "puts Gem.user_dir")/bin:/home/orumin/.cabal/bin:$PATH"
+which ruby > /dev/null 2>&1  && export PATH="$(ruby -rubygems -e "puts Gem.user_dir")/bin:$PATH"
+export PATH="/home/orumin/.cabal/bin:$PATH"
 export PATH="/usr/lib/ccache/bin:$PATH"
 export PATH="/usr/share/git/diff-highlight:$PATH"
 #export PATH="$HOME/.cargo/bin:$PATH"
@@ -10,7 +11,7 @@ export MANPATH="/usr/share/man/ja:/usr/share/man:/usr/local/man:/usr/local/share
 export MANPATH="$MANPATH:/usr/i486-mingw32/share/man:/opt/qt/man"
 export MANPATH="$MANPATH:/opt/pspsdk/man:/opt/pspsdk/psp/man:/opt/pspsdk/psp/share/man"
 
-eval "$(rbenv init -)"
+which rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
 
 # other environment variable
 HISTFILE=~/.zsh_history
