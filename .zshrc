@@ -15,8 +15,8 @@ which rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
 
 # other environment variable
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 REPORTTIME=3
 
 # set default permission file -> 644 directory -> 755
@@ -71,7 +71,7 @@ alias j='jobs -l'
 
 alias gcc='gcc -fdiagnostics-color'
 
-alias grep='grep -n --color=auto'
+alias grep='grep --color=auto'
 
 #alias less='/usr/share/vim/vim74/macros/less.sh'
 
@@ -104,6 +104,10 @@ case `uname` in
         fi
         ;;
 esac
+
+if [ $XDG_CURRENT_DESKTOP = "GNOME" ]; then
+    alias xdg-open='gio open'
+fi
 
 [ -f /usr/bin/nvim ] && alias vim='nvim'
 alias tmux='env TERM=xterm-256color tmux'
