@@ -105,7 +105,7 @@ case `uname` in
         ;;
 esac
 
-if [ $XDG_CURRENT_DESKTOP = "GNOME" ]; then
+if [ -n $XDG_CURRENT_DESKTOP ] && [ $XDG_CURRENT_DESKTOP = "GNOME" ]; then
     alias xdg-open='gio open'
 fi
 

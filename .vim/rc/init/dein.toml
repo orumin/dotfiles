@@ -43,10 +43,6 @@ repo = 'vim-jp/vimdoc-ja'
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
-[[plugins]]
-repo = 'mattn/gist-vim'
-depends = ['webapi-vim']
-
 # colorscheme
 [[plugins]]
 repo = 'vim-scripts/Colour-Sampler-Pack'
