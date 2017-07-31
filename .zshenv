@@ -7,6 +7,7 @@ case `uname` in
     Linux)
     export BROWSER=vivaldi-snapshot
     export PSPDEV="/opt/pspsdk"
+    export PSPSDK="${PSPDEV}/psp/sdk"
     export VITASDK="/usr/local/vitasdk"
     export CCACHE_PATH="/usr/bin"
     export CCACHE_DIR="/tmp/ccache"

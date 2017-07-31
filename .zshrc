@@ -131,6 +131,7 @@ alias unzip='unzip -Ocp932'
 alias info='info --vi-keys'
 alias verynice='ionice -c3 nice -n 15'
 alias maxima='rlwrap maxima'
+alias luajitlatex='luajittex --fmt=luajitlatex.fmt'
 alias clipin='xsel --clipboard --input'
 alias clipout='xsel --clipboard --output'
 alias chkccopt="gcc -march=native -E -v - </dev/null 2>&1 | sed -n 's/.* -v - //p'"
@@ -268,7 +269,7 @@ history-all() { history -E 1 }
 [ "ping not found" = "$(which ping)" ] && export CITY=Tokyo
 
 if [ -z "$CITY" ]; then
-    ping google.com -c 1 >> /dev/null
+    ping -4 google.com -c 1 >> /dev/null
     if [ $? -eq 0 ] && [ -e /usr/bin/geoiplookup ] && [ -e /usr/bin/dig ]; then
 #        export CITY=$(echo $(geoiplookup $(curl -s4 inet-ip.info) | grep City | awk -F , '{print $4}'))
 #        export CITY=$( curl -s4 ipinfo.io | grep city | cut -d: -f 3 | sed -e 's/ *"\(.*\)",/\1/' )
