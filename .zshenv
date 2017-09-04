@@ -30,3 +30,9 @@ case `uname` in
     export LANG=en_US.UTF-8
     ;;
 esac
+
+case $(uname -v | sed -e 's/#1-\(Microsoft\).*/\1/') in
+    Microsoft)
+    export DISPLAY=localhost:0.0
+    ;;
+esac
