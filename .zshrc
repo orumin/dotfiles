@@ -263,6 +263,54 @@ man() {
 history-all() { history -E 1 }
 
 #
+# PDF producing from markdown using pandoc w/ Japanese
+#
+
+md2pdf() {
+    if [ $# -ne 5 ]; then
+        echo "Usage: $0 <title> <author> <date> <input file> <output file>"
+        return 1
+    fi
+
+    case `uname` in
+        Linux)
+            fontfamily=sourcehan-jp,deluxe
+        ;;
+        Darwin)
+            fontfamily=hiragino-pron,deluxe,jis2004
+        ;;
+    esac
+
+(cat << EOF
+---
+title: $1
+author: $2
+date: $3
+header-includes:
+    - \usepackage{unicode-math}
+    - \unimathsetup{math-style=ISO,bold-style=ISO}
+    - \setmathfont{TeX Gyre Pagella Math}
+    - \setmainfont[Ligatures=TeX, Scale=0.95]{TeX Gyre Pagella}
+    - \setsansfont[Ligatures=TeX, Scale=0.95]{TeX Gyre Heros}
+    - \setmonofont[Ligatures=TeX, Scale=1]{TeX Gyre Cursor}
+    - \renewcommand{\bfdefault}{bx}
+    - \renewcommand{\headfont}{\gtfamily\sffamily\bfseries}
+    - \usepackage{luacode}
+    - \usepackage{luatexja-otf}
+    - \usepackage[$fontfamily]{luatexja-preset}
+    - \ltjsetparameter{jacharrange={-2}}
+
+---
+EOF
+)   | cat - $4 \
+    | pandoc -f markdown -t latex \
+        --latex-engine=lualatex \
+        -V documentclass=ltjsarticle \
+        -V classoption=10.5ptj -V classoption=a4paper \
+        -o $5
+}
+
+#
 # setting city by geoiplookup
 #
 
