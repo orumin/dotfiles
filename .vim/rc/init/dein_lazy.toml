@@ -87,9 +87,9 @@ repo        = 'rust-lang/rust.vim'
 on_ft       = ['rust']
 hook_add    = 'source ~/.vim/rc/plugins/plugin-rust.vim'
 
-[[plugins]]
-repo        = 'racer-rust/vim-racer'
-on_ft       = ['rust']
+# [[plugins]]
+# repo        = 'racer-rust/vim-racer'
+# on_ft       = ['rust']
 
 [[plugins]]
 #repo        = 'Nonius/cargo.vim'
