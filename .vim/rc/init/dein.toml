@@ -5,6 +5,7 @@ repo = 'thinca/vim-splash'
 
 [[plugins]]
 repo = 'Shougo/dein.vim'
+hook_add = 'source ~/.vim/rc/plugins/plugin-dein.vim'
 
 [[plugins]]
 repo = 'Shougo/unite.vim'
@@ -24,6 +25,7 @@ repo = 'thinca/vim-quickrun'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
+hook_add = 'source ~/.vim/rc/plugins/plugin-lightline.vim'
 
 [[plugins]]
 repo = 'Shougo/vinarise'
@@ -56,6 +58,7 @@ repo = 'miyakogi/seiya.vim'
 # pandoc markdown
 [[plugins]]
 repo      = 'vim-pandoc/vim-pandoc'
+hook_add = 'source ~/.vim/rc/plugins/plugin-vim-pandoc.vim'
 
 [[plugins]]
 repo      = 'vim-pandoc/vim-pandoc-syntax'
@@ -63,14 +66,17 @@ repo      = 'vim-pandoc/vim-pandoc-syntax'
 # ime
 [[plugins]]
 repo = 'tyru/eskk.vim'
+hook_add = 'source ~/.vim/rc/plugins/plugin-eskk.vim'
 
 # indent
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
+hook_add = 'source ~/.vim/rc/plugins/plugin-indent-guides.vim'
 
 # syntax checker
 [[plugins]]
 repo = 'vim-syntastic/syntastic'
+hook_add = 'source ~/.vim/rc/plugins/plugin-syntastic.vim'
 
 # english words dictionary
 [[plugins]]

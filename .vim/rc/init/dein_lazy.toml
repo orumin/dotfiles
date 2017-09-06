@@ -3,12 +3,15 @@
 repo       = 'Shougo/neocomplete.vim'
 on_i       = 1
 if         = '''! has('nvim') && has('lua')'''
+hook_add   = 'source ~/.vim/rc/plugins/plugin-neocomplete.vim'
 
 [[plugins]]
 repo       = 'Shougo/deoplete.nvim'
 dependes   = ['FastFold']
 on_i       = 1
 if         = '''has('nvim')'''
+hook_add   = 'source ~/.vim/rc/plugins/plugin-deoplete.vim'
+hook_post_update = ':UpdateRemotePlugins'
 
 [[plugins]]
 repo       = 'Konfekt/FastFold'
@@ -47,10 +50,12 @@ on_source   = ['unite.vim']
 [[plugins]]
 repo        = 'Shougo/vimshell'
 on_cmd      = ['VimShell', 'VimShellCreate', 'VimShellPop']
+hook_add    = 'source ~/.vim/rc/plugins/plugin-vimshell.vim'
 
 # Gist
 repo        = 'lambdalisue/vim-gista'
 on_cmd      = 'Gista'
+hook_add    = 'source ~/.vim/rc/plugins/plugin-vim-gista.vim'
 
 # asm
 [[plugins]]
@@ -61,6 +66,7 @@ on_ft       = ['asm']
 [[plugins]]
 repo        = 'osyo-manga/vim-snowdrop'
 on_ft       = ['c', 'cpp']
+hook_add    = 'source ~/.vim/rc/plugins/plugin-snowdrop.vim'
 
 # haskell
 [[plugins]]
@@ -79,6 +85,7 @@ on_ft       = ['haskell']
 [[plugins]]
 repo        = 'rust-lang/rust.vim'
 on_ft       = ['rust']
+hook_add    = 'source ~/.vim/rc/plugins/plugin-rust.vim'
 
 [[plugins]]
 repo        = 'racer-rust/vim-racer'
@@ -100,6 +107,7 @@ repo        = 'basyura/TweetVim'
 depends     = ['twibill.vim', 'bitly.vim', 'open-browser.vim', 'webapi-vim', 'unite.vim' 'unite-outline']
 on_cmd      = ['TweetVimSay', 'TweetVimUserStream']
 on_map      = '<Plug>(tweetvim)'
+hook_add    = 'source ~/.vim/rc/plugins/plugin-tweetvim.vim'
 
 [[plugins]]
 repo        = 'basyura/twibill.vim'
