@@ -274,7 +274,8 @@ md2pdf() {
 
     case `uname` in
         Linux)
-            fontfamily=sourcehan-jp,deluxe
+#            fontfamily=sourcehan-jp,deluxe
+            fontfamily=hiragino-pron,deluxe,jis2004
         ;;
         Darwin)
             fontfamily=hiragino-pron,deluxe,jis2004
