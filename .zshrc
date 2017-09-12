@@ -300,6 +300,7 @@ header-includes:
     - \usepackage{luatexja-otf}
     - \usepackage[$fontfamily]{luatexja-preset}
     - \ltjsetparameter{jacharrange={-2}}
+    - \usepackage[euler-digits,euler-hat-accent]{eulervm}
 
 ---
 EOF

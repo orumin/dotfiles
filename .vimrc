@@ -17,4 +17,6 @@ runtime! rc/init/*.vim
 colorscheme wombat256
 "colorscheme japanesque
 
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
+
 filetype plugin on
