@@ -60,6 +60,7 @@ repo = 'aereal/vim-colors-japanesque'
 
 [[plugins]]
 repo = 'miyakogi/seiya.vim'
+hook_add = 'source ~/.vim/rc/plugins/plugin-seiya.vim'
 
 # pandoc markdown
 [[plugins]]
