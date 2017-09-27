@@ -7,6 +7,9 @@ export PATH="/usr/lib/ccache/bin:$PATH"
 export PATH="/usr/share/git/diff-highlight:$PATH"
 #export PATH="$HOME/.cargo/bin:$PATH"
 #export PATH="/usr/lib/smlnj/bin:$PATH"
+if [ -n "$(echo $PATH | grep Gentoo)" ]; then
+    export PATH="$PATH:/sbin"
+fi
 export MANPATH="/usr/share/man/ja:/usr/share/man:/usr/local/man:/usr/local/share/man"
 export MANPATH="$MANPATH:/usr/i486-mingw32/share/man:/opt/qt/man"
 export MANPATH="$MANPATH:/opt/pspsdk/man:/opt/pspsdk/psp/man:/opt/pspsdk/psp/share/man"
