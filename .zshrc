@@ -69,7 +69,7 @@ setopt complete_aliases
 alias h='history 25'
 alias j='jobs -l'
 
-alias gcc='gcc -fdiagnostics-color'
+GCC_VERSION=$(gcc -dumpversion | awk -F. '{printf "%2d%02d%02d", $1,$2,$3}')
 
 alias grep='grep --color=auto'
 
@@ -91,10 +91,16 @@ case `uname` in
         fi
         ;;
     FreeBSD)
+        if [ "$GCC_VERSION" -ge 40900 ]; then
+            alias gcc='gcc -fdiagnostics-color'
+        fi
         alias ls='ls -G -w'
         export LSCOLORS=fxgxcxdxcxegedabagacad
         ;;
     Linux)
+        if [ "$GCC_VERSION" -ge 40900 ]; then
+            alias gcc='gcc -fdiagnostics-color'
+        fi
         alias ls='ls --color'
         # set dircolors
         if [ -e ~/.dir_colors ]; then
