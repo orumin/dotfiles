@@ -326,9 +326,13 @@ EOF
 #
 
 [ "ping not found" = "$(which ping)" ] && export CITY=Tokyo
+if [ "ping4 not found" != "$(which ping4)" ]; then PING=ping4;
+elif [ "Darwin" = "$(uname)" ]; then PING=ping;
+else PING="ping -4"
+fi
 
 if [ -z "$CITY" ]; then
-    ping -4 google.com -c 1 >> /dev/null
+    $PING google.com -c 1 -w 3 >> /dev/null
     if [ $? -eq 0 ] && [ -e /usr/bin/geoiplookup ] && [ -e /usr/bin/dig ]; then
 #        export CITY=$(echo $(geoiplookup $(curl -s4 inet-ip.info) | grep City | awk -F , '{print $4}'))
 #        export CITY=$( curl -s4 ipinfo.io | grep city | cut -d: -f 3 | sed -e 's/ *"\(.*\)",/\1/' )
