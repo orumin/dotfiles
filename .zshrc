@@ -325,14 +325,16 @@ EOF
 # setting city by geoiplookup
 #
 
-[ "ping not found" = "$(which ping)" ] && export CITY=Tokyo
-if [ "ping4 not found" != "$(which ping4)" ]; then PING=ping4;
+if [ "ping not found" = "$(which ping)" ]; then
+    if [ "ping4 not found" != "$(which ping4)" ]; then PING=ping4;
+    else export CITY=Tokyo
+    fi
 elif [ "Darwin" = "$(uname)" ]; then PING=ping;
-else PING="ping -4"
+else PING=ping && PING_OPT=-4
 fi
 
 if [ -z "$CITY" ]; then
-    $PING google.com -c 1 -W 3 >> /dev/null
+    $PING $PING_OPT google.com -c 1 -W 3 >> /dev/null
     if [ $? -eq 0 ] && [ -e /usr/bin/geoiplookup ] && [ -e /usr/bin/dig ]; then
 #        export CITY=$(echo $(geoiplookup $(curl -s4 inet-ip.info) | grep City | awk -F , '{print $4}'))
 #        export CITY=$( curl -s4 ipinfo.io | grep city | cut -d: -f 3 | sed -e 's/ *"\(.*\)",/\1/' )
