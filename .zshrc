@@ -174,7 +174,7 @@ setopt hist_reduce_blanks # recoding history its removed extra space
 setopt incappend_history # recoding history in order on multiple session
 setopt histnostore # no recoding history command in history
 setopt inc_append_history # add history as increment
-setopt EXTENDED_HISTORY
+setopt extended_history # add execute date to history
 
 # fileglob
 #

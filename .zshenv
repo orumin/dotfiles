@@ -1,4 +1,4 @@
-export EDITOR=vim
+export EDITOR=nvim
 export PAGER=less
 export LV="-Ou8 -c -l"
 export BLOCKSIZE=K
