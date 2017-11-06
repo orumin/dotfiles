@@ -1,7 +1,9 @@
 set hidden
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls']
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'c' : ['clangd'],
+    \ 'cpp' : ['clangd']
     \ }
 
 let g:LanguageClient_autoStart = 1

@@ -33,6 +33,10 @@ repo = 'Shougo/vinarise'
 [[plugins]]
 repo = 'vim-scripts/sudo.vim'
 
+# color scheme
+[[plugins]]
+repo = 'jacoborus/tender.vim'
+
 # complation, renaming, getting symbol definition, formatting, etc
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
@@ -50,13 +54,6 @@ repo = 'vim-jp/vimdoc-ja'
 # git
 [[plugins]]
 repo = 'tpope/vim-fugitive'
-
-# colorscheme
-[[plugins]]
-repo = 'vim-scripts/Colour-Sampler-Pack'
-
-[[plugins]]
-repo = 'aereal/vim-colors-japanesque'
 
 [[plugins]]
 repo = 'miyakogi/seiya.vim'

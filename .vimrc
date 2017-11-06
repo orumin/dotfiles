@@ -14,7 +14,7 @@ endif
 runtime! rc/init/*.vim
 "runtime! rc/plugins/*.vim
 
-colorscheme wombat256
+colorscheme tender
 "colorscheme japanesque
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
