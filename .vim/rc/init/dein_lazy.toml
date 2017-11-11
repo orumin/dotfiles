@@ -26,6 +26,13 @@ on_i       = 1
 repo       = 'ujihisa/neco-look'
 on_i       = 1
 
+# complation, renaming, getting symbol definition, formatting, etc
+[[plugins]]
+repo = 'autozimu/LanguageClient-neovim'
+if         = '''has('nvim')'''
+hook_add = 'source ~/.vim/rc/plugins/plugin-LanguageClient-neovim.vim'
+hook_post_update = ':UpdateRemotePlugins'
+
 # grammer checker ( need Java runtime for LanguageTool )
 [[plugins]]
 repo       = 'rhysd/vim-grammarous'

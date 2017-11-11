@@ -37,12 +37,6 @@ repo = 'vim-scripts/sudo.vim'
 [[plugins]]
 repo = 'jacoborus/tender.vim'
 
-# complation, renaming, getting symbol definition, formatting, etc
-[[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-hook_add = 'source ~/.vim/rc/plugins/plugin-LanguageClient-neovim.vim'
-hook_post_update = ':UpdateRemotePlugins'
-
 # tags
 [[plugins]]
 repo = '5t111111/alt-gtags.vim'
