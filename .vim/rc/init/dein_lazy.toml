@@ -141,9 +141,3 @@ if          = '''! has('nvim')'''
 repo        = 'yomi322/unite-tweetvim'
 depends     = ['unite-outline']
 on_source   = ['TweetVim']
-
-# Mastodon
-[[plugins]]
-repo        = 'mattn/vim-mastodon'
-on_cmd      = 'Mastodon'
-hook_add    = 'source ~/.vim/rc/plugins/plugin-vim-mastodon.vim'

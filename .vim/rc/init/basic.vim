@@ -34,6 +34,8 @@ set matchtime=3
 set laststatus=2
 set cmdheight=2
 set wildmenu
+" https://github.com/neovim/neovim/issues/6041
+set guicursor=
 syntax on
 
 " setting backup
