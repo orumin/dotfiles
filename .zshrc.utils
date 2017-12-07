@@ -1,0 +1,28 @@
+get_random_chars() {
+    python - <<EOF
+import string,random;
+print("".join(random.choices(string.ascii_letters+string.digits,k=$1)))
+EOF
+}
+
+# salt character length is followings to crypted password string in RHEL/CentOS/Fedora's kickstart
+get_salted_pass() {
+    case $1 in
+        md5)
+            salt_character='$1$'`get_random_chars 8`
+            ;;
+        sha256)
+            salt_character='$5$'`get_random_chars 16`
+            ;;
+        sha512)
+            salt_character='$6$'`get_random_chars 16`
+            ;;
+        *)
+            echo -e "please select hash function.\nmd5, or sha256, or sha512."
+            ;;
+    esac
+    python - <<EOF
+import crypt,getpass;
+print(crypt.crypt(getpass.getpass(), "$salt_character"))
+EOF
+}

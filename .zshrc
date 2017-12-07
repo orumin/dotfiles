@@ -356,6 +356,7 @@ fi
 # Include other files
 #
 
+[ -f ~/.zshrc.search ] && source ~/.zshrc.utils
 [ -f ~/.zshrc.search ] && source ~/.zshrc.search
 [ -f ~/.zshrc.tmux ] && source ~/.zshrc.tmux
 [ -f ~/.zshrc.vimode ] && source ~/.zshrc.vimode
