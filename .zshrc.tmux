@@ -11,6 +11,9 @@ is_screen_or_tmux_running() {
 is_not_gentoo_prefix() {
     [ -z $(echo $PATH | grep Gentoo) ]
 }
+is_not_serial_console() {
+    [ -z $(tty | grep ttyS) ]
+}
 shell_has_started_interactively() {
     [ ! -z "$PS1" ]
 }
@@ -26,7 +29,7 @@ resolve_alias() {
 }
 
 
-if ! is_screen_or_tmux_running && is_not_gentoo_prefix && shell_has_started_interactively; then
+if ! is_screen_or_tmux_running && is_not_gentoo_prefix && is_not_serial_console && shell_has_started_interactively; then
     for cmd in tmux tscreen screen; do
         if whence $cmd >/dev/null 2>/dev/null; then
             $(resolve_alias "$cmd")
