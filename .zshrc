@@ -330,6 +330,7 @@ if [ "ping not found" = "$(which ping)" ]; then
     else export CITY=Tokyo
     fi
 elif [ "Darwin" = "$(uname)" ]; then PING=ping;
+elif [ -z "$(ping 2>&1 | grep 'ping -6')" ]; then PING=ping;
 else PING=ping && PING_OPT=-4
 fi
 
