@@ -54,10 +54,11 @@ on_ft      = ['uml', 'plantuml']
 repo       = 'dhruvasagar/vim-table-mode'
 on_ft      = ['rst', 'markdown', 'pandoc', 'gitrebase', 'gitcommit', 'vcs-commit', 'hybrid', 'text', 'help', 'tex']
 
-# unite
+# TeX
 [[plugins]]
-repo        = 'h1mesuke/unite-outline'
-on_source   = ['unite.vim']
+repo        = 'lervag/vimtex'
+hook_add   = 'source ~/.vim/rc/plugins/plugin-vimtex.vim'
+on_ft       = ['tex', 'plaintex']
 
 # vimshell
 [[plugins]]
@@ -117,7 +118,7 @@ on_ft       = ['ansible']
 # tweetvim
 [[plugins]]
 repo        = 'basyura/TweetVim'
-depends     = ['twibill.vim', 'bitly.vim', 'open-browser.vim', 'webapi-vim', 'unite.vim' 'unite-outline']
+#depends     = ['twibill.vim', 'bitly.vim', 'open-browser.vim', 'webapi-vim', 'denite.vim']
 on_cmd      = ['TweetVimSay', 'TweetVimUserStream']
 on_map      = '<Plug>(tweetvim)'
 hook_add    = 'source ~/.vim/rc/plugins/plugin-tweetvim.vim'
@@ -143,8 +144,3 @@ repo        = 'yomi322/neco-tweetvim'
 depends     = ['neocomplete']
 on_source   = ['TweetVim']
 if          = '''! has('nvim')'''
-
-[[plugins]]
-repo        = 'yomi322/unite-tweetvim'
-depends     = ['unite-outline']
-on_source   = ['TweetVim']

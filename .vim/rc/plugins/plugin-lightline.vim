@@ -5,7 +5,6 @@ let g:lightline = {
       \   'right': [[ 'lineinfo', 'syntastic' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype']]
       \ },
       \ 'component_function': {
-      \   'fugitive': 'MyFugitive',
       \   'filename': 'MyFilename',
       \   'fileformat': 'MyFileformat',
       \   'filetype': 'MyFiletype',
@@ -18,6 +17,8 @@ let g:lightline = {
       \ }
 "      \ 'separator': { 'left': "\u2b80", 'right': "\u2b82" },
 "      \ 'subseparator': { 'left': "\u2b81", 'right': "\u2b83" }
+
+"      \   'fugitive': 'MyFugitive',
 
 function! MyModified()
   return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'

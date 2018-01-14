@@ -7,8 +7,13 @@ repo = 'thinca/vim-splash'
 repo = 'Shougo/dein.vim'
 hook_add = 'source ~/.vim/rc/plugins/plugin-dein.vim'
 
+#[[plugins]]
+#repo = 'Shougo/unite.vim'
+
 [[plugins]]
-repo = 'Shougo/unite.vim'
+repo = 'Shougo/denite.nvim'
+if   = '''has('nvim')'''
+hook_post_update = ':UpdateRemotePlugins'
 
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'

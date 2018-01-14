@@ -1,7 +1,12 @@
 # environment variable
+case `uname` in
+    Darwin)
+        export PATH="$PATH:/Library/TeX/texbin"
+        ;;
+esac
 export PATH="$PATH:$PSPDEV/bin:$HOME/bin"
 export PATH="$PATH:$VITASDK/bin"
-which ruby > /dev/null 2>&1  && export PATH="$(ruby -rubygems -e "puts Gem.user_dir")/bin:$PATH"
+which ruby > /dev/null 2>&1  && export PATH="$(ruby -rrubygems -e "puts Gem.user_dir")/bin:$PATH"
 export PATH="/home/orumin/.cabal/bin:$PATH"
 export PATH="/usr/lib/ccache/bin:$PATH"
 export PATH="/usr/share/git/diff-highlight:$PATH"
@@ -319,6 +324,18 @@ EOF
         -V documentclass=ltjsarticle \
         -V classoption=10.5ptj -V classoption=a4paper \
         -o $5
+}
+
+#
+# appendix
+#
+
+fizzbuzz() {
+    seq $1 | sed '5~5s/.*/Buzz/' | sed '3~3s/[0-9]*/Fizz/'
+}
+
+prime() {
+    seq 2 $1 | factor | awk '$0*=!$3'
 }
 
 #
