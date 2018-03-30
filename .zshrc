@@ -21,6 +21,9 @@ export MANPATH="$MANPATH:/opt/pspsdk/man:/opt/pspsdk/psp/man:/opt/pspsdk/psp/sha
 
 which rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
 
+# OCaml OPAM
+[ -f ~/.opam/opam-init/init.zsh ] && . $HOME/.opam/opam-init/init.zsh /dev/null 2> /dev/null || true
+
 # other environment variable
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
@@ -338,47 +341,47 @@ prime() {
     seq 2 $1 | factor | awk '$0*=!$3'
 }
 
+##
+## setting city by geoiplookup
+##
 #
-# setting city by geoiplookup
+#if [ "ping not found" = "$(which ping)" ]; then
+#    if [ "ping4 not found" != "$(which ping4)" ]; then PING=ping4;
+#    else export CITY=Tokyo
+#    fi
+#elif [ "Darwin" = "$(uname)" ]; then PING=ping;
+#elif [ -z "$(ping 2>&1 | grep 'ping -6')" ]; then PING=ping;
+#else PING=ping && PING_OPT=-4
+#fi
 #
-
-if [ "ping not found" = "$(which ping)" ]; then
-    if [ "ping4 not found" != "$(which ping4)" ]; then PING=ping4;
-    else export CITY=Tokyo
-    fi
-elif [ "Darwin" = "$(uname)" ]; then PING=ping;
-elif [ -z "$(ping 2>&1 | grep 'ping -6')" ]; then PING=ping;
-else PING=ping && PING_OPT=-4
-fi
-
-if [ -z "$CITY" ]; then
-    $PING $PING_OPT google.com -c 1 -W 3 >> /dev/null
-    if [ $? -eq 0 ] && [ -e /usr/bin/geoiplookup ] && [ -e /usr/bin/dig ]; then
-#        export CITY=$(echo $(geoiplookup $(curl -s4 inet-ip.info) | grep City | awk -F , '{print $4}'))
-#        export CITY=$( curl -s4 ipinfo.io | grep city | cut -d: -f 3 | sed -e 's/ *"\(.*\)",/\1/' )
-        PUBLIC_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
-        if [ -z "$PUBLIC_IP" ]; then
-            export CITY=$( curl -s4 ipinfo.io | grep city | cut -d: -f 3 | sed -e 's/ *"\(.*\)",/\1/' )
-        else
-            export CITY=$(echo $(geoiplookup $(dig +short myip.opendns.com @resolver1.opendns.com) | grep City | awk -F , '{print $4}'))
-        fi
-        if [ "$CITY" = "N/A" ] || [ "$CITY" = "" ] ; then
-            export CITY=Tokyo
-        fi
-    else
-        export CITY=Tokyo
-    fi
-fi
+#if [ -z "$CITY" ]; then
+#    $PING $PING_OPT google.com -c 1 -W 3 >> /dev/null
+#    if [ $? -eq 0 ] && [ -e /usr/bin/geoiplookup ] && [ -e /usr/bin/dig ]; then
+##        export CITY=$(echo $(geoiplookup $(curl -s4 inet-ip.info) | grep City | awk -F , '{print $4}'))
+##        export CITY=$( curl -s4 ipinfo.io | grep city | cut -d: -f 3 | sed -e 's/ *"\(.*\)",/\1/' )
+#        PUBLIC_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
+#        if [ -z "$PUBLIC_IP" ]; then
+#            export CITY=$( curl -s4 ipinfo.io | grep city | cut -d: -f 3 | sed -e 's/ *"\(.*\)",/\1/' )
+#        else
+#            export CITY=$(echo $(geoiplookup $(dig +short myip.opendns.com @resolver1.opendns.com) | grep City | awk -F , '{print $4}'))
+#        fi
+#        if [ "$CITY" = "N/A" ] || [ "$CITY" = "" ] ; then
+#            export CITY=Tokyo
+#        fi
+#    else
+#        export CITY=Tokyo
+#    fi
+#fi
 
 #
 # Include other files
 #
 
-[ -f ~/.zshrc.utils ] && source ~/.zshrc.utils
-[ -f ~/.zshrc.search ] && source ~/.zshrc.search
-[ -f ~/.zshrc.tmux ] && source ~/.zshrc.tmux
-[ -f ~/.zshrc.vimode ] && source ~/.zshrc.vimode
-[ -f ~/alias-sradio.txt ] && source ~/alias-sradio.txt
-[ -f ~/zsh_plugin/zaw/zaw.zsh ] && source ~/zsh_plugin/zaw/zaw.zsh
+[ -f ~/.zshrc.utils ] && source ~/.zshrc.utils || true
+[ -f ~/.zshrc.search ] && source ~/.zshrc.search || true
+[ -f ~/.zshrc.tmux ] && source ~/.zshrc.tmux || true
+[ -f ~/.zshrc.vimode ] && source ~/.zshrc.vimode || true
+[ -f ~/alias-sradio.txt ] && source ~/alias-sradio.txt || true
+#[ -f ~/zsh_plugin/zaw/zaw.zsh ] && source ~/zsh_plugin/zaw/zaw.zsh || true
 
 #vim:set ft=zsh:
