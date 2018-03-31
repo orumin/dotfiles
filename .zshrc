@@ -373,6 +373,14 @@ prime() {
 #    fi
 #fi
 
+# create tmp directory for openSUSE with WSL
+
+vendor=$(uname -r | awk -F- '{print $3}')
+dist_name=$(grep '^NAME=' /etc/os-release | awk -F\" '{print $2}')
+if [ $vendor = "Microsoft" ] && [ $dist_name = "openSUSE Leap" ] && [ ! -d /var/run/systemd ]; then
+    systemd-tmpfiles --create
+fi
+
 #
 # Include other files
 #
