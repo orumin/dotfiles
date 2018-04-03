@@ -1,6 +1,6 @@
-if [ $(which vim) ]; then
+if [ "$(which vim)" ]; then
     export EDITOR=vim
-elif [ $(which nvim) ]; then
+elif [ "$(which nvim)" ]; then
     export EDITOR=nvim
 else
     export EDITOR=vi
