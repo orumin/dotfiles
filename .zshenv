@@ -1,4 +1,10 @@
-export EDITOR=nvim
+if [ $(which vim) ]; then
+    export EDITOR=vim
+elif [ $(which nvim) ]; then
+    export EDITOR=nvim
+else
+    export EDITOR=vi
+fi
 export PAGER=less
 export LV="-Ou8 -c -l"
 export BLOCKSIZE=K
