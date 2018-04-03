@@ -12,8 +12,8 @@ export PATH="/usr/lib/ccache/bin:$PATH"
 export PATH="/usr/share/git/diff-highlight:$PATH"
 #export PATH="$HOME/.cargo/bin:$PATH"
 #export PATH="/usr/lib/smlnj/bin:$PATH"
-if [ -n "$(echo $PATH | grep Gentoo)" ]; then
-    export PATH="$PATH:/sbin"
+if [ -n "$(echo $PATH | grep Gentoo)" ] || [ "$(uname -r | awk -F- '{print $2}')" = "gentoo" ]; then
+    export PATH="$PATH:/usr/sbin:/sbin"
 fi
 export MANPATH="/usr/share/man/ja:/usr/share/man:/usr/local/man:/usr/local/share/man"
 export MANPATH="$MANPATH:/usr/i486-mingw32/share/man:/opt/qt/man"
