@@ -1,0 +1,2 @@
+bind C-c run "tmux save-buffer - | xsel --clipboard --input"
+bind C-v run "xsel --clipboard --output | tmux load-buffer - && tmux paste-buffer"

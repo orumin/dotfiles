@@ -9,6 +9,8 @@ export PAGER=less
 export LV="-Ou8 -c -l"
 export BLOCKSIZE=K
 
+export MINICOM="-l -L -w -c on -a on"
+
 case `uname` in
     Linux)
     export BROWSER=vivaldi-snapshot

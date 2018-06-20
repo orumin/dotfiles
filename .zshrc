@@ -80,7 +80,7 @@ setopt complete_aliases
 alias h='history 25'
 alias j='jobs -l'
 
-GCC_VERSION=$(gcc -dumpversion | awk -F. '{printf "%2d%02d%02d", $1,$2,$3}')
+which gcc > /dev/null 2>&1 && GCC_VERSION=$(gcc -dumpversion | awk -F. '{printf "%2d%02d%02d", $1,$2,$3}')
 
 alias grep='grep --color=auto'
 
@@ -116,7 +116,7 @@ case `uname` in
         # set dircolors
         if [ -e ~/.dir_colors ]; then
             eval `dircolors -b ~/.dir_colors`
-        else
+        elif [ "$LS_COLORS" = '' ]; then
             export LS_COLORS='no=00:fi=00:di=01;35:ln=01;36:pi=40;33:so=01;32:do=01;32:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.cmd=01;32:*.exe=01;32:*.com=01;32:*.btm=01;32:*.bat=01;32:*.sh=01;32:*.csh=01;32:*.tar=01;31:*.tgz=01;31:*.svgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;33:*.jpeg=01;33:*.gif=01;33:*.bmp=01;33:*.pbm=01;33:*.pgm=01;33:*.ppm=01;33:*.tga=01;33:*.xbm=01;33:*.xpm=01;33:*.tif=01;33:*.tiff=01;33:*.png=01;33:*.svg=01;33:*.mng=01;33:*.pcx=01;33:*.mov=01;33:*.mpg=01;33:*.mpeg=01;33:*.m2v=01;33:*.mkv=01;33:*.ogm=01;33:*.mp4=01;33:*.m4v=01;33:*.mp4v=01;33:*.vob=01;33:*.qt=01;33:*.nuv=01;33:*.wmv=01;33:*.asf=01;33:*.rm=01;33:*.rmvb=01;33:*.flc=01;33:*.avi=01;33:*.fli=01;33:*.gl=01;33:*.dl=01;33:*.xcf=01;33:*.xwd=01;33:*.yuv=01;33:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:'
         fi
         ;;
@@ -126,8 +126,10 @@ if [ -n "$XDG_CURRENT_DESKTOP" ] && [ "$XDG_CURRENT_DESKTOP" = "GNOME" ]; then
     alias xdg-open='gio open'
 fi
 
-[ -f /usr/bin/nvim ] && alias vim='nvim'
-alias tmux='env TERM=xterm-256color tmux'
+which nvim > /dev/null 2>&1 && alias vim='nvim'
+if $(echo `tty | sed -e 's/\/dev\///'` | grep pty > /dev/null ) ; then
+    alias tmux='env TERM=xterm-256color tmux'
+fi
 
 alias la='ls -aF'
 alias lf='ls -FA'
@@ -376,7 +378,11 @@ prime() {
 # create tmp directory for openSUSE with WSL
 
 vendor=$(uname -r | awk -F- '{print $3}')
-dist_name=$(grep '^NAME=' /etc/os-release | awk -F\" '{print $2}')
+if [ -f /etc/os-release ]; then
+    dist_name=$(grep '^NAME=' /etc/os-release | awk -F\" '{print $2}')
+else
+    dist_name="none"
+fi
 if [[ "$vendor" == "Microsoft" ]] && [[ "$dist_name" == "openSUSE Leap" ]] && [ ! -d /var/run/systemd ]; then
     systemd-tmpfiles --create
 fi
