@@ -400,4 +400,6 @@ fi
 [ -f ~/alias-sradio.txt ] && source ~/alias-sradio.txt || true
 #[ -f ~/zsh_plugin/zaw/zaw.zsh ] && source ~/zsh_plugin/zaw/zaw.zsh || true
 
+which resize > /dev/null 2>&1 && resize
+
 #vim:set ft=zsh:
