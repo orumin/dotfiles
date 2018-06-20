@@ -262,6 +262,27 @@ update_prompt(){
 
 precmd_functions=($precmd_functions update_prompt)
 
+#
+# resize console
+#
+
+rsz() {
+	if [[ -t 0 && $# -eq 0 ]];then
+		local IFS='[;' escape geometry x y
+		print -n '\e7\e[r\e[999;999H\e[6n\e8'
+		read -sd R escape geometry
+		x=${geometry##*;} y=${geometry%%;*}
+		if [[ ${COLUMNS} -eq ${x} && ${LINES} -eq ${y} ]];then
+			print "${TERM} ${x}x${y}"
+		else
+			print "${COLUMNS}x${LINES} -> ${x}x${y}"
+			stty cols ${x} rows ${y}
+		fi
+	else
+		[[ -n ${commands[repo-elephant]} ]] && repo-elephant || print 'Usage: rsz'  ## Easter egg here :)
+	fi
+}
+
 
 #
 # Colored man page
@@ -400,6 +421,6 @@ fi
 [ -f ~/alias-sradio.txt ] && source ~/alias-sradio.txt || true
 #[ -f ~/zsh_plugin/zaw/zaw.zsh ] && source ~/zsh_plugin/zaw/zaw.zsh || true
 
-which resize > /dev/null 2>&1 && resize
+rsz
 
 #vim:set ft=zsh:
