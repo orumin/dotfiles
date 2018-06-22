@@ -1,3 +1,4 @@
 .vim/bundle
 .vim/backup
+.vim/colors
 .vim/init.vim

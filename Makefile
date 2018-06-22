@@ -8,7 +8,7 @@ NVIM_PATH      = $(CONFIG_DIR)/nvim
 INIT_VIM_PATH  = $(NVIM_PATH)/init.vim
 
 NVIM_BACKUP_PATH = $(NVIM_PATH)/backup
-NVIM_COLOR_PATH  = $(NVIM_PATH)/color
+NVIM_COLOR_PATH  = $(NVIM_PATH)/colors
 
 VIM_COLOR_SCHEME_ORIG = $(NVIM_PATH)/bundle/repos/github.com/apribase/ap_dark8/ap_dark8.vim
 VIM_COLOR_SCHEME_TARG = $(NVIM_COLOR_PATH)/ap_dark8.vim
