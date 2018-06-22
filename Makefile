@@ -7,16 +7,43 @@ CONFIG_DIR     = $(HOME)/.config
 NVIM_PATH      = $(CONFIG_DIR)/nvim
 INIT_VIM_PATH  = $(NVIM_PATH)/init.vim
 
-list:
-	@$(foreach val, $(DOTFILES), /bin/ls -dF $(val);)
+NVIM_BACKUP_PATH = $(NVIM_PATH)/backup
+NVIM_COLOR_PATH  = $(NVIM_PATH)/color
 
-init:
-	@test -d $(CONFIG_DIR) || mkdir $(CONFIG_DIR)
-	@test -L $(NVIM_PATH) || ln -sfnv $(HOME)/.vim $(NVIM_PATH)
-	@test -d $(NVIM_PATH)/backup || mkdir $(NVIM_PATH)/backup
-	@test -L $(INIT_VIM_PATH) || ln -sfnv $(HOME)/.vimrc $(INIT_VIM_PATH)
+VIM_COLOR_SCHEME_ORIG = $(NVIM_PATH)/bundle/repos/github.com/apribase/ap_dark8/ap_dark8.vim
+VIM_COLOR_SCHEME_TARG = $(NVIM_COLOR_PATH)/ap_dark8.vim
 
-deploy:
+.PHONY: deploy init list
+
+$(CONFIG_DIR):
+	mkdir -p $@
+
+$(NVIM_PATH):
+	ln -sfnv $(PWD)/.vim $@
+
+$(NVIM_BACKUP_PATH): | $(NVIM_PATH)
+	mkdir -p $@
+
+$(NVIM_COLOR_PATH): | $(NVIM_PATH)
+	mkdir -p $@
+
+$(INIT_VIM_PATH): | $(NVIM_PATH)
+	ln -sfnv $(HOME)/.vimrc $@
+
+$(VIM_COLOR_SCHEME_TARG): | $(NVIM_COLOR_PATH)
+	ln -sfnv $(VIM_COLOR_SCHEME_ORIG) $@
+
+deploy: init
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 	@$(foreach val, $(XDG_CONFIGS), ln -sfnv $(abspath $(val)) $(CONFIG_DIR)/$(val);)
 
+init: $(CONFIG_DIR) $(INIT_VIM_PATH) $(NVIM_BACKUP_PATH) $(VIM_COLOR_SCHEME_TARG)
+
+uninstall:
+	@unlink $(INIT_VIM_PATH)
+	@unlink $(NVIM_PATH)
+	@$(foreach val, $(DOTFILES), unlink $(HOME)/$(val);)
+	@$(foreach val, $(XDG_CONFIGS), unlink $(CONFIG_DIR)/$(val);)
+
+list:
+	@$(foreach val, $(DOTFILES), /bin/ls -dF $(val);)
