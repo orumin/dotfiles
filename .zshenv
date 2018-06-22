@@ -10,9 +10,6 @@ export LV="-Ou8 -c -l"
 export BLOCKSIZE=K
 
 export MINICOM="-l -L -w -c on -a on"
-if $(echo `tty | sed -e 's/\/dev\///'` | grep ttyS > /dev/null ) ; then
-    export TERM=xterm-256color
-fi
 
 case `uname` in
     Linux)
