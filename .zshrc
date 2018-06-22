@@ -421,6 +421,8 @@ fi
 [ -f ~/alias-sradio.txt ] && source ~/alias-sradio.txt || true
 #[ -f ~/zsh_plugin/zaw/zaw.zsh ] && source ~/zsh_plugin/zaw/zaw.zsh || true
 
-rsz
+if $(echo `tty | sed -e 's/\/dev\///'` | grep ttyS > /dev/null ) ; then
+    rsz
+fi
 
 #vim:set ft=zsh:
