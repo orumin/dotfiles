@@ -36,12 +36,12 @@ hook_post_update = ':UpdateRemotePlugins'
 # grammer checker ( need Java runtime for LanguageTool )
 [[plugins]]
 repo       = 'rhysd/vim-grammarous'
-on_ft      = ['rst', 'markdown', 'pandoc', 'gitrebase', 'gitcommit', 'vcs-commit', 'hybrid', 'text', 'help', 'tex']
+on_ft      = ['rst', 'markdown', 'asciidoc', 'pandoc', 'gitrebase', 'gitcommit', 'vcs-commit', 'hybrid', 'text', 'help', 'tex']
 
 # translation
 [[plugins]]
 repo       = 'daisuzu/translategoogle.vim'
-on_ft      = ['rst', 'markdown', 'pandoc', 'gitrebase', 'gitcommit', 'vcs-commit', 'hybrid', 'text', 'help', 'tex']
+on_ft      = ['rst', 'markdown', 'asciidoc', 'pandoc', 'gitrebase', 'gitcommit', 'vcs-commit', 'hybrid', 'text', 'help', 'tex']
 hook_add   = 'source ~/.vim/rc/plugins/plugin-translategoogle.vim'
 
 # Plant UML
@@ -52,7 +52,12 @@ on_ft      = ['uml', 'plantuml']
 # writing table in plain text
 [[plugins]]
 repo       = 'dhruvasagar/vim-table-mode'
-on_ft      = ['rst', 'markdown', 'pandoc', 'gitrebase', 'gitcommit', 'vcs-commit', 'hybrid', 'text', 'help', 'tex']
+on_ft      = ['rst', 'markdown', 'asciidoc', 'pandoc', 'gitrebase', 'gitcommit', 'vcs-commit', 'hybrid', 'text', 'help', 'tex']
+
+# AsciiDoc
+[[plugins]]
+repo       = 'asciidoc/vim-asciidoc'
+on_ft      = ['asciidoc']
 
 # TeX
 [[plugins]]
