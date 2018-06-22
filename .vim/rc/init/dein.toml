@@ -42,6 +42,9 @@ repo = 'vim-scripts/sudo.vim'
 [[plugins]]
 repo = 'jacoborus/tender.vim'
 
+[[plugins]]
+repo = 'apribase/ap_dark8'
+
 # tags
 [[plugins]]
 repo = '5t111111/alt-gtags.vim'

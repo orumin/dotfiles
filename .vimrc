@@ -14,7 +14,13 @@ endif
 runtime! rc/init/*.vim
 "runtime! rc/plugins/*.vim
 
-colorscheme tender
+let colornum = system("tput colors")
+
+if colornum < 256
+    colorscheme ap_dark8
+else
+    colorscheme tender
+endif
 "colorscheme japanesque
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
