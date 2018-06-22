@@ -17,9 +17,9 @@ runtime! rc/init/*.vim
 let colornum = system("tput colors")
 
 if colornum < 256
-    colorscheme ap_dark8
+    silent! colorscheme ap_dark8
 else
-    colorscheme tender
+    silent! colorscheme tender
 endif
 "colorscheme japanesque
 
