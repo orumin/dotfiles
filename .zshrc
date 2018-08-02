@@ -210,7 +210,7 @@ setopt pushd_ignore_dups # no pushing duplicate directory
 
 # control job
 #
-setopt autoresume # resume job type job's initial
+setopt autoresume # resume job type job\'s initial
 setopt longlistjobs # use long formant for job list
 setopt notify # quick display background job status
 
@@ -283,6 +283,11 @@ rsz() {
 	fi
 }
 
+#
+# print system info
+#
+
+neofetch() {curl -s https://raw.githubusercontent.com/dylanaraps/neofetch/master/neofetch | bash}
 
 #
 # Colored man page
