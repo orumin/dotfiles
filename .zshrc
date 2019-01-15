@@ -40,6 +40,8 @@ fpath+=$HOME/.zfunc
 
 [ -f ~/.zshrc.color ] && source ~/.zshrc.color
 
+vendor=$(uname -r | awk -F- '{print $3}')
+
 # most necesary setting
 autoload -U compinit promptinit 
 compinit promptinit 
@@ -153,8 +155,23 @@ alias info='info --vi-keys'
 alias verynice='ionice -c3 nice -n 15'
 alias maxima='rlwrap maxima'
 alias luajitlatex='luajittex --fmt=luajitlatex.fmt'
-alias clipin='xsel --clipboard --input'
-alias clipout='xsel --clipboard --output'
+
+case  `uname` in
+    Linux)
+        if [[ "$vendor" == "Microsoft" ]]; then
+            alias clipin='/mnt/c/tools/win32yank/win32yank.exe -i' 
+            alias clipout='/mnt/c/tools/win32yank/win32yank.exe -o' 
+        else
+            alias clipin='xsel --clipboard --input'
+            alias clipout='xsel --clipboard --output'
+        fi
+    ;;
+    Darwin)
+        alias clipin='pbcopy'
+        alias clipout='pbpaste'
+    ;;
+esac
+
 alias chkccopt="gcc -march=native -E -v - </dev/null 2>&1 | sed -n 's/.* -v - //p'"
 alias chkccdef="echo | gcc -E -xc -dM - | sort | uniq"
 #echo | gcc -E -v -march=native - 2>&1 | sed '/march/!d;s/.*\(-march\)/\1/'
@@ -405,7 +422,6 @@ prime() {
 
 # create tmp directory for openSUSE with WSL
 
-vendor=$(uname -r | awk -F- '{print $3}')
 if [ -f /etc/os-release ]; then
     dist_name=$(grep '^NAME=' /etc/os-release | awk -F\" '{print $2}')
 else
