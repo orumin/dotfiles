@@ -4,6 +4,7 @@ DOTFILES       = $(filter-out $(EXCLUDE_FILES), $(INSTALL_TARGET))
 XDG_CONFIGS	   = mpv
 
 CONFIG_DIR     = $(HOME)/.config
+FISH_PATH	   = $(CONFIG_DIR)/fish
 NVIM_PATH      = $(CONFIG_DIR)/nvim
 INIT_VIM_PATH  = $(NVIM_PATH)/init.vim
 
@@ -30,6 +31,9 @@ $(NVIM_COLOR_PATH): | $(NVIM_PATH)
 $(INIT_VIM_PATH): | $(NVIM_PATH)
 	ln -sfnv $(HOME)/.vimrc $@
 
+$(FISH_PATH):
+	ln -sfnv $(PWD)/fish $@
+
 $(VIM_COLOR_SCHEME_TARG): | $(NVIM_COLOR_PATH)
 	ln -sfnv $(VIM_COLOR_SCHEME_ORIG) $@
 
@@ -37,7 +41,7 @@ deploy: init
 	@$(foreach val, $(DOTFILES), ln -sfnv $(abspath $(val)) $(HOME)/$(val);)
 	@$(foreach val, $(XDG_CONFIGS), ln -sfnv $(abspath $(val)) $(CONFIG_DIR)/$(val);)
 
-init: $(CONFIG_DIR) $(INIT_VIM_PATH) $(NVIM_BACKUP_PATH) $(VIM_COLOR_SCHEME_TARG)
+init: $(CONFIG_DIR) $(INIT_VIM_PATH) $(NVIM_BACKUP_PATH) $(VIM_COLOR_SCHEME_TARG) $(FISH_PATH)
 
 uninstall:
 	@unlink $(INIT_VIM_PATH)
