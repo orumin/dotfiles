@@ -8,6 +8,7 @@ fi
 export PAGER=less
 export LV="-Ou8 -c -l"
 export BLOCKSIZE=K
+export VIRSH_DEFAULT_CONNECT_URI=qemu:///system
 
 export MINICOM="-l -L -w -c on -a on"
 
@@ -23,6 +24,8 @@ case `uname` in
 
     export GDK_USE_XFT=0
     export QT_XFT=false
+    export MOZ_USE_XINPUT2=1
+    #export QT_QPA_PLATFORM=wayland
 
     export VTE_CJK_WIDTH=auto
 
