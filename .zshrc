@@ -2,6 +2,15 @@
 case `uname` in
     Darwin)
         export PATH="$PATH:/Library/TeX/texbin"
+        export PATH="$PATH:/Applications/Adobe Acrobat DC/Adobe Acrobat.app/Contents/MacOS/"
+        export PATH="$PATH:/Applications/Skim.app/Contents/MacOS/"
+        export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS/"
+        export PATH="$PATH:/Applications/Google Chrome.app/Contents/MacOS/"
+        export PATH="$PATH:/Applications/Vivaldi.app/Contents/MacOS/"
+        export PATH="$PATH:/Applications/VirtualBox.app/Contents/MacOS/"
+        export PATH="$PATH:/Applications/Wine Staging.app/Contents/Resources/wine/bin/"
+        export PATH="/usr/local/opt/inetutils/libexec/gnubin:$PATH"
+        export MANPATH="/usr/local/opt/inetutils/libexec/gnuman:$MANPATH"
         ;;
 esac
 export PATH="$PATH:$PSPDEV/bin:$HOME/bin"

@@ -11,4 +11,4 @@ $ps2pdf = 'ps2pdf %O %S %D';
 $pdf_mode = 3;
 $makeindex = 'mendex %O -o %D %S';
 $max_repaet = 3;
-$pdf_previewer = 'xdg-open';
+#$pdf_previewer = 'xdg-open';
