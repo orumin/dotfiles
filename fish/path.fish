@@ -1,6 +1,6 @@
 set ostype (uname)
 
-if test $ostype=Darwin
+if test $ostype = "Darwin"
     set -x PATH $PATH "/Library/TeX/texbin"
     set -x PATH $PATH "/Applications/Adobe Acrobat DC/Adobe Acrobat.app/Contents/MacOS/"
     set -x PATH $PATH "/Applications/Skim.app/Contents/MacOS/"
@@ -28,7 +28,7 @@ set -x PATH "/usr/share/git/diff-highlight" $PATH ^/dev/null
 #set -x PATH "/usr/lib/smlnj/bin" $PATH
 
 if test -n (echo $PATH | grep Gentoo)
-    or test (uname -r | awk -F- '{print $2}')="gentoo"
+    or test (uname -r | awk -F- '{print $2}') = "gentoo"
     set -x PATH $PATH "/usr/sbin" "/sbin"
 end
 
