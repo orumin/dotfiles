@@ -4,3 +4,4 @@
 .vim/dict
 .vim/init.vim
 fish/fishd.*
+fish/fish_variables

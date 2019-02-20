@@ -15,5 +15,8 @@ source $HOME/.config/fish/lscolors.fish
 # aliases
 source $HOME/.config/fish/alias.fish
 
+# colors
+source $HOME/.config/fish/color.fish
+
 set fish_greeting
 
