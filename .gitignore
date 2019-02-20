@@ -1,5 +1,6 @@
 .vim/bundle
 .vim/backup
 .vim/colors
+.vim/dict
 .vim/init.vim
 fish/fishd.*
