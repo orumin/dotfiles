@@ -26,12 +26,12 @@ on_i       = 1
 repo       = 'ujihisa/neco-look'
 on_i       = 1
 
-# complation, renaming, getting symbol definition, formatting, etc
-[[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-if         = '''has('nvim')'''
-hook_add = 'source ~/.vim/rc/plugins/plugin-LanguageClient-neovim.vim'
-hook_post_update = ':UpdateRemotePlugins'
+## complation, renaming, getting symbol definition, formatting, etc
+#[[plugins]]
+#repo = 'autozimu/LanguageClient-neovim'
+#if         = '''has('nvim')'''
+#hook_add = 'source ~/.vim/rc/plugins/plugin-LanguageClient-neovim.vim'
+#hook_post_update = ':UpdateRemotePlugins'
 
 # grammer checker ( need Java runtime for LanguageTool )
 [[plugins]]
@@ -43,6 +43,10 @@ on_ft      = ['rst', 'markdown', 'asciidoc', 'pandoc', 'gitrebase', 'gitcommit',
 repo       = 'daisuzu/translategoogle.vim'
 on_ft      = ['rst', 'markdown', 'asciidoc', 'pandoc', 'gitrebase', 'gitcommit', 'vcs-commit', 'hybrid', 'text', 'help', 'tex']
 hook_add   = 'source ~/.vim/rc/plugins/plugin-translategoogle.vim'
+
+# fish shell
+repo       = 'dag/vim-fish'
+on_ft      = ['fish']
 
 # Plant UML
 [[plugins]]

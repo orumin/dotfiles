@@ -19,14 +19,8 @@ hook_post_update = ':UpdateRemotePlugins'
 repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
-repo = 'Shougo/vimfiler'
-
-[[plugins]]
 repo = 'Shougo/vimproc'
 build   = 'make'
-
-[[plugins]]
-repo = 'thinca/vim-quickrun'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
@@ -35,27 +29,13 @@ hook_add = 'source ~/.vim/rc/plugins/plugin-lightline.vim'
 [[plugins]]
 repo = 'Shougo/vinarise'
 
-[[plugins]]
-repo = 'vim-scripts/sudo.vim'
-
 # color scheme
 [[plugins]]
 repo = 'jacoborus/tender.vim'
 
-[[plugins]]
-repo = 'apribase/ap_dark8'
-
 # tags
 [[plugins]]
 repo = '5t111111/alt-gtags.vim'
-
-# doc
-[[plugins]]
-repo = 'vim-jp/vimdoc-ja'
-
-# git
-[[plugins]]
-repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'miyakogi/seiya.vim'
@@ -69,6 +49,17 @@ hook_add = 'source ~/.vim/rc/plugins/plugin-vim-pandoc.vim'
 [[plugins]]
 repo      = 'vim-pandoc/vim-pandoc-syntax'
 
+# syntax checker
+[[plugins]]
+repo       = 'w0rp/ale'
+if         = '''has('nvim') || has('job') && has('channel') && has('timers')'''
+hook_add   = 'source ~/.vim/rc/plugins/plugin-ale.vim'
+
+[[plugins]]
+repo       = 'vim-syntastic/syntastic'
+if         = '''!has('job') || !has('channel') || !has('timers')'''
+hook_add   = 'source ~/.vim/rc/plugins/plugin-syntastic.vim'
+
 # ime
 [[plugins]]
 repo = 'tyru/eskk.vim'
@@ -78,11 +69,6 @@ hook_add = 'source ~/.vim/rc/plugins/plugin-eskk.vim'
 [[plugins]]
 repo = 'nathanaelkane/vim-indent-guides'
 hook_add = 'source ~/.vim/rc/plugins/plugin-indent-guides.vim'
-
-# syntax checker
-[[plugins]]
-repo = 'vim-syntastic/syntastic'
-hook_add = 'source ~/.vim/rc/plugins/plugin-syntastic.vim'
 
 # english words dictionary
 [[plugins]]
