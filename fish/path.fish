@@ -13,8 +13,8 @@ if test $ostype = "Darwin"
     set -x MANPATH "/usr/local/opt/inetutils/libexec/gnuman" $MANPATH
 end
 
-set -x PATH $PATH "$PSPDEV/bin" "$HOME/bin"
-set -x PATH $PATH "$VITASDK/bin"
+set -x PATH $PATH "$PSPDEV/bin" "$HOME/bin" ^/dev/null
+set -x PATH $PATH "$VITASDK/bin" ^/dev/null
 
 if type -q -f ruby
     set -x PATH (ruby -rrubygems -e "puts Gem.user_dir")/bin $PATH
