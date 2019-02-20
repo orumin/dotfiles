@@ -2,3 +2,4 @@
 .vim/backup
 .vim/colors
 .vim/init.vim
+fish/fishd.*
