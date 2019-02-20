@@ -29,7 +29,7 @@ set -x PATH "/usr/share/git/diff-highlight" $PATH
 
 if test -n (echo $PATH | grep Gentoo)
     or test (uname -r | awk -F- '{print $2}')="gentoo"
-    set -x PATH $PATH "/usr/sbin:/sbin"
+    set -x PATH $PATH "/usr/sbin" "/sbin"
 end
 
 set -x MANPATH "/usr/share/man/ja" "/usr/share/man" "/usr/local/man" "/usr/local/share/man"
