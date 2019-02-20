@@ -1,6 +1,6 @@
-if test -n $XDG_CURRENT_DESKTOP
-    and test $XDG_CURRENT_DESKTOP="GNOME"
-    alias xdg-open='gio open'
+if test -n "$XDG_CURRENT_DESKTOP"
+    and test "$XDG_CURRENT_DESKTOP"="GNOME"
+    alias xdg-open="gio open"
 end
 
 if type -q nvim
