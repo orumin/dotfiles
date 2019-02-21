@@ -12,11 +12,10 @@ function fish_prompt --description 'Write out the prompt'
     if echo $PATH | grep Gentoo > /dev/null
         _append left_prompt (echo_color -b $bg_color $fish_color_host 'Gentoo on ')
     end
-    if test -n "$SSH_CONNECTION"
-        _append left_prompt (echo_color -b $bg_color -u -o yellow (prompt_hostname))
-    else
-        _append left_prompt (echo_color -b $bg_color -o $fish_color_host (prompt_hostname))
+    if set -q SSH_TTY
+        set -g fish_color_host \x2du yellow
     end
+    _append left_prompt (echo_color -b $bg_color -o $prompt_tty_opt $fish_color_host (prompt_hostname))
 
     # tty
     set -l prompttty (tty | sed -e 's|/dev/||')

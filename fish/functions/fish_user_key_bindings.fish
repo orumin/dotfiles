@@ -6,6 +6,7 @@ function fish_user_key_bindings
         bind -M $mode \cn down-or-search
     end
     
+    bind -M insert \cb backward-char
     bind -M insert \cf forward-char
     bind -M insert \ef forward-word
 
