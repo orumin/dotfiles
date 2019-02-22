@@ -26,6 +26,11 @@ case `uname` in
     export QT_XFT=false
     export MOZ_USE_XINPUT2=1
     #export QT_QPA_PLATFORM=wayland
+    if [ "$XDG_CURRENT_DESKTOP" = "GNOME" ]; then
+        export QT_AUTO_SCREEN_SCALE_FACTOR=0
+        export QT_SCREEN_SCALE_FACTORS=1
+        export QT_SCALE_FACTOR=1.25
+    fi
 
     export VTE_CJK_WIDTH=auto
 
