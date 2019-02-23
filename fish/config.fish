@@ -19,4 +19,6 @@ source $HOME/.config/fish/alias.fish
 source $HOME/.config/fish/color.fish
 
 set fish_greeting
+set fish_emoji_width 2
+set fish_amiguous_width 2
 
