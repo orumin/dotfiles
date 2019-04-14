@@ -37,9 +37,9 @@ set ostype (uname)
 set vendor (uname -r | awk -F- '{print $3}')
 switch $ostype
     case Linux
-        if test "$vendor" = "Microsoft"
-            alias clipin='/mnt/c/tools/win32yank/win32yank.exe -i' 
-            alias clipout='/mnt/c/tools/win32yank/win32yank.exe -o' 
+        if test $vendor="Microsoft"
+            alias clipin='/mnt/c/Users/orumin/scoop/apps/win32yank/win32yank.exe -i' 
+            alias clipout='/mnt/c/Users/orumin/scoop/apps/win32yank/win32yank.exe -o' 
         else
             alias clipin='xsel --clipboard --input'
             alias clipout='xsel --clipboard --output'
