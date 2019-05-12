@@ -1,11 +1,11 @@
 #set environment variable
 
 if type -q nvim
-    set -x EDITOR=nvim
+    set -x EDITOR nvim
 else if type -q vim
-    set -x EDITOR=vim
+    set -x EDITOR vim
 else
-    set -x EDITOR=vi
+    set -x EDITOR vi
 end
 
 set -x PAGER less
