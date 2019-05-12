@@ -1,0 +1,12 @@
+[core]
+    excludesfile = /home/orumin/.gitignore_global
+[user]
+	email = dev@orum.in
+	name = orumin
+	signingkey = BDD66ECC
+[push]
+	default = simple
+[commit]
+    gpgsigne = true
+[github]
+	user = orumin
