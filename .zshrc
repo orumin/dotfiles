@@ -13,6 +13,7 @@ case `uname` in
         export MANPATH="/usr/local/opt/inetutils/libexec/gnuman:$MANPATH"
         ;;
 esac
+export PATH="$HOME/.local/bin:$PATH"
 export PATH="$PATH:$PSPDEV/bin:$HOME/bin"
 export PATH="$PATH:$VITASDK/bin"
 which ruby > /dev/null 2>&1  && export PATH="$(ruby -rrubygems -e "puts Gem.user_dir")/bin:$PATH"

@@ -13,6 +13,8 @@ if test $ostype = "Darwin"
     set -x MANPATH "/usr/local/opt/inetutils/libexec/gnuman" $MANPATH
 end
 
+set -x PATH "$HOME/.local/bin" $PATH ^/dev/null
+
 set -x PATH $PATH "$PSPDEV/bin" "$HOME/bin" ^/dev/null
 set -x PATH $PATH "$VITASDK/bin" ^/dev/null
 
@@ -21,6 +23,7 @@ if type -q -f ruby
 end
 
 set -x PATH "/home/orumin/.cabal/bin" $PATH ^/dev/null
+set -x PATH "/home/orumin/.rbenv/bin" $PATH ^/dev/null
 set -x PATH "/usr/lib/ccache/bin" $PATH ^/dev/null
 set -x PATH "/usr/share/git/diff-highlight" $PATH ^/dev/null
 
