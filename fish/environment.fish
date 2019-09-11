@@ -31,6 +31,9 @@ switch $ostype
         set -x QT_XFT false
         set -x MOZ_USE_XINPUT2 1
         #set -x QT_QPA_PLATFORM wayland
+        #set -x QT_QPA_PLATFORMTHEME qt5ct
+        set -x QT_QPA_PLATFORM xcb
+        set -x QT_QPA_PLATFORMTHEME gtk3
 
         set -x VTE_CJK_WIDTH auto
 
