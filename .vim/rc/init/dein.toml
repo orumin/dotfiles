@@ -55,11 +55,6 @@ repo       = 'w0rp/ale'
 if         = '''has('nvim') || has('job') && has('channel') && has('timers')'''
 hook_add   = 'source ~/.vim/rc/plugins/plugin-ale.vim'
 
-[[plugins]]
-repo       = 'vim-syntastic/syntastic'
-if         = '''!has('job') || !has('channel') || !has('timers')'''
-hook_add   = 'source ~/.vim/rc/plugins/plugin-syntastic.vim'
-
 # ime
 [[plugins]]
 repo = 'tyru/eskk.vim'
