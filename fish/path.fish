@@ -10,6 +10,7 @@ if test $ostype = "Darwin"
     set -x PATH $PATH "/Applications/VirtualBox.app/Contents/MacOS/"
     set -x PATH $PATH "/Applications/Wine Staging.app/Contents/Resources/wine/bin/"
     set -x PATH "/usr/local/opt/inetutils/libexec/gnubin" $PATH
+    set -x PATH "/usr/local/opt/llvm/bin" $PATH
     set -x MANPATH "/usr/local/opt/inetutils/libexec/gnuman" $MANPATH
 end
 
@@ -18,7 +19,7 @@ set -x PATH "$HOME/.local/bin" $PATH ^/dev/null
 set -x PATH $PATH "$PSPDEV/bin" "$HOME/bin" ^/dev/null
 set -x PATH $PATH "$VITASDK/bin" ^/dev/null
 
-if type -q -f ruby
+if test $ostype != "Darwin"; and type -q -f ruby
     set -x PATH (ruby -rrubygems -e "puts Gem.user_dir")/bin $PATH
 end
 
@@ -40,6 +41,8 @@ set -x MANPATH "/usr/share/man/ja" "/usr/share/man" "/usr/local/man" "/usr/local
 set -x MANPATH $MANPATH "/usr/i486-mingw32/share/man" "/opt/qt/man"
 set -x MANPATH $MANPATH "/opt/pspsdk/man" "/opt/pspsdk/psp/man" "/opt/pspsdk/psp/share/man"
 
-if type -q -f rbenv
+if test $ostype = "Darwin"
+    source ~/.rbenv_init
+else if type -q -f rbenv
     rbenv init - | source
 end

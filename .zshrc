@@ -1,38 +1,40 @@
 # environment variable
-case `uname` in
-    Darwin)
-        export PATH="$PATH:/Library/TeX/texbin"
-        export PATH="$PATH:/Applications/Adobe Acrobat DC/Adobe Acrobat.app/Contents/MacOS/"
-        export PATH="$PATH:/Applications/Skim.app/Contents/MacOS/"
-        export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS/"
-        export PATH="$PATH:/Applications/Google Chrome.app/Contents/MacOS/"
-        export PATH="$PATH:/Applications/Vivaldi.app/Contents/MacOS/"
-        export PATH="$PATH:/Applications/VirtualBox.app/Contents/MacOS/"
-        export PATH="$PATH:/Applications/Wine Staging.app/Contents/Resources/wine/bin/"
-        export PATH="/usr/local/opt/inetutils/libexec/gnubin:$PATH"
-        export MANPATH="/usr/local/opt/inetutils/libexec/gnuman:$MANPATH"
-        ;;
-esac
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$PATH:$PSPDEV/bin:$HOME/bin"
-export PATH="$PATH:$VITASDK/bin"
-which ruby > /dev/null 2>&1  && export PATH="$(ruby -rrubygems -e "puts Gem.user_dir")/bin:$PATH"
-export PATH="/home/orumin/.cabal/bin:$PATH"
-export PATH="/usr/lib/ccache/bin:$PATH"
-export PATH="/usr/share/git/diff-highlight:$PATH"
-#export PATH="$HOME/.cargo/bin:$PATH"
-#export PATH="/usr/lib/smlnj/bin:$PATH"
-if [ -n "$(echo $PATH | grep Gentoo)" ] || [ "$(uname -r | awk -F- '{print $2}')" = "gentoo" ]; then
-    export PATH="$PATH:/usr/sbin:/sbin"
+if [ -z $TMUX ]; then
+    case `uname` in
+        Darwin)
+            export PATH="$PATH:/Library/TeX/texbin"
+            export PATH="$PATH:/Applications/Adobe Acrobat DC/Adobe Acrobat.app/Contents/MacOS/"
+            export PATH="$PATH:/Applications/Skim.app/Contents/MacOS/"
+            export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS/"
+            export PATH="$PATH:/Applications/Google Chrome.app/Contents/MacOS/"
+            export PATH="$PATH:/Applications/Vivaldi.app/Contents/MacOS/"
+            export PATH="$PATH:/Applications/VirtualBox.app/Contents/MacOS/"
+            export PATH="$PATH:/Applications/Wine Staging.app/Contents/Resources/wine/bin/"
+            export PATH="/usr/local/opt/inetutils/libexec/gnubin:$PATH"
+            export MANPATH="/usr/local/opt/inetutils/libexec/gnuman:$MANPATH"
+            ;;
+    esac
+    export PATH="$HOME/.local/bin:$PATH"
+    export PATH="$PATH:$PSPDEV/bin:$HOME/bin"
+    export PATH="$PATH:$VITASDK/bin"
+    which ruby > /dev/null 2>&1  && export PATH="$(ruby -rrubygems -e "puts Gem.user_dir")/bin:$PATH"
+    export PATH="/home/orumin/.cabal/bin:$PATH"
+    export PATH="/usr/lib/ccache/bin:$PATH"
+    export PATH="/usr/share/git/diff-highlight:$PATH"
+    #export PATH="$HOME/.cargo/bin:$PATH"
+    #export PATH="/usr/lib/smlnj/bin:$PATH"
+    if [ -n "$(echo $PATH | grep Gentoo)" ] || [ "$(uname -r | awk -F- '{print $2}')" = "gentoo" ]; then
+        export PATH="$PATH:/usr/sbin:/sbin"
+    fi
+    export MANPATH="/usr/share/man/ja:/usr/share/man:/usr/local/man:/usr/local/share/man"
+    export MANPATH="$MANPATH:/usr/i486-mingw32/share/man:/opt/qt/man"
+    export MANPATH="$MANPATH:/opt/pspsdk/man:/opt/pspsdk/psp/man:/opt/pspsdk/psp/share/man"
+
+    which rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
+
+    # OCaml OPAM
+    [ -f ~/.opam/opam-init/init.zsh ] && . $HOME/.opam/opam-init/init.zsh /dev/null 2> /dev/null || true
 fi
-export MANPATH="/usr/share/man/ja:/usr/share/man:/usr/local/man:/usr/local/share/man"
-export MANPATH="$MANPATH:/usr/i486-mingw32/share/man:/opt/qt/man"
-export MANPATH="$MANPATH:/opt/pspsdk/man:/opt/pspsdk/psp/man:/opt/pspsdk/psp/share/man"
-
-which rbenv > /dev/null 2>&1 && eval "$(rbenv init -)"
-
-# OCaml OPAM
-[ -f ~/.opam/opam-init/init.zsh ] && . $HOME/.opam/opam-init/init.zsh /dev/null 2> /dev/null || true
 
 # other environment variable
 HISTFILE=~/.zsh_history
@@ -54,7 +56,8 @@ vendor=$(uname -r | awk -F- '{print $3}')
 
 # most necesary setting
 autoload -U compinit promptinit 
-compinit promptinit 
+compinit -c
+promptinit 
 
 
 ## prompt preset
