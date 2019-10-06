@@ -1,38 +1,3 @@
-# complete
-[[plugins]]
-repo       = 'Shougo/neocomplete.vim'
-on_i       = 1
-if         = '''! has('nvim') && has('lua')'''
-hook_add   = 'source ~/.vim/rc/plugins/plugin-neocomplete.vim'
-
-[[plugins]]
-repo       = 'Shougo/deoplete.nvim'
-dependes   = ['FastFold']
-on_i       = 1
-if         = '''has('nvim')'''
-hook_add   = 'source ~/.vim/rc/plugins/plugin-deoplete.vim'
-hook_post_update = ':UpdateRemotePlugins'
-
-[[plugins]]
-repo       = 'Konfekt/FastFold'
-on_i       = 1
-if         = '''has('nvim')'''
-
-[[plugins]]
-repo       = 'Shougo/neco-syntax'
-on_i       = 1
-
-[[plugins]]
-repo       = 'ujihisa/neco-look'
-on_i       = 1
-
-## complation, renaming, getting symbol definition, formatting, etc
-#[[plugins]]
-#repo = 'autozimu/LanguageClient-neovim'
-#if         = '''has('nvim')'''
-#hook_add = 'source ~/.vim/rc/plugins/plugin-LanguageClient-neovim.vim'
-#hook_post_update = ':UpdateRemotePlugins'
-
 # grammer checker ( need Java runtime for LanguageTool )
 [[plugins]]
 repo       = 'rhysd/vim-grammarous'

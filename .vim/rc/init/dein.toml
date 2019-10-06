@@ -41,6 +41,26 @@ repo = '5t111111/alt-gtags.vim'
 repo = 'miyakogi/seiya.vim'
 hook_add = 'source ~/.vim/rc/plugins/plugin-seiya.vim'
 
+# complete
+[[plugins]]
+repo       = 'prabirshrestha/async.vim'
+
+[[plugins]]
+repo       = 'htlsne/asyncomplete-look'
+
+[[plugins]]
+repo       = 'prabirshrestha/asyncomplete.vim'
+hook_add   = 'source ~/.vim/rc/plugins/plugin-asyncomplete.vim'
+
+[[plugins]]
+repo       = 'prabirshrestha/asyncomplete-lsp.vim'
+depends    = ['vim-lsp']
+
+# Language Server Protocol
+[[plugins]]
+repo       = 'prabirshrestha/vim-lsp'
+hook_add   = 'source ~/.vim/rc/plugins/plugin-vim-lsp.vim'
+
 # pandoc markdown
 [[plugins]]
 repo      = 'vim-pandoc/vim-pandoc'
@@ -51,7 +71,7 @@ repo      = 'vim-pandoc/vim-pandoc-syntax'
 
 # syntax checker
 [[plugins]]
-repo       = 'w0rp/ale'
+repo       = 'dense-analysis/ale'
 if         = '''has('nvim') || has('job') && has('channel') && has('timers')'''
 hook_add   = 'source ~/.vim/rc/plugins/plugin-ale.vim'
 

@@ -1,5 +1,7 @@
 autocmd!
 
+set shell=bash
+
 " terminal
 if has('nvim')
     nnoremap <silent> vt :terminal<CR>

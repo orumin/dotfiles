@@ -1,4 +1,4 @@
-let g:ale_lint_on_enter = 0
+let g:ale_lint_on_enter = 1
 
 nmap <silent> <Subleader>p <Plug>(ale_previous)
 nmap <silent> <Subleader>n <Plug>(ale_next)
@@ -17,4 +17,7 @@ if dein#tap('lightline.vim')
   autocmd MyAutoGroup User ALELint call lightline#update()
 endif
 
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_chagned = 1
+let g:ale_lint_on_insert_leave = 1
 let g:ale_sh_shellcheck_options = '-e SC1090,SC2059,SC2155,SC2164'
