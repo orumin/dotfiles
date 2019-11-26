@@ -15,9 +15,17 @@ set -x VIRSH_DEFAULT_CONNECT_URI qemu:///system
 
 set -x MINICOM "-l -L -w -c on -a on"
 
-set ostype (uname)
+set OSTYPE (uname)
 
-switch $ostype
+if test -f /etc/os-release
+    set -x DIST_NAME (grep '^NAME=' /etc/os-release | awk -F\" '{print $2}')
+else
+    set -x DIST_NAME "none"
+end
+
+set -x VENDOR (uname -r | awk -F- '{print $3}')
+
+switch $OSTYPE
     case Linux
         set -x BROWSER vivaldi-snapshot
         set -x PSPDEV "/opt/pspsdk"

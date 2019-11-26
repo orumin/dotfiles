@@ -2,6 +2,11 @@
 source $HOME/.config/fish/environment.fish
 if test -z $TMUX
     source $HOME/.config/fish/path.fish
+
+    # openSUSE on WSL
+    if test $VENDOR = "Microsoft" -a $DIST_NAME = "openSUSE Leap" -a ! -d /var/run/systemd
+        systemd-tmpfiles --create
+    end
 end
 
 # ls colors
@@ -23,4 +28,3 @@ if status is-interactive
 #    exec tmux
     tmux
 end
-
