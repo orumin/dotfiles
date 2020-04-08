@@ -9,6 +9,9 @@ if test -z $TMUX
     end
 end
 
+# utility function
+source $HOME/.config/fish/passgen.fish
+
 # ls colors
 source $HOME/.config/fish/lscolors.fish
 

@@ -44,5 +44,5 @@ set -x MANPATH $MANPATH "/opt/pspsdk/man" "/opt/pspsdk/psp/man" "/opt/pspsdk/psp
 if test $ostype = "Darwin"
     source ~/.rbenv_init
 else if type -q -f rbenv
-    rbenv init - | source
+    source (rbenv init - | psub)
 end
