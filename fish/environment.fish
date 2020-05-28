@@ -15,6 +15,10 @@ set -x VIRSH_DEFAULT_CONNECT_URI qemu:///system
 
 set -x MINICOM "-l -L -w -c on -a on"
 
+if test -e /home/orumin/.opam/opam-init/init.fish;
+    source /home/orumin/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
+end
+
 set OSTYPE (uname)
 
 if test -f /etc/os-release
