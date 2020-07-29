@@ -9,6 +9,8 @@ if test -z $TMUX
     end
 end
 
+source $HOME/.config/fish/secret.fish
+
 # utility function
 source $HOME/.config/fish/passgen.fish
 
