@@ -3,5 +3,6 @@
 .vim/colors
 .vim/dict
 .vim/init.vim
+fish/secret.fish
 fish/fishd.*
 fish/fish_variables
