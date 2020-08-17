@@ -1,9 +1,15 @@
 function fish_user_key_bindings
     fish_vi_key_bindings
     
+    set FISH_VERSTRING (fish --version | awk '{print $3}' | tr -d '.')
     for mode in insert default visual
-        bind -M $mode \cp up-or-search
-        bind -M $mode \cn down-or-search
+        if test $FISH_VERSTRING -ge 310
+            bind -M $mode \cp up-or-search
+            bind -M $mode \cn down-or-search
+        else
+            bind -M $mode \cp history-prefix-search-backward
+            bind -M $mode \cn history-prefix-search-forward
+        end
     end
     
     bind -M insert \cb backward-char
