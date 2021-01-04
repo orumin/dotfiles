@@ -29,6 +29,9 @@ hook_add = 'source ~/.vim/rc/plugins/plugin-lightline.vim'
 [[plugins]]
 repo = 'Shougo/vinarise'
 
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+
 # color scheme
 [[plugins]]
 repo = 'jacoborus/tender.vim'
