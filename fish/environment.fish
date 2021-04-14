@@ -13,6 +13,11 @@ set -x LV "-Ou8 -c -l"
 set -x BLOCKSIZE K
 set -x VIRSH_DEFAULT_CONNECT_URI qemu:///system
 
+if type -q lesspipe
+    set -x LESSOPEN "| /usr/bin/lesspipe %s"
+    set -x LESSCLOSE "/usr/bin/lesspipe %s %s"
+end
+
 set -x MINICOM "-l -L -w -c on -a on"
 
 if test -e /home/orumin/.opam/opam-init/init.fish;
@@ -44,7 +49,7 @@ switch $OSTYPE
         set -x MOZ_USE_XINPUT2 1
         #set -x QT_QPA_PLATFORM wayland
         #set -x QT_QPA_PLATFORMTHEME qt5ct
-        set -x QT_QPA_PLATFORM xcb
+        #set -x QT_QPA_PLATFORM xcb
         set -x QT_QPA_PLATFORMTHEME gtk3
 
         set -x VTE_CJK_WIDTH auto

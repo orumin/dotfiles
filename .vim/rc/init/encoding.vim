@@ -54,7 +54,8 @@ endif
 set fileformats=unix,dos,mac
 " □とか○の文字があってもカーソル位置がずれないようにする
 if exists('&ambiwidth')
-  set ambiwidth=double
-" Gnome Terminalだといろいろブッ壊れるのでsingleに
-"  set ambiwidth=single
+"  set ambiwidth=double
+" Gnome Terminal を利用しなくても Illusion N フォント使う前提でこっちにする
+"" Gnome Terminalだといろいろブッ壊れるのでsingleに
+  set ambiwidth=single
 endif
