@@ -64,6 +64,7 @@ switch $OSTYPE
         set -x LANG en_US.UTF-8
     end
 
-if test (uname -v | sed -e 's/#1-\(Microsoft\).*/\1/') = "Microsoft"
+if test \( (uname -v | sed -e 's/#1-\(Microsoft\).*/\1/') = "Microsoft" \)
+    -o \( (uname -v | sed -e 's/#1-\(microsoft\).*/\1/') = "microsoft" \)
     set -x DISPLAY localhost:0.0
 end

@@ -34,10 +34,19 @@ alias maxima='rlwrap maxima'
 alias luajitlatex='luajittex --fmt=luajitlatex.fmt'
 
 set ostype (uname)
-set vendor (uname -r | awk -F- '{print $3}')
+set kernel_ver (uname -r)
+set kernel_ver_tuple_2 (echo $kernel_ver | awk -F- '{print $2}')
+set kernel_ver_tuple_3 (echo $kernel_ver | awk -F- '{print $3}')
+
+set is_wsl 0
+if test $kernel_ver_tuple_2 = "microsoft" \
+    -o $kernel_ver_tuple_3 = "Microsoft"
+    set is_wsl 1
+end
+
 switch $ostype
     case Linux
-        if test $vendor = "Microsoft"
+        if test $is_wsl -eq 1
             alias clipin='win32yank.exe -i' 
             alias clipout='win32yank.exe -o' 
         else
