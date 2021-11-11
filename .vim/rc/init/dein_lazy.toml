@@ -1,3 +1,47 @@
+# Complete/Language Server Protocol
+[[plugins]]
+repo        = 'Shougo/ddc.vim'
+on_event    = 'InsertEnter'
+hook_source = 'source ~/.vim/rc/plugins/plugin-ddc.vim'
+
+[[plugins]]
+repo        = 'Shougo/ddc-around'
+on_source   = 'ddc.vim'
+
+[[plugins]]
+repo        = 'Shougo/ddc-matcher_head'
+on_source   = 'ddc.vim'
+
+[[plugins]]
+repo        = 'Shougo/ddc-sorter_rank'
+on_source   = 'ddc.vim'
+
+[[plugins]]
+repo        = 'Shougo/ddc-nvim-lsp'
+on_source   = 'ddc.vim'
+
+[[plugins]]
+repo        = 'LumaKernel/ddc-file'
+on_source   = 'ddc.vim'
+
+# Neovim builtin LSP server
+[[plugins]]
+repo        = 'neovim/nvim-lspconfig'
+on_event    = 'BufEnter'
+hook_source = 'source ~/.vim/rc/plugins/plugin-nvim-lsp.vim'
+
+[[plugins]]
+repo        = 'kabouzeid/nvim-lspinstall'
+on_source   = 'nvim-lspconfig'
+hook_source = '''
+	lua require'lspinstall'.setup()
+'''
+
+[[plugins]]
+repo        = 'matsui54/ddc-nvim-lsp-doc'
+on_source   = 'ddc.vim'
+hook_source = 'source ~/.vim/rc/plugins/plugin-ddc-nvim-lsp-doc.vim'
+
 # grammer checker ( need Java runtime for LanguageTool )
 [[plugins]]
 repo       = 'rhysd/vim-grammarous'
@@ -28,6 +72,11 @@ on_ft      = ['rst', 'markdown', 'asciidoc', 'pandoc', 'gitrebase', 'gitcommit',
 repo       = 'asciidoc/vim-asciidoc'
 on_ft      = ['asciidoc']
 
+# AsciiDoc
+[[plugins]]
+repo       = 'cespare/vim-toml'
+on_ft      = ['toml']
+
 # TeX
 [[plugins]]
 repo        = 'lervag/vimtex'
@@ -49,72 +98,3 @@ hook_add    = 'source ~/.vim/rc/plugins/plugin-vim-gista.vim'
 [[plugins]]
 repo        = 'shiracamus/vim-syntax-x86-objdump-d'
 on_ft       = ['asm']
-
-# c++
-[[plugins]]
-repo        = 'osyo-manga/vim-snowdrop'
-on_ft       = ['c', 'cpp']
-hook_add    = 'source ~/.vim/rc/plugins/plugin-snowdrop.vim'
-
-# haskell
-[[plugins]]
-repo        = 'ujihisa/ref-hoogle'
-on_ft       = ['haskell']
-
-[[plugins]]
-repo        = 'ujihisa/neco-ghc'
-on_ft       = ['haskell']
-
-[[plugins]]
-repo        = 'dag/vim2hs'
-on_ft       = ['haskell']
-
-# rust
-[[plugins]]
-repo        = 'rust-lang/rust.vim'
-on_ft       = ['rust']
-hook_add    = 'source ~/.vim/rc/plugins/plugin-rust.vim'
-
-# [[plugins]]
-# repo        = 'racer-rust/vim-racer'
-# on_ft       = ['rust']
-
-[[plugins]]
-#repo        = 'Nonius/cargo.vim'
-repo        = '887/cargo.vim'
-on_ft       = ['rust']
-
-# ansible yaml
-[[plugins]]
-repo        = 'chase/vim-ansible-yaml'
-on_ft       = ['ansible']
-
-# tweetvim
-[[plugins]]
-repo        = 'basyura/TweetVim'
-#depends     = ['twibill.vim', 'bitly.vim', 'open-browser.vim', 'webapi-vim', 'denite.vim']
-on_cmd      = ['TweetVimSay', 'TweetVimUserStream']
-on_map      = '<Plug>(tweetvim)'
-hook_add    = 'source ~/.vim/rc/plugins/plugin-tweetvim.vim'
-
-[[plugins]]
-repo        = 'basyura/twibill.vim'
-on_source   = ['TweetVim']
-
-[[plugins]]
-repo        = 'basyura/bitly.vim'
-on_source   = ['TweetVim']
-
-[[plugins]]
-repo        = 'tyru/open-browser.vim'
-on_source   = ['TweetVim']
-
-[[plugins]]
-repo        = 'mattn/webapi-vim'
-on_source   = ['TweetVim']
-
-[[plugins]]
-repo        = 'yomi322/neco-tweetvim'
-depends     = ['neocomplete']
-on_source   = ['TweetVim']
-if          = '''! has('nvim')'''

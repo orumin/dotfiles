@@ -7,9 +7,6 @@ repo = 'thinca/vim-splash'
 repo = 'Shougo/dein.vim'
 hook_add = 'source ~/.vim/rc/plugins/plugin-dein.vim'
 
-#[[plugins]]
-#repo = 'Shougo/unite.vim'
-
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 if   = '''has('nvim')'''
@@ -25,6 +22,9 @@ hook_add = 'source ~/.vim/rc/plugins/plugin-echodoc.vim'
 [[plugins]]
 repo = 'Shougo/vimproc'
 build   = 'make'
+
+[[plugins]]
+repo = 'vim-denops/denops.vim'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
@@ -47,14 +47,6 @@ repo = '5t111111/alt-gtags.vim'
 [[plugins]]
 repo = 'miyakogi/seiya.vim'
 hook_add = 'source ~/.vim/rc/plugins/plugin-seiya.vim'
-
-# Language Server Protocol
-repo       = 'neoclide/coc.nvim'
-rev        = 'release'
-build      = '''
-git checkout release
-'''
-hook_add   = 'source ~/.vim/rc/plugins/plugin-coc.vim'
 
 # pandoc markdown
 [[plugins]]

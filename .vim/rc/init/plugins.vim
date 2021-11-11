@@ -13,11 +13,11 @@ if &runtimepath !~# '/dein.vim'
 endif
 
 " TOML File for plugin list
-let s:toml          = '~/.vim/rc/init/dein.toml'
-let s:lazy_toml     = '~/.vim/rc/init/dein_lazy.toml'
+let s:toml          = expand('~/.vim/rc/init/dein.toml')
+let s:lazy_toml     = expand('~/.vim/rc/init/dein_lazy.toml')
 
 " caching TOML
-if dein#load_state(expand('<sfile>'), s:toml, s:lazy_toml)
+if dein#load_state(s:dein_dir)
     " start configuration for dein.vim
     call dein#begin(s:dein_dir)
 
