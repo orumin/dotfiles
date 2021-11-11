@@ -34,7 +34,7 @@ hook_source = 'source ~/.vim/rc/plugins/plugin-nvim-lsp.vim'
 repo        = 'kabouzeid/nvim-lspinstall'
 on_source   = 'nvim-lspconfig'
 hook_source = '''
-	lua require'lspinstall'.setup()
+ lua require'lspinstall'.setup()
 '''
 
 [[plugins]]

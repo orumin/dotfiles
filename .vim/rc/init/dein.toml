@@ -1,5 +1,5 @@
-[[plugins]]
-repo = 'thinca/vim-splash'
+#[[plugins]]
+#repo = 'thinca/vim-splash'
 
 # Must have at least
 
