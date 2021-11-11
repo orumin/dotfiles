@@ -1,4 +1,5 @@
 ## Vim 
+.vimrc.local
 
 # Swap
 [._]*.s[a-v][a-z]

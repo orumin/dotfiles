@@ -23,6 +23,11 @@ source $HOME/.config/fish/alias.fish
 # colors
 source $HOME/.config/fish/color.fish
 
+# completion
+if type -q -f gh
+    eval (gh completion -s fish)
+end
+
 set fish_greeting
 set fish_emoji_width 2
 set fish_amiguous_width 2
