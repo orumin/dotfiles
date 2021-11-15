@@ -40,6 +40,20 @@ repo = 'editorconfig/editorconfig-vim'
 [[plugins]]
 repo = 'jacoborus/tender.vim'
 
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter'
+hook_add = 'source ~/.vim/rc/plugins/plugin-treesitter.vim'
+
+[[plugins]]
+repo = 'tanvirtin/monokai.nvim'
+
+[[plugins]]
+repo = 'vigoux/oak'
+hook_add = 'let g:oak_virtualtext_bg = 1'
+
+[[plugins]]
+repo = 'sainnhe/sonokai'
+
 # tags
 [[plugins]]
 repo = '5t111111/alt-gtags.vim'

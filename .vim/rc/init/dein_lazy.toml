@@ -53,29 +53,10 @@ repo       = 'daisuzu/translategoogle.vim'
 on_ft      = ['rst', 'markdown', 'asciidoc', 'pandoc', 'gitrebase', 'gitcommit', 'vcs-commit', 'hybrid', 'text', 'help', 'tex']
 hook_add   = 'source ~/.vim/rc/plugins/plugin-translategoogle.vim'
 
-# fish shell
-repo       = 'dag/vim-fish'
-on_ft      = ['fish']
-
-# Plant UML
-[[plugins]]
-repo       = 'aklt/plantuml-syntax'
-on_ft      = ['uml', 'plantuml']
-
 # writing table in plain text
 [[plugins]]
 repo       = 'dhruvasagar/vim-table-mode'
 on_ft      = ['rst', 'markdown', 'asciidoc', 'pandoc', 'gitrebase', 'gitcommit', 'vcs-commit', 'hybrid', 'text', 'help', 'tex']
-
-# AsciiDoc
-[[plugins]]
-repo       = 'asciidoc/vim-asciidoc'
-on_ft      = ['asciidoc']
-
-# AsciiDoc
-[[plugins]]
-repo       = 'cespare/vim-toml'
-on_ft      = ['toml']
 
 # TeX
 [[plugins]]

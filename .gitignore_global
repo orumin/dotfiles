@@ -1,4 +1,4 @@
-## Vim 
+# Vim
 .vimrc.local
 
 # Swap
@@ -19,7 +19,7 @@ tags
 # Persistent undo
 [._]*.un~
 
-## Visual Studio
+# Visual Studio
 
 .vscode/*
 !.vscode/settings.json

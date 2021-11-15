@@ -6,9 +6,11 @@ set shell=bash
 if has('nvim')
     nnoremap <silent> vt :terminal<CR>
     :let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-    :let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    "set termguicolors
-    "set guicolors
+    if $COLORTERM == "truecolor"
+        :let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+        set termguicolors
+        "set guicolors
+    endif
 endif
 
 "set t_Co=256
@@ -28,10 +30,8 @@ endfunction
 runtime! rc/init/*.vim
 "runtime! rc/plugins/*.vim
 
-let colornum = system("tput colors")
-
-if colornum < 256
-    silent! colorscheme ap_dark8
+if $COLORTERM == "truecolor"
+    silent! colorscheme oak
 else
     silent! colorscheme tender
 endif
