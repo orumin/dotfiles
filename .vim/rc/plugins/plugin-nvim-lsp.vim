@@ -17,24 +17,4 @@ lua << EOF
     
     require'lspconfig'.tsserver.setup{}
     require'lspconfig'.solargraph.setup{}
-    
-    require'lspinstall'.setup()
-    local servers = require'lspinstall'.installed_servers()
-    for _, server in pairs(servers) do
-        if server == "cpp" then
-            require'lspconfig'[server].setup{
-              handlers= {
-                ["textDocument/publishDiagnostics"] = vim.lsp.with(
-                  vim.lsp.diagnostic.on_publish_diagnostics, {
-                  -- Disable virtual_text
-                  -- virtual_text = false,
-                  -- Disable signs
-                  -- signs = false,
-                  }),
-              }
-            }
-        else
-            require'lspconfig'[server].setup{}
-        end
-    end
 EOF
