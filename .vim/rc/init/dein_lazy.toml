@@ -31,11 +31,9 @@ on_event    = 'BufEnter'
 hook_source = 'source ~/.vim/rc/plugins/plugin-nvim-lsp.vim'
 
 [[plugins]]
-repo        = 'kabouzeid/nvim-lspinstall'
+repo        = 'williamboman/nvim-lsp-installer'
 on_source   = 'nvim-lspconfig'
-hook_source = '''
- lua require'lspinstall'.setup()
-'''
+hook_source = 'source ~/.vim/rc/plugins/plugin-nvim-lsp-installer.vim'
 
 [[plugins]]
 repo        = 'matsui54/ddc-nvim-lsp-doc'

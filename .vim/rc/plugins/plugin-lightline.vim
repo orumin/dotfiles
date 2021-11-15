@@ -3,7 +3,7 @@ if has('nvim') || has('job') && has('channel') && has('timers')
           \ 'colorscheme': 'wombat',
           \ 'active': {
           \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ], ['ctrlpmark'] ],
-          \   'right': [ ['percent'], [ 'fileformat', 'fileencoding', 'filetype'], ['ale']]
+          \   'right': [ ['percent'], [ 'fileformat', 'fileencoding', 'filetype']]
           \ },
           \ 'component_function': {
           \   'filename': 'MyFilename',
@@ -11,7 +11,6 @@ if has('nvim') || has('job') && has('channel') && has('timers')
           \   'filetype': 'MyFiletype',
           \   'fileencoding': 'MyFileencoding',
           \   'mode': 'MyMode',
-          \   'ale': 'LLAle',
           \ },
           \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
           \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }

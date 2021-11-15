@@ -70,11 +70,11 @@ hook_add  = 'source ~/.vim/rc/plugins/plugin-vim-pandoc.vim'
 [[plugins]]
 repo      = 'vim-pandoc/vim-pandoc-syntax'
 
-# syntax checker
-[[plugins]]
-repo       = 'dense-analysis/ale'
-if         = '''has('nvim') || has('job') && has('channel') && has('timers')'''
-hook_add   = 'source ~/.vim/rc/plugins/plugin-ale.vim'
+## syntax checker
+#[[plugins]]
+#repo       = 'dense-analysis/ale'
+#if         = '''has('nvim') || has('job') && has('channel') && has('timers')'''
+#hook_add   = 'source ~/.vim/rc/plugins/plugin-ale.vim'
 
 # ime
 [[plugins]]
