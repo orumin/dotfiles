@@ -1,25 +1,27 @@
-inoremap <silent><expr> <TAB>
-     \ pumvisible() ? '<C-n>' :
-     \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-     \ '<TAB>' : ddc#manual_complete()
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+call ddc#custom#patch_global('completionMenu', 'pum.vim')
 
-call ddc#custom#patch_global('sources', ['nvim-lsp', 'around', 'file'])
+inoremap <silent><expr> <TAB>
+      \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+      \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+      \ '<TAB>' : ddc#manual_complete()
+inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
+inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
+inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+call pum#set_option('setline_insert', v:true)
+autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
+
+call ddc#custom#patch_global('sources', ['nvim-lsp', 'around', 'vsnip', 'file'])
 call ddc#custom#patch_global('sourceOptions', {
      \ '_': {
        \   'matchers': ['matcher_head'],
        \   'sorters': ['sorter_rank'],
        \ },
        \ 'around': {'mark': 'A'},
-       \ 'file': {
-       \   'mark': 'F',
-       \   'isVolatile': v:true,
-       \   'forceCompletionPattern': '\S/\S*',
-       \ },
-       \ 'nvim-lsp': {
-       \ 'mark': 'LSP',
-       \ 'forceCompletionPattern': '\.\w*|:\w*|->\w*',
-       \ },
+       \ 'file': { 'mark': 'F', 'isVolatile': v:true, 'forceCompletionPattern': '\S/\S*'},
+       \ 'nvim-lsp': {'mark': 'lsp', 'forceCompletionPattern': "\\.|:\\s*|->", 'ignoreCase': v:true},
+       \ 'vsnip': {'dup': v:true},
        \ })
 
 call ddc#custom#patch_global('sourceParams', {

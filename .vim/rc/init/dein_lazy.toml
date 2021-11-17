@@ -2,6 +2,7 @@
 [[plugins]]
 repo        = 'Shougo/ddc.vim'
 on_event    = 'InsertEnter'
+depends     = 'pum.vim'
 hook_source = 'source ~/.vim/rc/plugins/plugin-ddc.vim'
 
 [[plugins]]
@@ -24,6 +25,21 @@ on_source   = 'ddc.vim'
 repo        = 'LumaKernel/ddc-file'
 on_source   = 'ddc.vim'
 
+# Text snippet
+[[plugins]]
+repo        = 'hrsh7th/vim-vsnip'
+on_event    = 'InsertEnter'
+depends     = ['vim-vsnip-integ']
+hook_source = 'source ~/.vim/rc/plugins/plugin-vim-vsnip.vim'
+
+[[plugins]]
+repo        = 'hrsh7th/vim-vsnip-integ'
+on_source   = 'ddc.vim'
+
+[[plugins]]
+repo        = 'Shougo/pum.vim'
+on_source   = 'ddc.vim'
+
 # Neovim builtin LSP server
 [[plugins]]
 repo        = 'neovim/nvim-lspconfig'
@@ -31,14 +47,29 @@ on_event    = 'BufEnter'
 hook_source = 'source ~/.vim/rc/plugins/plugin-nvim-lsp.vim'
 
 [[plugins]]
-repo        = 'williamboman/nvim-lsp-installer'
+repo        = 'ray-x/lsp_signature.nvim'
 on_source   = 'nvim-lspconfig'
-hook_source = 'source ~/.vim/rc/plugins/plugin-nvim-lsp-installer.vim'
 
 [[plugins]]
-repo        = 'matsui54/ddc-nvim-lsp-doc'
-on_source   = 'ddc.vim'
-hook_source = 'source ~/.vim/rc/plugins/plugin-ddc-nvim-lsp-doc.vim'
+repo        = 'onsails/lspkind-nvim'
+on_source   = 'nvim-lspconfig'
+hook_source = 'source ~/.vim/rc/plugins/plugin-lspkind.vim'
+
+[[plugins]]
+repo        = 'folke/trouble.nvim'
+on_source   = 'nvim-lspconfig'
+hook_source = 'source ~/.vim/rc/plugins/plugin-trouble.vim'
+
+[[plugins]]
+repo        = 'williamboman/nvim-lsp-installer'
+on_source   = 'nvim-lspconfig'
+hook_source = 'source ~/.vim/rc/plugins/plugin-nvim-lsp.vim'
+
+[[plugins]]
+repo        = 'matsui54/denops-popup-preview.vim'
+on_source   = 'nvim-lspconfig'
+depends     = ['lsp_signature.nvim', 'pum.vim']
+hook_source = 'source ~/.vim/rc/plugins/plugin-denops-popup-preview.vim'
 
 # grammer checker ( need Java runtime for LanguageTool )
 [[plugins]]
