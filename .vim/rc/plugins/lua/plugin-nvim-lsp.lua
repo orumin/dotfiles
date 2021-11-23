@@ -1,4 +1,3 @@
-lua << EOF
 local nvim_lsp = require('lspconfig')
 local on_attach = function (client, bufnr)
     vim.wo.signcolumn = 'yes'
@@ -29,6 +28,7 @@ local on_attach = function (client, bufnr)
     )
 
     require'lsp_signature'.on_attach()
+    dofile('/home/orumin/.vim/rc/plugins/lua/plugin-lspkind.lua')
 
     vim.api.nvim_exec(
     [[
@@ -72,6 +72,3 @@ lsp_installer.on_server_ready(function(server)
     vim.cmd [[ do User LspAttachBuffers ]]
 end)
 
-vim.lsp.set_log_level("debug")
-
-EOF

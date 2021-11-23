@@ -29,7 +29,7 @@ on_source   = 'ddc.vim'
 [[plugins]]
 repo        = 'hrsh7th/vim-vsnip'
 on_event    = 'InsertEnter'
-depends     = ['vim-vsnip-integ']
+depends     = 'vim-vsnip-integ'
 hook_source = 'source ~/.vim/rc/plugins/plugin-vim-vsnip.vim'
 
 [[plugins]]
@@ -44,7 +44,7 @@ on_source   = 'ddc.vim'
 [[plugins]]
 repo        = 'neovim/nvim-lspconfig'
 on_event    = 'BufEnter'
-hook_source = 'source ~/.vim/rc/plugins/plugin-nvim-lsp.vim'
+depends     = ['lspkind-nvim', 'lsp_signature.nvim', 'nvim-lsp-installer']
 
 [[plugins]]
 repo        = 'ray-x/lsp_signature.nvim'
@@ -53,22 +53,21 @@ on_source   = 'nvim-lspconfig'
 [[plugins]]
 repo        = 'onsails/lspkind-nvim'
 on_source   = 'nvim-lspconfig'
-hook_source = 'source ~/.vim/rc/plugins/plugin-lspkind.vim'
 
 [[plugins]]
 repo        = 'folke/trouble.nvim'
 on_source   = 'nvim-lspconfig'
-hook_source = 'source ~/.vim/rc/plugins/plugin-trouble.vim'
+hook_source = 'luafile ~/.vim/rc/plugins/lua/plugin-trouble.lua'
 
 [[plugins]]
 repo        = 'williamboman/nvim-lsp-installer'
 on_source   = 'nvim-lspconfig'
-hook_source = 'source ~/.vim/rc/plugins/plugin-nvim-lsp.vim'
+hook_source = 'luafile ~/.vim/rc/plugins/lua/plugin-nvim-lsp.lua'
 
 [[plugins]]
 repo        = 'matsui54/denops-popup-preview.vim'
 on_source   = 'nvim-lspconfig'
-depends     = ['lsp_signature.nvim', 'pum.vim']
+depends     = ['nvim-lsp-installer', 'pum.vim']
 hook_source = 'source ~/.vim/rc/plugins/plugin-denops-popup-preview.vim'
 
 # grammer checker ( need Java runtime for LanguageTool )

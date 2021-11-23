@@ -28,15 +28,15 @@ set ruler
 set showcmd
 set number
 set nowrap
-"set list " display invisible character
-"set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮
+set list " display invisible character
+set listchars=tab:▸\ ,eol:↲,extends:❯,precedes:❮
 set matchtime=3
 set laststatus=2
 set cmdheight=2
 set wildmenu
 " https://github.com/neovim/neovim/issues/6041
 set guicursor=
-syntax on
+syntax off
 
 " setting backup
 set backupdir=$HOME/.vim/backup

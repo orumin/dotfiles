@@ -42,7 +42,7 @@ repo = 'jacoborus/tender.vim'
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
-hook_add = 'source ~/.vim/rc/plugins/plugin-treesitter.vim'
+hook_add = 'luafile ~/.vim/rc/plugins/lua/plugin-treesitter.lua'
 hook_post_update = 'TSUpdate'
 
 [[plugins]]
