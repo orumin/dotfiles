@@ -41,11 +41,6 @@ repo = 'editorconfig/editorconfig-vim'
 repo = 'jacoborus/tender.vim'
 
 [[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter'
-hook_add = 'luafile ~/.vim/rc/plugins/lua/plugin-treesitter.lua'
-hook_post_update = 'TSUpdate'
-
-[[plugins]]
 repo = 'tanvirtin/monokai.nvim'
 
 [[plugins]]
@@ -81,11 +76,6 @@ repo      = 'vim-pandoc/vim-pandoc-syntax'
 [[plugins]]
 repo = 'tyru/eskk.vim'
 hook_add = 'source ~/.vim/rc/plugins/plugin-eskk.vim'
-
-# indent
-[[plugins]]
-repo = 'nathanaelkane/vim-indent-guides'
-hook_add = 'source ~/.vim/rc/plugins/plugin-indent-guides.vim'
 
 # english words dictionary
 [[plugins]]

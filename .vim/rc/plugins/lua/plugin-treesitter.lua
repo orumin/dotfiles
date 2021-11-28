@@ -6,4 +6,12 @@ require'nvim-treesitter.configs'.setup {
   indent = {
     enable = true,
   },
+  rainbow = {
+    enable = true,
+    -- disable = {"jsx", "cpp"},
+    extended_mode = true,
+    max_file_lines = nil,
+    -- colors = {},
+    -- termcolors = {}
+  },
 }
