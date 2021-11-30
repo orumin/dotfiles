@@ -2,15 +2,22 @@
 [[plugins]]
 repo        = 'Shougo/ddc.vim'
 on_event    = 'InsertEnter'
-depends     = 'pum.vim'
+depends     = ['context_filetype.vim', 'pum.vim', 'vim-vsnip']
 hook_source = 'source ~/.vim/rc/plugins/plugin-ddc.vim'
+
+[[plugins]]
+repo        = 'Shougo/ddc-matcher_head'
+on_source   = 'ddc.vim'
+
+[[plugins]]
+repo        = 'Shougo/pum.vim'
 
 [[plugins]]
 repo        = 'Shougo/ddc-around'
 on_source   = 'ddc.vim'
 
 [[plugins]]
-repo        = 'Shougo/ddc-matcher_head'
+repo        = 'Shougo/ddc-converter_remove_overlap'
 on_source   = 'ddc.vim'
 
 [[plugins]]
@@ -25,20 +32,28 @@ on_source   = 'ddc.vim'
 repo        = 'LumaKernel/ddc-file'
 on_source   = 'ddc.vim'
 
+[[plugins]]
+repo        = 'matsui54/ddc-dictionary'
+on_source   = 'ddc.vim'
+
+[[plugins]]
+repo        = 'matsui54/ddc-filter_editdistance'
+on_source   = 'ddc.vim'
+
 # Text snippet
 [[plugins]]
 repo        = 'hrsh7th/vim-vsnip'
 on_event    = 'InsertEnter'
-depends     = 'vim-vsnip-integ'
-hook_source = 'source ~/.vim/rc/plugins/plugin-vim-vsnip.vim'
+depends     = ['vim-vsnip-integ', 'friendly-snippets']
+hook_add    = 'source ~/.vim/rc/plugins/plugin-vim-vsnip.vim'
 
 [[plugins]]
 repo        = 'hrsh7th/vim-vsnip-integ'
-on_source   = 'ddc.vim'
+on_source   = 'vim-vsnip'
 
 [[plugins]]
-repo        = 'Shougo/pum.vim'
-on_source   = 'ddc.vim'
+repo        = 'rafamadriz/friendly-snippets'
+on_source   = 'vim-vsnip'
 
 # Neovim builtin LSP server
 [[plugins]]
@@ -53,6 +68,10 @@ on_source   = 'nvim-lspconfig'
 
 [[plugins]]
 repo        = 'onsails/lspkind-nvim'
+on_source   = 'nvim-lspconfig'
+
+[[plugins]]
+repo        = 'tami5/lspsaga.nvim'
 on_source   = 'nvim-lspconfig'
 
 [[plugins]]

@@ -12,15 +12,17 @@ inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
 call pum#set_option('setline_insert', v:true)
 autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
 
-call ddc#custom#patch_global('sources', ['nvim-lsp', 'around', 'vsnip', 'file'])
+call ddc#custom#patch_global('sources', ['nvim-lsp', 'around', 'vsnip', 'file', 'dictionary'])
 call ddc#custom#patch_global('sourceOptions', {
      \ '_': {
        \   'matchers': ['matcher_head'],
        \   'sorters': ['sorter_rank'],
+       \   'converters': ['converter_remove_overlap'],
        \ },
        \ 'around': {'mark': 'A'},
        \ 'file': { 'mark': 'F', 'isVolatile': v:true, 'forceCompletionPattern': '\S/\S*'},
        \ 'nvim-lsp': {'mark': 'lsp', 'forceCompletionPattern': "\\.|:\\s*|->", 'ignoreCase': v:true},
+       \ 'dictionary': {'matchers': ['matcher_editdistance'], 'sorters': [], 'maxCandidates': 6, 'mark': 'D', 'minAutoCompleteLength': 3},
        \ 'vsnip': {'dup': v:true},
        \ })
 
