@@ -48,6 +48,12 @@ repo = 'vigoux/oak'
 hook_add = 'let g:oak_virtualtext_bg = 1'
 
 [[plugins]]
+repo = 'rktjmp/lush.nvim'
+
+[[plugins]]
+repo = 'ellisonleao/gruvbox.nvim'
+
+[[plugins]]
 repo = 'sainnhe/sonokai'
 
 # tags

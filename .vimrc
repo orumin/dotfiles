@@ -31,7 +31,8 @@ runtime! rc/init/*.vim
 "runtime! rc/plugins/*.vim
 
 if $COLORTERM == "truecolor"
-    silent! colorscheme oak
+"    silent! colorscheme oak
+    silent! colorscheme gruvbox
 else
     silent! colorscheme tender
 endif

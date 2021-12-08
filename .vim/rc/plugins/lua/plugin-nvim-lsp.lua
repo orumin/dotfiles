@@ -1,3 +1,4 @@
+local os = require("os")
 local on_attach = function (client, bufnr)
     vim.wo.signcolumn = 'yes'
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -28,15 +29,15 @@ local on_attach = function (client, bufnr)
     buf_set_keymap('n', ']d', '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>', opts)
     buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, {
-            virtual_text = false,
-        }
-    )
+--    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--        vim.lsp.diagnostic.on_publish_diagnostics, {
+--            virtual_text = false,
+--        }
+--    )
 
     require'lsp_signature'.on_attach()
-    dofile("/home/orumin/.vim/rc/plugins/lua/plugin-lspkind.lua")
-    dofile("/home/orumin/.vim/rc/plugins/lua/plugin-lspsaga.lua")
+    dofile(os.getenv("HOME") .. "/.vim/rc/plugins/lua/plugin-lspkind.lua")
+    dofile(os.getenv("HOME") .. "/.vim/rc/plugins/lua/plugin-lspsaga.lua")
 
     vim.api.nvim_exec(
     [[
@@ -50,6 +51,9 @@ end
 
 local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.on_server_ready(function(server)
+    if server.name == "rust-analyzer" then
+        return
+    end
     local nvim_lsp = require('lspconfig')
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     local opts = {}
