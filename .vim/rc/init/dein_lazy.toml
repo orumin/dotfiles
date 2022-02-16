@@ -84,7 +84,12 @@ on_source   = 'nvim-lspconfig'
 [[plugins]]
 repo        = 'folke/trouble.nvim'
 on_source   = 'nvim-lspconfig'
+depends     = 'nvim-web-devicons'
 hook_source = 'luafile ~/.vim/rc/plugins/lua/plugin-trouble.lua'
+
+[[plugins]]
+repo        = 'kyazdani42/nvim-web-devicons'
+on_source   = 'nvim-lspconfig'
 
 [[plugins]]
 repo        = 'williamboman/nvim-lsp-installer'
@@ -156,6 +161,11 @@ on_ft       = ['tex', 'plaintex']
 repo        = 'habamax/vim-asciidoctor'
 on_ft       = ['asciidoc']
 hook_add    = 'source ~/.vim/rc/plugins/plugin-asciidoctor.vim'
+
+# PlantUML
+[[plugins]]
+repo        = 'aklt/plantuml-syntax'
+on_ft       = 'plantuml'
 
 # vimshell
 [[plugins]]
