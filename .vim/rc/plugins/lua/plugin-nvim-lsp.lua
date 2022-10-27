@@ -35,52 +35,101 @@ local on_attach = function (client, bufnr)
 --        }
 --    )
 
-    require'lsp_signature'.on_attach()
     dofile(os.getenv("HOME") .. "/.vim/rc/plugins/lua/plugin-lspkind.lua")
     dofile(os.getenv("HOME") .. "/.vim/rc/plugins/lua/plugin-lspsaga.lua")
 
-    vim.api.nvim_exec(
-    [[
-      augroup MyLspSettings
-        autocmd!
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]],
-    false)
+    local completion_provider = client.server_capabilities.completionProvider
+    local triggers
+    if completion_provider ~= nil then
+      triggers = client.server_capabilities.completionProvider.triggerCharacters
+    end
+    local escaped = {}
+    if triggers and #triggers > 0 then
+      -- convert lsp triggerCharacters to js regexp
+      for _, c in pairs(triggers) do
+        local ch_list = {'[', '\\', '^', '$', '.', '|', '?', '*', '+', '(', ')'}
+        if vim.tbl_contains(ch_list, c) then
+          table.insert(escaped, '\\'..c)
+        else table.insert(escaped, c)
+        end
+      end
+      -- override ddc setting of lsp buffer
+      vim.fn['ddc#custom#patch_buffer'] {
+        sourceOptions = {
+          ["nvim-lsp"] = {
+            forceCompletionPattern = table.concat(escaped, '|'),
+          }
+        },
+      }
+    end
+
+    if client.server_capabilities.documentHighlightProvider then
+        vim.api.nvim_exec(
+        [[
+          augroup MyLspSettings
+            autocmd!
+            autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
+            autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+          augroup END
+        ]],
+        false)
+    end
 end
 
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.on_server_ready(function(server)
-    if server.name == "rust-analyzer" then
-        return
-    end
-    local nvim_lsp = require('lspconfig')
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    local opts = {}
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-    capabilities.textDocument.completion.completionItem.preselectSupport = true
-    capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-    capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-    capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-    capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-    capabilities.textDocument.completion.completionItem.resolveSupport = {
-        properties = {
-            'documentation',
-            'detail',
-            'additionalTextEdits',
-        }
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.preselectSupport = true
+capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+    properties = {
+        'documentation',
+        'detail',
+        'additionalTextEdits',
     }
-    opts.on_attach = on_attach
-    opts.capabilities = capabilities
+}
 
+local lsp_installer = require("nvim-lsp-installer")
+local nvim_lsp = require('lspconfig')
+
+local clangd_root_dir = nvim_lsp.util.root_pattern('build/compile_commands.json', '.git')
+
+nvim_lsp.clangd.setup{on_attach = on_attach, capabilities = capabilities}
+nvim_lsp.rust_analyzer.setup{on_attach = on_attach, capabilities = capabilities}
+
+lsp_installer.on_server_ready(function(server)
+    local opts = {}
 --    local init_options = {}
     if server.name == "clangd" then
 --        init_options.compilationDatabasePath = "build"
 --        opts.init_options = init_options
-        opts.root_dir = nvim_lsp.util.root_pattern('build/compile_commands.json', '.git')
+        opts.root_dir = clangd_root_dir
+    end
+    if server.name == 'sumneko_lua' then
+        opts.settings = {
+          Lua = {
+            runtime = {
+              version = 'LuaJIT',
+              path = vim.split(package.path, ';'),
+            },
+            diagnostics = {
+              globals = {'vim'},
+            },
+            workspace = {
+              library = {
+                [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+              },
+            },
+          },
+        }
     end
 
+    opts.on_attach = on_attach
+    opts.capabilities = capabilities
     server:setup(opts)
     vim.cmd [[ do User LspAttachBuffers ]]
 end)
-

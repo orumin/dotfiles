@@ -2,6 +2,11 @@ autocmd!
 
 set shell=bash
 
+" avoid insert newline at end of file
+" WARN: POSIX require newline character at EOF for plain text.
+set binary noeol
+set nofixeol
+
 " terminal
 if has('nvim')
     nnoremap <silent> vt :terminal<CR>
@@ -9,6 +14,7 @@ if has('nvim')
     if $COLORTERM == "truecolor"
         :let $NVIM_TUI_ENABLE_TRUE_COLOR=1
         set termguicolors
+        hi LineNr ctermbg=NONE guibg=NONE
         "set guicolors
     endif
 endif
@@ -32,7 +38,8 @@ runtime! rc/init/*.vim
 
 if $COLORTERM == "truecolor"
 "    silent! colorscheme oak
-    silent! colorscheme gruvbox
+    let g:nvcode_termcolors=256
+    silent! colorscheme nvcode
 else
     silent! colorscheme tender
 endif

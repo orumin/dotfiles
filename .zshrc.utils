@@ -1,5 +1,5 @@
 get_random_chars() {
-    python - <<EOF
+    python3 - <<EOF
 import string,random;
 print("".join(random.choices(string.ascii_letters+string.digits,k=$1)))
 EOF
@@ -21,7 +21,7 @@ get_salted_pass() {
             echo -e "please select hash function.\nmd5, or sha256, or sha512."
             ;;
     esac
-    python - <<EOF
+    python3 - <<EOF
 import crypt,getpass;
 print(crypt.crypt(getpass.getpass(), "$salt_character"))
 EOF

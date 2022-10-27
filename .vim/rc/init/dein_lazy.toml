@@ -2,7 +2,8 @@
 [[plugins]]
 repo        = 'Shougo/ddc.vim'
 on_event    = 'InsertEnter'
-depends     = ['context_filetype.vim', 'pum.vim', 'vim-vsnip']
+#depends     = ['context_filetype.vim', 'pum.vim', 'vim-vsnip']
+depends     = ['context_filetype.vim', 'pum.vim']
 hook_source = 'source ~/.vim/rc/plugins/plugin-ddc.vim'
 
 [[plugins]]
@@ -41,26 +42,26 @@ on_source   = 'ddc.vim'
 repo        = 'matsui54/ddc-filter_editdistance'
 on_source   = 'ddc.vim'
 
-# Text snippet
-[[plugins]]
-repo        = 'hrsh7th/vim-vsnip'
-on_event    = 'InsertEnter'
-depends     = ['vim-vsnip-integ', 'friendly-snippets']
-hook_add    = 'source ~/.vim/rc/plugins/plugin-vim-vsnip.vim'
-
-[[plugins]]
-repo        = 'hrsh7th/vim-vsnip-integ'
-on_source   = 'vim-vsnip'
-
-[[plugins]]
-repo        = 'rafamadriz/friendly-snippets'
-on_source   = 'vim-vsnip'
+## Text snippet
+#[[plugins]]
+#repo        = 'hrsh7th/vim-vsnip'
+#on_event    = 'InsertEnter'
+#depends     = ['vim-vsnip-integ', 'friendly-snippets']
+#hook_add    = 'source ~/.vim/rc/plugins/plugin-vim-vsnip.vim'
+#
+#[[plugins]]
+#repo        = 'hrsh7th/vim-vsnip-integ'
+#on_source   = 'vim-vsnip'
+#
+#[[plugins]]
+#repo        = 'rafamadriz/friendly-snippets'
+#on_source   = 'vim-vsnip'
 
 # Neovim builtin LSP server
 [[plugins]]
 repo        = 'neovim/nvim-lspconfig'
 on_event    = 'BufEnter'
-depends     = ['lspkind-nvim', 'lsp_signature.nvim', 'nvim-lsp-installer', 'lspsaga.nvim']
+depends     = ['lspkind-nvim', 'nvim-lsp-installer', 'lspsaga.nvim']
 hook_source = 'luafile ~/.vim/rc/plugins/lua/plugin-nvim-lsp.lua'
 
 #[[plugins]]
@@ -69,9 +70,6 @@ hook_source = 'luafile ~/.vim/rc/plugins/lua/plugin-nvim-lsp.lua'
 #on_ft       = 'rust'
 #hook_source = 'luafile ~/.vim/rc/plugins/lua/plugin-rust-tools.lua'
 #
-[[plugins]]
-repo        = 'ray-x/lsp_signature.nvim'
-on_source   = 'nvim-lspconfig'
 
 [[plugins]]
 repo        = 'onsails/lspkind-nvim'
@@ -100,6 +98,12 @@ repo        = 'matsui54/denops-popup-preview.vim'
 on_source   = 'nvim-lspconfig'
 depends     = ['nvim-lsp-installer', 'pum.vim']
 hook_source = 'source ~/.vim/rc/plugins/plugin-denops-popup-preview.vim'
+
+[[plugins]]
+repo        = 'matsui54/denops-signature_help'
+on_source   = 'nvim-lspconfig'
+depends     = ['nvim-lsp-installer']
+hook_source = 'source ~/.vim/rc/plugins/plugin-denops-signature_help.vim'
 
 [[plugins]]
 repo        = 'nvim-lua/plenary.nvim'
@@ -174,6 +178,7 @@ on_cmd      = ['VimShell', 'VimShellCreate', 'VimShellPop']
 hook_add    = 'source ~/.vim/rc/plugins/plugin-vimshell.vim'
 
 # Gist
+[[plugins]]
 repo        = 'lambdalisue/vim-gista'
 on_cmd      = 'Gista'
 hook_add    = 'source ~/.vim/rc/plugins/plugin-vim-gista.vim'
@@ -182,3 +187,4 @@ hook_add    = 'source ~/.vim/rc/plugins/plugin-vim-gista.vim'
 [[plugins]]
 repo        = 'shiracamus/vim-syntax-x86-objdump-d'
 on_ft       = ['asm']
+

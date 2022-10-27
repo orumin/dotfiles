@@ -9,10 +9,12 @@ inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
 inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
 inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
 inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
-call pum#set_option('setline_insert', v:true)
-autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
 
-call ddc#custom#patch_global('sources', ['nvim-lsp', 'around', 'vsnip', 'file', 'dictionary'])
+call pum#set_option('setline_insert', v:true)
+"autocmd User PumCompleteDone call vsnip_integ#on_complete_done(g:pum#completed_item)
+
+"call ddc#custom#patch_global('sources', ['nvim-lsp', 'around', 'vsnip', 'file', 'dictionary'])
+call ddc#custom#patch_global('sources', ['nvim-lsp', 'around', 'file', 'dictionary'])
 call ddc#custom#patch_global('sourceOptions', {
      \ '_': {
        \   'matchers': ['matcher_head'],
@@ -23,8 +25,8 @@ call ddc#custom#patch_global('sourceOptions', {
        \ 'file': { 'mark': 'F', 'isVolatile': v:true, 'forceCompletionPattern': '\S/\S*'},
        \ 'nvim-lsp': {'mark': 'lsp', 'forceCompletionPattern': "\\.|:\\s*|->", 'ignoreCase': v:true},
        \ 'dictionary': {'matchers': ['matcher_editdistance'], 'sorters': [], 'maxCandidates': 6, 'mark': 'D', 'minAutoCompleteLength': 3},
-       \ 'vsnip': {'dup': v:true},
        \ })
+"       \ 'vsnip': {'mark': 'V', 'dup': v:true},
 
 call ddc#custom#patch_global('sourceParams', {
      \ 'around': {'maxSize': 500},

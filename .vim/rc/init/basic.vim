@@ -7,6 +7,8 @@ set tabstop=4
 set softtabstop=4
 set expandtab
 autocmd FileType text setlocal textwidth=78
+set modeline
+set modelines=5
 
 " setting search
 set hlsearch " hilighting

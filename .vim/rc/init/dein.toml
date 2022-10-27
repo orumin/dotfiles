@@ -50,8 +50,11 @@ hook_add = 'let g:oak_virtualtext_bg = 1'
 [[plugins]]
 repo = 'rktjmp/lush.nvim'
 
+#[[plugins]]
+#repo = 'ellisonleao/gruvbox.nvim'
+
 [[plugins]]
-repo = 'ellisonleao/gruvbox.nvim'
+repo = 'ChristianChiarulli/nvcode-color-schemes.vim'
 
 [[plugins]]
 repo = 'sainnhe/sonokai'
@@ -71,6 +74,10 @@ hook_add  = 'source ~/.vim/rc/plugins/plugin-vim-pandoc.vim'
 
 [[plugins]]
 repo      = 'vim-pandoc/vim-pandoc-syntax'
+
+# bitbake
+[[plugins]]
+repo        = 'kergoth/vim-bitbake'
 
 ## syntax checker
 #[[plugins]]
