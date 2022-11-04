@@ -15,8 +15,10 @@ hook_add = 'source ~/.vim/rc/plugins/plugin-echodoc.vim'
 repo = 'vim-denops/denops.vim'
 
 [[plugins]]
-repo = 'itchyny/lightline.vim'
-hook_add = 'source ~/.vim/rc/plugins/plugin-lightline.vim'
+repo = 'nvim-lualine/lualine.nvim'
+lua_add = '''
+    require("plugin-lualine")
+'''
 
 [[plugins]]
 repo = 'Shougo/vinarise'

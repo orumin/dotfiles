@@ -7,6 +7,14 @@ lua_source  = '''
     require("plugin-nvim-lsp")
 '''
 
+[[plugins]]
+repo         = 'jose-elias-alvarez/null-ls.nvim'
+on_source    = 'nvim-lspconfig'
+depends      = ['plenary.nvim']
+lua_source   = '''
+    require("plugin-null-ls")
+'''
+
 #[[plugins]]
 #repo        = 'simrat39/rust-tools.nvim'
 #depends     = 'nvim-lspconfig'

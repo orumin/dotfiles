@@ -13,7 +13,7 @@ if v:true
                 let index = 0
             endif
             call pum#map#confirm()
-            let comlete_item = info.items[index]
+            let complete_item = info.items[index]
             " wait for candidate is inserted
             call timer_start(0, { -> vsnip_integ#on_complete_done(complete_item) })
             return "\<Ignore>"
