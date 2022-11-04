@@ -8,20 +8,8 @@ repo = 'Shougo/dein.vim'
 hook_add = 'source ~/.vim/rc/plugins/plugin-dein.vim'
 
 [[plugins]]
-repo = 'Shougo/denite.nvim'
-if   = '''has('nvim')'''
-hook_post_update = ':UpdateRemotePlugins'
-
-[[plugins]]
-repo = 'Shougo/context_filetype.vim'
-
-[[plugins]]
 repo     = 'Shougo/echodoc.vim'
 hook_add = 'source ~/.vim/rc/plugins/plugin-echodoc.vim'
-
-[[plugins]]
-repo = 'Shougo/vimproc'
-build   = 'make'
 
 [[plugins]]
 repo = 'vim-denops/denops.vim'
@@ -35,6 +23,13 @@ repo = 'Shougo/vinarise'
 
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
+
+[[plugins]]
+repo        = 'williamboman/mason.nvim'
+lua_add     = '''
+    require("mason").setup()
+'''
+
 
 # color scheme
 [[plugins]]
@@ -59,9 +54,7 @@ repo = 'ChristianChiarulli/nvcode-color-schemes.vim'
 [[plugins]]
 repo = 'sainnhe/sonokai'
 
-# tags
-[[plugins]]
-repo = '5t111111/alt-gtags.vim'
+# transparency
 
 [[plugins]]
 repo = 'miyakogi/seiya.vim'

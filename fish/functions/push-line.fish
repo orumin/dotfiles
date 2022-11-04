@@ -7,19 +7,13 @@
 # end
 
 function push-line
-  set cl (commandline)
-  commandline -f repaint
-  if test -n (string join $cl)
-    set -g fish_buffer_stack $cl
-    commandline ''
-    commandline -f repaint
-
-    function restore_line -e fish_postexec
-      commandline $fish_buffer_stack
-      functions -e restore_line
-      set -e fish_buffer_stack
+    set -g __fish_pushed_line (commandline)
+    commandline ""
+    function on-next-prompt --on-event fish_prompt
+        commandline $__fish_pushed_line
+        functions --erase on-next-prompt
     end
-  end
 end
 
+# https://github.com/fish-shell/fish-shell/issues/6973
 # https://gist.github.com/turanegaku/9ac0a75ea08dd353b5d8d0f21149666d#file-push-line-fish

@@ -1,41 +1,48 @@
 local os = require("os")
 local on_attach = function (client, bufnr)
     vim.wo.signcolumn = 'yes'
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
---    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-    local opts = { noremap=true, silent=true }
-    buf_set_keymap('n', 'gh', '<Cmd>lua require("lspsaga.provider").lsp_finder()<CR>', opts)
-    buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
---    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<Cmd>lua require("lspsaga.provider").preview_definition()<CR>', opts)
---    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', 'K', '<Cmd>lua require("lspsaga.hover").render_hover_doc()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
---    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', '<C-k>', '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>', opts)
-    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
---    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<space>rn', '<cmd>lua require("lspsaga.rename").rename()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
---    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    buf_set_keymap('n', '<space>e', '<cmd>lua require("lspsaga.diagnostic").show_line_diagnostics()<CR>', opts)
---    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
---    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_prev()<CR>', opts)
-    buf_set_keymap('n', ']d', '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>', opts)
-    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+    local maps = {
+        {'n', 'gh', '<Cmd>lua require("lspsaga.provider").lsp_finder()<CR>'},
+        {'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>'},
+--        {'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>'},
+        {'n', 'gd', '<Cmd>lua require("lspsaga.provider").preview_definition()<CR>'},
+--        {'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>'},
+        {'n', 'K', '<Cmd>lua require("lspsaga.hover").render_hover_doc()<CR>'},
+        {'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>'},
+--        {'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>'},
+        {'n', '<C-k>', '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>'},
+        {'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>'},
+        {'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>'},
+        {'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>'},
+        {'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>'},
+--        {'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>'},
+        {'n', '<space>rn', '<cmd>lua require("lspsaga.rename").rename()<CR>'},
+        {'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>'},
+--        {'n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>'},
+        {'n', '<space>e', '<cmd>lua require("lspsaga.diagnostic").show_line_diagnostics()<CR>'},
+--        {'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>'},
+--        {'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>'},
+        {'n', '[d', '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_prev()<CR>'},
+        {'n', ']d', '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>'},
+        {'n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>'}
+    }
+
+    for _, map in ipairs(maps) do
+        vim.api.nvim_buf_set_keymap(0, map[1], map[2], map[3], {noremap = true})
+    end
 
 --    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 --        vim.lsp.diagnostic.on_publish_diagnostics, {
 --            virtual_text = false,
+--            severity_sort = true,
 --        }
 --    )
 
-    dofile(os.getenv("HOME") .. "/.vim/rc/plugins/lua/plugin-lspkind.lua")
+--    require("lsp_signature").on_attach({
+--        floating_window = false
+--    })
+
     dofile(os.getenv("HOME") .. "/.vim/rc/plugins/lua/plugin-lspsaga.lua")
 
     local completion_provider = client.server_capabilities.completionProvider
@@ -79,57 +86,62 @@ end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.preselectSupport = true
-capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+capabilities.textDocument.completion.completionItem.preselectSupport = false
+capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
+capabilities.textDocument.completion.completionItem.labelDetailsSupport = false
+capabilities.textDocument.completion.completionItem.deprecatedSupport = false
+capabilities.textDocument.completion.completionItem.commitCharactersSupport = false
+-- capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
 capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = {
         'documentation',
         'detail',
-        'additionalTextEdits',
+--        'additionalTextEdits',
     }
 }
 
-local lsp_installer = require("nvim-lsp-installer")
+require("mason-lspconfig").setup({
+    ensure_installed = { "bashls", "clangd", "cmake", "rust_analyzer", "sumneko_lua", "texlab", "vimls", "pyright" },
+})
+
 local nvim_lsp = require('lspconfig')
 
 local clangd_root_dir = nvim_lsp.util.root_pattern('build/compile_commands.json', '.git')
+local buf_name = vim.api.nvim_buf_get_name(0)
+local current_buf = vim.api.nvim_get_current_buf()
 
-nvim_lsp.clangd.setup{on_attach = on_attach, capabilities = capabilities}
+nvim_lsp.clangd.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+    root_dir = clangd_root_dir
+}
+
+nvim_lsp.bashls.setup{on_attach = on_attach, capabilities = capabilities}
+nvim_lsp.cmake.setup{on_attach = on_attach, capabilities = capabilities}
 nvim_lsp.rust_analyzer.setup{on_attach = on_attach, capabilities = capabilities}
+nvim_lsp.vimls.setup{on_attach = on_attach, capabilities = capabilities}
+nvim_lsp.pyright.setup{on_attach = on_attach, capabilities = capabilities}
+nvim_lsp.texlab.setup{on_attach = on_attach, capabilities = capabilities}
 
-lsp_installer.on_server_ready(function(server)
-    local opts = {}
---    local init_options = {}
-    if server.name == "clangd" then
---        init_options.compilationDatabasePath = "build"
---        opts.init_options = init_options
-        opts.root_dir = clangd_root_dir
-    end
-    if server.name == 'sumneko_lua' then
-        opts.settings = {
-          Lua = {
-            runtime = {
-              version = 'LuaJIT',
-              path = vim.split(package.path, ';'),
-            },
-            diagnostics = {
-              globals = {'vim'},
-            },
-            workspace = {
-              library = {
-                [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-              },
-            },
+nvim_lsp.sumneko_lua.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+      Lua = {
+        runtime = {
+          version = 'LuaJIT',
+          path = vim.split(package.path, ';'),
+        },
+        diagnostics = {
+          globals = {'vim'},
+        },
+        workspace = {
+          library = {
+            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
           },
-        }
-    end
+        },
+      },
+    }
+}
 
-    opts.on_attach = on_attach
-    opts.capabilities = capabilities
-    server:setup(opts)
-    vim.cmd [[ do User LspAttachBuffers ]]
-end)

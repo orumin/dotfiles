@@ -1,3 +1,7 @@
+let g:signature_help_config = {
+\   'style': 'virtual',
+\   'boarder': v:false,
+\}
 call signature_help#enable()
 
 " if you use with vim-lsp, disable vim-lsp's signature help feature

@@ -1,68 +1,11 @@
-# Complete/Language Server Protocol
-[[plugins]]
-repo        = 'Shougo/ddc.vim'
-on_event    = 'InsertEnter'
-#depends     = ['context_filetype.vim', 'pum.vim', 'vim-vsnip']
-depends     = ['context_filetype.vim', 'pum.vim']
-hook_source = 'source ~/.vim/rc/plugins/plugin-ddc.vim'
-
-[[plugins]]
-repo        = 'Shougo/ddc-matcher_head'
-on_source   = 'ddc.vim'
-
-[[plugins]]
-repo        = 'Shougo/pum.vim'
-on_source   = 'ddc.vim'
-
-[[plugins]]
-repo        = 'Shougo/ddc-around'
-on_source   = 'ddc.vim'
-
-[[plugins]]
-repo        = 'Shougo/ddc-converter_remove_overlap'
-on_source   = 'ddc.vim'
-
-[[plugins]]
-repo        = 'Shougo/ddc-sorter_rank'
-on_source   = 'ddc.vim'
-
-[[plugins]]
-repo        = 'Shougo/ddc-nvim-lsp'
-on_source   = 'ddc.vim'
-
-[[plugins]]
-repo        = 'LumaKernel/ddc-file'
-on_source   = 'ddc.vim'
-
-[[plugins]]
-repo        = 'matsui54/ddc-dictionary'
-on_source   = 'ddc.vim'
-
-[[plugins]]
-repo        = 'matsui54/ddc-filter_editdistance'
-on_source   = 'ddc.vim'
-
-## Text snippet
-#[[plugins]]
-#repo        = 'hrsh7th/vim-vsnip'
-#on_event    = 'InsertEnter'
-#depends     = ['vim-vsnip-integ', 'friendly-snippets']
-#hook_add    = 'source ~/.vim/rc/plugins/plugin-vim-vsnip.vim'
-#
-#[[plugins]]
-#repo        = 'hrsh7th/vim-vsnip-integ'
-#on_source   = 'vim-vsnip'
-#
-#[[plugins]]
-#repo        = 'rafamadriz/friendly-snippets'
-#on_source   = 'vim-vsnip'
-
 # Neovim builtin LSP server
 [[plugins]]
 repo        = 'neovim/nvim-lspconfig'
 on_event    = 'BufEnter'
-depends     = ['lspkind-nvim', 'nvim-lsp-installer', 'lspsaga.nvim']
-hook_source = 'luafile ~/.vim/rc/plugins/lua/plugin-nvim-lsp.lua'
+depends     = ['lspsaga.nvim']
+lua_source  = '''
+    require("plugin-nvim-lsp")
+'''
 
 #[[plugins]]
 #repo        = 'simrat39/rust-tools.nvim'
@@ -72,10 +15,6 @@ hook_source = 'luafile ~/.vim/rc/plugins/lua/plugin-nvim-lsp.lua'
 #
 
 [[plugins]]
-repo        = 'onsails/lspkind-nvim'
-on_source   = 'nvim-lspconfig'
-
-[[plugins]]
 repo        = 'tami5/lspsaga.nvim'
 on_source   = 'nvim-lspconfig'
 
@@ -83,31 +22,21 @@ on_source   = 'nvim-lspconfig'
 repo        = 'folke/trouble.nvim'
 on_source   = 'nvim-lspconfig'
 depends     = 'nvim-web-devicons'
-hook_source = 'luafile ~/.vim/rc/plugins/lua/plugin-trouble.lua'
+lua_source  = '''
+    require("plugin-trouble")
+'''
 
 [[plugins]]
 repo        = 'kyazdani42/nvim-web-devicons'
 on_source   = 'nvim-lspconfig'
 
 [[plugins]]
-repo        = 'williamboman/nvim-lsp-installer'
+repo        = 'williamboman/mason-lspconfig.nvim'
 on_source   = 'nvim-lspconfig'
-
-[[plugins]]
-repo        = 'matsui54/denops-popup-preview.vim'
-on_source   = 'nvim-lspconfig'
-depends     = ['nvim-lsp-installer', 'pum.vim']
-hook_source = 'source ~/.vim/rc/plugins/plugin-denops-popup-preview.vim'
-
-[[plugins]]
-repo        = 'matsui54/denops-signature_help'
-on_source   = 'nvim-lspconfig'
-depends     = ['nvim-lsp-installer']
-hook_source = 'source ~/.vim/rc/plugins/plugin-denops-signature_help.vim'
 
 [[plugins]]
 repo        = 'nvim-lua/plenary.nvim'
-on_evennt   = 'BufEnter'
+on_event   = 'BufEnter'
 
 [[plugins]]
 repo        = 'nvim-lua/popup.nvim'
@@ -123,20 +52,24 @@ on_source   = 'plenary.nvim'
 [[plugins]]
 repo             = 'nvim-treesitter/nvim-treesitter'
 on_event         = 'BufEnter'
-hook_source      = 'luafile ~/.vim/rc/plugins/lua/plugin-treesitter.lua'
-depends          = 'nvim-ts-rainbow'
 hook_post_update = 'TSUpdate'
 
 [[plugins]]
 repo      = 'p00f/nvim-ts-rainbow'
+depends   = 'nvim-treesitter'
 on_source = 'nvim-treesitter'
+lua_source       = '''
+    require("plugin-treesitter")
+'''
 
 # indent
 [[plugins]]
 repo         = 'lukas-reineke/indent-blankline.nvim'
 on_event     = 'BufEnter'
-depends      = 'nvim-ts-rainbow'
-hook_source  = 'luafile ~/.vim/rc/plugins/lua/plugin-indent-blankline.lua'
+on_source    = 'nvim-treesitter'
+lua_source   = '''
+    require("plugin-indent-blankline")
+'''
 
 # grammer checker ( need Java runtime for LanguageTool )
 [[plugins]]
