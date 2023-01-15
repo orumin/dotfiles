@@ -3,7 +3,7 @@
 repo        = 'Shougo/ddc.vim'
 on_event    = ['InsertEnter', 'CmdlineEnter']
 depends     = ['context_filetype.vim', 'pum.vim']
-hook_source = 'source ~/.vim/rc/plugins/plugin-ddc.vim'
+hook_source = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-ddc.vim'
 
 [[plugins]]
 repo        = 'Shougo/pum.vim'
@@ -95,12 +95,12 @@ lazy        = 0
 [[plugins]]
 repo        = 'matsui54/denops-popup-preview.vim'
 on_source   = 'ddc.vim'
-hook_source = 'source ~/.vim/rc/plugins/plugin-denops-popup-preview.vim'
+hook_source = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-denops-popup-preview.vim'
 
 [[plugins]]
 repo        = 'matsui54/denops-signature_help'
 on_source   = 'ddc.vim'
-hook_source = 'source ~/.vim/rc/plugins/plugin-denops-signature_help.vim'
+hook_source = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-denops-signature_help.vim'
 
 [[plugins]]
 repo        = 'ray-x/lsp_signature.nvim'
@@ -116,7 +116,7 @@ lazy        = 0
 repo        = 'hrsh7th/vim-vsnip'
 on_source   = 'ddc.vim'
 depends     = ['vim-vsnip-integ', 'friendly-snippets']
-hook_add    = 'source ~/.vim/rc/plugins/plugin-vim-vsnip.vim'
+hook_add    = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-vim-vsnip.vim'
 
 [[plugins]]
 repo        = 'hrsh7th/vim-vsnip-integ'

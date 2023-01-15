@@ -19,7 +19,7 @@ lua_source   = '''
 #repo        = 'simrat39/rust-tools.nvim'
 #depends     = 'nvim-lspconfig'
 #on_ft       = 'rust'
-#hook_source = 'luafile ~/.vim/rc/plugins/lua/plugin-rust-tools.lua'
+#hook_source = 'luafile $XDG_CONFIG_HOME/nvim/rc/plugins/lua/plugin-rust-tools.lua'
 #
 
 [[plugins]]
@@ -88,7 +88,7 @@ on_ft      = ['rst', 'markdown', 'asciidoc', 'pandoc', 'gitrebase', 'gitcommit',
 [[plugins]]
 repo       = 'daisuzu/translategoogle.vim'
 on_ft      = ['rst', 'markdown', 'asciidoc', 'pandoc', 'gitrebase', 'gitcommit', 'vcs-commit', 'hybrid', 'text', 'help', 'tex']
-hook_add   = 'source ~/.vim/rc/plugins/plugin-translategoogle.vim'
+hook_add   = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-translategoogle.vim'
 
 # writing table in plain text
 [[plugins]]
@@ -98,14 +98,14 @@ on_ft      = ['rst', 'markdown', 'asciidoc', 'pandoc', 'gitrebase', 'gitcommit',
 # TeX
 [[plugins]]
 repo        = 'lervag/vimtex'
-hook_add    = 'source ~/.vim/rc/plugins/plugin-vimtex.vim'
+hook_add    = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-vimtex.vim'
 on_ft       = ['tex', 'plaintex']
 
 # Asciidoc (w/ asciidoctor)
 [[plugins]]
 repo        = 'habamax/vim-asciidoctor'
 on_ft       = ['asciidoc']
-hook_add    = 'source ~/.vim/rc/plugins/plugin-asciidoctor.vim'
+hook_add    = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-asciidoctor.vim'
 
 # PlantUML
 [[plugins]]
@@ -116,13 +116,13 @@ on_ft       = 'plantuml'
 [[plugins]]
 repo        = 'Shougo/vimshell'
 on_cmd      = ['VimShell', 'VimShellCreate', 'VimShellPop']
-hook_add    = 'source ~/.vim/rc/plugins/plugin-vimshell.vim'
+hook_add    = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-vimshell.vim'
 
 # Gist
 [[plugins]]
 repo        = 'lambdalisue/vim-gista'
 on_cmd      = 'Gista'
-hook_add    = 'source ~/.vim/rc/plugins/plugin-vim-gista.vim'
+hook_add    = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-vim-gista.vim'
 
 # asm
 [[plugins]]

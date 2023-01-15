@@ -70,3 +70,9 @@ if test \( (uname -v | sed -e 's/#1-\(Microsoft\).*/\1/') = "Microsoft" \) \
     set -x DISPLAY localhost:0.0
     set -x COLORTERM truecolor
 end
+
+set -lqx XDG_CONFIG_HOME
+or set -x XDG_CONFIG_HOME $HOME/.config
+
+set -lqx XDG_CACHE_HOME
+or set -x XDG_CACHE_HOME $HOME/.cache

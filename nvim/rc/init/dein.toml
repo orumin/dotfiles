@@ -5,11 +5,11 @@
 
 [[plugins]]
 repo = 'Shougo/dein.vim'
-hook_add = 'source ~/.vim/rc/plugins/plugin-dein.vim'
+hook_add = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-dein.vim'
 
 [[plugins]]
 repo     = 'Shougo/echodoc.vim'
-hook_add = 'source ~/.vim/rc/plugins/plugin-echodoc.vim'
+hook_add = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-echodoc.vim'
 
 [[plugins]]
 repo = 'vim-denops/denops.vim'
@@ -60,12 +60,12 @@ repo = 'sainnhe/sonokai'
 
 [[plugins]]
 repo = 'miyakogi/seiya.vim'
-hook_add = 'source ~/.vim/rc/plugins/plugin-seiya.vim'
+hook_add = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-seiya.vim'
 
 # pandoc markdown
 [[plugins]]
 repo      = 'vim-pandoc/vim-pandoc'
-hook_add  = 'source ~/.vim/rc/plugins/plugin-vim-pandoc.vim'
+hook_add  = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-vim-pandoc.vim'
 
 [[plugins]]
 repo      = 'vim-pandoc/vim-pandoc-syntax'
@@ -78,12 +78,12 @@ repo        = 'kergoth/vim-bitbake'
 #[[plugins]]
 #repo       = 'dense-analysis/ale'
 #if         = '''has('nvim') || has('job') && has('channel') && has('timers')'''
-#hook_add   = 'source ~/.vim/rc/plugins/plugin-ale.vim'
+#hook_add   = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-ale.vim'
 
 # ime
 [[plugins]]
 repo = 'tyru/eskk.vim'
-hook_add = 'source ~/.vim/rc/plugins/plugin-eskk.vim'
+hook_add = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-eskk.vim'
 
 # english words dictionary
 [[plugins]]

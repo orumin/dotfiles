@@ -14,7 +14,7 @@ if test $ostype = "Darwin"
     set -x MANPATH "/usr/local/opt/inetutils/libexec/gnuman" $MANPATH
 end
 
-set -x PATH "$HOME/.local/bin" $PATH ^/dev/null
+set -x PATH /snap/bin "$HOME/.local/bin" $PATH ^/dev/null
 
 set -x PATH $PATH "$PSPDEV/bin" "$HOME/bin" ^/dev/null
 set -x PATH $PATH "$VITASDK/bin" ^/dev/null
@@ -36,6 +36,9 @@ if echo $PATH | grep Gentoo > /dev/null
     or test (uname -r | awk -F- '{print $2}') = "gentoo"
     set -x PATH $PATH "/usr/sbin" "/sbin"
 end
+
+set -x DENO_INSTALL "/home/$USER/.deno"
+set -x PATH "$DENO_INSTALL/bin" $PATH
 
 set -x MANPATH "/usr/share/man/ja" "/usr/share/man" "/usr/local/man" "/usr/local/share/man"
 set -x MANPATH $MANPATH "/usr/i486-mingw32/share/man" "/opt/qt/man"

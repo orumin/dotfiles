@@ -3,7 +3,7 @@ repo = 'Shougo/ddu.vim'
 merged = 0
 on_source   = 'ddc.vim'
 hook_source = '''
-    source ~/.vim/rc/plugins/plugin-ddu.vim'
+    source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-ddu.vim'
     call Ddu_setup()
 '''
 

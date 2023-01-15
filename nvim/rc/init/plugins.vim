@@ -1,5 +1,5 @@
 " plugin directory
-let s:dein_dir = expand('~/.vim/bundle')
+let s:dein_dir = expand('$XDG_CACHE_HOME/nvim/plugins')
 
 " dein.vim
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -13,10 +13,10 @@ if &runtimepath !~# '/dein.vim'
 endif
 
 " TOML File for plugin list
-let s:toml          = expand('~/.vim/rc/init/dein.toml')
-let s:lazy_toml     = expand('~/.vim/rc/init/dein_lazy.toml')
-let s:ddc_toml     = expand('~/.vim/rc/init/dein_ddc.toml')
-let s:ddu_toml     = expand('~/.vim/rc/init/dein_ddu.toml')
+let s:toml          = expand('$XDG_CONFIG_HOME/nvim/rc/init/dein.toml')
+let s:lazy_toml     = expand('$XDG_CONFIG_HOME/nvim/rc/init/dein_lazy.toml')
+let s:ddc_toml     = expand('$XDG_CONFIG_HOME/nvim/rc/init/dein_ddc.toml')
+let s:ddu_toml     = expand('$XDG_CONFIG_HOME/nvim/rc/init/dein_ddu.toml')
 
 " caching TOML
 if dein#load_state(s:dein_dir)

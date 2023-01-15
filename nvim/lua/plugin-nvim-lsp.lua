@@ -32,7 +32,7 @@ local on_attach = function (client, bufnr)
         }
     )
 
-    dofile(os.getenv("HOME") .. "/.vim/rc/plugins/lua/plugin-lspsaga.lua")
+    dofile(os.getenv("XDG_CONFIG_HOME") .. "/nvim/rc/plugins/lua/plugin-lspsaga.lua")
 
     local completion_provider = client.server_capabilities.completionProvider
     local triggers

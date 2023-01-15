@@ -41,7 +41,7 @@ set guicursor=
 syntax off
 
 " setting backup
-set backupdir=$HOME/.vim/backup
+set backupdir=$XDG_CACHE_HOME/nvim/backup
 let &directory = &backupdir
 
 " copy to clipboard
