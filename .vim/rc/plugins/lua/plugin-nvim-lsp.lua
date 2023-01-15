@@ -2,46 +2,35 @@ local os = require("os")
 local on_attach = function (client, bufnr)
     vim.wo.signcolumn = 'yes'
 
+    local keymap = vim.api.nvim_buf_set_keymap
     local maps = {
-        {'n', 'gh', '<Cmd>lua require("lspsaga.provider").lsp_finder()<CR>'},
+        {'n', '<space>wa', '<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>'},
+        {'n', '<space>wr', '<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>'},
+        {'n', '<space>wl', '<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>'},
+        {'n', 'gh', '<Cmd>Lspsaga lsp_finder<CR>'},
+        {'n', 'gx', '<Cmd>Lspsaga code_action<CR>'},
         {'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>'},
---        {'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>'},
-        {'n', 'gd', '<Cmd>lua require("lspsaga.provider").preview_definition()<CR>'},
---        {'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>'},
-        {'n', 'K', '<Cmd>lua require("lspsaga.hover").render_hover_doc()<CR>'},
-        {'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>'},
---        {'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>'},
-        {'n', '<C-k>', '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>'},
-        {'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>'},
-        {'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>'},
-        {'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>'},
-        {'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>'},
---        {'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>'},
-        {'n', '<space>rn', '<cmd>lua require("lspsaga.rename").rename()<CR>'},
-        {'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>'},
---        {'n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>'},
-        {'n', '<space>e', '<cmd>lua require("lspsaga.diagnostic").show_line_diagnostics()<CR>'},
---        {'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>'},
---        {'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>'},
-        {'n', '[d', '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_prev()<CR>'},
-        {'n', ']d', '<cmd>lua require("lspsaga.diagnostic").lsp_jump_diagnostic_next()<CR>'},
-        {'n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>'}
+        {'n', 'gd', '<Cmd>Lspsaga preview_definition<CR>'},
+        {'n', 'lk', '<Cmd>Lspsaga hover_doc<CR>'},
+        {'n', 'gi', '<Cmd>Lspsaga implement<CR>'},
+        {'n', '<C-k>', '<Cmd>Lspsaga signature_help<CR>'},
+        {'n', '<space>rn', '<Cmd>Lspsaga rename<CR>'},
+        {'n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>'},
+        {'n', '<space>e', '<Cmd>Lspsaga show_line_diagnostics<CR>'},
+        {'n', '[d', '<Cmd>Lspsaga diagnostic_jump_prev<CR>'},
+        {'n', ']d', '<Cmd>Lspsaga diagnostic_jump_next<CR>'},
     }
 
     for _, map in ipairs(maps) do
-        vim.api.nvim_buf_set_keymap(0, map[1], map[2], map[3], {noremap = true})
+        keymap(bufnr, map[1], map[2], map[3], { silent = true, noremap = true })
     end
 
---    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
---        vim.lsp.diagnostic.on_publish_diagnostics, {
---            virtual_text = false,
---            severity_sort = true,
---        }
---    )
-
---    require("lsp_signature").on_attach({
---        floating_window = false
---    })
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics, {
+            virtual_text = false,
+            severity_sort = true,
+        }
+    )
 
     dofile(os.getenv("HOME") .. "/.vim/rc/plugins/lua/plugin-lspsaga.lua")
 
@@ -101,14 +90,14 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 require("mason-lspconfig").setup({
-    ensure_installed = { "bashls", "clangd", "cmake", "rust_analyzer", "sumneko_lua", "texlab", "vimls", "pyright" },
+    ensure_installed = { "bashls", "clangd", "cmake", "rust_analyzer", "sumneko_lua", "texlab", "vimls", "pyright", "jsonls" },
 })
 
 local nvim_lsp = require('lspconfig')
 
 local clangd_root_dir = nvim_lsp.util.root_pattern('build/compile_commands.json', '.git')
-local buf_name = vim.api.nvim_buf_get_name(0)
-local current_buf = vim.api.nvim_get_current_buf()
+--local buf_name = vim.api.nvim_buf_get_name(0)
+--local current_buf = vim.api.nvim_get_current_buf()
 
 nvim_lsp.clangd.setup{
     on_attach = on_attach,
@@ -122,6 +111,7 @@ nvim_lsp.rust_analyzer.setup{on_attach = on_attach, capabilities = capabilities}
 nvim_lsp.vimls.setup{on_attach = on_attach, capabilities = capabilities}
 nvim_lsp.pyright.setup{on_attach = on_attach, capabilities = capabilities}
 nvim_lsp.texlab.setup{on_attach = on_attach, capabilities = capabilities}
+nvim_lsp.jsonls.setup{on_attach = on_attach, capabilities = capabilities}
 
 nvim_lsp.sumneko_lua.setup{
     on_attach = on_attach,

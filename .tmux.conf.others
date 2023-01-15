@@ -1,4 +1,10 @@
 #bind C-c run "tmux save-buffer - | xsel --clipboard --input"
 #bind C-v run "xsel --clipboard --output | tmux load-buffer - && tmux paste-buffer"
-bind C-c run "tmux save-buffer - | wl-copy"
-bind C-v run "wl-paste | tmux load-buffer - && tmux paste-buffer"
+
+if-shell '[ "$XDG_SESSION_TYPE" = "wayland" ]' \
+    'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "tmux save-buffer - | wl-copy"' \
+    'bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xsel -i -p && xsel -o -p | xsel -i -b"'
+
+if-shell '[ "$XDG_SESSION_TYPE" = "wayland" ]' \
+    'bind-key C-v run "wl-paste | tmux load-buffer - ; tmux paste-buffer"' \
+    'bind-key C-v run "xsel -o | tmux load-buffer - ; tmux paste-buffer"'

@@ -7,6 +7,8 @@ set shell=bash
 set binary noeol
 set nofixeol
 
+let g:loaded_clipboard_provider = 1
+
 " terminal
 if has('nvim')
     nnoremap <silent> vt :terminal<CR>

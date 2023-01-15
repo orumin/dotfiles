@@ -23,7 +23,7 @@ lua_source   = '''
 #
 
 [[plugins]]
-repo        = 'tami5/lspsaga.nvim'
+repo        = 'kkharji/lspsaga.nvim'
 on_source   = 'nvim-lspconfig'
 
 [[plugins]]

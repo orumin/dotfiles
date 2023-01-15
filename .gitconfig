@@ -10,3 +10,5 @@
     gpgsigne = true
 [github]
 	user = orumin
+[init]
+	defaultBranch = main
