@@ -3,7 +3,7 @@ INSTALL_TARGET = $(wildcard .??*)
 DOTFILES       = $(filter-out $(EXCLUDE_FILES), $(INSTALL_TARGET))
 XDG_CONFIGS	   = mpv
 
-CONFIG_DIR     = $(HOME)/.config
+CONFIG_DIR     = $(XDG_CONFIG_HOME)
 FISH_PATH	   = $(CONFIG_DIR)/fish
 NVIM_PATH      = $(CONFIG_DIR)/nvim
 
@@ -13,7 +13,7 @@ $(CONFIG_DIR):
 	mkdir -p $@
 
 $(NVIM_PATH):
-	ln -sfnv $(HOME)/nvim $@
+	ln -sfnv $(PWD)/nvim $@
 
 $(FISH_PATH):
 	ln -sfnv $(PWD)/fish $@
