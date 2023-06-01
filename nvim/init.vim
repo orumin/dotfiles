@@ -4,7 +4,7 @@ set shell=bash
 
 " avoid insert newline at end of file
 " WARN: POSIX require newline character at EOF for plain text.
-set binary noeol
+" set binary noeol
 set nofixeol
 
 let g:loaded_clipboard_provider = 1

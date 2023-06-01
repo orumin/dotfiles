@@ -37,7 +37,7 @@ require('lualine').setup {
               info  = 'DiagnosticInfo',  -- Changes diagnostics' info color.
               hint  = 'DiagnosticHint',  -- Changes diagnostics' hint color.
             },
---            symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'},
+            symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '},
             colored = true,           -- Displays diagnostics status in color if set to true.
             update_in_insert = false, -- Update diagnostics in insert mode.
             always_visible = false,   -- Show diagnostics even if there are none.

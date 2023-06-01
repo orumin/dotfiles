@@ -35,7 +35,7 @@ lua_source  = '''
 '''
 
 [[plugins]]
-repo        = 'kyazdani42/nvim-web-devicons'
+repo        = 'nvim-tree/nvim-web-devicons'
 on_source   = 'nvim-lspconfig'
 
 [[plugins]]
@@ -61,6 +61,12 @@ on_source   = 'plenary.nvim'
 repo             = 'nvim-treesitter/nvim-treesitter'
 on_event         = 'BufEnter'
 hook_post_update = 'TSUpdate'
+
+# joke
+[[plugins]]
+repo      = 'Eandrju/cellular-automaton.nvim'
+depends   = 'nvim-treesitter'
+on_source = 'nvim-treesitter'
 
 [[plugins]]
 repo      = 'p00f/nvim-ts-rainbow'

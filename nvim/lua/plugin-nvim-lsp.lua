@@ -90,7 +90,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 require("mason-lspconfig").setup({
-    ensure_installed = { "bashls", "clangd", "cmake", "rust_analyzer", "sumneko_lua", "texlab", "vimls", "pyright", "jsonls" },
+    ensure_installed = { "bashls", "clangd", "cmake", "rust_analyzer", "lua_ls", "texlab", "vimls", "pyright", "jsonls" },
 })
 
 local nvim_lsp = require('lspconfig')
@@ -113,13 +113,13 @@ nvim_lsp.pyright.setup{on_attach = on_attach, capabilities = capabilities}
 nvim_lsp.texlab.setup{on_attach = on_attach, capabilities = capabilities}
 nvim_lsp.jsonls.setup{on_attach = on_attach, capabilities = capabilities}
 
-nvim_lsp.sumneko_lua.setup{
+nvim_lsp.lua_ls.setup{
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
       Lua = {
         runtime = {
-          version = 'LuaJIT',
+          version = '5.4',
           path = vim.split(package.path, ';'),
         },
         diagnostics = {
