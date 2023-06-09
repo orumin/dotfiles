@@ -45,6 +45,15 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   end
 })
 
+-- bb as bitbake
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+  group = 'setFileType',
+  pattern = {"*.bb"},
+  callback = function()
+    vim.o.filetype = 'bitbake'
+  end
+})
+
 -- NeoVim built-in Terminal
 vim.api.nvim_create_autocmd('TermOpen', {
   callback = function()

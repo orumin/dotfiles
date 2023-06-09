@@ -31,9 +31,6 @@ local function on_attach (client, bufnr)
         }
     )
 
-    local lspsaga_opts = require("plugins.lspsaga_opts")
-    require('lspsaga').setup(lspsaga_opts)
-
     local completion_provider = client.server_capabilities.completionProvider
     local triggers
     if completion_provider ~= nil then

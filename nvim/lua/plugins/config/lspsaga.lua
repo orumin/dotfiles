@@ -1,4 +1,4 @@
-return { -- defaults ...
+local opts = { -- defaults ...
   debug = false,
   use_saga_diagnostic_sign = true,
   -- diagnostic sign
@@ -40,3 +40,5 @@ return { -- defaults ...
   server_filetype_map = {},
   diagnostic_prefix_format = "%d. ",
 }
+
+require("lspsaga").setup(opts)
