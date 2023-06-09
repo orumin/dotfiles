@@ -1,5 +1,6 @@
 augroup MyAutoGroup
 
+autocmd FileType text setlocal textwidth=78
 "autocmd BufWritePost .vimrc source ~/.vimrc
 "autocmd BufWritePost .gvimrc source ~/.gvimrc
 "set ft=vim

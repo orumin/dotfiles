@@ -2,9 +2,9 @@
 [[plugins]]
 repo        = 'neovim/nvim-lspconfig'
 on_event    = 'BufEnter'
-depends     = ['lspsaga.nvim']
+depends     = ['lspsaga.nvim', 'clangd_extensions.nvim']
 lua_source  = '''
-    require("plugin-nvim-lsp")
+    require("plugin_settings.nvim-lsp")
 '''
 
 [[plugins]]
@@ -12,7 +12,7 @@ repo         = 'jose-elias-alvarez/null-ls.nvim'
 on_source    = 'nvim-lspconfig'
 depends      = ['plenary.nvim']
 lua_source   = '''
-    require("plugin-null-ls")
+    require("plugin_settings.null-ls")
 '''
 
 #[[plugins]]
@@ -31,7 +31,7 @@ repo        = 'folke/trouble.nvim'
 on_source   = 'nvim-lspconfig'
 depends     = 'nvim-web-devicons'
 lua_source  = '''
-    require("plugin-trouble")
+    require("plugin_settings.trouble")
 '''
 
 [[plugins]]
@@ -73,7 +73,7 @@ repo      = 'p00f/nvim-ts-rainbow'
 depends   = 'nvim-treesitter'
 on_source = 'nvim-treesitter'
 lua_source       = '''
-    require("plugin-treesitter")
+    require("plugin_settings.treesitter")
 '''
 
 # indent
@@ -82,8 +82,13 @@ repo         = 'lukas-reineke/indent-blankline.nvim'
 on_event     = 'BufEnter'
 on_source    = 'nvim-treesitter'
 lua_source   = '''
-    require("plugin-indent-blankline")
+    require("plugin_settings.indent-blankline")
 '''
+
+# c/c++
+[[plugins]]
+repo       = 'p00f/clangd_extensions.nvim'
+on_event     = 'BufEnter'
 
 # grammer checker ( need Java runtime for LanguageTool )
 [[plugins]]

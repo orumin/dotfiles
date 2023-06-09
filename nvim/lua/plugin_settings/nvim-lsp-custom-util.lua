@@ -89,49 +89,8 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     }
 }
 
-require("mason-lspconfig").setup({
-    ensure_installed = { "bashls", "clangd", "cmake", "rust_analyzer", "lua_ls", "texlab", "vimls", "pyright", "jsonls" },
-})
 
-local nvim_lsp = require('lspconfig')
-
-local clangd_root_dir = nvim_lsp.util.root_pattern('build/compile_commands.json', '.git')
---local buf_name = vim.api.nvim_buf_get_name(0)
---local current_buf = vim.api.nvim_get_current_buf()
-
-nvim_lsp.clangd.setup{
-    on_attach = on_attach,
-    capabilities = capabilities,
-    root_dir = clangd_root_dir
+return {
+  on_attach = on_attach,
+  capabilities = capabilities
 }
-
-nvim_lsp.bashls.setup{on_attach = on_attach, capabilities = capabilities}
-nvim_lsp.cmake.setup{on_attach = on_attach, capabilities = capabilities}
-nvim_lsp.rust_analyzer.setup{on_attach = on_attach, capabilities = capabilities}
-nvim_lsp.vimls.setup{on_attach = on_attach, capabilities = capabilities}
-nvim_lsp.pyright.setup{on_attach = on_attach, capabilities = capabilities}
-nvim_lsp.texlab.setup{on_attach = on_attach, capabilities = capabilities}
-nvim_lsp.jsonls.setup{on_attach = on_attach, capabilities = capabilities}
-
-nvim_lsp.lua_ls.setup{
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-      Lua = {
-        runtime = {
-          version = '5.4',
-          path = vim.split(package.path, ';'),
-        },
-        diagnostics = {
-          globals = {'vim'},
-        },
-        workspace = {
-          library = {
-            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-            [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-          },
-        },
-      },
-    }
-}
-

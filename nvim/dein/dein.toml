@@ -17,7 +17,7 @@ repo = 'vim-denops/denops.vim'
 [[plugins]]
 repo = 'nvim-lualine/lualine.nvim'
 lua_add = '''
-    require("plugin-lualine")
+    require("plugin_settings.lualine")
 '''
 
 [[plugins]]
@@ -32,6 +32,8 @@ lua_add     = '''
     require("mason").setup()
 '''
 
+[[plugins]]
+repo = 'MarcWeber/vim-addon-local-vimrc'
 
 # color scheme
 [[plugins]]
