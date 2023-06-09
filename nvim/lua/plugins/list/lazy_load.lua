@@ -10,6 +10,7 @@ local opts = {
       "jose-elias-alvarez/null-ls.nvim",
       "williamboman/mason-lspconfig.nvim",
       "ray-x/lsp_signature.nvim",
+      "hrsh7th/nvim-cmp",
     },
     config = function()
       require("plugins.config.nvim-lsp")
@@ -20,6 +21,40 @@ local opts = {
   },
   {
     "williamboman/mason-lspconfig.nvim",
+  },
+-- nvim-cmp
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-vsnip",
+      "hrsh7th/vim-vsnip",
+    },
+    config = function()
+      require("plugins.config.nvim-cmp")
+    end
+  },
+  {
+    "hrsh7th/cmp-nvim-lsp",
+  },
+  {
+    "hrsh7th/cmp-buffer",
+  },
+  {
+    "hrsh7th/cmp-path",
+  },
+  {
+    "hrsh7th/cmp-cmdline",
+  },
+-- vsnip
+  {
+    "hrsh7th/cmp-vsnip",
+  },
+  {
+    "hrsh7th/vim-vsnip",
   },
 -- C/C++
   {

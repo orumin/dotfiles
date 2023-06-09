@@ -30,20 +30,6 @@ if ok then
   end
 end
 
-ok, ddc_plug_list = pcall(require, "plugins.list.ddc")
-if ok then
-  for _, v in pairs(ddc_plug_list) do
-    table.insert(plug_list, v)
-  end
-end
-
-ok, ddu_plug_list = pcall(require, "plugins.list.ddu")
-if ok then
-  for _, v in pairs(ddu_plug_list) do
-    table.insert(plug_list, v)
-  end
-end
-
 require("lazy").setup(
   plug_list
 )

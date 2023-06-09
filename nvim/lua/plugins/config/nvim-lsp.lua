@@ -46,14 +46,6 @@ local function on_attach (client, bufnr)
         else table.insert(escaped, c)
         end
       end
-      -- override ddc setting of lsp buffer
-      vim.fn['ddc#custom#patch_buffer'] {
-        sourceOptions = {
-          ["nvim-lsp"] = {
-            forceCompletionPattern = table.concat(escaped, '|'),
-          }
-        },
-      }
     end
 
     if client.server_capabilities.documentHighlightProvider then
@@ -70,21 +62,7 @@ local function on_attach (client, bufnr)
     end
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.preselectSupport = false
-capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
-capabilities.textDocument.completion.completionItem.labelDetailsSupport = false
-capabilities.textDocument.completion.completionItem.deprecatedSupport = false
-capabilities.textDocument.completion.completionItem.commitCharactersSupport = false
--- capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {
-        'documentation',
-        'detail',
---        'additionalTextEdits',
-    }
-}
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local servers = { "bashls", "clangd", "cmake", "rust_analyzer", "lua_ls", "texlab", "vimls", "pyright", "jsonls" }
 require("mason-lspconfig").setup({

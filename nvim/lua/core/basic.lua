@@ -37,7 +37,6 @@ local global_opts = {
   laststatus = 2,
   cmdheight = 2,
   wildmenu = true,
-  wildoptions = "pum",
   showcmd = true,
 
 }

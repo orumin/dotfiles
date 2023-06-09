@@ -5,7 +5,7 @@ null_ls.setup({
         null_ls.builtins.formatting.clang_format,
         null_ls.builtins.formatting.rustfmt,
         null_ls.builtins.diagnostics.actionlint,
-        null_ls.builtins.diagnostics.cspell,
+--        null_ls.builtins.diagnostics.cspell,
         null_ls.builtins.diagnostics.shellcheck,
         null_ls.builtins.diagnostics.yamllint,
         null_ls.builtins.code_actions.cspell,
