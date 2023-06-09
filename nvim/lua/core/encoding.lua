@@ -1,5 +1,6 @@
-" this setting quoted from http://www.kawaz.jp/pukiwiki/?vim#content_1_7
+-- this setting quoted from http://www.kawaz.jp/pukiwiki/?vim#content_1_7
 
+vim.cmd [[
 " 文字コードの自動認識
 if &encoding !=# 'utf-8'
   set encoding=japan
@@ -59,3 +60,4 @@ if exists('&ambiwidth')
 "" Gnome Terminalだといろいろブッ壊れるのでsingleに
   set ambiwidth=single
 endif
+]]

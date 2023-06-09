@@ -19,8 +19,9 @@ vim.api.nvim_set_option('t_Co', '256')
 
 require('plugins')
 require('core.basic')
--- vim.cmd('runtime! rc/init/*.vim')
--- vim.cmd('runtime! rc/plugins/*.vim')
+require('core.autocmd')
+require('core.keymaps')
+require('core.encoding')
 
 -- color and colorscheme settings
 vim.cmd('let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0')
