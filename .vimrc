@@ -56,11 +56,10 @@ set cmdheight=2
 set wildmenu
 " https://github.com/neovim/neovim/issues/6041
 set guicursor=
-syntax off
 
-" setting backup
-set backupdir=$HOME/.vim/backup
-let &directory = &backupdir
+"" setting backup
+"set backupdir=$HOME/.vim/backup
+"let &directory = &backupdir
 
 " copy to clipboard
 set clipboard=unnamed

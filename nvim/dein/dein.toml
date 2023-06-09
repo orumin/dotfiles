@@ -17,7 +17,7 @@ repo = 'vim-denops/denops.vim'
 [[plugins]]
 repo = 'nvim-lualine/lualine.nvim'
 lua_add = '''
-    require("plugin_settings.lualine")
+    require("plugins.lualine")
 '''
 
 [[plugins]]
@@ -34,6 +34,7 @@ lua_add     = '''
 
 [[plugins]]
 repo = 'MarcWeber/vim-addon-local-vimrc'
+hook_add = 'source $XDG_CONFIG_HOME/nvim/rc/plugins/plugin-vim-addon-local-vimrc.vim'
 
 # color scheme
 [[plugins]]

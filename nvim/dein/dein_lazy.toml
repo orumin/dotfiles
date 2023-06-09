@@ -4,7 +4,7 @@ repo        = 'neovim/nvim-lspconfig'
 on_event    = 'BufEnter'
 depends     = ['lspsaga.nvim', 'clangd_extensions.nvim']
 lua_source  = '''
-    require("plugin_settings.nvim-lsp")
+    require("plugins.nvim-lsp")
 '''
 
 [[plugins]]
@@ -12,15 +12,16 @@ repo         = 'jose-elias-alvarez/null-ls.nvim'
 on_source    = 'nvim-lspconfig'
 depends      = ['plenary.nvim']
 lua_source   = '''
-    require("plugin_settings.null-ls")
+    require("plugins.null-ls")
 '''
 
 #[[plugins]]
 #repo        = 'simrat39/rust-tools.nvim'
 #depends     = 'nvim-lspconfig'
 #on_ft       = 'rust'
-#hook_source = 'luafile $XDG_CONFIG_HOME/nvim/rc/plugins/lua/plugin-rust-tools.lua'
-#
+#lua_source   = '''
+#    require("plugins.rust-tools")
+#'''
 
 [[plugins]]
 repo        = 'kkharji/lspsaga.nvim'
@@ -31,7 +32,7 @@ repo        = 'folke/trouble.nvim'
 on_source   = 'nvim-lspconfig'
 depends     = 'nvim-web-devicons'
 lua_source  = '''
-    require("plugin_settings.trouble")
+    require("plugins.trouble")
 '''
 
 [[plugins]]
@@ -73,7 +74,7 @@ repo      = 'p00f/nvim-ts-rainbow'
 depends   = 'nvim-treesitter'
 on_source = 'nvim-treesitter'
 lua_source       = '''
-    require("plugin_settings.treesitter")
+    require("plugins.treesitter")
 '''
 
 # indent
@@ -82,7 +83,7 @@ repo         = 'lukas-reineke/indent-blankline.nvim'
 on_event     = 'BufEnter'
 on_source    = 'nvim-treesitter'
 lua_source   = '''
-    require("plugin_settings.indent-blankline")
+    require("plugins.indent-blankline")
 '''
 
 # c/c++

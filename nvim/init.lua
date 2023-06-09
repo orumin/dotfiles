@@ -17,8 +17,8 @@ endif
 
 vim.api.nvim_set_option('t_Co', '256')
 
+require('plugins')
 require('core.basic')
-require('plugins.dein')
 -- vim.cmd('runtime! rc/init/*.vim')
 -- vim.cmd('runtime! rc/plugins/*.vim')
 
@@ -35,5 +35,5 @@ endif
 "colorscheme japanesque
 ]]
 
-vim.cmd('filetype on')
-vim.cmd('syntax off')
+vim.api.nvim_set_option('filetype', 'on')
+vim.api.nvim_set_option('syntax', 'on')
