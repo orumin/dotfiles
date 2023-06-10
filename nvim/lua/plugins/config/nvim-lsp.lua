@@ -3,6 +3,12 @@ if not ok then
   vim.notify("error loading nvim-lspconfig")
   return
 end
+local mason
+ok, mason = pcall(require, 'mason')
+if not ok then
+  vim.notify("error loading mason")
+  return
+end
 
 local function on_attach(client, _)
  vim.wo.signcolumn = 'yes'
@@ -39,6 +45,7 @@ local handlers = {
  -- a dedicated handler.
   function(server) -- default
     local opts = {}
+    opts.autostart = true
     opts.on_attach = on_attach
     opts.capabilities = require("cmp_nvim_lsp").default_capabilities()
     lspconfig[server].setup(opts)
@@ -46,6 +53,7 @@ local handlers = {
   -- Next, you can provide targeted overrides for specific servers.
   ["clangd"] = function()
     local clang_setup_opts = require('plugins.config.clang_extensions')
+    clang_setup_opts.server.autostart = true
     clang_setup_opts.server.on_attach = on_attach
     clang_setup_opts.server.capabilities = require("cmp_nvim_lsp").default_capabilities()
     clang_setup_opts.server.root_dir = lspconfig.util.root_pattern('build/compile_commands.json', '.git')
@@ -53,6 +61,7 @@ local handlers = {
   end,
   ["lua_ls"] = function ()
     lspconfig.lua_ls.setup({
+      autostart = true,
       settings = {
         Lua = {
           runtime = {
@@ -73,19 +82,25 @@ local handlers = {
     })
   end,
   ["rust_analyzer"] = function()
-    local opts = {}
-    opts.on_attach = on_attach
-    opts.capabilities = require("cmp_nvim_lsp").default_capabilities()
-    local rust_tools_opts = require("plugins.config.rust-tools")
-    rust_tools_opts.server = vim.tbl_deep_extend("force", rust_tools_opts.server, opts)
+    local rust_tools_opts = { server = {} }
+    rust_tools_opts.server.autostart = true
+    rust_tools_opts.server.on_attach = on_attach
+    rust_tools_opts.server.capabilities = require("cmp_nvim_lsp").default_capabilities()
     require("rust-tools").setup(rust_tools_opts)
   end,
 }
+
+mason.setup({
+  ui = {
+    border = 'single',
+  },
+})
 
 local servers = { "bashls", "clangd", "cmake", "jsonls", "ltex", "lua_ls", "pyright", "rust_analyzer", "vimls", }
 local mason_lspconfig
 ok, mason_lspconfig = pcall(require, "mason-lspconfig")
 if ok then
+  mason_lspconfig.setup_handlers(handlers)
   mason_lspconfig.setup({
     ensure_installed = servers,
     handlers = handlers

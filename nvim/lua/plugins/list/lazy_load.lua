@@ -5,7 +5,12 @@ local opts = {
     event = "BufEnter",
     dependencies = {
       -- configuration
-      "williamboman/mason-lspconfig.nvim",
+      {
+        "williamboman/mason.nvim",
+        dependencies = {
+          "williamboman/mason-lspconfig.nvim",
+        },
+      },
       -- decorate lsp outputs
       "ray-x/lsp_signature.nvim",
       {
@@ -18,7 +23,8 @@ local opts = {
         end
       },
       {
-        "nvimdev/lspsaga.nvim",
+--        "nvimdev/lspsaga.nvim",
+        "kkharji/lspsaga.nvim",
         event = "LspAttach",
         dependencies = {
           "nvim-tree/nvim-web-devicons",
@@ -39,8 +45,8 @@ local opts = {
           },
         },
         config = function()
-          require("lspsaga").setup({})
-          --require("plugins.config.lspsaga")
+          --require("lspsaga").setup({})
+          require("plugins.config.lspsaga")
         end
 
       },
@@ -49,15 +55,15 @@ local opts = {
       -- lang specific extensions
       "p00f/clangd_extensions.nvim", -- C/C++
       "simrat39/rust-tools.nvim", -- Rust
---      { -- other linter
---        "jose-elias-alvarez/null-ls.nvim",
---        dependencies = {
---          "nvim-lua/plenary.nvim"
---        },
---        config = function()
---          require("plugins.config.null-ls")
---        end
---      }
+      { -- other linter
+        "jose-elias-alvarez/null-ls.nvim",
+        dependencies = {
+          "nvim-lua/plenary.nvim"
+        },
+        config = function()
+          require("plugins.config.null-ls")
+        end
+      }
     },
     config = function()
       require("plugins.config.nvim-lsp")
