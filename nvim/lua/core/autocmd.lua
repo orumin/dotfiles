@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
 -- bb as bitbake
 vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   group = 'setFileType',
-  pattern = {"*.bb"},
+  pattern = {"*.bb", "*.bbappend", "*.bbclass"},
   callback = function()
     vim.o.filetype = 'bitbake'
   end

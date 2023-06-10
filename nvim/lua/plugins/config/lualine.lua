@@ -1,7 +1,13 @@
-require('lualine').setup {
+local ok, lualine = pcall(require, "lualine")
+if not ok then
+  pr_error("error loading lualine")
+  return
+end
+
+lualine.setup({
   options = {
     icons_enabled = true,
-    theme = 'auto',
+    theme = "catppuccin",
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {
@@ -43,7 +49,7 @@ require('lualine').setup {
             always_visible = false,   -- Show diagnostics even if there are none.
         },
     },
-    lualine_c = {'filename'},
+    lualine_c = {'filename', 'lsp_progress'},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
@@ -60,4 +66,4 @@ require('lualine').setup {
   winbar = {},
   inactive_winbar = {},
   extensions = {}
-}
+})

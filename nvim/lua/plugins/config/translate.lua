@@ -1,4 +1,10 @@
-require("translate").setup({
+local ok, translate = pcall(require, "translate")
+if not ok then
+  pr_error("error loading translate")
+  return
+end
+
+translate.setup({
   output = {
     float = {
       max_width = 40,

@@ -1,4 +1,9 @@
-local null_ls = require("null-ls")
+local ok, null_ls = pcall(require, "null-ls")
+if not ok then
+  pr_error("error loading null-ls")
+  return
+end
+
 null_ls.setup({
     sources = {
         null_ls.builtins.formatting.black,

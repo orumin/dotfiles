@@ -1,6 +1,31 @@
+local function nnoremap (lhs, rhs)
+  vim.keymap.set("n", lhs, rhs, {noremap = true, silent = true})
+end
+
 vim.api.nvim_set_keymap('', '<C-U>', '<C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>', {})
 vim.api.nvim_set_keymap('', '<C-D>', '<C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>', {})
-vim.api.nvim_set_keymap('n', '<ESC><ESC>', ':nohlsearch<CR><ESC>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>s', ':set spell!<CR>', {noremap = true, silent = true})
+
+nnoremap("<ESC><ESC>", ":nohlsearch<CR><ESC>")
+nnoremap("<leader>s",
+function ()
+  if vim.o.spell then
+    vim.o.spell = false
+  else
+    vim.o.spell = true
+  end
+end)
+
 -- terminal
-vim.api.nvim_set_keymap('n', 'vt', ':terminal<CR>', {noremap = true, silent = true})
+nnoremap("vt", "<Cmd>terminal<CR>")
+-- display space
+nnoremap("<S-c>",
+function ()
+  local it = vim.iter(vim.opt.listchars:get())
+  local space = it:any(function(k,_) return k == "space" end)
+  if space then
+    vim.opt.listchars:remove("space")
+  else
+    vim.opt.listchars:prepend("space:⋅")
+  end
+end)
+

@@ -8,8 +8,8 @@ if vim.o.encoding ~= "utf-8" then
   vim.o.fileencoding = "japan"
 end
 
-if vim.fn["has"]("iconv") then
-  local iconv = vim.fn["iconv"]
+if vim.fn.has("iconv") == 1 then
+  local iconv = vim.fn.iconv
 
   local enc_euc = 'euc-jp'
   local enc_jis = 'iso-2022-jp'
@@ -45,7 +45,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = "",
   callback = function()
     if vim.o.fileencoding ~= "iso-2022-jp" and
-      vim.fn["search"]("[^\x01-\x7e]", "n") == 0 then
+      vim.fn.search("[^\x01-\x7e]", "n") == 0 then
 
       vim.o.fileencoding = vim.o.encoding
     end

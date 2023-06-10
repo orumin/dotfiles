@@ -64,6 +64,8 @@ switch $OSTYPE
         set -x LANG en_US.UTF-8
     end
 
+set -x GO111MODULE on
+
 if test \( (uname -r | sed -e 's/#1-\(Microsoft\).*/\1/') = "Microsoft" \) \
     -o \( (uname -r | sed -e 's/#1-\(microsoft\).*/\1/') = "microsoft" \) \
     -o \( (uname -r | awk -F- '{print $4}') = "WSL2" \)

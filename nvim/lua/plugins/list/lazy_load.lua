@@ -12,7 +12,6 @@ local opts = {
         },
       },
       -- decorate lsp outputs
-      "ray-x/lsp_signature.nvim",
       {
         "folke/trouble.nvim",
         dependencies = {
@@ -23,15 +22,14 @@ local opts = {
         end
       },
       {
---        "nvimdev/lspsaga.nvim",
-        "kkharji/lspsaga.nvim",
+        "nvimdev/lspsaga.nvim",
         event = "LspAttach",
         dependencies = {
           "nvim-tree/nvim-web-devicons",
           {
             "nvim-treesitter/nvim-treesitter",
             dependencies = {
-              "p00f/nvim-ts-rainbow",
+              "HiPhish/nvim-ts-rainbow2",
             },
             config = function()
               vim.api.nvim_create_autocmd("User", {
@@ -45,7 +43,6 @@ local opts = {
           },
         },
         config = function()
-          --require("lspsaga").setup({})
           require("plugins.config.lspsaga")
         end
 
@@ -77,9 +74,16 @@ local opts = {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
--- vsnip
-      "hrsh7th/cmp-vsnip",
-      "hrsh7th/vim-vsnip",
+      "petertriho/cmp-git",
+      {
+        "aspeddro/cmp-pandoc.nvim",
+        dependencies = {
+          "nvim-lua/plenary.nvim"
+        }
+      },
+-- snippets support
+      "saadparwaiz1/cmp_luasnip",
+      "L3MON4D3/LuaSnip",
 -- dislay icon with lsp completion
       "onsails/lspkind.nvim",
     },
@@ -100,29 +104,51 @@ local opts = {
       require("plugins.config.indent-blankline")
     end
   },
--- joke with treesitter
+-- todo comments
   {
-    "Eandrju/cellular-automaton.nvim",
+    "folke/todo-comments.nvim",
     event = "BufEnter",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
   },
-
---UI
+-- joke with treesitter
   {
-    "nvim-lua/popup.nvim",
-    event = "BufEnter",
+    "Eandrju/cellular-automaton.nvim",
+    event = "VeryLazy",
     dependencies = {
-      "nvim-lua/plenary.nvim"
+      "nvim-treesitter/nvim-treesitter",
     },
   },
+-- Debugger Adapter Protocol
   {
-    "nvim-telescope/telescope.nvim",
+    "rcarriga/nvim-dap-ui",
     event = "BufEnter",
     dependencies = {
-      "nvim-lua/plenary.nvim"
+      "mfussenegger/nvim-dap",
     },
+  },
+--UI
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    cofig = function()
+      require("plugins.config.noice")
+    end
+  },
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function ()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 500
+    end,
+    opts = {}
   },
 -- translation
   {
@@ -148,7 +174,7 @@ local opts = {
     },
     cofig = function()
       vim.api.nvim_set_var("tex_flavor", "latex")
-      if vim.fn["has"]("mac") then
+      if vim.fn.has("mac") == 1 then
         vim.api.nvim_set_var("vimtex_view_method", "skim")
       else
         vim.api.nvim_set_var("vimtex_view_method", "general")
@@ -197,11 +223,9 @@ local opts = {
   },
 -- Pandoc markdown
   {
-    "vim-pandoc/vim-pandoc",
+    "aspeddro/pandoc.nvim",
     ft = "pandoc",
-    config = function()
-      vim.api.nvim_set_var("pandoc#modules#disabled", {"chdir"})
-    end
+    opts = {},
   },
   {
     "vim-pandoc/vim-pandoc-syntax",

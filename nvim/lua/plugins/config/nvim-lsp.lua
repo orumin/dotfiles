@@ -1,66 +1,72 @@
 local ok, lspconfig = pcall(require, 'lspconfig')
 if not ok then
-  vim.notify("error loading nvim-lspconfig")
+  pr_error("error loading nvim-lspconfig")
   return
 end
 local mason
 ok, mason = pcall(require, 'mason')
 if not ok then
-  vim.notify("error loading mason")
+  pr_error("error loading mason")
   return
 end
+local cmp_nvim_lsp
+ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if not ok then
+  pr_error("error loading cmp_nvim_lsp")
+  cmp_nvim_lsp = nil
+end
 
-local function on_attach(client, _)
+vim.api.nvim_create_augroup("UserLspConfig", { clear = true })
+
+local function on_attach()
  vim.wo.signcolumn = 'yes'
+end
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+if cmp_nvim_lsp ~= nil then
+  capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+end
 
- if client.server_capabilities.documentHighlightProvider then
-   vim.api.nvim_create_augroup("MyLspSettings", { clear = true })
-   vim.api.nvim_create_autocmd("CursorHold", {
-     group = "MyLspSettings",
-     pattern = "",
-     callback = function()
-       vim.lsp.buf.document_highlight()
-     end
-   })
-   vim.api.nvim_create_autocmd("CursorHoldI", {
-     group = "MyLspSettings",
-     pattern = "",
-     callback = function()
-       vim.lsp.buf.document_highlight()
-     end
-   })
-   vim.api.nvim_create_autocmd("CursorMoved", {
-     group = "MyLspSettings",
-     pattern = "",
-     callback = function()
-       vim.lsp.buf.clear_references()
-     end
-   })
- end
+local default_handler =  function(server)
+  local opts = {}
+  opts.autostart = true
+  opts.on_attach = on_attach
+  opts.capabilities = capabilities
+  lspconfig[server].setup(opts)
 end
 
 local handlers = {
  -- The first entry (without a key) will be the default handler
  -- and will be called for each installed server that doesn't have
  -- a dedicated handler.
-  function(server) -- default
-    local opts = {}
-    opts.autostart = true
-    opts.on_attach = on_attach
-    opts.capabilities = require("cmp_nvim_lsp").default_capabilities()
-    lspconfig[server].setup(opts)
-  end,
+  [1] = default_handler, -- default
   -- Next, you can provide targeted overrides for specific servers.
   ["clangd"] = function()
+    local clangd_extensions
+    ok, clangd_extensions = pcall(require, "clangd_extensions")
+    if not ok then
+      pr_error("error loading clangd_extensions")
+      default_handler("clangd")
+      return
+    end
+
     local clang_setup_opts = require('plugins.config.clang_extensions')
     clang_setup_opts.server.autostart = true
     clang_setup_opts.server.on_attach = on_attach
-    clang_setup_opts.server.capabilities = require("cmp_nvim_lsp").default_capabilities()
+    clang_setup_opts.server.capabilities = capabilities
+    clang_setup_opts.server.capabilities.offsetEncoding = "utf-8"
     clang_setup_opts.server.root_dir = lspconfig.util.root_pattern('build/compile_commands.json', '.git')
-    require("clangd_extensions").setup(clang_setup_opts)
+    clang_setup_opts.server.init_options = {
+      clangdFileStatus = true,
+      usePlaceholders = true,
+      completeUnimported = true,
+      semanticHighlighting = true,
+    }
+    clangd_extensions.setup(clang_setup_opts)
   end,
   ["lua_ls"] = function ()
     lspconfig.lua_ls.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
       autostart = true,
       settings = {
         Lua = {
@@ -82,11 +88,19 @@ local handlers = {
     })
   end,
   ["rust_analyzer"] = function()
+    local rust_tools
+    ok, rust_tools = pcall(require, "rust-tools")
+    if not ok then
+      pr_error("error loading rust-tools")
+      default_handler("rust_analyzer")
+      return
+    end
+
     local rust_tools_opts = { server = {} }
     rust_tools_opts.server.autostart = true
     rust_tools_opts.server.on_attach = on_attach
-    rust_tools_opts.server.capabilities = require("cmp_nvim_lsp").default_capabilities()
-    require("rust-tools").setup(rust_tools_opts)
+    rust_tools_opts.server.capabilities = capabilities
+    rust_tools.setup(rust_tools_opts)
   end,
 }
 
@@ -100,16 +114,25 @@ local servers = { "bashls", "clangd", "cmake", "jsonls", "ltex", "lua_ls", "pyri
 local mason_lspconfig
 ok, mason_lspconfig = pcall(require, "mason-lspconfig")
 if ok then
-  mason_lspconfig.setup_handlers(handlers)
   mason_lspconfig.setup({
     ensure_installed = servers,
-    handlers = handlers
+    handlers = handlers,
   })
+  mason_lspconfig.setup_handlers(handlers)
 end
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = "UserLspConfig",
+  pattern = "LspsagaHover",
+  callback = function()
+    vim.keymap.set("n", "<ESC>", "<cmd>close!<cr>", {buffer=true, silent=true, nowait=true})
+  end
+})
+
 
 -- keymaps
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+  group = "UserLspConfig",
   callback = function(ev)
     local bufkeymap = function(mode, lhs, rhs)
       vim.keymap.set(mode, lhs, rhs, {buffer = ev.buf})
@@ -140,8 +163,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- LSP handlers
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
+    signs = true,
+    underline = true,
     virtual_text = false,
-    severity_sort = true,
   }
 )
 

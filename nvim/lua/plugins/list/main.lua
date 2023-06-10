@@ -5,6 +5,9 @@ return {
 -- Must have at least
   {
     "nvim-lualine/lualine.nvim",
+    dependencies = {
+      "arkav/lualine-lsp-progress"
+    },
     config = function()
       require("plugins.config.lualine")
     end,
@@ -17,50 +20,77 @@ return {
   },
   {
     "klen/nvim-config-local",
-    config = function()
-      require("config-local").setup({
-        config_files = { ".nvim.lua", ".nvimrc" },
-        hashfile = vim.fn.stdpath("data") .. "/config-local",
+    opts = {
+      config_files = { ".nvim.lua", ".nvimrc" },
+      hashfile = vim.fn.stdpath("data") .. "/config-local",
 
-        autocommands_create = false,
-        commands_create = false,
-        silent = false,
-        lookup_parents = false,
-      })
-    end
+      autocommands_create = false,
+      commands_create = false,
+      silent = false,
+      lookup_parents = false,
+    }
   },
 -- color schemes
   {
-    'jacoborus/tender.vim'
+    "tanvirtin/monokai.nvim"
   },
   {
-    'tanvirtin/monokai.nvim'
-  },
-  {
-    'vigoux/oak',
+    "catppuccin/nvim",
+    name = "catppuci",
+    priority = 1000,
     config = function()
-      vim.api.nvim_set_var("oak_virtualtext_bg", "1")
+      local ok, catppuccin = pcall(require, "catppuccin")
+      if not ok then
+        pr_error("error loading catppuccin")
+        return
+      end
+      catppuccin.setup({
+        integrations = {
+          cmp = true,
+          dap = {
+            enabled = true,
+            enable_ui = true,
+          },
+          gitsigns = true,
+          indent_blankline = {
+            enabled = true,
+            colored_indent_levels = true,
+          },
+          lsp_saga = true,
+          lsp_trouble = true,
+          mason = true,
+          native_lsp = {
+            enabled = true,
+            virtual_text = {
+              errors = { "italic" },
+              hints = { "italic" },
+              warnings = { "italic" },
+              information = { "italic" },
+            },
+            underlines = {
+              errors = { "underline" },
+              hints = { "underline" },
+              warnings = { "underline" },
+              information = { "underline" },
+            },
+          },
+          noice = true,
+          notify = true,
+          treesitter = true,
+          ts_rainbow2 = true,
+        }
+      })
     end
-  },
-  {
-    'rktjmp/lush.nvim'
-  },
-  {
-    'ellisonleao/gruvbox.nvim'
-  },
-  {
-    'ChristianChiarulli/nvcode-color-schemes.vim'
-  },
-  {
-    'sainnhe/sonokai'
   },
 -- transparency
   {
-    'miyakogi/seiya.vim',
-    config = function()
-      vim.api.nvim_set_var("seiya_auto_enable", "1")
-      vim.api.nvim_set_var("seiya_target_groups", {"ctermbg", "guibg"})
-    end
+    'orumin/ya-seiya.nvim',
+    name = "seiya",
+    opts = {
+      auto_enabled = true,
+      target_groups = {"ctermbg"}
+--      target_groups = {"ctermbg", "guibg"}
+    }
   },
 -- ime
   {
@@ -86,5 +116,20 @@ return {
   {
     'koron/codic-vim'
   },
+-- Git
+  { -- lazy load will not work with this plugin
+    "rhysd/committia.vim",
+  },
+  { -- lazy load will not work with this plugin
+    "hotwatermorning/auto-git-diff",
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    opts = {}
+  },
+-- other utils
+  {
+    "dstein64/vim-startuptime"
+  }
 }
 

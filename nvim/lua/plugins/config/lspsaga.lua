@@ -1,44 +1,51 @@
-local opts = { -- defaults ...
-  debug = false,
-  use_saga_diagnostic_sign = true,
-  -- diagnostic sign
-  error_sign = "",
-  warn_sign = "",
-  hint_sign = "",
-  infor_sign = "",
-  diagnostic_header_icon = "   ",
-  -- code action title icon
-  code_action_icon = " ",
-  code_action_prompt = {
-    enable = true,
-    sign = true,
-    sign_priority = 40,
-    virtual_text = true,
-  },
-  finder_definition_icon = "  ",
-  finder_reference_icon = "  ",
-  max_preview_lines = 10,
-  finder_action_keys = {
-    open = "o",
-    vsplit = "s",
-    split = "i",
-    quit = "q",
-    scroll_down = "<C-f>",
-    scroll_up = "<C-b>",
-  },
-  code_action_keys = {
-    quit = "q",
-    exec = "<CR>",
-  },
-  rename_action_keys = {
-    quit = "<C-c>",
-    exec = "<CR>",
-  },
-  definition_preview_icon = "  ",
-  border_style = "single",
-  rename_prompt_prefix = "➤",
-  server_filetype_map = {},
-  diagnostic_prefix_format = "%d. ",
+local kind = {
+  ["File"] = { " ", "Tag" },
+  ["Module"] = { " ", "Exception" },
+  ["Namespace"] = { "ﴯ ", "Include" },
+  ["Package"] = { " ", "Label" },
+  ["Class"] = { "ﴯ ", "Include" },
+  ["Method"] = { " ", "Function" },
+  ["Property"] = { "ﰠ ", "@property" },
+  ["Field"] = { "ﰠ ", "@field" },
+  ["Constructor"] = { " ", "@constructor" },
+  ["Enum"] = { " ", "@number" },
+  ["Interface"] = { " ", "Type" },
+  ["Function"] = { " ", "Function" },
+  ["Variable"] = { " ", "@variable" },
+  ["Constant"] = { " ", "Constant" },
+  ["String"] = { " ", "String" },
+  ["Number"] = { "󰎠 ", "Number"  },
+  ["Boolean"] = { " ", "Boolean" },
+  ["Array"] = { " ", "Type" },
+  ["Object"] = { " ", "Type" },
+  ["Key"] = { " ", "Constant" },
+  ["Null"] = { " ", "Constant" },
+  ["EnumMember"] = { " ", "Number" },
+  ["Struct"] = { "פּ ", "Type" },
+  ["Event"] = { " ", "Constant" },
+  ["Operator"] = { " ", "Operator" },
+  ["TypeParameter"] = { "", "Type" },
+  -- ccls
+  ["TypeAlias"] = { " ", "Type" },
+  ["Parameter"] = { " ", "@parameter" },
+  ["StaticMethod"] = { " ", "Function" },
+  ["Macro"] = { " ", "Macro" },
+  -- for completion sb microsoft!!!
+  ["Text"] = { " ", "String" },
+  ["Snippet"] = { " ", "@variable" },
+  ["Folder"] = { " ", "Title" },
+  ["Unit"] = { "塞 ", "Number" },
+  ["Value"] = { " ", "@variable" },
 }
 
-require("lspsaga").setup(opts)
+local ok, lspsaga = pcall(require, "lspsaga")
+if not ok then
+  pr_error("error loading lspsaga")
+  return
+end
+
+lspsaga.setup({
+  ui = {
+    kind = kind
+  }
+})
