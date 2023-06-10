@@ -1,5 +1,5 @@
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"c", "cpp", "lua", "rust"},
+  ensure_installed = {"c", "cpp", "lua", "markdown", "markdown_inline", "rust"},
   highlight = {
     enable = true,              -- false will disable the whole extension
   },

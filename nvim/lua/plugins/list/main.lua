@@ -1,18 +1,8 @@
-local rc_dir = vim.env.XDG_CONFIG_HOME .. '/nvim/rc/plugins'
 return {
 --  {
 --    "thinca/vim-splash"
 --  },
 -- Must have at least
-  {
-    "Shougo/echodoc.vim",
-    config = function()
-      vim.cmd('source ' .. rc_dir .. '/plugin-echodoc.vim')
-    end,
-  },
-  {
-    "vim-denops/denops.vim"
-  },
   {
     "nvim-lualine/lualine.nvim",
     config = function()
@@ -31,16 +21,13 @@ return {
       require("mason").setup()
     end
   },
-  {
-    "MarcWeber/vim-addon-local-vimrc",
-    config = function()
-      vim.cmd('source ' .. rc_dir .. '/plugin-vim-addon-local-vimrc.vim')
-    end
-  },
+--  {
+--    "MarcWeber/vim-addon-local-vimrc",
+--    config = function()
+--      vim.cmd("let g:local_vimrc = {'names':['.vimrc.lua'], 'hash_fun':'LVRHashOfFile'}")
+--    end
+--  },
 -- color schemes
-  {
-    'jacoborus/tender.vim'
-  },
   {
     'jacoborus/tender.vim'
   },
@@ -69,14 +56,25 @@ return {
   {
     'miyakogi/seiya.vim',
     config = function()
-      vim.cmd('source ' .. rc_dir .. '/plugin-seiya.vim')
+      vim.cmd([[
+        let g:seiya_auto_enable = 1
+        let g:seiya_target_groups = ['guibg']
+      ]])
     end
   },
 -- ime
   {
     'tyru/eskk.vim',
     config = function()
-      vim.cmd('source ' .. rc_dir .. '/plugin-eskk.vim')
+      vim.cmd([[
+        set imdisable
+        set iminsert=0
+        let g:eskk#directory = "$HOME/.eskk"
+        let g:eskk#dictionary = { 'path' : "$HOME/.skk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
+        let g:eskk#large_dictionary = { 'path': "$HOME/.vim/dict/skk/SKK-JISYO.XXL", 'sorted': 1, 'encoding': 'euc-jisx0213', }
+        let g:eskk#enable_completion = 1
+        let g:eskk#egg_like_newline = 1
+      ]])
     end
   },
   {

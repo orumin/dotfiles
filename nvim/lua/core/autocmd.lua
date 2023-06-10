@@ -7,7 +7,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 vim.api.nvim_create_augroup('setTextwidth', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
   group = 'setTextwidth',
-  pattern = { 'text' },
+  pattern = { 'text', 'nroff' },
   callback = function()
     vim.bo.textwidth = 78
   end

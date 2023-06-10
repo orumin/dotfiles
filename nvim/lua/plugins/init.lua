@@ -16,7 +16,7 @@ end
 
 vim.opt.runtimepath:prepend(lazypath)
 
-local ok, plug_list, lazy_load_plug_list, ddc_plug_list, ddu_plug_list
+local ok, plug_list, lazy_load_plug_list
 
 ok, plug_list = pcall(require, "plugins.list.main")
 if not ok then
