@@ -126,15 +126,11 @@ local opts = {
   },
 -- translation
   {
-    "daisuzu/translategoogle.vim",
-    ft = {
-      "asciidoc", "gitcommit", "gitrebase", "help", "hybrid", "markdown", "pandoc", "rst", "tex", "text", "vcs-commit"
-    },
+    "niuiic/translate.nvim",
+    event = "BufEnter",
     cofig = function()
-      vim.cmd([[
-        let g:translategoogle_default_sl = 'ja' " from
-        let g:translategoogle_default_tl = 'en' " to
-      ]])
+      require("plugins.config.translate")
+      vim.keymap.set("v", "<C-t>", ":<c-u>TransToEn<CR>", {silent = true})
     end
   },
 -- writing table in plain text
@@ -151,28 +147,24 @@ local opts = {
       "plaintex", "tex"
     },
     cofig = function()
-      vim.cmd([[
-        let g:tex_flavor = 'latex'
-
-        if has("mac")
-            let g:vimtex_view_method = 'skim'
-        else
-            let g:vimtex_view_method = 'general'
-            let g:vimtex_view_general_viewer = 'fwdevince'
-            let g:vimtex_view_general_options = '@pdf @line @tex'
-        endif
-
-        let g:vimtex_compiler_latexmk = {
-            \ 'options': [
-            \   '-pdfdvi',
-            \   '-file-line-error',
-            \   '-halt-on-error',
-            \   '-interaction=nonstopmode',
-            \   '-shell-escape',
-            \   '-synctex=1',
-            \],
-        \}
-      ]])
+      vim.api.nvim_set_var("tex_flavor", "latex")
+      if vim.fn["has"]("mac") then
+        vim.api.nvim_set_var("vimtex_view_method", "skim")
+      else
+        vim.api.nvim_set_var("vimtex_view_method", "general")
+        vim.api.nvim_set_var("vimtex_view_general_viewer", "fwdevince")
+        vim.api.nvim_set_var("vimtex_view_general_options", "@pdf @line @tex")
+      end
+      vim.api.nvim_set_var("vimtex_compiler_latexmk", {
+        options = {
+          "-pdfdvi",
+          "-file-line-error",
+          "-halt-on-error",
+          "-interaction=nonstopmode",
+          "-shell-escape",
+          "-synctex=1",
+        }
+      })
     end
   },
 -- Asciidoc (w/ asciidoctor)
@@ -180,13 +172,9 @@ local opts = {
     "habamax/vim-asciidoctor",
     ft = "asciidoc",
     cofig = function()
-      vim.cmd([[
-        "let g:asciidoctor_executable = 'asciidoctor'
-        "let g:asciidoctor_extensions = ['asciidoctor-diagram', 'asciidoctor-rouge']
-        let g:asciidoctor_syntax_conceal = 1
-        let g:asciidoctor_syntax_indented = 1
-        let g:asciidoctor_fenced_languages = ['c', 'cpp', 'rust']
-      ]])
+      vim.api.nvim_set_var("asciidoctor_syntax_conceal", "1")
+      vim.api.nvim_set_var("asciidoctor_syntax_indented", "1")
+      vim.api.nvim_set_var("asciidoctor_fenced_languages", {"c", "cpp", "rust"})
     end
   },
 -- PlantUML
@@ -199,7 +187,7 @@ local opts = {
     "lambdalisue/vim-gista",
     cmd = "Gista",
     config = function()
-      vim.cmd("let g:gista#github_user = 'orumin'")
+      vim.api.nvim_set_var("gista#github_user", "orumin")
     end
   },
 -- x86 asm
@@ -212,7 +200,7 @@ local opts = {
     "vim-pandoc/vim-pandoc",
     ft = "pandoc",
     config = function()
-      vim.cmd("let g:pandoc#modules#disabled = ['chdir']")
+      vim.api.nvim_set_var("pandoc#modules#disabled", {"chdir"})
     end
   },
   {

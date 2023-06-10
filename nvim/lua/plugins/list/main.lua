@@ -15,12 +15,20 @@ return {
   {
     "editorconfig/editorconfig-vim"
   },
---  {
---    "MarcWeber/vim-addon-local-vimrc",
---    config = function()
---      vim.cmd("let g:local_vimrc = {'names':['.vimrc.lua'], 'hash_fun':'LVRHashOfFile'}")
---    end
---  },
+  {
+    "klen/nvim-config-local",
+    config = function()
+      require("config-local").setup({
+        config_files = { ".nvim.lua", ".nvimrc" },
+        hashfile = vim.fn.stdpath("data") .. "/config-local",
+
+        autocommands_create = false,
+        commands_create = false,
+        silent = false,
+        lookup_parents = false,
+      })
+    end
+  },
 -- color schemes
   {
     'jacoborus/tender.vim'
@@ -31,7 +39,7 @@ return {
   {
     'vigoux/oak',
     config = function()
-      vim.cmd('let g:oak_virtualtext_bg = 1')
+      vim.api.nvim_set_var("oak_virtualtext_bg", "1")
     end
   },
   {
@@ -50,25 +58,29 @@ return {
   {
     'miyakogi/seiya.vim',
     config = function()
-      vim.cmd([[
-        let g:seiya_auto_enable = 1
-        let g:seiya_target_groups = ['guibg']
-      ]])
+      vim.api.nvim_set_var("seiya_auto_enable", "1")
+      vim.api.nvim_set_var("seiya_target_groups", {"ctermbg", "guibg"})
     end
   },
 -- ime
   {
     'tyru/eskk.vim',
     config = function()
-      vim.cmd([[
-        set imdisable
-        set iminsert=0
-        let g:eskk#directory = "$HOME/.eskk"
-        let g:eskk#dictionary = { 'path' : "$HOME/.skk-jisyo", 'sorted': 0, 'encoding': 'utf-8', }
-        let g:eskk#large_dictionary = { 'path': "$HOME/.vim/dict/skk/SKK-JISYO.XXL", 'sorted': 1, 'encoding': 'euc-jisx0213', }
-        let g:eskk#enable_completion = 1
-        let g:eskk#egg_like_newline = 1
-      ]])
+      vim.o.imdisable = true
+      vim.o.iminsert = 0
+      vim.api.nvim_set_var("eskk#directory", vim.fn.stdpath("data") .. "/eskk")
+      vim.api.nvim_set_var("eskk#dictionary", {
+        path = vim.fn.stdpath("data") .. "/eskk/.skk-jisyo",
+        sorted = "0",
+        encoding = "utf-8",
+      })
+      vim.api.nvim_set_var("eskk#large_dictionary", {
+        path = "/usr/share/skk/SKK-JISYO.L",
+        sorted = "1",
+        encoding = "euc-jisx0213",
+      })
+      vim.api.nvim_set_var("eskk#enable_completion", "1")
+      vim.api.nvim_set_var("eskk#egg_like_newline", "1")
     end
   },
   {
