@@ -1,63 +1,59 @@
--- this setting quoted from http://www.kawaz.jp/pukiwiki/?vim#content_1_7
+-- this setting taken from http://web.archive.org/web/20160306071624/http://www.kawaz.jp/pukiwiki/?vim#cb691f26
+-- and convert lua script by orumin
 
-vim.cmd [[
-" 文字コードの自動認識
-if &encoding !=# 'utf-8'
-  set encoding=japan
-  set fileencoding=japan
-endif
-if has('iconv')
-  let s:enc_euc = 'euc-jp'
-  let s:enc_jis = 'iso-2022-jp'
-  " iconvがeucJP-msに対応しているかをチェック
-  if iconv("\x87\x64\x87\x6a", 'cp932', 'eucjp-ms') ==# "\xad\xc5\xad\xcb"
-    let s:enc_euc = 'eucjp-ms'
-    let s:enc_jis = 'iso-2022-jp-3'
-  " iconvがJISX0213に対応しているかをチェック
-  elseif iconv("\x87\x64\x87\x6a", 'cp932', 'euc-jisx0213') ==# "\xad\xc5\xad\xcb"
-    let s:enc_euc = 'euc-jisx0213'
-    let s:enc_jis = 'iso-2022-jp-3'
-  endif
-  " fileencodingsを構築
-  if &encoding ==# 'utf-8'
-    let s:fileencodings_default = &fileencodings
-    let &fileencodings = s:enc_jis .','. s:enc_euc .',cp932'
-    let &fileencodings = &fileencodings .','. s:fileencodings_default
-    unlet s:fileencodings_default
+-- start detect encodings for Japanese
+
+if vim.o.encoding ~= "utf-8" then
+  vim.o.encoding = "japan"
+  vim.o.fileencoding = "japan"
+end
+
+if vim.fn["has"]("iconv") then
+  local iconv = vim.fn["iconv"]
+
+  local enc_euc = 'euc-jp'
+  local enc_jis = 'iso-2022-jp'
+
+  -- check iconv support 'eucJP-ms'
+  if iconv("\x87\x64\x87\x6a", "cp932", "eucjp-ms") == "\xad\xc5\xad\xcb" then
+    enc_euc = 'eucjp-ms'
+    enc_jis = 'iso-2022-jp-3'
+  -- check iconv support 'JISX0213'
+  elseif iconv("\x87\x64\x87\x6a", "cp932", "euc-jisx0213") == "\xad\xc5\xad\xcb" then
+    enc_euc = 'euc-jisx0213'
+    enc_jis = 'iso-2022-jp-3'
+  end
+
+  -- construct fileencodings
+  if vim.o.encoding == "utf-8" then
+    vim.opt.fileencodings:prepend({enc_jis, enc_euc , "cp932"})
   else
-    let &fileencodings = &fileencodings .','. s:enc_jis
-    set fileencodings+=utf-8,ucs-2le,ucs-2
-    if &encoding =~# '^\(euc-jp\|euc-jisx0213\|eucjp-ms\)$'
-      set fileencodings+=cp932
-      set fileencodings-=euc-jp
-      set fileencodings-=euc-jisx0213
-      set fileencodings-=eucjp-ms
-      let &encoding = s:enc_euc
-      let &fileencoding = s:enc_euc
+    vim.opt.fileencodings:append({enc_jis, "utf-8", "ucs-2le", "ucs-2"})
+    if not vim.regex("^\\(euc-jp\\|euc-jisx0213\\|eucjp-ms\\)$"):match(vim.o.encoding) then
+      vim.opt.fileencodings.append({"cp932"})
+      vim.opt.fileencodings.remove({"euc-jp", "euc-jisx0213", "eucjp-ms"})
+      vim.o.encoding = enc_euc
+      vim.o.fileencoding = enc_euc
     else
-      let &fileencodings = &fileencodings .','. s:enc_euc
-    endif
-  endif
-  " 定数を処分
-  unlet s:enc_euc
-  unlet s:enc_jis
-endif
-" 日本語を含まない場合は fileencoding に encoding を使うようにする
-if has('autocmd')
-  function! AU_ReCheck_FENC()
-    if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
-      let &fileencoding=&encoding
-    endif
-  endfunction
-  autocmd BufReadPost * call AU_ReCheck_FENC()
-endif
-" 改行コードの自動認識
-set fileformats=unix,dos,mac
-" □とか○の文字があってもカーソル位置がずれないようにする
-if exists('&ambiwidth')
-"  set ambiwidth=double
-" Gnome Terminal を利用しなくても Illusion N フォント使う前提でこっちにする
-"" Gnome Terminalだといろいろブッ壊れるのでsingleに
-  set ambiwidth=single
-endif
-]]
+      vim.opt.fileencodings:append({enc_euc})
+    end
+  end
+end
+
+-- set fileencoding to same as encoding if detected language is not contained "Japanese"
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = "",
+  callback = function()
+    if vim.o.fileencoding ~= "iso-2022-jp" and
+      vim.fn["search"]("[^\x01-\x7e]", "n") == 0 then
+
+      vim.o.fileencoding = vim.o.encoding
+    end
+  end
+})
+
+-- detect newline chracter
+vim.opt.fileformats={"unix", "dos", "mac"}
+
+-- set ambiwidth size (single or double)
+vim.opt.ambiwidth="single"

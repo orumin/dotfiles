@@ -64,11 +64,15 @@ switch $OSTYPE
         set -x LANG en_US.UTF-8
     end
 
-if test \( (uname -v | sed -e 's/#1-\(Microsoft\).*/\1/') = "Microsoft" \) \
-    -o \( (uname -v | sed -e 's/#1-\(microsoft\).*/\1/') = "microsoft" \) \
+if test \( (uname -r | sed -e 's/#1-\(Microsoft\).*/\1/') = "Microsoft" \) \
+    -o \( (uname -r | sed -e 's/#1-\(microsoft\).*/\1/') = "microsoft" \) \
     -o \( (uname -r | awk -F- '{print $4}') = "WSL2" \)
     set -x DISPLAY localhost:0.0
     set -x COLORTERM truecolor
+end
+
+if test "$COLORTERM" = truecolor
+    set -g fish_term24bit 1
 end
 
 set -lqx XDG_CONFIG_HOME
