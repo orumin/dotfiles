@@ -6,7 +6,4 @@
         "nnoremap"
     ],
     "Lua.runtime.version": "LuaJIT",
-    "diagnostics.disable": [
-        "different-requires"
-    ]
 }

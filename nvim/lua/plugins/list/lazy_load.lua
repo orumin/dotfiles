@@ -1,4 +1,4 @@
-local opts = {
+return {
   -- built-in LSP server
   {
     "neovim/nvim-lspconfig",
@@ -166,8 +166,9 @@ local opts = {
     dependencies = {
       "niuiic/niuiic-core.nvim"
     },
-    opts = require("plugins.config.translate"),
     config = function()
+      local opts = require("plugins.config.translate_opts")
+      require("translate").setup(opts)
       vim.keymap.set("v", "<C-t>", ":<c-u>TransToEN<CR>", {silent = true})
     end
   },
@@ -257,8 +258,3 @@ local opts = {
   },
 }
 
-for _, v in ipairs(opts) do
-  v["lazy"] = true
-end
-
-return opts
