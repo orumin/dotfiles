@@ -9,7 +9,7 @@ return {
   },
   translate = {
     {
-      cmd = "TransToEn",
+      cmd = "TransToEN",
       command = "trans",
       args = function(trans_source)
         return {

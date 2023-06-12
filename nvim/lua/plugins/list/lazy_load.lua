@@ -163,10 +163,12 @@ local opts = {
   {
     "niuiic/translate.nvim",
     event = "BufEnter",
-    cofig = function()
-      local opts = require("plugins.config.translate")
-      require("translate").setup(opts)
-      vim.keymap.set("v", "<C-t>", ":<c-u>TransToEn<CR>", {silent = true})
+    dependencies = {
+      "niuiic/niuiic-core.nvim"
+    },
+    opts = require("plugins.config.translate"),
+    config = function()
+      vim.keymap.set("v", "<C-t>", ":<c-u>TransToEN<CR>", {silent = true})
     end
   },
 -- Git
@@ -189,7 +191,7 @@ local opts = {
     ft = {
       "plaintex", "tex"
     },
-    cofig = function()
+    config = function()
       vim.g["tex_flavor"] = "latex"
       if vim.fn.has("mac") == 1 then
         vim.g["vimtex_view_method"] = "skim"
@@ -214,7 +216,7 @@ local opts = {
   {
     "habamax/vim-asciidoctor",
     ft = "asciidoc",
-    cofig = function()
+    config = function()
       vim.g["asciidoctor_syntax_conceal"] = 1
       vim.g["asciidoctor_syntax_indented"] = 1
       vim.g["asciidoctor_fenced_languages"] = {"c", "cpp", "rust"}

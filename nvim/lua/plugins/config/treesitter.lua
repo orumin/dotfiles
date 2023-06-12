@@ -8,9 +8,17 @@ else
 end
 
 treesitter_config.setup({
-  ensure_installed = {"c", "cpp", "lua", "markdown", "markdown_inline", "rust"},
+  ensure_installed = {
+    "bash", "c", "cmake", "comment", "cpp", "diff", "fish",
+    "git_config", "git_rebase", "gitattributes", "gitcommit", "gitignore",
+    "http", "jq", "json", "json5", "latex", "llvm",
+    "lua", "luadoc", "luap", "make", "markdown", "markdown_inline", "ninja",
+    "passwd", "python", "query", "regex", "rst", "rust", "sql", "todotxt", "toml", "vim", "vimdoc", "yaml"
+  },
+  auto_install = true,
   highlight = {
-    enable = true,              -- false will disable the whole extension
+    enable = true, -- false will disable the whole extension
+    additional_vim_regex_highlighting = true,
   },
   indent = {
     enable = true,
