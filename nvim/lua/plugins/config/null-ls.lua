@@ -1,9 +1,5 @@
 return function()
-  local ok, null_ls = pcall(require, "null-ls")
-  if not ok then
-    pr_error("error loading null-ls")
-    return
-  end
+  local null_ls = require("null-ls")
 
   null_ls.setup({
     sources = {
@@ -17,5 +13,6 @@ return function()
       null_ls.builtins.code_actions.cspell,
       null_ls.builtins.code_actions.shellcheck,
     },
+    diagnostics_format = "#{m} (#{s}: #{c})",
   })
 end

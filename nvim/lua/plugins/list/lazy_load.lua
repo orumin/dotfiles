@@ -2,14 +2,12 @@ return {
   -- built-in LSP server
   {
     "neovim/nvim-lspconfig",
-    event = "BufEnter",
+    event = { "InsertEnter", "CursorHold", "FocusLost", "BufRead", "BufNewFile" },
     dependencies = {
       -- configuration
       {
         "williamboman/mason.nvim",
-        dependencies = {
-          "williamboman/mason-lspconfig.nvim",
-        },
+        "williamboman/mason-lspconfig.nvim",
       },
       -- lang specific extensions
       "p00f/clangd_extensions.nvim", -- C/C++
@@ -83,7 +81,6 @@ return {
 -- tree-sitter
   {
     "nvim-treesitter/nvim-treesitter",
-    event = "BufEnter",
     dependencies = {
       "HiPhish/nvim-ts-rainbow2",
     },
@@ -100,7 +97,7 @@ return {
   -- indent
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufEnter",
+    event = { "InsertEnter", "CursorHold", "FocusLost", "BufRead", "BufNewFile" },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
@@ -113,7 +110,7 @@ return {
   -- todo comments
   {
     "folke/todo-comments.nvim",
-    event = "BufEnter",
+    event = { "InsertEnter", "CursorHold", "FocusLost", "BufRead", "BufNewFile" },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
@@ -121,7 +118,7 @@ return {
   -- joke with treesitter
   {
     "Eandrju/cellular-automaton.nvim",
-    event = "VeryLazy",
+    cmd = "CellularAutomaton",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
@@ -129,12 +126,14 @@ return {
 -- Debugger Adapter Protocol
   {
     "rcarriga/nvim-dap-ui",
-    event = "BufEnter",
+    event = { "InsertEnter", "CursorHold", "FocusLost", "BufRead", "BufNewFile" },
     dependencies = {
       "mfussenegger/nvim-dap",
     },
   },
 --UI
+  -- icons
+  { "nvim-tree/nvim-web-devicons" },
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -150,6 +149,16 @@ return {
     },
     opts = require("plugins.config.noice")
   },
+  -- status line
+  {
+    "nvim-lualine/lualine.nvim",
+    event = { "InsertEnter", "CursorHold", "FocusLost", "BufRead", "BufNewFile" },
+    dependencies = {
+      "arkav/lualine-lsp-progress"
+    },
+    opts = require("plugins.config.lualine")
+  },
+  -- cheetsheet
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -255,6 +264,19 @@ return {
     config = function()
       vim.g["gista#github_user"] = "orumin"
     end
+  },
+-- other utils
+  { "nvim-lua/plenary.nvim" },
+  {
+    "dstein64/vim-startuptime",
+    cmd = "StartupTime",
+    init = function()
+      vim.g.startuptime_tries = 10
+    end,
+  },
+  {
+    "Shougo/vinarise",
+    cmd = "Vinarise",
   },
 }
 

@@ -1,18 +1,10 @@
 return {
---  {
---    "thinca/vim-splash"
---  },
+  {
+    "thinca/vim-splash",
+    cond = false,
+    optional = true,
+  },
 -- Must have at least
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = {
-      "arkav/lualine-lsp-progress"
-    },
-    opts = require("plugins.config.lualine")
-  },
-  {
-    "Shougo/vinarise"
-  },
   {
     "klen/nvim-config-local",
     opts = {
@@ -115,9 +107,5 @@ return {
   { -- lazy load will not work with this plugin
     "hotwatermorning/auto-git-diff",
   },
--- other utils
-  {
-    "dstein64/vim-startuptime"
-  }
 }
 
