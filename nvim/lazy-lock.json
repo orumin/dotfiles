@@ -26,7 +26,7 @@
   "mason.nvim": { "branch": "main", "commit": "7d7efc738e08fc5bee822857db45cb6103f0b0c1" },
   "monokai.nvim": { "branch": "master", "commit": "b8bd44d5796503173627d7a1fc51f77ec3a08a63" },
   "noice.nvim": { "branch": "main", "commit": "dad4d61661b95d2bf9d3b21aafb771aad5b0b064" },
-  "nui.nvim": { "branch": "main", "commit": "64bdc579873fa5bd303f6951ead2b419493c88e8" },
+  "nui.nvim": { "branch": "main", "commit": "f008972ac7d24f7188521a7f8d158aac2fb0b07e" },
   "null-ls.nvim": { "branch": "main", "commit": "a138b14099e9623832027ea12b4631ddd2a49256" },
   "nvim-cmp": { "branch": "main", "commit": "b8c2a62b3bd3827aa059b43be3dd4b5c45037d65" },
   "nvim-config-local": { "branch": "main", "commit": "b038a54768a55875417a242dc40833904de1c9c5" },

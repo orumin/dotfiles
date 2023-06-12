@@ -173,15 +173,15 @@ local opts = {
       "plaintex", "tex"
     },
     cofig = function()
-      vim.api.nvim_set_var("tex_flavor", "latex")
+      vim.g["tex_flavor"] = "latex"
       if vim.fn.has("mac") == 1 then
-        vim.api.nvim_set_var("vimtex_view_method", "skim")
+        vim.g["vimtex_view_method"] = "skim"
       else
-        vim.api.nvim_set_var("vimtex_view_method", "general")
-        vim.api.nvim_set_var("vimtex_view_general_viewer", "fwdevince")
-        vim.api.nvim_set_var("vimtex_view_general_options", "@pdf @line @tex")
+        vim.g["vimtex_view_method"] = "general"
+        vim.g["vimtex_view_general_viewer"] = "fwdevince"
+        vim.g["vimtex_view_general_options"] = "@pdf @line @tex"
       end
-      vim.api.nvim_set_var("vimtex_compiler_latexmk", {
+      vim.g["vimtex_compiler_latexmk"] = {
         options = {
           "-pdfdvi",
           "-file-line-error",
@@ -190,7 +190,7 @@ local opts = {
           "-shell-escape",
           "-synctex=1",
         }
-      })
+      }
     end
   },
 -- Asciidoc (w/ asciidoctor)
@@ -198,9 +198,9 @@ local opts = {
     "habamax/vim-asciidoctor",
     ft = "asciidoc",
     cofig = function()
-      vim.api.nvim_set_var("asciidoctor_syntax_conceal", "1")
-      vim.api.nvim_set_var("asciidoctor_syntax_indented", "1")
-      vim.api.nvim_set_var("asciidoctor_fenced_languages", {"c", "cpp", "rust"})
+      vim.g["asciidoctor_syntax_conceal"] = 1
+      vim.g["asciidoctor_syntax_indented"] = 1
+      vim.g["asciidoctor_fenced_languages"] = {"c", "cpp", "rust"}
     end
   },
 -- PlantUML
@@ -213,7 +213,7 @@ local opts = {
     "lambdalisue/vim-gista",
     cmd = "Gista",
     config = function()
-      vim.api.nvim_set_var("gista#github_user", "orumin")
+      vim.g["gista#github_user"] = "orumin"
     end
   },
 -- x86 asm
