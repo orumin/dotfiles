@@ -1,21 +1,15 @@
-if vim.g.vscode then
-  return
-end
-
 if vim.loader then
   vim.loader.enable()
 end
 
-if not _G.pr_error then
-  _G.pr_error = function(msg, opts)
-    vim.notify(msg, vim.log.levels.ERROR, opts)
-  end
+if vim.g.vscode then
+  return
 end
 
-vim.cmd('autocmd!')
 vim.o.shell = "bash"
+vim.g["loaded_clipboard_provider"] = 1
 
-vim.api.nvim_set_var("loaded_clipboard_provider", "1")
+require("lib.utils")
 
 require('plugins')
 require('core.autocmd')
@@ -24,6 +18,3 @@ require('core.color')
 require('core.diagnostic')
 require('core.encoding')
 require('core.keymaps')
-
-vim.api.nvim_set_option('filetype', 'on')
-vim.api.nvim_set_option('syntax', 'on')

@@ -2,7 +2,11 @@
     "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
     "Lua.diagnostics.globals": [
         "vim",
-        "pr_error"
+        "pr_error",
+        "nnoremap"
     ],
-    "Lua.runtime.version": "LuaJIT"
+    "Lua.runtime.version": "LuaJIT",
+    "diagnostics.disable": [
+        "different-requires"
+    ]
 }

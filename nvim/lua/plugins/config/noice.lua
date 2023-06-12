@@ -1,9 +1,4 @@
-local ok, noice = pcall(require, "noice")
-if not ok then
-  pr_error("error loading noice")
-end
-
-noice.setup({
+return {
   -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
   override = {
     ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -18,4 +13,4 @@ noice.setup({
     inc_rename = false, -- enables an input dialog for inc-rename.nvim
     lsp_doc_border = false, -- add a border to hover docs and signature help
   },
-})
+}

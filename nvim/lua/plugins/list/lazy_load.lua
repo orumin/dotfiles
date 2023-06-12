@@ -11,44 +11,6 @@ local opts = {
           "williamboman/mason-lspconfig.nvim",
         },
       },
-      -- decorate lsp outputs
-      {
-        "folke/trouble.nvim",
-        dependencies = {
-          "nvim-tree/nvim-web-devicons"
-        },
-        config = function()
-          require("plugins.config.trouble")
-        end
-      },
-      {
-        "nvimdev/lspsaga.nvim",
-        event = "LspAttach",
-        dependencies = {
-          "nvim-tree/nvim-web-devicons",
-          {
-            "nvim-treesitter/nvim-treesitter",
-            dependencies = {
-              "HiPhish/nvim-ts-rainbow2",
-            },
-            config = function()
-              vim.api.nvim_create_autocmd("User", {
-                pattern = "LazyUpdate",
-                callback = function()
-                  vim.cmd("TSUpdate")
-                end
-              })
-              require("plugins.config.treesitter")
-            end
-          },
-        },
-        config = function()
-          require("plugins.config.lspsaga")
-        end
-
-      },
-      -- completion
-      "hrsh7th/nvim-cmp",
       -- lang specific extensions
       "p00f/clangd_extensions.nvim", -- C/C++
       "simrat39/rust-tools.nvim", -- Rust
@@ -57,18 +19,44 @@ local opts = {
         dependencies = {
           "nvim-lua/plenary.nvim"
         },
-        config = function()
-          require("plugins.config.null-ls")
-        end
+        config = require("plugins.config.null-ls")
       }
     },
     config = function()
       require("plugins.config.nvim-lsp")
     end
   },
+  -- pretty good LSP UI
+  {
+    "nvimdev/lspsaga.nvim",
+    event = "LspAttach",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = require("plugins.config.lspsaga")
+  },
+  {
+    "folke/trouble.nvim",
+    event = "LspAttach",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons"
+    },
+    opts = require("plugins.config.trouble"),
+    config = function()
+      nnoremap("<leader>xx", "<cmd>TroubleToggle<cr>")
+      nnoremap("<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>")
+      nnoremap("<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>")
+      nnoremap("<leader>xl", "<cmd>TroubleToggle loclist<cr>")
+      nnoremap("<leader>xq", "<cmd>TroubleToggle quickfix<cr>")
+      nnoremap("gR", "<cmd>TroubleToggle lsp_references<cr>")
+    end
+  },
+-- completion
 -- nvim-cmp
   {
     "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
@@ -81,10 +69,10 @@ local opts = {
           "nvim-lua/plenary.nvim"
         }
       },
--- snippets support
+      -- snippets support
       "saadparwaiz1/cmp_luasnip",
       "L3MON4D3/LuaSnip",
--- dislay icon with lsp completion
+      -- dislay icon with lsp completion
       "onsails/lspkind.nvim",
     },
     config = function()
@@ -93,18 +81,36 @@ local opts = {
   },
 
 -- tree-sitter
--- indent
+  {
+    "nvim-treesitter/nvim-treesitter",
+    event = "BufEnter",
+    dependencies = {
+      "HiPhish/nvim-ts-rainbow2",
+    },
+    config = function()
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "LazyUpdate",
+        callback = function()
+          vim.cmd("TSUpdate")
+        end
+      })
+      require("plugins.config.treesitter")
+    end
+  },
+  -- indent
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufEnter",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
-    config = function()
-      require("plugins.config.indent-blankline")
-    end
+    opts = {
+      space_char_blankline = " ",
+      show_current_context = true,
+      show_current_context_start = true,
+    }
   },
--- todo comments
+  -- todo comments
   {
     "folke/todo-comments.nvim",
     event = "BufEnter",
@@ -112,7 +118,7 @@ local opts = {
       "nvim-treesitter/nvim-treesitter",
     },
   },
--- joke with treesitter
+  -- joke with treesitter
   {
     "Eandrju/cellular-automaton.nvim",
     event = "VeryLazy",
@@ -134,12 +140,15 @@ local opts = {
     event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
+      {
+        "rcarriga/nvim-notify",
+        opts = {
+          background_colour = "#000000",
+        },
+      },
       "nvim-treesitter/nvim-treesitter",
     },
-    cofig = function()
-      require("plugins.config.noice")
-    end
+    opts = require("plugins.config.noice")
   },
   {
     "folke/which-key.nvim",
@@ -155,18 +164,26 @@ local opts = {
     "niuiic/translate.nvim",
     event = "BufEnter",
     cofig = function()
-      require("plugins.config.translate")
+      local opts = require("plugins.config.translate")
+      require("translate").setup(opts)
       vim.keymap.set("v", "<C-t>", ":<c-u>TransToEn<CR>", {silent = true})
     end
   },
--- writing table in plain text
+-- Git
+  {
+    "lewis6991/gitsigns.nvim",
+    event = {"FocusLost", "CursorHold"},
+    opts = {}
+  },
+-- filetype plugin
+  -- writing table in plain text
   {
     "dhruvasagar/vim-table-mode",
     ft = {
       "asciidoc", "gitcommit", "gitrebase", "help", "hybrid", "markdown", "pandoc", "rst", "tex", "text", "vcs-commit"
     },
   },
--- TeX
+  -- TeX
   {
     "lervag/vimtex",
     ft = {
@@ -193,7 +210,7 @@ local opts = {
       }
     end
   },
--- Asciidoc (w/ asciidoctor)
+  -- Asciidoc (w/ asciidoctor)
   {
     "habamax/vim-asciidoctor",
     ft = "asciidoc",
@@ -203,25 +220,17 @@ local opts = {
       vim.g["asciidoctor_fenced_languages"] = {"c", "cpp", "rust"}
     end
   },
--- PlantUML
+  -- PlantUML
   {
     "aklt/plantuml-syntax",
     ft = "plantuml",
   },
--- Gist
-  {
-    "lambdalisue/vim-gista",
-    cmd = "Gista",
-    config = function()
-      vim.g["gista#github_user"] = "orumin"
-    end
-  },
--- x86 asm
+  -- x86 asm
   {
     "shiracamus/vim-syntax-x86-objdump-d",
     ft = "asm",
   },
--- Pandoc markdown
+  -- Pandoc markdown
   {
     "aspeddro/pandoc.nvim",
     ft = "pandoc",
@@ -231,10 +240,18 @@ local opts = {
     "vim-pandoc/vim-pandoc-syntax",
     ft = "pandoc",
   },
--- BitBake
+  -- BitBake
   {
     "kergoth/vim-bitbake",
     ft = "bitbake",
+  },
+-- Gist
+  {
+    "lambdalisue/vim-gista",
+    cmd = "Gista",
+    config = function()
+      vim.g["gista#github_user"] = "orumin"
+    end
   },
 }
 

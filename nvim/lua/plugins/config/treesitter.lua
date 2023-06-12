@@ -1,10 +1,6 @@
-local ok, treesitter_config = pcall(require, "nvim-treesitter.configs")
-if not ok then
-  pr_error("error loading nvim-treesitter.configs")
-  return
-end
-local ts_rainbow, strategy
-ok, ts_rainbow = pcall(require, "ts-rainbow")
+local treesitter_config = require("nvim-treesitter.configs")
+local strategy
+local ok, ts_rainbow = pcall(require, "ts-rainbow")
 if ok then
   strategy = ts_rainbow.strategy.global
 else

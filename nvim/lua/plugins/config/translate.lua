@@ -1,10 +1,4 @@
-local ok, translate = pcall(require, "translate")
-if not ok then
-  pr_error("error loading translate")
-  return
-end
-
-translate.setup({
+return {
   output = {
     float = {
       max_width = 40,
@@ -35,4 +29,4 @@ translate.setup({
       output = { "notify", "clipboard" }
     },
   },
-})
+}

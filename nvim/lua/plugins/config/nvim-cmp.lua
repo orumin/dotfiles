@@ -1,23 +1,16 @@
-local ok, cmp = pcall(require, "cmp")
-if not ok then
-  pr_error("error loading nvim-cmp")
-  return
-end
+local cmp = require("cmp")
 
-local luasnip
-ok, luasnip = pcall(require, "luasnip")
+local ok, luasnip = pcall(require, "luasnip")
 if not ok then
   pr_error("error loading luasnip")
 end
 
 local formatting = {}
-local lspkind, lspkind_opts
+local lspkind
 ok, lspkind = pcall(require, "lspkind")
 if ok then
-  ok, lspkind_opts = pcall(require, "plugins.config.lspkind")
-  if ok then
-    lspkind.init(lspkind_opts)
-  end
+local lspkind_opts = require("plugins.config.lspkind")
+  lspkind.init(lspkind_opts)
   formatting = {
     format= lspkind.cmp_format({
       maxwidth = "50",

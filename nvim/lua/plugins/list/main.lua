@@ -8,15 +8,10 @@ return {
     dependencies = {
       "arkav/lualine-lsp-progress"
     },
-    config = function()
-      require("plugins.config.lualine")
-    end,
+    opts = require("plugins.config.lualine")
   },
   {
     "Shougo/vinarise"
-  },
-  {
-    "editorconfig/editorconfig-vim"
   },
   {
     "klen/nvim-config-local",
@@ -92,40 +87,33 @@ return {
 --      target_groups = {"ctermbg", "guibg"}
     }
   },
--- ime
-  {
-    'tyru/eskk.vim',
-    config = function()
-      vim.o.imdisable = true
-      vim.o.iminsert = 0
-      vim.g["eskk#directory"] = vim.fn.stdpath("data") .. "/eskk"
-      vim.g["eskk#dictionary"] = {
-        path = vim.fn.stdpath("data") .. "/eskk/.skk-jisyo",
-        sorted = 0,
-        encoding = "utf-8",
-      }
-      vim.g["eskk#large_dictionary"] = {
-        path = "/usr/share/skk/SKK-JISYO.L",
-        sorted = 1,
-        encoding = "euc-jisx0213",
-      }
-      vim.g["eskk#enable_completion"] = true
-      vim.g["eskk#egg_like_newline"] = true
-    end
-  },
-  {
-    'koron/codic-vim'
-  },
+---- ime
+--  {
+--    'tyru/eskk.vim',
+--    config = function()
+--      vim.o.imdisable = true
+--      vim.o.iminsert = 0
+--      vim.g["eskk#directory"] = vim.fn.stdpath("data") .. "/eskk"
+--      vim.g["eskk#dictionary"] = {
+--        path = vim.fn.stdpath("data") .. "/eskk/.skk-jisyo",
+--        sorted = 0,
+--        encoding = "utf-8",
+--      }
+--      vim.g["eskk#large_dictionary"] = {
+--        path = "/usr/share/skk/SKK-JISYO.L",
+--        sorted = 1,
+--        encoding = "euc-jisx0213",
+--      }
+--      vim.g["eskk#enable_completion"] = true
+--      vim.g["eskk#egg_like_newline"] = true
+--    end
+--  },
 -- Git
   { -- lazy load will not work with this plugin
     "rhysd/committia.vim",
   },
   { -- lazy load will not work with this plugin
     "hotwatermorning/auto-git-diff",
-  },
-  {
-    "lewis6991/gitsigns.nvim",
-    opts = {}
   },
 -- other utils
   {

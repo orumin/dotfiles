@@ -1,10 +1,5 @@
-local ok, lspconfig = pcall(require, 'lspconfig')
-if not ok then
-  pr_error("error loading nvim-lspconfig")
-  return
-end
-local mason
-ok, mason = pcall(require, 'mason')
+local lspconfig = require("lspconfig")
+local ok, mason = pcall(require, 'mason')
 if not ok then
   pr_error("error loading mason")
   return

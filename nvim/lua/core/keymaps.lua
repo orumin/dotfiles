@@ -1,7 +1,3 @@
-local function nnoremap (lhs, rhs)
-  vim.keymap.set("n", lhs, rhs, {noremap = true, silent = true})
-end
-
 vim.api.nvim_set_keymap('', '<C-U>', '<C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>', {})
 vim.api.nvim_set_keymap('', '<C-D>', '<C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>', {})
 
