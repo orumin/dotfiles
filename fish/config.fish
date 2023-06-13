@@ -14,14 +14,14 @@ source $HOME/.config/fish/secret.fish
 # utility function
 source $HOME/.config/fish/passgen.fish
 
-# ls colors
-source $HOME/.config/fish/lscolors.fish
+## ls colors
+#source $HOME/.config/fish/lscolors.fish
 
 # aliases
 source $HOME/.config/fish/alias.fish
 
-# colors
-source $HOME/.config/fish/color.fish
+## colors
+#source $HOME/.config/fish/color.fish
 
 # completion
 if type -q -f gh
@@ -36,6 +36,7 @@ if status is-interactive
     and not set -q TMUX
     and type -q tmux
     set -x COLORTERM "$COLORTERM"
+    set -x SSH_CONNECTION "$SSH_CONNECTION"
 #    exec tmux
     tmux
 end

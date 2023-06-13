@@ -12,6 +12,12 @@ if test -n (echo $terminal_string | grep pty > /dev/null)
     alias tmux='env TERM=xterm-256color tmux'
 end
 
+if type -q bat
+    alias cat='bat'
+end
+if type -q exa
+    alias ls='exa --icons'
+end
 alias la='ls -aF'
 alias lf='ls -FA'
 alias ll='ls -lAF'
@@ -47,8 +53,8 @@ end
 switch $ostype
     case Linux
         if test $is_wsl -eq 1
-            alias clipin='win32yank.exe -i' 
-            alias clipout='win32yank.exe -o' 
+            alias clipin='win32yank.exe -i'
+            alias clipout='win32yank.exe -o'
         else
             alias clipin='xsel --clipboard --input'
             alias clipout='xsel --clipboard --output'

@@ -1,7 +1,7 @@
 {
   "LuaSnip": { "branch": "master", "commit": "a13af80734eb28f744de6c875330c9d3c24b5f3b" },
   "auto-git-diff": { "branch": "master", "commit": "8d5ba425218912db0d960ba0bd0a1b39d14082b7" },
-  "catppuccin": { "branch": "main", "commit": "57ee09dd532bd442b53d65c2b2f35550960981ed" },
+  "catppuccin": { "branch": "main", "commit": "9aaf5b4ce5cd256695d8bbddb65869d19919abde" },
   "cellular-automaton.nvim": { "branch": "main", "commit": "679943b8e1e5ef79aaeeaf4b00782c52eb4e928f" },
   "clangd_extensions.nvim": { "branch": "main", "commit": "6d0bf36870d15c0c2284f4b6693a66552a6bf127" },
   "cmp-buffer": { "branch": "main", "commit": "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
@@ -54,7 +54,7 @@
   "vim-startuptime": { "branch": "master", "commit": "454b3de856b7bd298700de33d79774ca9b9e3875" },
   "vim-syntax-x86-objdump-d": { "branch": "master", "commit": "d231a44b4d9f7b1027d344cbb9288f8cfbb6204d" },
   "vim-table-mode": { "branch": "master", "commit": "9555a3e6e5bcf285ec181b7fc983eea90500feb4" },
-  "vimtex": { "branch": "master", "commit": "b7690c2d669fcb71d67bcdae5393004dad50948f" },
+  "vimtex": { "branch": "master", "commit": "addd40df6bdb14b3b6988f703ab5072b7ff6ef3f" },
   "vinarise": { "branch": "master", "commit": "84dd647932fbd029310cca31f417c42f56d60547" },
   "which-key.nvim": { "branch": "main", "commit": "e271c28118998c93a14d189af3395812a1aa646c" }
 }

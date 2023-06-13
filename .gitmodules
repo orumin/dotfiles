@@ -1,0 +1,12 @@
+[submodule "catppuccin/btop"]
+	path = catppuccin/btop
+	url = https://github.com/catppuccin/btop
+[submodule "catppuccin/fish"]
+	path = catppuccin/fish
+	url = https://github.com/catppuccin/fish
+[submodule "catppuccin/tmux"]
+	path = catppuccin/tmux
+	url = https://github.com/catppuccin/tmux
+[submodule "catppuccin/bat"]
+	path = catppuccin/bat
+	url = https://github.com/catppuccin/bat

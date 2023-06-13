@@ -1,7 +1,7 @@
 EXCLUDE_FILES  = .git .gitmodules .gitignore .travis.yml
 INSTALL_TARGET = $(wildcard .??*)
 DOTFILES       = $(filter-out $(EXCLUDE_FILES), $(INSTALL_TARGET))
-XDG_CONFIGS	   = alacritty btop fish mpv nvim
+XDG_CONFIGS	   = alacritty bat btop fish mpv nvim tmux
 
 CONFIG_DIR     = $(XDG_CONFIG_HOME)
 

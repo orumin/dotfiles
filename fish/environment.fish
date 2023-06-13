@@ -9,8 +9,8 @@ else
 end
 
 set -x PAGER less
-set -x LV "-Ou8 -c -l"
-set -x BLOCKSIZE K
+#set -x LV "-Ou8 -c -l"
+#set -x BLOCKSIZE K
 set -x VIRSH_DEFAULT_CONNECT_URI qemu:///system
 
 if type -q lesspipe
