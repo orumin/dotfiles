@@ -1,3 +1,5 @@
+#!/usr/bin/env fish
+
 set my_color_rosewater "f5e0dc" # "#f5e0dc"
 set my_color_flamingo  "f2cdcd" # "#f2cdcd"
 set my_color_pink      "f5c2e7" # "#f5c2e7"
