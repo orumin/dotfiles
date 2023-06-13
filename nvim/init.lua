@@ -7,7 +7,6 @@ if vim.g.vscode then
 end
 
 vim.o.shell = "bash"
-vim.g["loaded_clipboard_provider"] = 1
 
 require("lib.utils")
 

@@ -1,4 +1,3 @@
-local nvim_cache_dir = vim.env.XDG_CACHE_HOME .. '/nvim'
 local global_opts = {
   -- backup directories
   undofile = true,
@@ -9,10 +8,10 @@ local global_opts = {
   guicursor = "",
 
   -- copy to clipboard
-  clipboard = 'unnamed',
+  clipboard = 'unnamed,unnamedplus',
 
-  -- disable mouse
-  mouse = "",
+  -- enable mouse
+  mouse = "a",
 
   -- disable changing current director automatically
   autochdir = false,
@@ -71,7 +70,6 @@ local window_local_opts = {
   number = true,
   wrap = false,
 }
-
 
 for k, v in pairs(global_opts) do
   vim.o[k] = v

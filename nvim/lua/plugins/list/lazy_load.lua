@@ -203,7 +203,7 @@ return {
     },
     config = function()
       vim.g["tex_flavor"] = "latex"
-      if vim.fn.has("mac") == 1 then
+      if is_mac then
         vim.g["vimtex_view_method"] = "skim"
       else
         vim.g["vimtex_view_method"] = "general"
