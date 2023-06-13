@@ -1,4 +1,5 @@
-return {
+local lspconfig = require("lspconfig")
+local clangd_extensions_opts = {
   server = {
     -- options to pass to nvim-lspconfig
     -- i.e. the arguments to require("lspconfig").clangd.setup({})
@@ -90,3 +91,19 @@ return {
     },
   },
 }
+
+return function(opts)
+  clangd_extensions_opts.server.on_attach = opts.on_attach
+  clangd_extensions_opts.server.capabilities =
+    vim.tbl_deep_extend("keep", { offsetEncoding = { "utf-16", "utf-8" } }, opts.capabilities)
+  clangd_extensions_opts.server.single_file_support = true
+  clangd_extensions_opts.server.root_dir = lspconfig.util.root_pattern('build/compile_commands.json', '.git')
+  clangd_extensions_opts.server.init_options = {
+    clangdFileStatus = true,
+    usePlaceholders = true,
+    completeUnimported = true,
+    semanticHighlighting = true,
+  }
+
+  require("clangd_extensions").setup(clangd_extensions_opts)
+end

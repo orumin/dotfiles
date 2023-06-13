@@ -1,8 +1,8 @@
 return {
   options = {
     icons_enabled = true,
-    theme = "catppuccin",
-    globalstatus = false,
+    theme = "auto",
+    globalstatus = true,
   },
   sections = {
     lualine_a = {'mode'},

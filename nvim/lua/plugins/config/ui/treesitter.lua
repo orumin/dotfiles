@@ -7,6 +7,9 @@ else
   pr_error("error loading ts-rainbow")
 end
 
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+
 treesitter_config.setup({
   ensure_installed = {
     "bash", "c", "cmake", "comment", "cpp", "diff", "fish",
@@ -18,7 +21,7 @@ treesitter_config.setup({
   auto_install = true,
   highlight = {
     enable = true, -- false will disable the whole extension
-    additional_vim_regex_highlighting = true,
+    additional_vim_regex_highlighting = { "c", "cpp" },
   },
   indent = {
     enable = true,

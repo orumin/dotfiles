@@ -8,7 +8,7 @@ local global_opts = {
   guicursor = "",
 
   -- copy to clipboard
-  clipboard = 'unnamed,unnamedplus',
+--  clipboard = 'unnamed,unnamedplus',
 
   -- enable mouse
   mouse = "a",
@@ -29,15 +29,16 @@ local global_opts = {
 
   backspace = 'indent,eol,start',
 
+  foldenable = true,
+  foldlevelstart = 99,
   ruler = true,
   modeline = true,
   modelines = 5,
   matchtime = 3,
-  laststatus = 2,
+  laststatus = 3,
   cmdheight = 2,
   wildmenu = true,
   showcmd = true,
-
 }
 
 local buffer_local_opts = {
@@ -65,7 +66,14 @@ local buffer_local_opts = {
 
 local window_local_opts = {
   list = true, -- display invisible character
-  listchars = 'tab:▸ ,space:⋅,eol:↲,extends:❯,precedes:❮',
+  --listchars = 'tab:▸ ,space:⋅,eol:↲,extends:❯,precedes:❮',
+  listchars = {
+    tab = "▸ ",
+    space = "⋅",
+    eol = "↲",
+    extends = "❯",
+    precedes = "❮"
+  },
   breakindent = true,
   number = true,
   wrap = false,
@@ -76,10 +84,12 @@ for k, v in pairs(global_opts) do
 end
 
 for k, v in pairs(window_local_opts) do
-  vim.wo[k] = v
+  --vim.wo[k] = v
+  vim.opt[k] = v
 end
 
 for k, v in pairs(buffer_local_opts) do
-  vim.bo[k] = v
+  --vim.bo[k] = v
+  vim.opt[k] = v
 end
 
