@@ -28,6 +28,7 @@ return {
         information = { "underline" },
       },
     },
+    neotree = true,
     noice = true,
     notify = true,
     treesitter = true,

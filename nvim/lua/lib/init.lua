@@ -20,12 +20,11 @@ function M.setting_global()
   _G.is_linux = uname.sysname == "Linux"
   _G.is_wsl = is_linux and string.find(uname.release, "microsoft") ~= nil
   _G.path_sep = is_win and "\\" or "/"
+  _G.home = is_win and vim.env.USERPROFILE or vim.env.HOME
 
-  if vim.env.XDG_CACHE_HOME then
-    _G.nvim_cache_dir = vim.env.XDG_CACHE_HOME .. path_sep .. 'nvim'
-  else
-    _G.nvim_cache_dir = uv.os_homedir() .. path_sep .. '.cache' .. path_sep .. 'nvim'
-  end
+  _G.nvim_config_dir = vim.fn.stdpath("config")
+  _G.nvim_cache_dir = vim.fn.stdpath("cache")
+  _G.plugin_config_dir = nvim_config_dir .. "/lua/plugins/config"
 
   _G.homedir = uv.os_homedir()
 end
@@ -40,7 +39,7 @@ function M.disable_rtp_plugins ()
 
   -- disable load after/ftplugin
   --vim.g.did_load_filetypes        = 1
-  --vim.g.did_load_ftplugin         = 1
+  vim.g.did_load_ftplugin         = 1
 
   -- don't load native syntax completion
   vim.g.loaded_syntax_completion  = 1

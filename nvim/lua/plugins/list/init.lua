@@ -13,7 +13,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
       },
     },
-    config = require("plugins.config.completion.nvim-lsp")
+    config = require("completion.nvim-lsp")
   },
   -- other linter
   {
@@ -23,7 +23,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim"
     },
-    config = require("plugins.config.completion.servers.null-ls")
+    config = require("completion.servers.null-ls")
   },
   -- pretty good LSP UI
   {
@@ -34,7 +34,7 @@ return {
       "nvim-tree/nvim-web-devicons",
       "nvim-treesitter/nvim-treesitter",
     },
-    opts = require("plugins.config.completion.lspsaga")
+    opts = require("completion.lspsaga")
   },
   {
     "folke/trouble.nvim",
@@ -43,7 +43,7 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons"
     },
-    opts = require("plugins.config.completion.trouble"),
+    opts = require("completion.trouble"),
     config = function()
       nnoremap("<leader>xx", "<cmd>TroubleToggle<cr>")
       nnoremap("<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>")
@@ -79,7 +79,7 @@ return {
       -- dislay icon with lsp completion
       "onsails/lspkind.nvim",
     },
-    config = require("plugins.config.completion.nvim-cmp")
+    config = require("completion.nvim-cmp")
   },
 ---------------------------------------------------------------
 -- tree-sitter
@@ -104,7 +104,7 @@ return {
           vim.cmd("TSUpdate")
         end
       })
-      require("plugins.config.ui.treesitter")
+      require("ui.treesitter")
     end
   },
   -- indent
@@ -187,7 +187,7 @@ return {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
-    opts = require("plugins.config.ui.catppuccin"),
+    opts = require("ui.catppuccin"),
   },
   -- transparency
   {
@@ -217,21 +217,36 @@ return {
       },
       "nvim-treesitter/nvim-treesitter",
     },
-    opts = require("plugins.config.ui.noice")
+    opts = require("ui.noice")
   },
   -- status line
   {
     "nvim-lualine/lualine.nvim",
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
-    opts = require("plugins.config.ui.lualine")
+    opts = require("ui.lualine")
   },
+  -- file tree
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    lazy = true,
+    cmd = "Neotree",
+    branch = "v2.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+    opts = {},
+  },
+  -- smooth scroll
   {
     "karb94/neoscroll.nvim",
     lazy = true,
     event = "BufReadPost",
     opts = {}
   },
+  -- scroll minimap
   {
     "dstein64/nvim-scrollview",
     lazy = true,
@@ -426,7 +441,7 @@ return {
       "niuiic/niuiic-core.nvim"
     },
     config = function()
-      local opts = require("plugins.config.tools.translate_opts")
+      local opts = require("tools.translate_opts")
       require("translate").setup(opts)
       vim.keymap.set("v", "<C-t>", ":<c-u>TransToEN<CR>", {silent = true})
     end

@@ -12,11 +12,17 @@ local utils = require("lib")
 utils.disable_rtp_plugins()
 
 require('plugins')
-require('core.autocmd')
 require('core.basic')
 require('core.diagnostic')
 require('core.encoding')
-require('core.keymaps')
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  callback = function ()
+    require('core.autocmd')
+    require('core.keymaps')
+  end
+})
 
 local color
 if vim.env.COLORTERM and

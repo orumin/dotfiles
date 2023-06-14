@@ -14,10 +14,34 @@ if not uv.fs_stat(lazypath) then
   })
 end
 
-vim.opt.runtimepath:prepend(lazypath)
-
+package.path = package.path .. ";" .. plugin_config_dir .. "/?.lua;" .. plugin_config_dir .. "/?/init.lua"
 local plug_list = require("plugins.list")
 
+local lazy_opts = {
+  install = {
+    missing = true,
+    colorscheme = { "catppuccin" },
+  },
+  ui = {
+    wrap = true,
+    border = "rounded",
+  },
+  performance = {
+    cache = {
+      enabled = true,
+      path = vim.fn.stdpath("cache") .. "/lazy/cache",
+      disable_events = { "UIEnter", "BufReadPre" },
+      ttl = 3600 * 24 * 2,
+    },
+    reset_packpath = true,
+    rtp = {
+      reset = true,
+      paths = {},
+    }
+  }
+}
+
+vim.opt.runtimepath:prepend(lazypath)
 require("lazy").setup(
-  plug_list
+  plug_list, lazy_opts
 )

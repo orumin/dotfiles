@@ -7,6 +7,8 @@ else
   pr_error("error loading ts-rainbow")
 end
 
+vim.treesitter.language.register('yaml', 'ansible')
+
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 

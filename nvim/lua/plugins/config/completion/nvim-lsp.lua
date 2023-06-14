@@ -25,7 +25,7 @@ return function()
   local opts = {
     autostart = true,
     on_attach = function ()
-      vim.wo.signcolumn = true
+      vim.wo.signcolumn = 'yes'
     end,
     capabilities = capabilities,
   }
@@ -53,18 +53,25 @@ return function()
       bufkeymap('n', '<space>wl', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
       end)
+      bufkeymap('n', 'gD', '<Cmd>Lspsaga goto_definition<CR>')
+      bufkeymap('n', 'gd', '<Cmd>Lspsaga peek_definition<CR>')
       bufkeymap('n', 'gh', '<Cmd>Lspsaga lsp_finder<CR>')
-      bufkeymap('n', 'gx', '<Cmd>Lspsaga code_action<CR>')
-      bufkeymap('n', 'gD', vim.lsp.buf.declaration)
-      bufkeymap('n', 'gd', '<Cmd>Lspsaga preview_definition<CR>')
-      bufkeymap('n', 'lk', '<Cmd>Lspsaga hover_doc<CR>')
       bufkeymap('n', 'gi', '<Cmd>Lspsaga implement<CR>')
-      bufkeymap('n', '<C-k>', '<Cmd>Lspsaga signature_help<CR>')
+      bufkeymap('n', '<C-k>', '<Cmd>Lspsaga hover_doc<CR>')
+      bufkeymap('n', '<space>wa', vim.lsp.buf.add_workspace_folder)
+      bufkeymap('n', '<space>wr', vim.lsp.buf.remove_workspace_folder)
+      bufkeymap('n', '<space>wl', function ()
+        vim.notify(vim.inspect(vim.lsp.buf.list_workspace_folders()), vim.log.levels.INFO, {title = "[lsp]"})
+      end)
+      bufkeymap('n', '<space>D', '<Cmd>Lspsaga peek_type_definition<CR>')
       bufkeymap('n', '<space>rn', '<Cmd>Lspsaga rename<CR>')
+      bufkeymap({'n', 'v'}, '<space>ca', '<Cmd>Lspsaga code_action<CR>')
       bufkeymap('n', 'gr', vim.lsp.buf.references)
       bufkeymap('n', '<space>e', '<Cmd>Lspsaga show_line_diagnostics<CR>')
       bufkeymap('n', '[d', '<Cmd>Lspsaga diagnostic_jump_prev<CR>')
       bufkeymap('n', ']d', '<Cmd>Lspsaga diagnostic_jump_next<CR>')
+      bufkeymap('n', '<leader>ci', '<Cmd>Lspsaga incoming_calls<CR>')
+      bufkeymap('n', '<leader>co', '<Cmd>Lspsaga outgoing_calls<CR>')
     end
   })
 
@@ -80,7 +87,8 @@ return function()
 
   ---@param server_name string
   local function mason_handler(server_name)
-    local ok, custom_handler = pcall(require, "plugins.config.completion.servers." .. server_name)
+    local custom_handler
+    ok, custom_handler = pcall(require, "completion.servers." .. server_name)
     if not ok then
       lspconfig[server_name].setup(opts)
     elseif type(custom_handler) == "function" then

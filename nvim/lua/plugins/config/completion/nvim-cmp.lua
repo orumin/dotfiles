@@ -10,7 +10,7 @@ return function()
   local lspkind
   ok, lspkind = pcall(require, "lspkind")
   if ok then
-  local lspkind_opts = require("plugins.config.ui.lspkind")
+  local lspkind_opts = require("ui.lspkind")
     lspkind.init(lspkind_opts)
     formatting = {
       format= lspkind.cmp_format({
