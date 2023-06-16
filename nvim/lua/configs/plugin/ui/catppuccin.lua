@@ -1,5 +1,6 @@
 return {
   integrations = {
+    bufferline = true,
     cmp = true,
     dap = {
       enabled = true,

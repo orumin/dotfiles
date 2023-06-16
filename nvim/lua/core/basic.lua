@@ -1,4 +1,6 @@
+local settings = require("configs.global_settings")
 local global_opts = {
+  shell = settings.shell,
   -- backup directories
   undofile = true,
   undodir = nvim_cache_dir .. '/undo',
@@ -8,7 +10,7 @@ local global_opts = {
   guicursor = "",
 
   -- copy to clipboard
---  clipboard = 'unnamed,unnamedplus',
+  clipboard = 'unnamed,unnamedplus',
 
   -- enable mouse
   mouse = "a",

@@ -1,8 +1,12 @@
--- remove trailing spaces on save
-vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = '',
-  command = ":%s/\\s\\+$//e"
-})
+local settings = require("configs.global_settings")
+
+if settings.remove_trailing_space then
+  -- remove trailing spaces on save
+  vim.api.nvim_create_autocmd('BufWritePre', {
+    pattern = '',
+    command = ":%s/\\s\\+$//e"
+  })
+end
 
 vim.api.nvim_create_augroup('setTextwidth', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
@@ -68,3 +72,15 @@ vim.api.nvim_create_autocmd('TermOpen', {
   pattern = '',
   command = 'startinsert'
 })
+
+-- LspSaga
+vim.api.nvim_create_augroup("UserLspConfig", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  group = "UserLspConfig",
+  pattern = "LspsagaHover",
+  callback = function()
+    vim.keymap.set("n", "<ESC>", "<cmd>close!<cr>", {buffer=true, silent=true, nowait=true})
+  end
+})
+
+
