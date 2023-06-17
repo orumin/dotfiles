@@ -16,7 +16,7 @@ function M.setting_global()
   local uname = uv.os_uname()
 
   _G.gui_running = vim.fn.has("gui_running") == 1
-  _G.is_win = uname.sysname == "Windows"
+  _G.is_win = uname.sysname == "Windows" or uname.sysname == "Windows_NT"
   _G.is_mac = uname.sysname == "Darwin"
   _G.is_linux = uname.sysname == "Linux"
   _G.is_wsl = is_linux and string.find(uname.release, "microsoft") ~= nil
@@ -149,6 +149,35 @@ function M.disable_rtp_plugins ()
   vim.g.loaded_shada_plugin       = get_flag("shada")
   -- disable remote plugins
   vim.g.loaded_remote_plugins     = get_flag("rplugin")
+end
+
+function M.setting_shell()
+  if is_win then
+    if not (vim.fn.executable("pwsh") == 1 or vim.fn.executable("powershell") == 1) then
+      vim.notify(
+        [[
+Failed to setup shell configuration
+
+PowerShell is either not installe, missing from PATH environment, or not executable;
+cmd.exe will be used instead for `:!`
+
+You're recommended to install PowerShell for better experience.]],
+        vim.log.levels.WARN,
+        { title = "[lib] Runtime Warning" })
+      return
+    end
+
+    local basecmd = "-NoLogo -MTA -ExecutionPolicy RemoteSigned"
+    local ctrlcmd = "-Command [console]::InputEncoding = [console]::OutputEncoding = [System.text.Encoding]::UTF8"
+    vim.o.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
+    vim.o.shellcmdflag = string.format("%s %s;", basecmd, ctrlcmd)
+    vim.o.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+    vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+    vim.o.shellquote = nil
+    vim.o.shellxquote = nil
+  else
+    vim.o.shell = settings.shell
+  end
 end
 
 M.setting_global()

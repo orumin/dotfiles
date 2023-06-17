@@ -1,6 +1,4 @@
-local settings = require("configs.global_settings")
 local global_opts = {
-  shell = settings.shell,
   -- backup directories
   undofile = true,
   undodir = nvim_cache_dir .. path_sep .. 'undo',
@@ -41,6 +39,11 @@ local global_opts = {
   cmdheight = 2,
   wildmenu = true,
   showcmd = true,
+
+  -- newline character
+  fileformats="unix,dos,mac",
+-- set ambiwidth size (single or double)
+  ambiwidth="single",
 }
 
 local buffer_local_opts = {

@@ -54,8 +54,3 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end
 })
 
--- detect newline chracter
-vim.opt.fileformats={"unix", "dos", "mac"}
-
--- set ambiwidth size (single or double)
-vim.opt.ambiwidth="single"
