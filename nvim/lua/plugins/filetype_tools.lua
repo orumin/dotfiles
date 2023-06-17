@@ -37,12 +37,6 @@ return {
     lazy = true,
     ft = "pandoc",
   },
-  -- PlantUML
-  {
-    "aklt/plantuml-syntax",
-    lazy = true,
-    ft = "plantuml",
-  },
   -- Rust
   {
     "simrat39/rust-tools.nvim",

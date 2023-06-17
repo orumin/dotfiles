@@ -1,5 +1,6 @@
 return {
   ["nvim_lsp"] = require("configs.keymap.nvim-lsp"),
+  ["trouble"] = require("configs.keymap.trouble"),
   ["neotree"] = {
       { "<leader>ft", function ()
         require("neo-tree.command").execute({
@@ -10,12 +11,12 @@ return {
       desc = "NeoTree" }
   },
   ["translate"] = {
-    { "<C-t>", ":<c-u>TransToEN<CR>", "v", silent = true }
+    { "<C-t>", ":<c-u>TransToEN<CR>", mode = "v", silent = true, desc = "translate"  }
   },
   ["windows"] = {
-    {"<C-w>z", "<Cmd>WindowsMaximize<CR>" },
-    {"<C-w>_", "<Cmd>WindowsMaximizeVertically<CR>" },
-    {"<C-w>|", "<Cmd>WindowsMaximizeHorizontally<CR>" },
-    {"<C-w>=", "<Cmd>WindowsEqualize<CR>" },
+    {"<C-w>z", "<Cmd>WindowsMaximize<CR>", desc = "windows" },
+    {"<C-w>_", "<Cmd>WindowsMaximizeVertically<CR>", desc = "windows" },
+    {"<C-w>|", "<Cmd>WindowsMaximizeHorizontally<CR>", desc = "windows" },
+    {"<C-w>=", "<Cmd>WindowsEqualize<CR>", desc = "windows" },
   },
 }

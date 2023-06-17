@@ -62,7 +62,7 @@ return {
     "klen/nvim-config-local",
     opts = {
       config_files = { ".nvim.lua", ".nvimrc" },
-      hashfile = vim.fn.stdpath("data") .. "/config-local",
+      hashfile = vim.fn.stdpath("data") .. path_sep .. "config-local",
 
       autocommands_create = false,
       commands_create = false,

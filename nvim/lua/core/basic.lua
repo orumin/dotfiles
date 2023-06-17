@@ -3,9 +3,9 @@ local global_opts = {
   shell = settings.shell,
   -- backup directories
   undofile = true,
-  undodir = nvim_cache_dir .. '/undo',
-  backupdir = nvim_cache_dir .. '/backup',
-  directory = nvim_cache_dir .. '/swp',
+  undodir = nvim_cache_dir .. path_sep .. 'undo',
+  backupdir = nvim_cache_dir .. path_sep .. 'backup',
+  directory = nvim_cache_dir .. path_sep .. 'swp',
   -- https://github.com/neovim/neovim/issues/6041
   guicursor = "",
 

@@ -53,15 +53,8 @@ return {
     dependencies = {
       "nvim-tree/nvim-web-devicons"
     },
+    keys = require("configs.keymap").trouble,
     opts = require("completion.trouble"),
-    config = function()
-      nnoremap("<leader>xx", "<cmd>TroubleToggle<cr>")
-      nnoremap("<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>")
-      nnoremap("<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>")
-      nnoremap("<leader>xl", "<cmd>TroubleToggle loclist<cr>")
-      nnoremap("<leader>xq", "<cmd>TroubleToggle quickfix<cr>")
-      nnoremap("gR", "<cmd>TroubleToggle lsp_references<cr>")
-    end
   },
 ---------------------------------------------------------------
 -- completion
