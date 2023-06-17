@@ -28,7 +28,7 @@ local lazy_opts = {
   root = vim.fn.stdpath("data") .. "/lazy",
   defauls = { lazy = false, version = nil, cond = nil },
   spec = {
-    { import = "plugins" }, -- load plugin list from vim.fn.stdpath("config") .. "/lua/plugins/init.lua"
+    { import = "plugins" }, -- load plugin list from vim.fn.stdpath("config") .. "/lua/plugins/?.lua"
   },
   lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json",
   install = {
