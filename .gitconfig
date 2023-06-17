@@ -1,5 +1,7 @@
 [core]
     excludesfile = /home/orumin/.gitignore_global
+	symlinks = true
+	autocrlf = false
 [user]
 	email = dev@orum.in
 	name = orumin

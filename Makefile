@@ -4,13 +4,16 @@ DOTFILES       = $(filter-out $(EXCLUDE_FILES), $(INSTALL_TARGET))
 XDG_CONFIGS	   = alacritty bat btop fish mpv nvim tmux
 
 ifeq ($(OS),Windows_NT)
-HOME = $(USERPROFILE)
+	HOME := $(USERPROFILE)
+	ifeq ($(MSYSTEM),)
+		SHELL := pwsh.exe
+	endif
 endif
 
 ifeq ($(strip $(XDG_CONFIG_HOME)),)
-CONFIG_DIR = $(HOME)\.config
+	CONFIG_DIR := $(HOME)\.config
 else
-CONFIG_DIR = $(XDG_CONFIG_HOME)
+	CONFIG_DIR := $(XDG_CONFIG_HOME)
 endif
 
 .PHONY: deploy init list
@@ -20,13 +23,23 @@ $(CONFIG_DIR):
 
 deploy: init
 	@$(foreach val, $(DOTFILES), make link SOURCE:="$(abspath $(val))" TARGET:="$(HOME)/$(val)";)
-	@$(foreach val, $(XDG_CONFIGS), make dirlink SOURCE:="$(abspath $(val))" TARGET:="$(CONFIG_DIR)/$(val)";)
+	@$(foreach val, $(XDG_CONFIGS), make link SOURCE:="$(abspath $(val))" TARGET:="$(CONFIG_DIR)/$(val)";)
+
+deploy_win: init
+	make link SOURCE:="$(abspath Microsoft.PowerShell_profile.ps1)" TARGET:="$(HOME)\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+	make link SOURCE:="$(abspath alacritty)" TARGET:="$(APPDATA)\alacritty"
+	make link SOURCE:="$(abspath nvim)" TARGET:="$(LOCALAPPDATA)\nvim"
 
 init: $(CONFIG_DIR)
 
 uninstall:
-	@$(foreach val, $(DOTFILES), unlink $(HOME)$(PATH_SEP)$(val))
-	@$(foreach val, $(XDG_CONFIGS), unlink $(CONFIG_DIR)$(PATH_SEP)$(val))
+	@$(foreach val, $(DOTFILES), make unlink Value:="$(HOME)/$(val)";)
+	@$(foreach val, $(XDG_CONFIGS), make unlink_dir Value:="$(CONFIG_DIR)/$(val)";)
+
+uninstall_win:
+	make unlink Value:="$(HOME)\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+	make unlink_dir Value:="$(APPDATA)\alacritty"
+	make unlink_dir Value:="$(LOCALAPPDATA)\nvim"
 
 list:
 ifeq ($(OS),Windows_NT)
@@ -37,16 +50,22 @@ endif
 
 link:
 ifeq ($(OS),Windows_NT)
-	cmd.exe /C if not exist $(subst /,\,$(TARGET)) \
-		cmd.exe /C mklink $(subst /,\,$(TARGET)) $(subst /,\,$(SOURCE))
+	pwsh.exe -Command New-Item -Value $(subst /,\,$(SOURCE)) -Path $(subst /,\,$(TARGET)) -ItemType SymbolicLink -Force
 else
 	ln -sfnv $(SOURCE) $(TARGET)
 endif
 
-dirlink:
+unlink:
 ifeq ($(OS),Windows_NT)
-	cmd.exe /C if not exist $(subst /,\,$(TARGET)) \
-		cmd.exe /C mklink /D $(subst /,\,$(TARGET)) $(subst /,\,$(SOURCE))
+	[System.IO.File]::Delete("$(subst /,\,$(Value))")
 else
-	ln -sfnv $(SOURCE) $(TARGET)
+	unlink $(Value)
 endif
+
+unlink_dir:
+ifeq ($(OS),Windows_NT)
+	[System.IO.Directory]::Delete("$(subst /,\,$(Value))")
+else
+	unlink $(Value)
+endif
+
