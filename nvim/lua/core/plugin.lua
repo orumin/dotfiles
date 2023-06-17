@@ -1,5 +1,5 @@
 local settings = require("configs.global_settings")
-local lazypath = vim.fn.stdpath("data") .. path_sep .. "lazy" .. path_sep .. "lazy.nvim"
+local lazypath = nvim_data_dir .. path_sep .. "lazy" .. path_sep .. "lazy.nvim"
 
 local uv = nil
 if vim.uv then uv = vim.uv else uv = vim.loop end
@@ -25,12 +25,12 @@ for k, _ in pairs(settings.disabled_rtp_plugins) do
 end
 
 local lazy_opts = {
-  root = vim.fn.stdpath("data") .. path_sep .. "lazy",
+  root = nvim_data_dir .. path_sep .. "lazy",
   defauls = { lazy = false, version = nil, cond = nil },
   spec = {
     { import = "plugins" }, -- load plugin list from vim.fn.stdpath("config") .. "/lua/plugins/?.lua"
   },
-  lockfile = vim.fn.stdpath("config") .. path_sep .. "lazy-lock.json",
+  lockfile = nvim_config_dir .. path_sep .. "lazy-lock.json",
   install = {
     missing = true,
     colorscheme = { "catppuccin" },

@@ -35,9 +35,9 @@ return {
 --    config = function()
 --      vim.o.imdisable = true
 --      vim.o.iminsert = 0
---      vim.g["eskk#directory"] = vim.fn.stdpath("data") .. "/eskk"
+--      vim.g["eskk#directory"] = nvim_data_dir .. path_sep .. "eskk"
 --      vim.g["eskk#dictionary"] = {
---        path = vim.fn.stdpath("data") .. "/eskk/.skk-jisyo",
+--        path = nvim_data_dir .. path_sep .. "eskk" .. path_sep .. ".skk-jisyo",
 --        sorted = 0,
 --        encoding = "utf-8",
 --      }

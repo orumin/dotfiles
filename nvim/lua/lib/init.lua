@@ -23,9 +23,11 @@ function M.setting_global()
   _G.path_sep = is_win and "\\" or "/"
   _G.home = is_win and vim.env.USERPROFILE or vim.env.HOME
 
-  _G.nvim_config_dir = vim.fn.stdpath("config")
   _G.nvim_cache_dir = vim.fn.stdpath("cache")
-  _G.plugin_config_dir = nvim_config_dir .. "/lua/configs/plugin"
+  _G.nvim_config_dir = vim.fn.stdpath("config")
+  _G.nvim_data_dir = vim.fn.stdpath("data")
+  _G.nvim_state_dir = vim.fn.stdpath("state")
+  _G.plugin_config_dir = nvim_config_dir .. path_sep .. "lua" .. path_sep .. "configs" .. path_sep .. "plugin"
 
   _G.homedir = uv.os_homedir()
 end
