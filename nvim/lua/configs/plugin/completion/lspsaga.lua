@@ -1,6 +1,6 @@
 local icons = {
-  kind = require("configs.ui.icons").get("kind"),
-  type = require("configs.ui.icons").get("type"),
+  kind = require("configs.ui.icons").get("kind", true),
+  type = require("configs.ui.icons").get("type", true),
   ui = require("configs.ui.icons").get("ui"),
 }
 local opts = {

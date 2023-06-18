@@ -62,6 +62,13 @@ return {
     lazy = true,
     event = "BufReadPost",
   },
+  -- smooth scroll
+  {
+    "karb94/neoscroll.nvim",
+    lazy = true,
+    event = "BufReadPost",
+    opts = {}
+  },
   -- cheetsheet
   {
     "folke/which-key.nvim",
@@ -77,6 +84,7 @@ return {
   {
     "rbtnn/vim-ambiwidth",
     lazy = false,
+    cond = vim.fn.has("nvim-0.9") == 1,
   },
   -- project local setting
   {

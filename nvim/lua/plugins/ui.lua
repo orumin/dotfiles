@@ -63,13 +63,6 @@ return {
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     opts = require("ui.lualine")
   },
-  -- smooth scroll
-  {
-    "karb94/neoscroll.nvim",
-    lazy = true,
-    event = "BufReadPost",
-    opts = {}
-  },
   -- scroll minimap
   {
     "dstein64/nvim-scrollview",

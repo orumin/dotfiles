@@ -10,7 +10,7 @@ local maps = {
   { "<leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>" },
   { "<leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>" },
   { "<leader>$", "<Cmd>BufferLineGoToBuffer -1<CR>" },
-  { "b]", "<Cmd>BufferLineCycleNext<CR>" },
+  { "]b", "<Cmd>BufferLineCycleNext<CR>" },
   { "[b", "<Cmd>BufferLineCyclePrev<CR>" },
 }
 

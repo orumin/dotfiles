@@ -8,7 +8,7 @@ return {
         dir = require("lib").get_root(),
       })
     end,
-      desc = "NeoTree" }
+    desc = "NeoTree" }
   },
   ["translate"] = {
     { "<C-t>", ":<c-u>TransToEN<CR>", mode = "v", silent = true, desc = "translate"  }
