@@ -90,9 +90,9 @@ return function()
         end
       end, { "i", "s" }),
     }),
-    view = {
-      entries = "native",
-    },
+--    view = {
+--      entries = "native",
+--    },
   }
 
   cmp.setup(opts)
