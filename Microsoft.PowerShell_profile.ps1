@@ -49,9 +49,7 @@ Set-PSReadLineOption -Colors $Colors
 # Readline handler
 Set-PSReadlineKeyHandler -Key 'Ctrl+p' -Function HistorySearchBackward
 Set-PSReadlineKeyHandler -Key 'Ctrl+n' -Function HistorySearchForward
-
-# scoop completio
-Import-Module 'C:\Users\orumin\scoop\apps\scoop\current\supporting\completion\Scoop-Completion.psd1' -ErrorAction SilentlyContinue
+Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 
 # scoop completion
 Import-Module 'C:\Users\orumin\scoop\apps\scoop\current\supporting\completion\Scoop-Completion.psd1' -ErrorAction SilentlyContinue
@@ -60,6 +58,8 @@ Import-Module 'C:\Users\orumin\scoop\apps\scoop\current\supporting\completion\Sc
 
 Set-Alias vi nvim
 Set-Alias vim nvim
+
+# some functions
 
 function CustomListChildItems { Get-ChildItem -force | Sort-Object -Property @{ Expression = 'LastWriteTime'; Descending = $true }, @{ Expression = 'Name'; Ascending = $true } | Format-Table -AutoSize -Property Mode, Length, LastWriteTime, Name }
 Set-Alias ll CustomListChildItems
@@ -70,3 +70,10 @@ Set-Alias choco-find FindPackageChocolatey
 function InstallPackageChocolatey { Install-Package -ProviderName ChocolateyGet -Name $args[0] }
 Set-Alias choco-install InstallPackageChocolatey
 
+# env
+
+if ( -not [String]::IsNullOrEmpty($env:WT_SESSION) ) {
+    $env:COLORTERM = "truecolor"
+}
+
+$env:WSLENV = "COLORTERM/up"

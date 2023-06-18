@@ -1,4 +1,5 @@
 local M = {}
+
 if vim.env.COLORTERM and vim.env.COLORTERM == "truecolor" then
   M.truecolor = true
   M.name = "catppuccin"

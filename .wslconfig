@@ -3,5 +3,5 @@ kernel=C:\\wslkernel\\vmlinux
 localhostForwarding=True
 memory=2GB
 processors=2
-kernelCommandLine=
+#kernelCommandLine=
 swap=0
