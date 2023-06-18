@@ -31,7 +31,7 @@ local function get_icon(arg)
     return " "
   end
   return settings.icon.nerd_ver == "2" and arg[1] or
-    settings.icon.nerd_ver == "3" or arg[2] or
+    settings.icon.nerd_ver == "3" and arg[2] or
     "?"
 end
 local icons = {}
@@ -230,10 +230,6 @@ local data = {
     Terminate = get_icon({"ﱢ", "󰝤"}),
   },
 }
-
-if settings.icon.nerd_ver == "2" then
-  vim.fn.setcellwidths({{0xf500, 0xfd46, 2}})
-end
 
 ---Get a specific icon set.
 ---@param category "kind"|"type"|"documents"|"git"|"ui"|"diagnostics"|"misc"|"cmp"|"dap"

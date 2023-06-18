@@ -22,6 +22,7 @@ local maps = {
   { "]d", "<Cmd>Lspsaga diagnostic_jump_next<CR>" },
   { "<leader>ci", "<Cmd>Lspsaga incoming_calls<CR>" },
   { "<leader>co", "<Cmd>Lspsaga outgoing_calls<CR>" },
+  { "<leader>lo", "<Cmd>Lspsaga outline<CR>" },
 }
 
 for _, v in ipairs(maps) do
