@@ -20,4 +20,7 @@ return {
     {"<C-w>=", "<Cmd>WindowsEqualize<CR>", desc = "windows" },
   },
   ["bufferline"] = require("configs.keymap.bufferline"),
+  ["skkeleton"] = {
+    {"<C-j>", "<Plug>(skkeleton-toggle)", mode = {"c", "i"}, desc="skk"}
+  },
 }

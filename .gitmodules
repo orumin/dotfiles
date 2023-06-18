@@ -13,3 +13,6 @@
 [submodule "catppuccin/alacritty"]
 	path = catppuccin/alacritty
 	url = https://github.com/catppuccin/alacritty
+[submodule "skk/dict"]
+	path = skk/dict
+	url = github:skk-dev/dict

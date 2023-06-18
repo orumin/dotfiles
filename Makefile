@@ -1,7 +1,7 @@
 EXCLUDE_FILES  = .git .gitmodules .gitignore .travis.yml
 INSTALL_TARGET = $(wildcard .??*)
 DOTFILES       = $(filter-out $(EXCLUDE_FILES), $(INSTALL_TARGET))
-XDG_CONFIGS	   = alacritty bat btop fish mpv nvim tmux
+XDG_CONFIGS	   = alacritty bat btop fish mpv nvim skk tmux
 
 ifeq ($(OS),Windows_NT)
 	HOME := $(USERPROFILE)

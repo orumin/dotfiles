@@ -14,3 +14,5 @@
 	user = orumin
 [init]
 	defaultBranch = main
+[credential "helperselector"]
+	selected = manager

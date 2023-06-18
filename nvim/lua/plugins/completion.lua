@@ -79,6 +79,13 @@ return {
       -- snippets support
       "saadparwaiz1/cmp_luasnip",
       "L3MON4D3/LuaSnip",
+      -- skk
+      {
+        "rinx/cmp-skkeleton",
+        dependencies = {
+          "vim-skk/skkeleton"
+        },
+      },
     },
     config = require("completion.nvim-cmp")
   },

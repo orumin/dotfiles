@@ -18,7 +18,7 @@ require('core.plugin')
 require('core.autocmd')
 require('core.basic')
 require('core.diagnostic')
---require('core.encoding')
+require('core.encoding')
 require('core.keymaps')
 
 color.settings()

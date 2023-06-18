@@ -54,6 +54,7 @@ return function()
 			end,
     },
     sources = cmp.config.sources({
+--      {name = "skkeleton"},
       {name = "nvim_lsp", max_item_count = 100 },
       {name = "luasnip"},
       {name = "buffer"},
@@ -89,6 +90,9 @@ return function()
         end
       end, { "i", "s" }),
     }),
+    view = {
+      entries = "native",
+    },
   }
 
   cmp.setup(opts)

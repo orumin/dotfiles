@@ -1,3 +1,4 @@
+local palette = require("lib").get_palette()
 return {
 ---------------------------------------------------------------
 -- Tools
@@ -29,27 +30,28 @@ return {
       vim.g["gista#github_user"] = "orumin"
     end
   },
----- ime
---  {
---    'tyru/eskk.vim',
---    config = function()
---      vim.o.imdisable = true
---      vim.o.iminsert = 0
---      vim.g["eskk#directory"] = nvim_data_dir .. path_sep .. "eskk"
---      vim.g["eskk#dictionary"] = {
---        path = nvim_data_dir .. path_sep .. "eskk" .. path_sep .. ".skk-jisyo",
---        sorted = 0,
---        encoding = "utf-8",
---      }
---      vim.g["eskk#large_dictionary"] = {
---        path = "/usr/share/skk/SKK-JISYO.L",
---        sorted = 1,
---        encoding = "euc-jisx0213",
---      }
---      vim.g["eskk#enable_completion"] = true
---      vim.g["eskk#egg_like_newline"] = true
---    end
---  },
+  -- ime
+  {
+    "vim-skk/skkeleton",
+    lazy = false,
+    keys = require("configs.keymap").skkeleton,
+    cond = false and vim.fn.has("nvim-0.8") == 1, -- disable
+    dependencies = {
+      "vim-denops/denops.vim",
+      {
+        "delphinus/skkeleton_indicator.nvim",
+        init = function ()
+          vim.api.nvim_set_hl(0, "SkkeletonIndicatorEiji", { fg=palette.blue, bg=palette.base, bold=true })
+          vim.api.nvim_set_hl(0, "SkkeletonIndicatorHira", { fg=palette.base, bg=palette.green, bold=true })
+          vim.api.nvim_set_hl(0, "SkkeletonIndicatorKata", { fg=palette.base, bg=palette.yellow, bold=true})
+          vim.api.nvim_set_hl(0, "SkkeletonIndicatorHankaku", { fg=palette.base, bg=palette.pink, bold=true})
+          vim.api.nvim_set_hl(0, "SkkeletonIndicatorZenkaku", { fg=palette.base, bg=palette.blue, bold=true})
+        end,
+        opts = {},
+      },
+    },
+    config = require("configs.plugin.tools.skkeleton"),
+  },
   -- writing table in plain text
   {
     "dhruvasagar/vim-table-mode",
