@@ -17,7 +17,7 @@ return {
     },
     build = ":TSUpdate",
     config = function()
-      require("ui.treesitter")
+      require("editor.treesitter")
     end
   },
   -- indent
