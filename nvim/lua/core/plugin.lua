@@ -1,4 +1,11 @@
 local settings = require("configs.global_settings")
+local icons = {
+  documents = require("configs.ui.icons").get("documents"),
+  kind = require("configs.ui.icons").get("kind"),
+  misc = require("configs.ui.icons").get("misc"),
+  ui = require("configs.ui.icons").get("ui"),
+  ui_sep = require("configs.ui.icons").get("ui", true),
+}
 local lazypath = nvim_data_dir .. path_sep .. "lazy" .. path_sep .. "lazy.nvim"
 
 local uv = nil
@@ -34,12 +41,33 @@ local lazy_opts = {
   install = {
     missing = true,
     colorscheme = { "catppuccin" },
-    ui = {
-      wrap = true,
-      border = "rounded",
-    },
   },
   diff = { cmd = "git" },
+  ui = {
+    wrap = true,
+    border = "rounded",
+    icons = {
+      cmd = icons.misc.Code,
+      config = icons.ui.Gear,
+      event = icons.kind.Event,
+      ft = icons.documents.Files,
+      init = icons.misc.ManUp,
+      import = icons.documents.Import,
+      keys = icons.ui.Keyboard,
+      loaded = icons.ui.Check,
+      not_loaded = icons.misc.Ghost,
+      plugin = icons.ui.Package,
+      runtime = icons.misc.Vim,
+      source = icons.kind.StaticMethod,
+      start = icons.ui.Play,
+      list = {
+        icons.ui_sep.BigCircle,
+        icons.ui_sep.BigUnfilledCircle,
+        icons.ui_sep.Square,
+        icons.ui_sep.ChevronRight,
+      },
+    },
+  },
   performance = {
     cache = {
       enabled = true,

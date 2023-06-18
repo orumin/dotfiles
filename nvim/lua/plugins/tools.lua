@@ -84,5 +84,12 @@ return {
     },
     opts = require("tools.translate_opts"),
   },
+  -- search nerd font icons
+  {
+    "nvimdev/nerdicons.nvim",
+    lazy = true,
+    cmd = "NerdIcons",
+    opts = {},
+  },
 }
 

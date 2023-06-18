@@ -44,7 +44,7 @@ return {
       "nvim-tree/nvim-web-devicons",
       "nvim-treesitter/nvim-treesitter",
     },
-    opts = require("completion.lspsaga")
+    opts = require("completion.lspsaga"),
   },
   {
     "folke/trouble.nvim",
@@ -79,8 +79,6 @@ return {
       -- snippets support
       "saadparwaiz1/cmp_luasnip",
       "L3MON4D3/LuaSnip",
-      -- dislay icon with lsp completion
-      "onsails/lspkind.nvim",
     },
     config = require("completion.nvim-cmp")
   },

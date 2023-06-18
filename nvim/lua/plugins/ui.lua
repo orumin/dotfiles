@@ -13,6 +13,7 @@ return {
     "akinsho/bufferline.nvim",
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    keys = require("configs.keymap").bufferline,
     config  = require("ui.bufferline")
   },
   -- color schemes
@@ -61,25 +62,6 @@ return {
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     opts = require("ui.lualine")
-  },
-  -- file tree
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    lazy = true,
-    cmd = "Neotree",
-    branch = "v2.x",
-    keys = require("configs.keymap").neotree,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
-    },
-    opts = {
-      filesystem = {
-        follow_current_file = true,
-        hijack_netrw_behavior = "open_current",
-      }
-    },
   },
   -- smooth scroll
   {

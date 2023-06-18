@@ -1,26 +1,15 @@
 return function()
+  local icons = {
+    kind = require("configs.ui.icons").get("kind"),
+    type = require("configs.ui.icons").get("type"),
+    cmp = require("configs.ui.icons").get("cmp"),
+  }
+
   local cmp = require("cmp")
 
   local ok, luasnip = pcall(require, "luasnip")
   if not ok then
     pr_error("error loading luasnip")
-  end
-
-  local formatting = {}
-  local lspkind
-  ok, lspkind = pcall(require, "lspkind")
-  if ok then
-  local lspkind_opts = require("ui.lspkind")
-    lspkind.init(lspkind_opts)
-    formatting = {
-      format= lspkind.cmp_format({
-        maxwidth = "50",
-        ellipsis_char = "...",
-        before = function (_, vim_item)
-          return vim_item
-        end
-      })
-    }
   end
 
   local opts = {
@@ -29,9 +18,43 @@ return function()
         luasnip.lsp_expand(args.body)
       end
     },
-    formatting = formatting,
+    formatting = {
+      fields = { "abbr", "kind", "menu" },
+			format = function(entry, vim_item)
+				local lspkind_icons = vim.tbl_deep_extend("force", icons.kind, icons.type, icons.cmp)
+				-- load lspkind icons
+				vim_item.kind =
+					string.format(" %s%s", lspkind_icons[vim_item.kind] or icons.cmp.undefined, vim_item.kind or "")
+
+				vim_item.menu = setmetatable({
+					cmp_tabnine = "[TN]",
+					copilot = "[CPLT]",
+					buffer = "[BUF]",
+					orgmode = "[ORG]",
+					nvim_lsp = "[LSP]",
+					nvim_lua = "[LUA]",
+					path = "[PATH]",
+					tmux = "[TMUX]",
+					treesitter = "[TS]",
+					luasnip = "[SNIP]",
+					spell = "[SPELL]",
+				}, {
+					__index = function()
+						return "[BTN]" -- builtin/unknown source names
+					end,
+				})[entry.source.name]
+
+				local label = vim_item.abbr
+				local truncated_label = vim.fn.strcharpart(label, 0, 80)
+				if truncated_label ~= label then
+					vim_item.abbr = truncated_label .. "..."
+				end
+
+				return vim_item
+			end,
+    },
     sources = cmp.config.sources({
-      {name = "nvim_lsp"},
+      {name = "nvim_lsp", max_item_count = 100 },
       {name = "luasnip"},
       {name = "buffer"},
       {name = "path"},

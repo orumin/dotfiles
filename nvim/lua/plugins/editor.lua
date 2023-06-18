@@ -4,6 +4,22 @@ return {
 ---------------------------------------------------------------
   { "nvim-lua/plenary.nvim", lazy = true },
 ---------------------------------------------------------------
+-- File tree explorer
+---------------------------------------------------------------
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    lazy = true,
+    cmd = "Neotree",
+    branch = "v2.x",
+    keys = require("configs.keymap").neotree,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+    opts = require("configs.plugin.editor.neotree"),
+  },
+---------------------------------------------------------------
 -- Debugger Adapter Protocol
 ---------------------------------------------------------------
   {
@@ -56,6 +72,11 @@ return {
       vim.o.timeoutlen = 500
     end,
     opts = {}
+  },
+  -- fix ambiwidth character width by 'setcellwidths()'
+  {
+    "rbtnn/vim-ambiwidth",
+    lazy = false,
   },
   -- project local setting
   {

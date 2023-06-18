@@ -71,13 +71,13 @@ local buffer_local_opts = {
 
 local window_local_opts = {
   list = true, -- display invisible character
-  --listchars = 'tab:▸ ,space:⋅,eol:↲,extends:❯,precedes:❮',
+--  --listchars = 'tab:▸ ,space:⋅,eol:↲,extends:❯,precedes:❮',
   listchars = {
     tab = "▸ ",
     space = "⋅",
     eol = "↲",
-    extends = "❯",
-    precedes = "❮"
+--    extends = "❯",
+--    precedes = "❮"
   },
   breakindent = true,
   number = true,

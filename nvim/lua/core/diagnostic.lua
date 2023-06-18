@@ -1,8 +1,9 @@
+local diagnostic_icons = require("configs.ui.icons").get("diagnostics")
 local signs = {
-  Error = "",
-  Warn = "",
-  Info = "",
-  Hint = "",
+  Error = diagnostic_icons.Error,
+  Warn = diagnostic_icons.Warning,
+  Info = diagnostic_icons.Information,
+  Hint = diagnostic_icons.Hint_alt,
 }
 
 for type, icon in pairs(signs) do

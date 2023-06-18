@@ -25,7 +25,7 @@ local maps = {
 }
 
 for _, v in ipairs(maps) do
-  vim.tbl_deep_extend("keep", v, opts)
+  v = vim.tbl_deep_extend("keep", v, opts)
 end
 
 return maps

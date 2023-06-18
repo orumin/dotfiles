@@ -1,5 +1,8 @@
 local settings = {
   shell = "fish",
+  icon = {
+    nerd_ver = "2",
+  },
   remove_trailing_space = true,
   disabled_rtp_plugins = {
     gzip = true,

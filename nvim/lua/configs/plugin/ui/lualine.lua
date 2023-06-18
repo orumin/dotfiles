@@ -1,3 +1,4 @@
+local diagnostic_icons = require("configs.ui.icons").get("diagnostics", true)
 return {
   options = {
     icons_enabled = true,
@@ -26,7 +27,12 @@ return {
               info  = 'DiagnosticInfo',  -- Changes diagnostics' info color.
               hint  = 'DiagnosticHint',  -- Changes diagnostics' hint color.
             },
-            symbols = require("configs.ui.icon").diagstic_symbols,
+            symbols = {
+              error = diagnostic_icons.Error,
+              warn = diagnostic_icons.Warning,
+              info = diagnostic_icons.Information,
+              hint = diagnostic_icons.Hint,
+            },
             colored = true,           -- Displays diagnostics status in color if set to true.
             update_in_insert = false, -- Update diagnostics in insert mode.
             always_visible = false,   -- Show diagnostics even if there are none.
