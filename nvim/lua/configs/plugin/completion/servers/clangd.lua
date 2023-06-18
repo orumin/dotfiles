@@ -1,4 +1,8 @@
 local lspconfig = require("lspconfig")
+local icons = {
+  diagnostics = require("configs.ui.icons").get("diagnostics"),
+  codiconse = require("configs.ui.icons").get("codicons"),
+}
 local clangd_extensions_opts = {
   server = {
     -- options to pass to nvim-lspconfig
@@ -61,22 +65,22 @@ local clangd_extensions_opts = {
             },]]
       -- These require codicons (https://github.com/microsoft/vscode-codicons)
       role_icons = {
-        type = "",
-        declaration = "",
-        expression = "",
-        specifier = "",
-        statement = "",
-        ["template argument"] = "",
+        type = icons.codicons.Type,
+        declaration = icons.codicons.Declaration,
+        expression = icons.codicons.Expression,
+        specifier = icons.codicons.Specifier,
+        statement = icons.codicons.Statement,
+        ["template argument"] = icons.codicons.TemplateParam,
       },
 
       kind_icons = {
-        Compound = "",
-        Recovery = "",
-        TranslationUnit = "",
-        PackExpansion = "",
-        TemplateTypeParm = "",
-        TemplateTemplateParm = "",
-        TemplateParamObject = "",
+        Compound = icons.codicons.Compound,
+        Recovery = icons.diagnostics.Error_alt,
+        TranslationUnit = icons.codicons.TranslationUnit,
+        PackExpansion = icons.codicons.PackExpansion,
+        TemplateTypeParm = icons.codicons.TemplateParam,
+        TemplateTemplateParm = icons.codicons.TemplateParam,
+        TemplateParamObject = icons.codicons.TemplateParam,
       },
 
       highlights = {

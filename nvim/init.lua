@@ -9,6 +9,7 @@ end
 local utils = require("lib")
 utils.disable_rtp_plugins()
 utils.setting_shell()
+utils.setting_clipboard()
 
 local color = require("core.color")
 

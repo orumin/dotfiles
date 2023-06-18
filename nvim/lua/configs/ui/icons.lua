@@ -164,6 +164,17 @@ local data = {
     Table = "",
     Telescope = "",
   },
+  codicons = {
+    Compound = get_icon({"", ""}),
+    Declaration = get_icon({"", ""}),
+    Expression = get_icon({"ﱣ", ""}),
+    PackExpansion = get_icon({"", ""}),
+    Specifier = get_icon({"פּ", ""}),
+    Statement = get_icon({"⚡", ""}),
+    TemplateParm = get_icon({"🅃", ""}),
+    TranslationUnit = get_icon({"", ""}),
+    Type = get_icon({"", ""}),
+  },
   diagnostics = {
     Error = "",
     Warning = "",
@@ -232,7 +243,7 @@ local data = {
 }
 
 ---Get a specific icon set.
----@param category "kind"|"type"|"documents"|"git"|"ui"|"diagnostics"|"misc"|"cmp"|"dap"
+---@param category "kind"|"type"|"documents"|"git"|"ui"|"diagnostics"|"misc"|"cmp"|"dap"|"codicons"
 ---@param add_space? boolean @Add trailing space after the icon.
 function icons.get(category, add_space)
   if add_space then

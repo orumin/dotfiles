@@ -8,7 +8,7 @@ local global_opts = {
   guicursor = "",
 
   -- copy to clipboard
-  --clipboard = 'unnamed,unnamedplus',
+  clipboard = 'unnamed,unnamedplus',
 
   -- enable mouse
   mouse = "a",

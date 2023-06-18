@@ -24,7 +24,7 @@ return function()
 				local lspkind_icons = vim.tbl_deep_extend("force", icons.kind, icons.type, icons.cmp)
 				-- load lspkind icons
 				vim_item.kind =
-					string.format(" %s%s", lspkind_icons[vim_item.kind] or icons.cmp.undefined, vim_item.kind or "")
+					string.format(" %s %s", lspkind_icons[vim_item.kind] or icons.cmp.undefined, vim_item.kind or "")
 
 				vim_item.menu = setmetatable({
 					cmp_tabnine = "[TN]",

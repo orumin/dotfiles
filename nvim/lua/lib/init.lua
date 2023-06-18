@@ -180,6 +180,110 @@ You're recommended to install PowerShell for better experience.]],
   end
 end
 
+function M.setting_clipboard()
+  if vim.env.TMUX ~= nil then
+    vim.g.clipboard = {
+      name = "tmuxClipboard",
+      copy = {
+        ["+"] = "tmux load-buffer -",
+        ["*"] = "tmux load-buffer -",
+      },
+      paste = {
+        ["+"] = "tmux save-buffer -",
+        ["*"] = "tmux save-buffer -",
+      },
+      cache_enabled = 1,
+    }
+  elseif is_mac then
+    vim.g.clipboard = {
+      name = "macOS-clipboard",
+      copy = { ["+"] = "pbcopy", ["*"] = "pbcopy", },
+      paste = { ["+"] = "pbpaste", ["*"] = "pbpaste", },
+      cache_enabled = 0,
+    }
+  elseif is_win or is_wsl then
+    if vim.fn.executable("win32yank") == 1 then
+      vim.g.clipboard = {
+        name = "win32yank-Clipboard",
+        copy = {
+          ["+"] = "win32yank.exe -i --crlf",
+          ["*"] = "win32yank.exe -i --crlf",
+        },
+        paste = {
+          ["+"] = "win32yank.exe -o --lf",
+          ["*"] = "win32yank.exe -o --lf",
+        },
+        cache_enabled = 0,
+      }
+    else
+      local pwsh =
+        vim.fn.executable("pwsh") == 1 and "pwsh.exe" or "powershell.exe"
+      vim.g.clipboard = {
+        name = "windows-Clipboard",
+        copy = { ["+"] = "clip.exe", ["*"] = "clip.exe", },
+        paste = {
+          ["+"] = pwsh .. ' -Command [Console]::Out.Write($(Get-Clipboard -Raw)).tostring().replace("`r", ""))',
+          ["*"] = pwsh .. ' -Command [Console]::Out.Write($(Get-Clipboard -Raw)).tostring().replace("`r", ""))',
+        },
+        cache_enabled = 0,
+      }
+    end
+  elseif vim.fn.executable("lemonade") == 1 then -- for SSH
+    vim.g.clipboard = {
+      name = "wl-Clipboard",
+      copy = {
+        ["+"] = "lemonade copy",
+        ["*"] = "lemonade copy",
+      },
+      paste = {
+        ["+"] = "lemonade paste",
+        ["*"] = "lemonade paste",
+      },
+      cache_enabled = 0,
+    }
+  elseif vim.env.WAYLAND_DISPLAY ~= nil and
+    vim.fn.executable("wl-copy") == 1 and vim.fn.executable("wl-paste") then -- for Wayland
+    vim.g.clipboard = {
+      name = "wl-Clipboard",
+      copy = {
+        ["+"] = "wl-copy --foreground --type text/plain",
+        ["*"] = "wl-copy --foreground --type text/plain",
+      },
+      paste = {
+        ["+"] = "wl-paste --no-newline",
+        ["*"] = "wl-paste --no-newline",
+      },
+      cache_enabled = 0,
+    }
+  elseif vim.env.DISPLAY ~= nil and vim.fn.executable("xsel") then -- for X11
+    vim.g.clipboard = {
+      name = "xsel-Clipboard",
+      copy = {
+        ["+"] = "xsel --nodetach -i -b",
+        ["*"] = "xsel --nodetach -i -b",
+      },
+      paste = {
+        ["+"] = "xsel -o -b",
+        ["*"] = "xsel -o -b",
+      },
+      cache_enabled = 0,
+    }
+  elseif vim.env.DISPLAY ~= nil and vim.fn.executable("xclip") then -- for X11
+    vim.g.clipboard = {
+      name = "xclip-Clipboard",
+      copy = {
+        ["+"] = "xclip -quiet -i -selection clipboard",
+        ["*"] = "xclip -quiet -i -selection clipboard",
+      },
+      paste = {
+        ["+"] = "xclip -o -selection -clipboard",
+        ["*"] = "xclip -o -selection -clipboard",
+      },
+      cache_enabled = 0,
+    }
+  end
+end
+
 M.setting_global()
 
 return M
