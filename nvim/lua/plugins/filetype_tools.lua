@@ -23,7 +23,7 @@ return {
   {
     "p00f/clangd_extensions.nvim",
     lazy = true,
-    ft = { "c", "cpp" }
+    ft = { "c", "cpp", "objc", "objcpp" }
   },
   -- Pandoc markdown
   {

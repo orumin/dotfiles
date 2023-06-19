@@ -1,9 +1,9 @@
-local lspconfig = require("lspconfig")
 local icons = {
   diagnostics = require("configs.ui.icons").get("diagnostics"),
-  codiconse = require("configs.ui.icons").get("codicons"),
+  codicons = require("configs.ui.icons").get("codicons"),
 }
-local clangd_extensions_opts = {
+
+local defaults = {
   server = {
     -- options to pass to nvim-lspconfig
     -- i.e. the arguments to require("lspconfig").clangd.setup({})
@@ -97,19 +97,26 @@ local clangd_extensions_opts = {
 }
 
 return function(opts)
-  clangd_extensions_opts.server.on_attach = opts.on_attach
-  clangd_extensions_opts.server.capabilities =
-    vim.tbl_deep_extend("keep", { offsetEncoding = "utf-8" }, opts.capabilities)
---  clangd_extensions_opts.server.capabilities =
---    vim.tbl_deep_extend("keep", { offsetEncoding = { "utf-16", "utf-8" } }, opts.capabilities)
-  clangd_extensions_opts.server.single_file_support = true
-  clangd_extensions_opts.server.root_dir = lspconfig.util.root_pattern('build/compile_commands.json', '.git')
-  clangd_extensions_opts.server.init_options = {
+  if opts == nil then
+    opts = {}
+  end
+  local ok, util = pcall(require, "lspconfig.util")
+  if ok then
+    opts.root_dir = util.root_pattern('build/compile_commands.json', '.git')
+  end
+  opts.autostart = true
+  opts.capabilities =
+    vim.tbl_deep_extend("keep", { offsetEncoding = { "utf-16", "utf-8" } }, opts.capabilities)
+  opts.single_file_support = true
+  opts.init_options = {
     clangdFileStatus = true,
     usePlaceholders = true,
     completeUnimported = true,
     semanticHighlighting = true,
   }
 
-  require("clangd_extensions").setup(clangd_extensions_opts)
+  local clangd_opts = defaults
+  clangd_opts.server = vim.tbl_deep_extend("force", {}, defaults.server, opts)
+
+  require("clangd_extensions").setup(clangd_opts)
 end

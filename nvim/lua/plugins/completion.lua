@@ -7,11 +7,8 @@ return {
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     dependencies = {
-      -- configuration
-      {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-      },
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
     },
     init = function ()
       -- disable lsp watcher. Too slow on linux

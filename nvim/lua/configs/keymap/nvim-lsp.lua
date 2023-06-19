@@ -1,8 +1,5 @@
 local opts = { mode = "n", desc = "nvim-lsp", buffer = true, silent = true }
 local maps = {
-  { "<space>wa", vim.lsp.buf.add_workspace_folder, },
-  { "<space>wr", vim.lsp.buf.remove_workspace_folder },
-  { "<space>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end },
   { "gD", "<Cmd>Lspsaga goto_definition<CR>" },
   { "gd", "<Cmd>Lspsaga peek_definition<CR>" },
   { "gh", "<Cmd>Lspsaga lsp_finder<CR>" },

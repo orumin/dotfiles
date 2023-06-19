@@ -1,4 +1,8 @@
 return function()
+  local icons = {
+    ui = require("configs.ui.icons").get("ui"),
+    misc = require("configs.ui.icons").get("misc")
+  }
   local lspconfig = require("lspconfig")
   local mason = require("mason")
   local mason_lspconfig = require("mason-lspconfig")
@@ -12,7 +16,12 @@ return function()
 
   mason.setup({
     ui = {
-      border = 'single',
+      border = "rounded",
+      icons = {
+        package_pending = icons.ui.Modified_alt,
+        package_installed = icons.ui.Check,
+        package_uninstalled = icons.misc.Ghost
+      }
     },
   })
 
@@ -58,7 +67,6 @@ return function()
 
   mason_lspconfig.setup({
     ensure_installed = servers,
---    handlers = { mason_handler },
   })
   mason_lspconfig.setup_handlers({ mason_handler })
 end
