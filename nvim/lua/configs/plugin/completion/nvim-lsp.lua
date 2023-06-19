@@ -32,7 +32,7 @@ return function()
 
   local opts = {
     autostart = true,
-    on_attach = function (bufnr, _)
+    on_attach = function (_, bufnr)
       vim.wo.signcolumn = 'yes'
       vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
     end,

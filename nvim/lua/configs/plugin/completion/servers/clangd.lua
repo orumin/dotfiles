@@ -102,9 +102,8 @@ return function(opts)
   end
   local ok, util = pcall(require, "lspconfig.util")
   if ok then
-    opts.root_dir = util.root_pattern('build/compile_commands.json', '.git')
+    opts.root_dir = util.root_pattern('build/compile_commands.json', '.git', 'compile_commands.json')
   end
-  opts.autostart = true
   opts.capabilities =
     vim.tbl_deep_extend("keep", { offsetEncoding = { "utf-16", "utf-8" } }, opts.capabilities)
   opts.single_file_support = true

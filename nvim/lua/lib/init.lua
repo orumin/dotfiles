@@ -37,7 +37,8 @@ function M.get_root()
   local path = uv.fs_realpath(vim.api.nvim_buf_get_name(0))
   ---@type string[]
   local roots = {}
-  if path ~= "" then
+--  if path ~= nil and path ~= "" then
+  if path and path ~= "" then
     for _, client in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
       local root_dir = client.config.root_dir
       local workspace = client.config.workspace_folders
