@@ -7,7 +7,7 @@ return function ()
       separator_style = "slant",
       diagnostics = false,
       numbers = function (opts)
-        return string.format('%s·%s', opts.raise(opts.id), opts.lower(opts.ordinal))
+        return string.format('%s %s', opts.raise(opts.id), opts.lower(opts.ordinal))
       end,
       sort_by = "insert_at_end",
       buffer_close_icon = icons.Close,

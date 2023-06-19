@@ -21,6 +21,15 @@ return {
     lazy = true,
     ft = "gitrebase"
   },
+  {
+    "sindrets/diffview.nvim",
+    lazy = true,
+    cmd = {
+      "DiffviewOpen",
+      "DiffviewToogleFile",
+      "DiffviewFileHistory",
+    },
+  },
   -- Gist
   {
     "lambdalisue/vim-gista",

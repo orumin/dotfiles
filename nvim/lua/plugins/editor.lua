@@ -21,6 +21,20 @@ return {
     opts = require("configs.plugin.editor.neotree"),
   },
 ---------------------------------------------------------------
+-- Fuzzy Finder
+---------------------------------------------------------------
+  {
+    "nvim-telescope/telescope.nvim",
+    lazy = true,
+    cmd = "Telescope",
+    keys = require("configs.keymap").telescope,
+    opts = require("configs.plugin.editor.telescope"),
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+    }
+  },
+---------------------------------------------------------------
 -- Debugger Adapter Protocol
 ---------------------------------------------------------------
   {
@@ -69,6 +83,12 @@ return {
     lazy = true,
     event = "BufReadPost",
     opts = {}
+  },
+  {
+    "rainbowhxch/accelerated-jk.nvim",
+    lazy = true,
+    keys = require("configs.keymap").accelerated_jk,
+    event = "VeryLazy",
   },
   -- cheetsheet
   {
