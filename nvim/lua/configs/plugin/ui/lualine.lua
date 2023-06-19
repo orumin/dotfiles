@@ -1,4 +1,5 @@
 local diagnostic_icons = require("configs.ui.icons").get("diagnostics", true)
+local _, auto_session_lib = pcall(require, "auto-session.lib")
 return {
   options = {
     icons_enabled = true,
@@ -38,7 +39,7 @@ return {
             always_visible = false,   -- Show diagnostics even if there are none.
         },
     },
-    lualine_c = {'filename'},
+    lualine_c = {'filename', auto_session_lib and auto_session_lib.current_session_name },
     lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}

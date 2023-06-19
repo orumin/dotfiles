@@ -60,6 +60,16 @@ return {
 ---------------------------------------------------------------
 -- improve editor feature
 ---------------------------------------------------------------
+  -- sae/restore session like IDE
+  {
+    "rmagatti/auto-session",
+    lazy = true,
+    cmd = { "Autosession", "SessionSave", "SessionRestore", "SessionDelete" },
+    init = function ()
+      vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+    end,
+    opts = require("configs.plugin.editor.auto-session")
+  },
   -- auto size window
   {
     "anuvyklack/windows.nvim",

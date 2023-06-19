@@ -6,6 +6,14 @@ return {
   ["bufferline"] = require("configs.keymap.bufferline"),
   ["neotree"] = {
     { "<leader>ft", function ()
+      if package.loaded["neo-tree.command"] == nil then
+        local ok, mod = pcall(require, "neo-tree.command")
+        if ok then
+          package.loaded["neo-tree.command"] = mod
+        else
+          return
+        end
+      end
       require("neo-tree.command").execute({
         toggle = true,
         dir = require("lib").get_root(),
