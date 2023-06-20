@@ -76,4 +76,4 @@ if ( -not [String]::IsNullOrEmpty($env:WT_SESSION) ) {
     $env:COLORTERM = "truecolor"
 }
 
-$env:WSLENV = "COLORTERM/up"
+$env:WSLENV = "WT_SESSION/u:COLORTERM/u:WT_PROFILE_ID/u"
