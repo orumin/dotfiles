@@ -1,3 +1,4 @@
+local settings = require("configs.global_settings")
 return function()
   local icons = {
     kind = require("configs.ui.icons").get("kind"),
@@ -54,7 +55,7 @@ return function()
 			end,
     },
     sources = cmp.config.sources({
---      {name = "skkeleton"},
+      settings.use_ssh and {name = "skkeleton"} or {},
       {name = "nvim_lsp", max_item_count = 100 },
       {name = "luasnip"},
       {name = "buffer"},

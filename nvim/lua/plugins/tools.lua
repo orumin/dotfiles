@@ -1,4 +1,5 @@
 local palette = require("lib").get_palette()
+local settings = require("configs.global_settings")
 return {
 ---------------------------------------------------------------
 -- Tools
@@ -44,7 +45,7 @@ return {
     "vim-skk/skkeleton",
     lazy = false,
     keys = require("configs.keymap").skkeleton,
-    cond = false and vim.fn.has("nvim-0.8") == 1, -- disable
+    cond = vim.fn.has("nvim-0.8") == 1 and settings.use_skk, -- disable
     dependencies = {
       "vim-denops/denops.vim",
       {

@@ -5,7 +5,7 @@ return {
   -- Asciidoc (w/ asciidoctor)
   {
     "habamax/vim-asciidoctor",
-    lazy = true,
+    lazy = false,
     ft = "asciidoc",
     config = function()
       vim.g["asciidoctor_syntax_conceal"] = 1

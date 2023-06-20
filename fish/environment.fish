@@ -8,6 +8,20 @@ else
     set -x EDITOR vi
 end
 
+if set -q COLORTERM
+    set -x COLORTERM "$COLORTERM"
+end
+if set -q SSH_CONNECTION
+    set -x SSH_CONNECTION "$SSH_CONNECTION"
+end
+if set -q WT_SESSION
+    set -x COLORTERM "$COLORTERM"
+    set -x WT_SESSION "$WT_SESSION"
+end
+if set -q WT_PROFILE_ID
+    set -x WT_PROFILE_ID "$WT_PROFILE_ID"
+end
+
 set -x PAGER less
 #set -x LV "-Ou8 -c -l"
 #set -x BLOCKSIZE K

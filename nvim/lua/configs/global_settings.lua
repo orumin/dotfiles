@@ -1,9 +1,4 @@
 local settings = {
-  shell = "fish",
-  icon = {
-    nerd_ver = "3",
-  },
-  remove_trailing_space = true,
   disabled_rtp_plugins = {
     gzip = true,
     matchit = true,
@@ -17,6 +12,13 @@ local settings = {
     tutor = true,
     zipPlugin = true,
   },
+  icon = {
+    nerd_ver = "3",
+  },
+  remove_trailing_space = true,
+  shell = "fish",
+  use_skk = true,
+  use_denops = true,
 }
 
 return settings

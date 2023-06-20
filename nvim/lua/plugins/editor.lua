@@ -1,9 +1,14 @@
+local settings = require("configs.global_settings")
 return {
 ---------------------------------------------------------------
 -- common plugin
 ---------------------------------------------------------------
   { "nvim-lua/plenary.nvim", lazy = true },
-  { "vim-denops/denops.vim", lazy = false, cond = false },
+  {
+    "vim-denops/denops.vim",
+    cond = settings.use_denops or settings.use_skk,
+    lazy = false,
+  },
 ---------------------------------------------------------------
 -- File tree explorer
 ---------------------------------------------------------------
