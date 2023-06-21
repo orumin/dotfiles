@@ -60,6 +60,7 @@ return function()
       {name = "luasnip"},
       {name = "buffer"},
       {name = "path"},
+      {name = "cmdline_history"},
       {name = "cmdline"},
       {name = "cmp_pandoc"},
     }),
@@ -91,9 +92,9 @@ return function()
         end
       end, { "i", "s" }),
     }),
---    view = {
---      entries = "native",
---    },
+    view = {
+      entries = "native",
+    },
   }
 
   cmp.setup(opts)
@@ -114,7 +115,11 @@ return function()
     sources = cmp.config.sources(
       {
         { name = "buffer" },
+      },
+      {
+        { name = "cmdline_history" },
       }
+
     )
   })
 
@@ -125,7 +130,19 @@ return function()
         { name = "path" },
       },
       {
+        { name = "cmdline_history" },
+      },
+      {
         { name = "cmdline" },
+      }
+    )
+  })
+
+  cmp.setup.cmdline( "@", {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources(
+      {
+        { name = "cmdline_history" },
       }
     )
   })
