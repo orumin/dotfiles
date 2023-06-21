@@ -11,12 +11,6 @@ utils.disable_rtp_plugins()
 utils.setting_shell()
 utils.setting_clipboard()
 
-if not not vim.g.started_by_firenvim then
-  require("configs.apps.firenvim")
-  return
-end
-
-
 local color = require("core.color")
 
 require('core.plugin')
