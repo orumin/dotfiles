@@ -57,7 +57,7 @@ return function()
     sources = cmp.config.sources({
       settings.use_skk and {name = "skkeleton"} or {},
       {name = "nvim_lsp", max_item_count = 100 },
-      {name = "luasnip"},
+      {name = "luasnip", option = { show_autosnippets = true } },
       {name = "buffer"},
       {name = "path"},
       {name = "cmdline_history"},

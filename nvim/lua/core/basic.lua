@@ -40,9 +40,11 @@ local global_opts = {
   wildmenu = true,
   showcmd = true,
 
+  -- completion
+  completeopt="menu,menuone,noselect",
   -- newline character
   fileformats="unix,dos,mac",
--- set ambiwidth size (single or double)
+  -- set ambiwidth size (single or double)
   ambiwidth="single",
 }
 
