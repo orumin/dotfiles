@@ -8,10 +8,11 @@ function M.setting_global()
     vim.notify(msg, vim.log.levels.ERROR, opts)
   end
 
-  _G.nnoremap = function (lhs, rhs)
-    vim.keymap.set("n", lhs, rhs, {noremap = true, silent = true})
+  _G.nnoremap = function (lhs, rhs, opts)
+    local defaults = {noremap = true, silent = true}
+    local v = vim.tbl_extend("force", defaults, opts or {})
+    vim.keymap.set("n", lhs, rhs, v)
   end
-
 
   local uname = uv.os_uname()
 

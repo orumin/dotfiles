@@ -1,13 +1,8 @@
-local opts = { mode = "n", desc = "telescope" }
 local maps = {
-  { "<leader>ff", "<Cmd>Telescope find_files<CR>" },
-  { "<leader>fg", "<Cmd>Telescope live_grep<CR>" },
-  { "<leader>fb", "<Cmd>Telescope buffers<CR>" },
-  { "<leader>fh", "<Cmd>Telescope help_tags<CR>" },
+  { "<leader>ff", "<Cmd>Telescope find_files<CR>", mode = "n", desc = "Telescope find files" },
+  { "<leader>fg", "<Cmd>Telescope live_grep<CR>", mode = "n", desc = "Telescope live grep" },
+  { "<leader>fb", "<Cmd>Telescope buffers<CR>", mode = "n", desc = "Telescope buffers" },
+  { "<leader>fh", "<Cmd>Telescope help_tags<CR>", mode = "n", desc = "Telescope help tags" },
 }
-
-for _, v in ipairs(maps) do
-  v = vim.tbl_deep_extend("keep", v, opts)
-end
 
 return maps

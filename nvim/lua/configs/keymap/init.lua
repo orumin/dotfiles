@@ -19,7 +19,7 @@ return {
         dir = require("lib").get_root(),
       })
     end,
-    desc = "NeoTree" }
+    desc = "toggle NeoTree" }
   },
   ["nvim_lsp"] = require("configs.keymap.nvim-lsp"),
   ["skkeleton"] = {
@@ -27,14 +27,14 @@ return {
   },
   ["telescope"] = require("configs.keymap.telescope"),
   ["translate"] = {
-    { "<C-t>", ":<c-u>TransToEN<CR>", mode = "v", silent = true, desc = "translate"  }
+    { "<C-t>", ":<c-u>TransToEN<CR>", mode = "v", silent = true }
   },
   ["trouble"] = require("configs.keymap.trouble"),
   ["windows"] = {
-    {"<C-w>z", "<Cmd>WindowsMaximize<CR>", desc = "windows" },
-    {"<C-w>_", "<Cmd>WindowsMaximizeVertically<CR>", desc = "windows" },
-    {"<C-w>|", "<Cmd>WindowsMaximizeHorizontally<CR>", desc = "windows" },
-    {"<C-w>=", "<Cmd>WindowsEqualize<CR>", desc = "windows" },
+    {"<C-w>z", "<Cmd>WindowsMaximize<CR>" },
+    {"<C-w>_", "<Cmd>WindowsMaximizeVertically<CR>" },
+    {"<C-w>|", "<Cmd>WindowsMaximizeHorizontally<CR>" },
+    {"<C-w>=", "<Cmd>WindowsEqualize<CR>" },
   },
 
 }

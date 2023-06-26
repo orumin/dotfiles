@@ -9,7 +9,7 @@ function ()
   else
     vim.o.spell = true
   end
-end)
+end, {desc = "toggle spell"})
 
 -- terminal
 nnoremap("vt", "<Cmd>terminal<CR>")
@@ -23,5 +23,5 @@ function ()
   else
     vim.opt.listchars:prepend("space:⋅")
   end
-end)
+end, {desc = "toggle display 'space'"})
 
