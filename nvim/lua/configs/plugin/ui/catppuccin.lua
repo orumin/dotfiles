@@ -32,7 +32,7 @@ return {
     neotree = true,
     noice = true,
     notify = true,
+    rainbow_delimiters = true,
     treesitter = true,
-    ts_rainbow2 = true,
   }
 }

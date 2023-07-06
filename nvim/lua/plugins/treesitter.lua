@@ -8,7 +8,6 @@ return {
     event = { "CursorHold", "CursorHoldI" },
     dependencies = {
       "nvim-treesitter/nvim-treesitter-context",
-      "HiPhish/nvim-ts-rainbow2",
       {
         "NvChad/nvim-colorizer.lua",
         name = "colorizer",
@@ -41,6 +40,16 @@ return {
 --        "IndentBlanklineIndent4", "IndentBlanklineIndent5", "IndentBlanklineIndent6"
 --      },
     }
+  },
+  -- parentheses
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    lazy = true,
+    event = { "BufReadPost" },
+    config = require("configs.plugin.editor.rainbow_delimiters_config"),
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
   },
   -- todo comments
   {
