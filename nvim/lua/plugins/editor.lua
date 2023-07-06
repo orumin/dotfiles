@@ -65,7 +65,7 @@ return {
 ---------------------------------------------------------------
 -- improve editor feature
 ---------------------------------------------------------------
-  -- sae/restore session like IDE
+  -- save/restore session like IDE
   {
     "rmagatti/auto-session",
     lazy = true,
@@ -104,6 +104,15 @@ return {
     lazy = true,
     keys = require("configs.keymap").accelerated_jk,
     event = "VeryLazy",
+  },
+  -- support write regex
+  {
+    "tomiis4/Hypersonic.nvim",
+    name = "hypersonic",
+    lazy = true,
+    event = "CmdlineEnter",
+    cmd = "Hypersonic",
+    opts = {},
   },
   -- cheetsheet
   {
