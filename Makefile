@@ -71,3 +71,6 @@ else
 	unlink $(Value)
 endif
 
+gnome_term_catppuccin:
+	curl -L https://raw.githubusercontent.com/catppuccin/gnome-terminal/v0.2.0/install.py | python3
+

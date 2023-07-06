@@ -49,7 +49,7 @@ set showcmd
 set number
 set nowrap
 set list " display invisible character
-set listchars=tab:▸\ ,space:⋅,eol:↲,extends:❯,precedes:❮
+set listchars="tab:▸\ ,space:⋅,eol:↲,extends:❯,precedes:❮"
 set matchtime=3
 set laststatus=2
 set cmdheight=2
