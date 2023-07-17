@@ -16,12 +16,17 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     lazy = true,
     cmd = "Neotree",
-    branch = "v2.x",
+    branch = "v3.x",
     keys = require("configs.keymap").neotree,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
+      {
+        "s1n7ax/nvim-window-picker",
+        name = "window-picker",
+        opts = require("configs.plugin.editor.window_picker"),
+      },
     },
     opts = require("configs.plugin.editor.neotree"),
   },
