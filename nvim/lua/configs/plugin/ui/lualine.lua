@@ -1,3 +1,4 @@
+local palette = require("lib").get_palette()
 local diagnostic_icons = require("configs.ui.icons").get("diagnostics", true)
 local _, auto_session_lib = pcall(require, "auto-session.lib")
 return {
@@ -40,7 +41,14 @@ return {
         },
     },
     lualine_c = {'filename', auto_session_lib and auto_session_lib.current_session_name },
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_x = {
+      {
+        require("lazy.status").updates,
+        cond = require("lazy.status").has_updated,
+        color = { fg = palette.peach },
+      },
+      'encoding', 'fileformat', 'filetype'
+    },
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },

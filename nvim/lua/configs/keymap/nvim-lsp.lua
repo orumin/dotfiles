@@ -2,8 +2,8 @@ local opts = { mode = "n", buffer = true, silent = true }
 local maps = {
   { "gD", "<Cmd>Lspsaga goto_definition<CR>" },
   { "gd", "<Cmd>Lspsaga peek_definition<CR>" },
-  { "gh", "<Cmd>Lspsaga lsp_finder<CR>" },
-  { "gi", "<Cmd>Lspsaga implement<CR>" },
+  { "gh", "<Cmd>Lspsaga finder<CR>" },
+  { "gt", "<Cmd>Lspsaga goto_type_definition<CR>" },
   { "<C-k>", "<Cmd>Lspsaga hover_doc<CR>" },
   { "<space>wa", vim.lsp.buf.add_workspace_folder, desc = "LSP add workspace folder" },
   { "<space>wr", vim.lsp.buf.remove_workspace_folder, desc = "LSP remove workspace folder" },
@@ -12,6 +12,7 @@ local maps = {
   end, desc = "LSP list workspace folders" },
   { "<space>D", "<Cmd>Lspsaga peek_type_definition<CR>" },
   { "<space>rn", "<Cmd>Lspsaga rename<CR>" },
+  { "<space>prn", "<Cmd>Lspsaga project_replace<CR>" },
   { "<space>ca", "<Cmd>Lspsaga code_action<CR>", mode = { "n", "v" } },
   { "gr", vim.lsp.buf.references, desc = "LSP references" },
   { "<space>e", "<Cmd>Lspsaga show_line_diagnostics<CR>" },

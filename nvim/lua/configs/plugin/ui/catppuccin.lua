@@ -28,11 +28,19 @@ return {
         warnings = { "underline" },
         information = { "underline" },
       },
+      inlay_hints = {
+        background = true,
+      },
     },
     neotree = true,
     noice = true,
     notify = true,
     rainbow_delimiters = true,
+    telescope = {
+      enabled = true,
+    },
     treesitter = true,
+    treesitter_context = true,
+    which_key = true,
   }
 }

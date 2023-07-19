@@ -41,7 +41,14 @@ return {
       "nvim-tree/nvim-web-devicons",
       "nvim-treesitter/nvim-treesitter",
     },
-    opts = require("completion.lspsaga"),
+    opts = require("completion.lspsaga_conf"),
+    config = function(_, opts)
+      local ok, catppuccin_kind = pcall(require, "catppuccin.groups.integrations.lsp_saga")
+      if ok then
+        opts.ui.kind = catppuccin_kind.custom_kind()
+      end
+      require("lspsaga").setup(opts)
+    end
   },
   {
     "folke/trouble.nvim",
