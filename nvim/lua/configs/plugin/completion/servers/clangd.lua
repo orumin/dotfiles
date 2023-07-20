@@ -116,6 +116,15 @@ return function(opts)
 
   local clangd_opts = defaults
   clangd_opts.server = vim.tbl_deep_extend("force", {}, defaults.server, opts)
+  clangd_opts.server.on_attach = function (_, bufnr)
+    vim.wo.signcolumn = 'yes'
+    vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+    vim.keymap.set("n", "K", function()
+      local cword = vim.fn.expand("<cword>")
+      vim.cmd("Man " .. cword)
+    end, { buffer = bufnr, desc = "search doc by keywordprg" })
+    vim.keymap.set("n", "<C-k>", "<Cmd>Lspsaga hover_doc<CR>", { buffer = bufnr })
+  end
 
   require("clangd_extensions").setup(clangd_opts)
 end

@@ -110,7 +110,7 @@ end
 
 function M.disable_rtp_plugins ()
   local get_flag = function (name)
-    return settings.disabled_rtp_plugins[name] and 1 or 0
+    return settings.disabled_rtp_plugins[name] and 1 or nil
   end
   --disable menu loading
   vim.g.did_install_default_menus = 1

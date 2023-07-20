@@ -4,6 +4,9 @@ local icons = {
   ui = require("configs.ui.icons").get("ui"),
 }
 local opts = {
+  hover = {
+    max_width = 2.0,
+  },
   symbol_in_winbar = {
     separator = " " .. icons.ui.Separator,
   },
