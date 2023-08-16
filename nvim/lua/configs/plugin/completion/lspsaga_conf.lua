@@ -10,6 +10,12 @@ local opts = {
   symbol_in_winbar = {
     separator = " " .. icons.ui.Separator,
   },
+  code_action = {
+    extend_gitsigns = true,
+  },
+  lightbulb = {
+    sign = false,
+  },
   ui = {
     actionfix = icons.ui.Spell,
     expand = icons.ui.ArrowClosed,

@@ -17,8 +17,8 @@ local settings = {
   },
   remove_trailing_space = true,
   shell = "fish",
-  use_skk = true,
-  use_denops = true,
+  use_skk = false,
+  use_denops = false,
 }
 
 return settings

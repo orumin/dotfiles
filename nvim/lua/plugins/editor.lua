@@ -134,7 +134,8 @@ return {
   {
     "rbtnn/vim-ambiwidth",
     lazy = false,
-    cond = vim.fn.has("nvim-0.9") == 1,
+    --cond = vim.fn.has("nvim-0.9") == 1,
+    cond = false,
   },
   -- project local setting
   {
