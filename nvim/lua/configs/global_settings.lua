@@ -12,6 +12,18 @@ local settings = {
     tutor = true,
     zipPlugin = true,
   },
+  linters = {
+--    lua = { "luacheck" },
+    markdown = { "vale" },
+    protobuf = { "buf", "protolint" },
+    python = { "mypy" },
+    sh = { "shellcheck" },
+    sql = { "sqlfluff" },
+    yaml = { "yamllint" },
+  },
+  lsp_default_servers = {
+    "clangd", "cmake", "jsonls", "ltex", "lua_ls", "pyright", "rust_analyzer", "vimls"
+  },
   icon = {
     nerd_ver = "3",
   },

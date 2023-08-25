@@ -1,7 +1,6 @@
 local settings = require("configs.global_settings")
 local M = {}
-local uv
-if vim.uv then uv = vim.uv else uv = vim.loop end
+local uv = vim.uv
 
 function M.setting_global()
   _G.pr_error = function (msg, opts)
@@ -14,7 +13,7 @@ function M.setting_global()
     vim.keymap.set("n", lhs, rhs, v)
   end
 
-  local uname = uv.os_uname()
+  local uname = uv.os_uname().sysname
 
   _G.gui_running = vim.fn.has("gui_running") == 1
   _G.is_win = uname.sysname == "Windows" or uname.sysname == "Windows_NT"

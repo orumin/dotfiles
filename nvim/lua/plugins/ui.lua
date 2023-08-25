@@ -14,7 +14,7 @@ return {
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     keys = require("configs.keymap").bufferline,
-    config  = require("ui.bufferline")
+    config  = require("ui.bufferline_config")
   },
   -- color schemes
   {
@@ -61,7 +61,7 @@ return {
     "nvim-lualine/lualine.nvim",
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
-    opts = require("ui.lualine")
+    opts = require("ui.lualine_config")
   },
   -- scroll minimap
   {

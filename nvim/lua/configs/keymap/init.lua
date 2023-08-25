@@ -3,7 +3,7 @@ return {
     { "j", "<Plug>(accelerated_jk_gj)", mode = "n", desc = "accelerated-jk"},
     { "k", "<Plug>(accelerated_jk_gk)", mode = "n", desc = "accelerated-jk"},
   },
-  ["bufferline"] = require("configs.keymap.bufferline"),
+  ["bufferline"] = require("configs.keymap.bufferline_keyconf"),
   ["neotree"] = {
     { "<leader>ft", function ()
       if package.loaded["neo-tree.command"] == nil then

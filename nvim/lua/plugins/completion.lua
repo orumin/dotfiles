@@ -24,13 +24,10 @@ return {
   },
   -- other linter
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "mfussenegger/nvim-lint",
     lazy = true,
     event = { "CursorHold", "CursorHoldI" },
-    dependencies = {
-      "nvim-lua/plenary.nvim"
-    },
-    config = require("completion.servers.null-ls")
+    config = require("completion.linter_config"),
   },
   -- pretty good LSP UI
   {

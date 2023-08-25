@@ -3,6 +3,7 @@ return function()
     ui = require("configs.ui.icons").get("ui"),
     misc = require("configs.ui.icons").get("misc")
   }
+  local global_settings = require("configs.global_settings")
   local lspconfig = require("lspconfig")
   local mason = require("mason")
   local mason_lspconfig = require("mason-lspconfig")
@@ -12,9 +13,12 @@ return function()
     cmp_nvim_lsp = nil
   end
 
-  local servers = { "bashls", "clangd", "cmake", "jsonls", "ltex", "lua_ls", "pyright", "rust_analyzer", "vimls", }
-
+  local linters = {}
+  for _, v in pairs(global_settings.linters) do
+    vim.list_extend(linters, v)
+  end
   mason.setup({
+    ensure_installed = linters,
     ui = {
       border = "rounded",
       icons = {
@@ -65,6 +69,7 @@ return function()
     end
   end
 
+  local servers = global_settings.lsp_default_servers
   mason_lspconfig.setup({
     ensure_installed = servers,
   })
