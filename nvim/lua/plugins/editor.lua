@@ -65,6 +65,7 @@ return {
         "rcarriga/nvim-dap-ui",
         opts = {}
       },
+      "jay-babu/mason-nvim-dap.nvim"
     },
   },
 ---------------------------------------------------------------

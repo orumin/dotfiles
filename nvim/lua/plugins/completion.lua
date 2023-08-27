@@ -9,6 +9,7 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+      "jay-babu/mason-nvim-dap.nvim",
     },
     init = function ()
       -- disable lsp watcher. Too slow on linux

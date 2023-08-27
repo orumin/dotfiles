@@ -54,6 +54,9 @@ Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 # scoop completion
 Import-Module 'C:\Users\orumin\scoop\apps\scoop\current\supporting\completion\Scoop-Completion.psd1' -ErrorAction SilentlyContinue
 
+# import solo2 completion
+. 'C:\Users\orumin\Documents\PowerShell\solo2.ps1'
+
 # Alias
 
 Set-Alias vi nvim
