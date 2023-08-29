@@ -3,10 +3,34 @@ local icons = {
   codicons = require("configs.ui.icons").get("codicons"),
 }
 
-local clangd_defaults = {
+local util = require("lspconfig.util")
+
+local clangd_settings = {
+  filetypes = { "c", "cpp", "cuda", "objc", "objcpp" },
+  root_dir = util.root_pattern('build/compile_commands.json', '.git', 'compile_commands.json'),
+  capabilities = { offsetEncoding = { "utf-16", "utf-8" } },
+  single_file_support = true,
+  init_options = {
+    clangdFileStatus = true,
+    usePlaceholders = true,
+    completeUnimported = true,
+    semanticHighlighting = true,
+  },
+  on_attach = function (_, bufnr)
+    vim.wo.signcolumn = 'yes'
+    vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+    vim.keymap.set("n", "K", function()
+      local cword = vim.fn.expand("<cword>")
+      vim.cmd("Man " .. cword)
+    end, { buffer = bufnr, desc = "search doc by keywordprg" })
+    vim.keymap.set("n", "<C-k>", "<Cmd>Lspsaga hover_doc<CR>", { buffer = bufnr })
+
+    require("clangd_extensions.inlay_hints").setup_autocmd()
+    require("clangd_extensions.inlay_hints").set_inlay_hints()
+  end,
 }
 
-local defaults = {
+local clangd_extensions_opts = {
   inlay_hints = {
     inline = vim.fn.has("nvim-0.10") == 1,
     -- Options other than `highlight' and `priority' only work
@@ -93,35 +117,9 @@ return function(opts)
   if opts == nil then
     opts = {}
   end
-  local ok, util = pcall(require, "lspconfig.util")
-  if ok then
-    opts.root_dir = util.root_pattern('build/compile_commands.json', '.git', 'compile_commands.json')
-  end
-  opts.capabilities =
-    vim.tbl_deep_extend("keep", { offsetEncoding = { "utf-16", "utf-8" } }, opts.capabilities)
-  opts.single_file_support = true
-  opts.init_options = {
-    clangdFileStatus = true,
-    usePlaceholders = true,
-    completeUnimported = true,
-    semanticHighlighting = true,
-  }
 
-  local clangd_opts = vim.tbl_deep_extend("force", {}, clangd_defaults, opts)
-  clangd_opts.on_attach = function (_, bufnr)
-    vim.wo.signcolumn = 'yes'
-    vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-    vim.keymap.set("n", "K", function()
-      local cword = vim.fn.expand("<cword>")
-      vim.cmd("Man " .. cword)
-    end, { buffer = bufnr, desc = "search doc by keywordprg" })
-    vim.keymap.set("n", "<C-k>", "<Cmd>Lspsaga hover_doc<CR>", { buffer = bufnr })
+  local clangd_opts = vim.tbl_deep_extend("force", {}, opts, clangd_settings)
 
-    require("clangd_extensions.inlay_hints").setup_autocmd()
-    require("clangd_extensions.inlay_hints").set_inlay_hints()
-  end
   require("lspconfig").clangd.setup(clangd_opts)
-
-  local clangd_extensions_opts = defaults
   require("clangd_extensions").setup(clangd_extensions_opts)
 end

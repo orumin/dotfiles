@@ -27,7 +27,7 @@ return {
   {
     "mfussenegger/nvim-lint",
     lazy = true,
-    event = { "CursorHold", "CursorHoldI" },
+    event = "VeryLazy",
     config = require("completion.linter_config"),
   },
   -- pretty good LSP UI
