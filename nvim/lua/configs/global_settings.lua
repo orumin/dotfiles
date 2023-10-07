@@ -1,6 +1,7 @@
 local settings = {
   disabled_rtp_plugins = {
     gzip = true,
+    man = nil,
     matchit = true,
     matchparen = true,
     netrwPlugin = true,

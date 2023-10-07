@@ -12,10 +12,14 @@ local highlight = {
 }
 
 local ibl_opts = {
---  indent = {
---    char = '▏',
---    highlight = highlight
---  },
+  indent = {
+    char = '▏',
+    highlight = {"CursorColumn", "Whitespace"}
+  },
+  whitespace = {
+    highlight = {"CursorColumn", "Whitespace"},
+    remove_blankline_trail = false,
+  },
   scope = {
     char = '▏',
     enabled = true,
