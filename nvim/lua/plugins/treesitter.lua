@@ -24,29 +24,15 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     lazy = true,
     event = { "BufReadPost" },
-    init = function ()
-      vim.api.nvim_set_hl(0, "IndentBlanklineIndent1", {fg="#E06C75", nocombine=true})
-      vim.api.nvim_set_hl(0, "IndentBlanklineIndent2", {fg="#E5C07B", nocombine=true})
-      vim.api.nvim_set_hl(0, "IndentBlanklineIndent3", {fg="#98C379", nocombine=true})
-      vim.api.nvim_set_hl(0, "IndentBlanklineIndent4", {fg="#56B6C2", nocombine=true})
-      vim.api.nvim_set_hl(0, "IndentBlanklineIndent5", {fg="#61AFEF", nocombine=true})
-    end,
-    opts = {
-      space_char_blankline = " ",
-      show_current_context = true,
-      show_current_context_start = true,
---      char_highlight_list = {
---        "IndentBlanklineIndent1", "IndentBlanklineIndent2", "IndentBlanklineIndent3",
---        "IndentBlanklineIndent4", "IndentBlanklineIndent5", "IndentBlanklineIndent6"
---      },
-    }
+    main = "ibl",
+    config = require("configs.plugin.editor.treesitter_addons").indent_blankline,
   },
   -- parentheses
   {
     "HiPhish/rainbow-delimiters.nvim",
     lazy = true,
     event = { "BufReadPost" },
-    config = require("configs.plugin.editor.rainbow_delimiters_config"),
+    config = require("configs.plugin.editor.treesitter_addons").rainbow_delimiters,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
