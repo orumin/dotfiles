@@ -1,27 +1,20 @@
---vim.api.nvim_set_keymap('', '<C-U>', '<C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y><C-Y>', {})
---vim.api.nvim_set_keymap('', '<C-D>', '<C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E><C-E>', {})
+local default_keymaps = require("configs.keymap")[1]
 
-nnoremap("<ESC><ESC>", ":nohlsearch<CR><ESC>")
-nnoremap("<leader>s",
-function ()
-  if vim.o.spell then
-    vim.o.spell = false
-  else
-    vim.o.spell = true
+local get_opts = function(keys)
+  local skip = { mode = true, ft = true, rhs = true, lhs = true }
+  local ret = {}
+  for k, v in pairs(keys) do
+    if type(k) ~= "number" and not skip[k] then
+      ret[k] = v
+    end
   end
-end, {desc = "toggle spell"})
+  return ret
+end
 
--- terminal
-nnoremap("vt", "<Cmd>terminal<CR>")
--- display space
-nnoremap("<S-c>",
-function ()
-  local it = vim.iter(vim.opt.listchars:get())
-  local space = it:any(function(k,_) return k == "space" end)
-  if space then
-    vim.opt.listchars:remove("space")
-  else
-    vim.opt.listchars:prepend("space:⋅")
-  end
-end, {desc = "toggle display 'space'"})
-
+for _, v in ipairs(default_keymaps) do
+  local opts = get_opts(v)
+  local lhs = v.lhs or v[1]
+  local rhs = v.rhs or v[2]
+  local mode = v.mode or "n"
+  vim.keymap.set(mode, lhs, rhs, opts)
+end

@@ -32,6 +32,9 @@ return function ()
           padding = 1,
         }
       },
+      custom_filter = function (bufnr)
+        return not not vim.api.nvim_buf_get_name(bufnr):find(vim.fn.getcwd(), 0, true)
+      end,
     },
     highlights = {},
   }

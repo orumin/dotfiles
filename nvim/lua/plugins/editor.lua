@@ -37,7 +37,6 @@ return {
     "nvim-telescope/telescope.nvim",
     lazy = true,
     cmd = "Telescope",
-    keys = require("configs.keymap").telescope,
     opts = require("configs.plugin.editor.telescope"),
     dependencies = {
       "nvim-lua/plenary.nvim",

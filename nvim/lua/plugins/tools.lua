@@ -15,6 +15,15 @@ return {
   },
   -- Git
   {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "sindrets/diffview.nvim",
+    },
+    opts = {}
+  },
+  {
     "rhysd/committia.vim",
   },
   {
@@ -98,10 +107,13 @@ return {
   },
   -- search nerd font icons
   {
-    "nvimdev/nerdicons.nvim",
+    "2kabhishek/nerdy.nvim",
     lazy = true,
-    cmd = "NerdIcons",
-    opts = {},
+    dependencies = {
+      "stevearc/dressing.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    cmd = "Nerdy",
   },
 }
 

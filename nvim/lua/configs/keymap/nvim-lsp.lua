@@ -3,7 +3,7 @@ local maps = {
   { "gD", "<Cmd>Lspsaga goto_definition<CR>" },
   { "gd", "<Cmd>Lspsaga peek_definition<CR>" },
   { "gh", "<Cmd>Lspsaga finder<CR>" },
-  { "gt", "<Cmd>Lspsaga goto_type_definition<CR>" },
+  { "gs", "<Cmd>Lspsaga goto_type_definition<CR>" },
   { "K", "<Cmd>Lspsaga hover_doc<CR>" },
   { "<space>wa", vim.lsp.buf.add_workspace_folder, desc = "LSP add workspace folder" },
   { "<space>wr", vim.lsp.buf.remove_workspace_folder, desc = "LSP remove workspace folder" },

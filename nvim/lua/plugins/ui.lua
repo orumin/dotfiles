@@ -77,5 +77,15 @@ return {
     event = {"FocusLost", "CursorHold"},
     opts = {}
   },
+  -- Hydra
+  {
+    "anuvyklack/hydra.nvim",
+    name = "hydra",
+    lazy = false,
+    dependencies = {
+      "lewis6991/gitsigns.nvim",
+    },
+    config = require("configs.plugin.ui.hydra_conf")
+  }
 }
 

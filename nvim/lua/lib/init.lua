@@ -191,7 +191,7 @@ You're recommended to install PowerShell for better experience.]],
 end
 
 function M.setting_clipboard()
-  if vim.env.TMUX ~= nil then
+  if vim.env.SSH_CONNECTION or vim.env.TMUX ~= nil then
     vim.g.clipboard = {
       name = "tmuxClipboard",
       copy = {
@@ -292,6 +292,42 @@ function M.setting_clipboard()
       cache_enabled = 0,
     }
   end
+end
+
+function M.open_float_term()
+  local current_width=vim.api.nvim_win_get_width(0)
+  local current_height=vim.api.nvim_win_get_height(0)
+  local ratio = 0.8
+  local width=math.ceil(current_width*ratio)
+  local height=math.ceil(current_height*ratio)
+  local col=math.ceil((current_width-width) / 2-1)
+  local row=math.ceil((current_height-height) / 2-1)
+
+  local opts = {
+    border="rounded",
+    width=width,
+    height=height,
+    relative='editor',
+    col=col,
+    row=row,
+    style="minimal"
+  }
+
+  local bufnr = vim.api.nvim_create_buf(false, true)
+  local winnr = vim.api.nvim_open_win(bufnr, true, opts)
+
+  vim.wo[winnr].winblend = 0
+  vim.bo[bufnr].bufhidden = "wipe"
+  vim.bo[bufnr].filetype = "terminal"
+
+  local chan = vim.api.nvim_open_term(bufnr, {})
+  vim.fn.jobstart(vim.env.SHELL, {
+    on_stdout = function (_, data, _)
+      for _, d in ipairs(data) do
+        vim.api.nvim_chan_send(chan, d .. "\r\n")
+      end
+    end
+  })
 end
 
 M.setting_global()
