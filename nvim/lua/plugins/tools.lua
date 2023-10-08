@@ -87,7 +87,7 @@ return {
         config = true,
       },
     },
-    config = require("configs.plugin.tools.skkeleton"),
+    config = require("tools.skkeleton"),
   },
   -- writing table in plain text
   {

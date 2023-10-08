@@ -25,14 +25,14 @@ return {
     lazy = true,
     event = { "BufReadPost" },
     main = "ibl",
-    config = require("configs.plugin.editor.treesitter_addons").indent_blankline,
+    config = require("editor.treesitter_addons").indent_blankline,
   },
   -- parentheses
   {
     "HiPhish/rainbow-delimiters.nvim",
     lazy = true,
     event = { "BufReadPost" },
-    config = require("configs.plugin.editor.treesitter_addons").rainbow_delimiters,
+    config = require("editor.treesitter_addons").rainbow_delimiters,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },

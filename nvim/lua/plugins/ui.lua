@@ -27,16 +27,22 @@ return {
     opts = require("ui.catppuccin"),
   },
   -- transparency
+--  {
+--    'orumin/ya-seiya.nvim',
+--    lazy = true,
+--    event = { "BufWinEnter" },
+--    name = "seiya",
+--    opts = {
+--      auto_enabled = true,
+--      target_groups = {"ctermbg"}
+----      target_groups = {"ctermbg", "guibg"}
+--    }
+--  },
   {
-    'orumin/ya-seiya.nvim',
+    "xiyaowong/transparent.nvim",
     lazy = true,
     event = { "BufWinEnter" },
-    name = "seiya",
-    opts = {
-      auto_enabled = true,
-      target_groups = {"ctermbg"}
---      target_groups = {"ctermbg", "guibg"}
-    }
+    config = require("ui.transparent_conf")
   },
   -- icons
   { "nvim-tree/nvim-web-devicons", lazy = true },
@@ -85,7 +91,7 @@ return {
     dependencies = {
       "lewis6991/gitsigns.nvim",
     },
-    config = require("configs.plugin.ui.hydra_conf")
+    config = require("ui.hydra_conf")
   }
 }
 

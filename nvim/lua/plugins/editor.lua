@@ -25,10 +25,10 @@ return {
       {
         "s1n7ax/nvim-window-picker",
         name = "window-picker",
-        opts = require("configs.plugin.editor.window_picker"),
+        opts = require("editor.window_picker"),
       },
     },
-    opts = require("configs.plugin.editor.neotree"),
+    opts = require("editor.neotree"),
   },
 ---------------------------------------------------------------
 -- Fuzzy Finder
@@ -37,7 +37,7 @@ return {
     "nvim-telescope/telescope.nvim",
     lazy = true,
     cmd = "Telescope",
-    opts = require("configs.plugin.editor.telescope"),
+    opts = require("editor.telescope"),
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
@@ -78,7 +78,7 @@ return {
     init = function ()
       vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
     end,
-    opts = require("configs.plugin.editor.auto-session")
+    opts = require("editor.auto-session")
   },
   -- auto size window
   {
