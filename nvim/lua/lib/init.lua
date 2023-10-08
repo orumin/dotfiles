@@ -322,6 +322,7 @@ function M.open_float_term()
 
   local chan = vim.api.nvim_open_term(bufnr, {})
   vim.fn.jobstart(vim.env.SHELL, {
+    pty = 1,
     on_stdout = function (_, data, _)
       for _, d in ipairs(data) do
         vim.api.nvim_chan_send(chan, d .. "\r\n")

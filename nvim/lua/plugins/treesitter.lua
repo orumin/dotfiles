@@ -11,7 +11,7 @@ return {
       {
         "NvChad/nvim-colorizer.lua",
         name = "colorizer",
-        opts = {}
+        config = true,
       }
     },
     build = ":TSUpdate",

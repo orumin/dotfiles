@@ -13,15 +13,33 @@ return {
       vim.g["suda#prompt"] = "Enter administrator password: "
     end
   },
+  -- terminal
+  {
+    "akinsho/toggleterm.nvim",
+    lazy = true,
+    keys = require("configs.keymap").toggleterm,
+    cmd = {
+      "ToggleTerm",
+      "ToggleTermToggleAll",
+      "TermExec",
+      "TermSelect",
+      "ToggleTermSendCurrentLine",
+      "ToggleTermSendVisualLines",
+      "ToggleTermSendVisualSelection",
+      "ToggleTermSetName",
+    },
+    config = true
+  },
   -- Git
   {
     "NeogitOrg/neogit",
+    lazy = true,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
       "sindrets/diffview.nvim",
     },
-    opts = {}
+    config = true
   },
   {
     "rhysd/committia.vim",
@@ -66,7 +84,7 @@ return {
           vim.api.nvim_set_hl(0, "SkkeletonIndicatorHankaku", { fg=palette.base, bg=palette.pink, bold=true})
           vim.api.nvim_set_hl(0, "SkkeletonIndicatorZenkaku", { fg=palette.base, bg=palette.blue, bold=true})
         end,
-        opts = {},
+        config = true,
       },
     },
     config = require("configs.plugin.tools.skkeleton"),

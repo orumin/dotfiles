@@ -68,14 +68,14 @@ return {
     "dstein64/nvim-scrollview",
     lazy = true,
     event = "BufReadPost",
-    opts = {}
+    config = true,
   },
   -- Git
   {
     "lewis6991/gitsigns.nvim",
     lazy = true,
     event = {"FocusLost", "CursorHold"},
-    opts = {}
+    config = true,
   },
   -- Hydra
   {

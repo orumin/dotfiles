@@ -4,12 +4,12 @@ return {
   [1] = {
     {"<ESC><ESC>", function () vim.v.hlsearch = 0 end, mode = "n", desc = "nohlsearch" },
     {"<leader>s", function () vim.o.spell = not vim.o.spell end, mode = "n", desc = "toggle spell"},
-    -- terminal
-    {"vt", util.open_float_term, mode = "n", desc = "open terminal with float window"},
-    {"vst", function ()
-      vim.cmd("belowright terminal")
-      vim.api.nvim_win_set_height(0, 25)
-    end, mode = "n", desc = "open terminal belowright"},
+--    -- terminal
+--    {"vt", util.open_float_term, mode = "n", desc = "open terminal with float window"},
+--    {"vst", function ()
+--      vim.cmd("belowright terminal")
+--      vim.api.nvim_win_set_height(0, 25)
+--    end, mode = "n", desc = "open terminal belowright"},
     --
     {"<S-c>", function ()
       local it = vim.iter(vim.opt.listchars:get())
@@ -47,6 +47,9 @@ return {
   ["skkeleton"] = {
     {"<C-j>", "<Plug>(skkeleton-toggle)", mode = {"c", "i"}, desc="skk"}
   },
+  ["toggleterm"] = {
+    { "vt", "<Cmd>exe " .. vim.v.count1 .. ". \"ToggleTerm\"<CR>", mode = "n", desc = "open terminal" }
+  },
   ["translate"] = {
     { "<C-t>", ":<c-u>TransToEN<CR>", mode = "v", silent = true }
   },
@@ -57,5 +60,4 @@ return {
     {"<C-w>|", "<Cmd>WindowsMaximizeHorizontally<CR>" },
     {"<C-w>=", "<Cmd>WindowsEqualize<CR>" },
   },
-
 }

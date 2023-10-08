@@ -62,7 +62,7 @@ return {
     dependencies = {
       {
         "rcarriga/nvim-dap-ui",
-        opts = {}
+        config = true,
       },
       "jay-babu/mason-nvim-dap.nvim"
     },
@@ -89,7 +89,7 @@ return {
       "anuvyklack/middleclass",
     },
     keys = require("configs.keymap").windows,
-    opts = {},
+    config = true,
   },
   -- improve buffer delete command
   {
@@ -102,7 +102,7 @@ return {
     "karb94/neoscroll.nvim",
     lazy = true,
     event = "BufReadPost",
-    opts = {}
+    config = true,
   },
   {
     "rainbowhxch/accelerated-jk.nvim",
@@ -117,7 +117,7 @@ return {
     lazy = true,
     event = "CmdlineEnter",
     cmd = "Hypersonic",
-    opts = {},
+    config = true,
   },
   -- cheetsheet
   {
@@ -128,7 +128,7 @@ return {
       vim.o.timeout = true
       vim.o.timeoutlen = 500
     end,
-    opts = {}
+    config = true,
   },
   -- fix ambiwidth character width by 'setcellwidths()'
   {

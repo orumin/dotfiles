@@ -30,7 +30,7 @@ return {
     "aspeddro/pandoc.nvim",
     lazy = true,
     ft = "pandoc",
-    opts = {},
+    config = true,
   },
   {
     "vim-pandoc/vim-pandoc-syntax",
