@@ -1,2 +1,0 @@
-bind C-c run "tmux save-buffer - | /mnt/c/Users/$USER/scoop/apps/win32yank/current/win32yank.exe -i"
-bind C-v run "/mnt/c/Users/$USER/scoop/apps/win32yank/current/win32yank.exe -o | tmux load-buffer - && tmux paste-buffer"

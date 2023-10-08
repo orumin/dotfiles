@@ -29,7 +29,6 @@ set -x PATH "/home/$USER/.rbenv/bin" $PATH ^/dev/null
 set -x PATH "/usr/lib/ccache/bin" $PATH ^/dev/null
 set -x PATH "/usr/share/git/diff-highlight" $PATH ^/dev/null
 
-set -x PATH "$HOME/.cargo/bin" $PATH
 #set -x PATH "/usr/lib/smlnj/bin" $PATH
 
 if echo $PATH | grep Gentoo > /dev/null

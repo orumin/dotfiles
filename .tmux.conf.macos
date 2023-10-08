@@ -1,2 +1,0 @@
-bind C-c run "tmux save-buffer - | pbcopy"
-bind C-v run "pbpaste | tmux load-buffer - && tmux paste-buffer"
