@@ -39,7 +39,7 @@ case `uname` in
     export LIBVA_DRIVER_NAME=i965
     export VDPAU_DRIVER=va_gl
 
-    #source /home/orumin/scripts/infinality-settings.sh
+    #source /home/$USER/scripts/infinality-settings.sh
     #export FREETYPE_PROPERTIES="truetype:interpreter-version=35 cff:no-stem-darkening=1 autofitter:warping=1"
     export FREETYPE_PROPERTIES="truetype:interpreter-version=40 cff:hinting-engine=adobe autofitter:warping=1"
     ;;

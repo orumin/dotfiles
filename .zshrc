@@ -18,7 +18,7 @@ if [ -z $TMUX ]; then
     export PATH="$PATH:$PSPDEV/bin:$HOME/bin"
     export PATH="$PATH:$VITASDK/bin"
     which ruby > /dev/null 2>&1  && export PATH="$(ruby -rrubygems -e "puts Gem.user_dir")/bin:$PATH"
-    export PATH="/home/orumin/.cabal/bin:$PATH"
+    export PATH="/home/$USER/.cabal/bin:$PATH"
     export PATH="/usr/lib/ccache/bin:$PATH"
     export PATH="/usr/share/git/diff-highlight:$PATH"
     #export PATH="$HOME/.cargo/bin:$PATH"
@@ -55,9 +55,9 @@ fpath+=$HOME/.zfunc
 vendor=$(uname -r | awk -F- '{print $3}')
 
 # most necesary setting
-autoload -U compinit promptinit 
+autoload -U compinit promptinit
 compinit -c
-promptinit 
+promptinit
 
 
 ## prompt preset
@@ -172,8 +172,8 @@ alias luajitlatex='luajittex --fmt=luajitlatex.fmt'
 case  `uname` in
     Linux)
         if [[ "$vendor" == "Microsoft" ]]; then
-            alias clipin='/mnt/c/tools/win32yank/win32yank.exe -i' 
-            alias clipout='/mnt/c/tools/win32yank/win32yank.exe -o' 
+            alias clipin='/mnt/c/tools/win32yank/win32yank.exe -i'
+            alias clipout='/mnt/c/tools/win32yank/win32yank.exe -o'
         else
             alias clipin='xsel --clipboard --input'
             alias clipout='xsel --clipboard --output'
@@ -236,7 +236,7 @@ setopt magic_equal_subst # glob after = (ex. ./configure --prefix=...)
 setopt cdable_vars # assignment absolute path variable regard to directory
 setopt auto_cd # moving directory only typing directory name
 setopt auto_pushd # push directory stack only cd command
-setopt pushd_ignore_dups # no pushing duplicate directory 
+setopt pushd_ignore_dups # no pushing duplicate directory
 
 # control job
 #
@@ -267,7 +267,7 @@ bindkey '' push-line-or-edit # to use buffer stack on vi keybind
 
 #
 # Set Prompt
-#  
+#
 
 update_prompt(){
     PROMPTTTY=`tty | sed -e 's/\/dev\///'`

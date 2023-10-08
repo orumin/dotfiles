@@ -52,10 +52,10 @@ Set-PSReadlineKeyHandler -Key 'Ctrl+n' -Function HistorySearchForward
 Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 
 # scoop completion
-Import-Module 'C:\Users\orumin\scoop\apps\scoop\current\supporting\completion\Scoop-Completion.psd1' -ErrorAction SilentlyContinue
+Import-Module 'C:\Users\$env:USERNAME\scoop\apps\scoop\current\supporting\completion\Scoop-Completion.psd1' -ErrorAction SilentlyContinue
 
 # import solo2 completion
-. 'C:\Users\orumin\Documents\PowerShell\solo2.ps1'
+. 'C:\Users\$env:USERNAME\Documents\PowerShell\solo2.ps1'
 
 # Alias
 
