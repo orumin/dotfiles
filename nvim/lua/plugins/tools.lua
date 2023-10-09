@@ -39,6 +39,7 @@ return {
       "nvim-telescope/telescope.nvim",
       "sindrets/diffview.nvim",
     },
+    cmd = "Neogit",
     config = true
   },
   {
