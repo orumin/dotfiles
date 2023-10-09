@@ -22,7 +22,7 @@ return function()
     formatting = {
       fields = { "abbr", "kind", "menu" },
       format = function(entry, vim_item)
-        local lspkind_icons = vim.tbl_deep_extend("force", icons.kind, icons.type, icons.cmp)
+        local lspkind_icons = vim.tbl_deep_extend("force", icons.kind, icons.type, icons.cmp) or {}
         -- load lspkind icons
         vim_item.kind =
         string.format(" %s %s", lspkind_icons[vim_item.kind] or icons.cmp.undefined, vim_item.kind or "")
@@ -53,6 +53,10 @@ return function()
 
         return vim_item
       end,
+    },
+    window = {
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered()
     },
     sources = cmp.config.sources({
       settings.use_skk and {name = "skkeleton"} or {},

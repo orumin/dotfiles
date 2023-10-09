@@ -14,7 +14,6 @@ return function ()
     name = "Git",
     hint = neogit_hint,
     config = {
-      buffer = bufnr,
       color = "pink",
       invoke_on_body = true,
       hint = {
@@ -128,6 +127,9 @@ return function ()
         { '<Esc>', nil, { exit = true, nowait = true } },
      }
   }
+  -- TODO: add dap mode
+  -- https://github.com/Allaman/nvim/blob/90e4e550d9aa6a2f870cf5a31bde257622243005/lua/core/plugins/hydra/dap.lua
+  -- memo
   Hydra(neogit_ui)
   Hydra(telescope_ui)
 end
