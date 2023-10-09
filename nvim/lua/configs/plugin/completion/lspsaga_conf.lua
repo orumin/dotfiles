@@ -4,11 +4,17 @@ local icons = {
   ui = require("configs.ui.icons").get("ui"),
 }
 local opts = {
+  callhierarchy = {
+    layout = 'float'
+  },
   hover = {
     max_width = 2.0,
   },
   symbol_in_winbar = {
+    enable = true,
     separator = " " .. icons.ui.Separator,
+    show_file = true,
+    color_mode = true,
   },
   code_action = {
     extend_gitsigns = true,
@@ -17,6 +23,8 @@ local opts = {
     sign = false,
   },
   ui = {
+    border = "rounded",
+    title = true,
     actionfix = icons.ui.Spell,
     expand = icons.ui.ArrowClosed,
     cllapse = icons.ui.ArrowOpen,

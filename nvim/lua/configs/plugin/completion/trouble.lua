@@ -1,15 +1,18 @@
-local diagnostic_icons = require("configs.ui.icons").get("diagnostics")
+local icons = {
+  diagnostics = require("configs.ui.icons").get("diagnostics"),
+  ui = require("configs.ui.icons").get("ui"),
+}
 return {
-  -- your configuration comes here
-  -- or leave it empty to use the default settings
-  -- refer to the configuration section below
+  icons = true,
+  fold_closed = icons.ui.ArrowClosed,
+  fold_open = icons.ui.ArrowOpen,
   signs = {
-    -- icons / text used for a diagnostic
-    error = diagnostic_icons.Error,
-    warning = diagnostic_icons.Warning,
-    hint = diagnostic_icons.Hint,
-    information = diagnostic_icons.Information,
-    other = diagnostic_icons.Question,
+    error = icons.diagnostics.Error,
+    warning = icons.diagnostics.Warning,
+    hint = icons.diagnostics.Hint,
+    information = icons.diagnostics.Information,
+    other = icons.diagnostics.Question,
   },
+  win_config = { border = "rounded" }
 }
 

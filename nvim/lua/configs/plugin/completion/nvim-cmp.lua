@@ -21,38 +21,38 @@ return function()
     },
     formatting = {
       fields = { "abbr", "kind", "menu" },
-			format = function(entry, vim_item)
-				local lspkind_icons = vim.tbl_deep_extend("force", icons.kind, icons.type, icons.cmp)
-				-- load lspkind icons
-				vim_item.kind =
-					string.format(" %s %s", lspkind_icons[vim_item.kind] or icons.cmp.undefined, vim_item.kind or "")
+      format = function(entry, vim_item)
+        local lspkind_icons = vim.tbl_deep_extend("force", icons.kind, icons.type, icons.cmp)
+        -- load lspkind icons
+        vim_item.kind =
+        string.format(" %s %s", lspkind_icons[vim_item.kind] or icons.cmp.undefined, vim_item.kind or "")
 
-				vim_item.menu = setmetatable({
-					cmp_tabnine = "[TN]",
-					copilot = "[CPLT]",
-					buffer = "[BUF]",
-					orgmode = "[ORG]",
-					nvim_lsp = "[LSP]",
-					nvim_lua = "[LUA]",
-					path = "[PATH]",
-					tmux = "[TMUX]",
-					treesitter = "[TS]",
-					luasnip = "[SNIP]",
-					spell = "[SPELL]",
-				}, {
-					__index = function()
-						return "[BTN]" -- builtin/unknown source names
-					end,
-				})[entry.source.name]
+        vim_item.menu = setmetatable({
+          cmp_tabnine = "[TN]",
+          copilot = "[CPLT]",
+          buffer = "[BUF]",
+          orgmode = "[ORG]",
+          nvim_lsp = "[LSP]",
+          nvim_lua = "[LUA]",
+          path = "[PATH]",
+          tmux = "[TMUX]",
+          treesitter = "[TS]",
+          luasnip = "[SNIP]",
+          spell = "[SPELL]",
+          }, {
+            __index = function()
+              return "[BTN]" -- builtin/unknown source names
+            end,
+        })[entry.source.name]
 
-				local label = vim_item.abbr
-				local truncated_label = vim.fn.strcharpart(label, 0, 80)
-				if truncated_label ~= label then
-					vim_item.abbr = truncated_label .. "..."
-				end
+        local label = vim_item.abbr
+        local truncated_label = vim.fn.strcharpart(label, 0, 80)
+        if truncated_label ~= label then
+          vim_item.abbr = truncated_label .. "..."
+        end
 
-				return vim_item
-			end,
+        return vim_item
+      end,
     },
     sources = cmp.config.sources({
       settings.use_skk and {name = "skkeleton"} or {},
