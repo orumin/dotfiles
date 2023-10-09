@@ -25,13 +25,6 @@ return {
     lazy = true,
     ft = { "c", "cpp", "objc", "objcpp" }
   },
-  -- Markdown previewer
-  {
-    "ellisonleao/glow.nvim",
-    lazy = true,
-    config = require("filetype_tools.glow_conf"),
-    cmd = "Glow"
-  },
   -- Pandoc markdown
   {
     "aspeddro/pandoc.nvim",

@@ -30,6 +30,13 @@ return {
     },
     config = true
   },
+  -- Markdown previewer
+  {
+    "orumin/glow.nvim",
+    lazy = true,
+    config = require("tools.glow_conf"),
+    cmd = "Glow"
+  },
   -- Git
   {
     "NeogitOrg/neogit",
