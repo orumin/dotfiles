@@ -1,6 +1,6 @@
 local M = {}
 
-if vim.env.COLORTERM and vim.env.COLORTERM == "truecolor" then
+if gui_running or (vim.env.COLORTERM and vim.env.COLORTERM == "truecolor") then
   M.truecolor = true
   M.name = "catppuccin"
 else
@@ -16,8 +16,8 @@ function M.settings()
   end
 
   if gui_running then
-    vim.o.guicolors = true
-    vim.o.guifont = "PlemolJP Console NF:h13"
+    --vim.o.guicolors = true
+    vim.o.guifont = "PlemolJP Console NF:h9"
   end
 
   vim.cmd.colorschem(M.name)
