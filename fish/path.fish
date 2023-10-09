@@ -23,6 +23,7 @@ if test $ostype != "Darwin"; and type -q -f ruby
     set -x PATH (ruby -rrubygems -e "puts Gem.user_dir")/bin $PATH
 end
 
+set -x PATH "/home/$USER/go/bin" $PATH ^/dev/null
 set -x PATH "/home/$USER/.cargo/bin" $PATH ^/dev/null
 set -x PATH "/home/$USER/.cabal/bin" $PATH ^/dev/null
 set -x PATH "/home/$USER/.rbenv/bin" $PATH ^/dev/null
