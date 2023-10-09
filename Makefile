@@ -11,9 +11,13 @@ ifeq ($(OS),Windows_NT)
 endif
 
 ifeq ($(strip $(XDG_CONFIG_HOME)),)
-	CONFIG_DIR := $(HOME)\.config
+	ifeq ($(OS),Windows_NT)
+		CONFIG_DIR := $(abspath $(HOME)\.config)
+	else
+		CONFIG_DIR := $(abspath $(HOME)/.config)
+	endif
 else
-	CONFIG_DIR := $(XDG_CONFIG_HOME)
+	CONFIG_DIR := $(abspath $(XDG_CONFIG_HOME))
 endif
 
 .PHONY: deploy init list
