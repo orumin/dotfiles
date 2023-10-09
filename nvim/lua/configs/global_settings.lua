@@ -26,6 +26,9 @@ local settings = {
   lsp_default_servers = {
     "clangd", "cmake", "jsonls", "ltex", "lua_ls", "pyright", "rust_analyzer", "vimls"
   },
+  lsp_disabled_servers = {
+    "ltex"
+  },
   icon = {
     nerd_ver = "3",
   },
