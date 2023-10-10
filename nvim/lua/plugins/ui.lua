@@ -2,12 +2,18 @@ return {
 ---------------------------------------------------------------
 --UI
 ---------------------------------------------------------------
+--  {
+--    "thinca/vim-splash",
+--    lazy = true,
+--    event = { "BufWinEnter" },
+--    cond = false,
+--    optional = true,
+--  },
   {
-    "thinca/vim-splash",
+    "goolord/alpha-nvim",
     lazy = true,
-    event = { "BufWinEnter" },
-    cond = false,
-    optional = true,
+    event = "VimEnter",
+    config  = require("ui.dashboard")
   },
   {
     "akinsho/bufferline.nvim",

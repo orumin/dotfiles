@@ -12,7 +12,7 @@ local opts = {
 return function ()
   local transparent = require("transparent")
   transparent.setup(opts)
-  transparent.clear_prefix("BufferLine")
+  --transparent.clear_prefix("BufferLine")
   transparent.clear_prefix("NeoTree")
-  transparent.clear_prefix("lualine")
+  --transparent.clear_prefix("lualine")
 end
