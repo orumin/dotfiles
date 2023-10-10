@@ -1,5 +1,5 @@
-local util = require("lib")
-local palette = util.get_palette()
+local utils = require("utils")
+local palette = utils.get_palette()
 
 local highlight = {
   "RainbowRed",

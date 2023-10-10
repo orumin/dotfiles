@@ -6,7 +6,7 @@ if vim.g.vscode then
   return
 end
 
-local utils = require("lib")
+local utils = require("utils")
 utils.disable_rtp_plugins()
 utils.setting_shell()
 utils.setting_clipboard()

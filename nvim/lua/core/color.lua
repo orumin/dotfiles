@@ -1,6 +1,8 @@
+local utils = require("utils")
+local G = utils.globals()
 local M = {}
 
-if gui_running or (vim.env.COLORTERM and vim.env.COLORTERM == "truecolor") then
+if G.gui_running or (vim.env.COLORTERM and vim.env.COLORTERM == "truecolor") then
   M.truecolor = true
   M.name = "catppuccin"
 else
@@ -15,7 +17,7 @@ function M.settings()
     vim.o.t_Co = "256"
   end
 
-  if gui_running then
+  if G.gui_running then
     --vim.o.guicolors = true
     vim.o.guifont = "PlemolJP Console NF:h9"
   end

@@ -1,9 +1,11 @@
+local utils = require("utils")
+local G = utils.globals()
 local global_opts = {
   -- backup directories
   undofile = true,
-  undodir = nvim_cache_dir .. path_sep .. 'undo',
-  backupdir = nvim_cache_dir .. path_sep .. 'backup',
-  directory = nvim_cache_dir .. path_sep .. 'swp',
+  undodir = G.nvim_cache_dir .. G.path_sep .. 'undo',
+  backupdir = G.nvim_cache_dir .. G.path_sep .. 'backup',
+  directory = G.nvim_cache_dir .. G.path_sep .. 'swp',
   -- https://github.com/neovim/neovim/issues/6041
   guicursor = "",
 

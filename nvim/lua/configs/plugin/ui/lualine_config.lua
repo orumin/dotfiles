@@ -1,4 +1,4 @@
-local palette = require("lib").get_palette()
+local palette = require("utils").get_palette()
 local diagnostic_icons = require("configs.ui.icons").get("diagnostics", true)
 local _, auto_session_lib = pcall(require, "auto-session.lib")
 return {
@@ -6,8 +6,8 @@ return {
     icons_enabled = true,
     theme = "auto",
     globalstatus = true,
-    --component_separators = { left = 'î‚±', right = 'î‚³'},
-    --section_separators = { left = 'î‚°', right = 'î‚²'},
+    --component_separators = { left = 'ûž±', right = 'ûž³'},
+    --section_separators = { left = 'ûž°', right = 'ûž²'},
   },
   sections = {
     lualine_a = {'mode'},

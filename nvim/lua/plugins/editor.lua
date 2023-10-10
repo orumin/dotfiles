@@ -1,3 +1,5 @@
+local utils = require("utils")
+local G = utils.globals()
 local settings = require("configs.global_settings")
 return {
 ---------------------------------------------------------------
@@ -142,7 +144,7 @@ return {
     "klen/nvim-config-local",
     opts = {
       config_files = { ".nvim.lua", ".nvimrc" },
-      hashfile = nvim_data_dir .. path_sep .. "config-local",
+      hashfile = G.nvim_data_dir .. G.path_sep .. "config-local",
 
       autocommands_create = false,
       commands_create = false,

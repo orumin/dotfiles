@@ -1,3 +1,5 @@
+local utils = require("utils")
+local G = utils.globals()
 local settings = require("configs.global_settings")
 local icons = {
   documents = require("configs.ui.icons").get("documents"),
@@ -6,7 +8,7 @@ local icons = {
   ui = require("configs.ui.icons").get("ui"),
   ui_sep = require("configs.ui.icons").get("ui", true),
 }
-local lazypath = nvim_data_dir .. path_sep .. "lazy" .. path_sep .. "lazy.nvim"
+local lazypath = G.nvim_data_dir .. G.path_sep .. "lazy" .. G.path_sep .. "lazy.nvim"
 
 local uv = nil
 if vim.uv then uv = vim.uv else uv = vim.loop end
@@ -22,7 +24,7 @@ if not uv.fs_stat(lazypath) then
   })
 end
 
-package.path = package.path .. ";" .. plugin_config_dir .. path_sep .. "?.lua;" .. plugin_config_dir .. path_sep .. "?" .. path_sep .. "init.lua"
+package.path = package.path .. ";" .. G.plugin_config_dir .. G.path_sep .. "?.lua;" .. G.plugin_config_dir .. G.path_sep .. "?" .. G.path_sep .. "init.lua"
 
 local disabled_plugins = {}
 local count = 1
@@ -32,12 +34,12 @@ for k, _ in pairs(settings.disabled_rtp_plugins) do
 end
 
 local lazy_opts = {
-  root = nvim_data_dir .. path_sep .. "lazy",
+  root = G.nvim_data_dir .. G.path_sep .. "lazy",
   defauls = { lazy = false, version = nil, cond = nil },
   spec = {
     { import = "plugins" }, -- load plugin list from vim.fn.stdpath("config") .. "/lua/plugins/?.lua"
   },
-  lockfile = nvim_config_dir .. path_sep .. "lazy-lock.json",
+  lockfile = G.nvim_config_dir .. G.path_sep .. "lazy-lock.json",
   install = {
     missing = true,
     colorscheme = { "catppuccin" },

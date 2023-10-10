@@ -1,4 +1,6 @@
-local dict_dir= homedir .. path_sep .. ".config" .. path_sep .. "skk" .. path_sep .. "dict" .. path_sep
+local utils = require("utils")
+local G = utils.globals()
+local dict_dir= G.homedir .. G.path_sep .. ".config" .. G.path_sep .. "skk" .. G.path_sep .. "dict" .. G.path_sep
 return function ()
   vim.fn["skkeleton#config"]({
     eggLikeNewline = true,

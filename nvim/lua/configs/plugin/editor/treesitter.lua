@@ -1,5 +1,4 @@
 local treesitter_config = require("nvim-treesitter.configs")
-local strategy
 
 vim.treesitter.language.register('yaml', 'ansible')
 

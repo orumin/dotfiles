@@ -1,3 +1,5 @@
+local utils = require("utils")
+local G = utils.globals()
 return {
 ---------------------------------------------------------------
 -- filetype plugin
@@ -55,7 +57,7 @@ return {
     },
     config = function()
       vim.g["tex_flavor"] = "latex"
-      if is_mac then
+      if G.is_mac then
         vim.g["vimtex_view_method"] = "skim"
       else
         vim.g["vimtex_view_method"] = "general"

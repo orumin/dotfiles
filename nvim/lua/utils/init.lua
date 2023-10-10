@@ -1,35 +1,39 @@
 local settings = require("configs.global_settings")
 local M = {}
+local G = {}
 local uv = vim.uv
 
 function M.setting_global()
-  _G.pr_error = function (msg, opts)
+  G.pr_error = function (msg, opts)
     vim.notify(msg, vim.log.levels.ERROR, opts)
   end
 
-  _G.nnoremap = function (lhs, rhs, opts)
-    local defaults = {noremap = true, silent = true}
-    local v = vim.tbl_extend("force", defaults, opts or {})
-    vim.keymap.set("n", lhs, rhs, v)
+  G.uname = uv.os_uname()
+
+  G.gui_running = vim.fn.has("gui_running") == 1
+  G.is_win = G.uname.sysname == "Windows" or G.uname.sysname == "Windows_NT"
+  G.is_mac = G.uname.sysname == "Darwin"
+  G.is_linux = G.uname.sysname == "Linux"
+  G.is_wsl = G.is_linux and string.find(G.uname.release, "microsoft") ~= nil
+  G.path_sep = G.is_win and "\\" or "/"
+  G.home = G.is_win and vim.env.USERPROFILE or vim.env.HOME
+  if vim.env.XDG_CONFIG_HOME then
+    G.config_home = vim.env.XDG_CONFIG_HOME
+  else
+    G.config_home = G.home .. G.path_sep .. ".config"
   end
 
-  local uname = uv.os_uname()
+  G.nvim_cache_dir = vim.fn.stdpath("cache")
+  G.nvim_config_dir = vim.fn.stdpath("config")
+  G.nvim_data_dir = vim.fn.stdpath("data")
+  G.nvim_state_dir = vim.fn.stdpath("state")
+  G.plugin_config_dir = G.nvim_config_dir .. G.path_sep .. "lua" .. G.path_sep .. "configs" .. G.path_sep .. "plugin"
 
-  _G.gui_running = vim.fn.has("gui_running") == 1
-  _G.is_win = uname.sysname == "Windows" or uname.sysname == "Windows_NT"
-  _G.is_mac = uname.sysname == "Darwin"
-  _G.is_linux = uname.sysname == "Linux"
-  _G.is_wsl = is_linux and string.find(uname.release, "microsoft") ~= nil
-  _G.path_sep = is_win and "\\" or "/"
-  _G.home = is_win and vim.env.USERPROFILE or vim.env.HOME
+  G.homedir = uv.os_homedir()
+end
 
-  _G.nvim_cache_dir = vim.fn.stdpath("cache")
-  _G.nvim_config_dir = vim.fn.stdpath("config")
-  _G.nvim_data_dir = vim.fn.stdpath("data")
-  _G.nvim_state_dir = vim.fn.stdpath("state")
-  _G.plugin_config_dir = nvim_config_dir .. path_sep .. "lua" .. path_sep .. "configs" .. path_sep .. "plugin"
-
-  _G.homedir = uv.os_homedir()
+function M.globals()
+  return G
 end
 
 ---@return string
@@ -162,7 +166,7 @@ function M.disable_rtp_plugins ()
 end
 
 function M.setting_shell()
-  if is_win then
+  if G.is_win then
     if not (vim.fn.executable("pwsh") == 1 or vim.fn.executable("powershell") == 1) then
       vim.notify(
         [[
@@ -204,14 +208,14 @@ function M.setting_clipboard()
       },
       cache_enabled = 1,
     }
-  elseif is_mac then
+  elseif G.is_mac then
     vim.g.clipboard = {
       name = "macOS-clipboard",
       copy = { ["+"] = "pbcopy", ["*"] = "pbcopy", },
       paste = { ["+"] = "pbpaste", ["*"] = "pbpaste", },
       cache_enabled = 0,
     }
-  elseif is_win or is_wsl then
+  elseif G.is_win or G.is_wsl then
     if vim.fn.executable("win32yank") == 1 then
       vim.g.clipboard = {
         name = "win32yank-Clipboard",

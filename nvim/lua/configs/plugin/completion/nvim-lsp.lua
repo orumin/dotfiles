@@ -1,16 +1,17 @@
+local utils = require("utils")
+local G = utils.globals()
 local global_settings = require("configs.global_settings")
 return function()
   local icons = {
     ui = require("configs.ui.icons").get("ui"),
     misc = require("configs.ui.icons").get("misc")
   }
-  local global_settings = require("configs.global_settings")
   local lspconfig = require("lspconfig")
   local mason = require("mason")
   local mason_lspconfig = require("mason-lspconfig")
   local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
   if not ok then
-    pr_error("error loading cmp_nvim_lsp")
+    G.pr_error("error loading cmp_nvim_lsp")
     cmp_nvim_lsp = nil
   end
 
@@ -57,7 +58,7 @@ return function()
   ---@param server_name string
   local function mason_handler(server_name)
     if vim.iter(global_settings.lsp_disabled_servers):find(server_name) ~= nil then
-      pr_error("skip setup language_server, " .. server_name, {title = "nvim-lspconfig"})
+      G.pr_error("skip setup language_server, " .. server_name, {title = "nvim-lspconfig"})
       return
     end
 
@@ -70,7 +71,7 @@ return function()
     elseif type(custom_handler) == "table" then
       lspconfig[server_name].setup(vim.tbl_deep_extend("force", opts, custom_handler))
     else
-      pr_error("Failed to setup [" .. server_name .. "]. fix plugins/config/completion/servers/" .. server_name .. ".lua",
+      G.pr_error("Failed to setup [" .. server_name .. "]. fix plugins/config/completion/servers/" .. server_name .. ".lua",
         {title = "nvim-lspconfig"})
     end
   end

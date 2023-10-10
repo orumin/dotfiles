@@ -1,3 +1,5 @@
+local utils = require("utils")
+local G = utils.globals()
 local settings = require("configs.global_settings")
 return function()
   local icons = {
@@ -10,7 +12,7 @@ return function()
 
   local ok, luasnip = pcall(require, "luasnip")
   if not ok then
-    pr_error("error loading luasnip")
+    G.pr_error("error loading luasnip")
   end
 
   local opts = {
@@ -156,6 +158,6 @@ return function()
   if ok then
     cmp_pandoc.setup()
   else
-    pr_error("error loading cmp_pandoc")
+    G.pr_error("error loading cmp_pandoc")
   end
 end

@@ -41,7 +41,7 @@ return function ()
 
   local color = require("core.color")
   if color.name:find("catppuccin") then
-    local palette = require("lib").get_palette()
+    local palette = require("utils").get_palette()
     local catppuccin_hl = {
       highlights = require("catppuccin.groups.integrations.bufferline").get({
         styles = { "italic", "bold" },

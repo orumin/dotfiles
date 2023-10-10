@@ -9,7 +9,7 @@ local maps = {
 }
 
 for _, v in ipairs(maps) do
-  vim.tbl_extend("keep", v, opts)
+  v = vim.tbl_extend("keep", v, opts)
 end
 
 return maps

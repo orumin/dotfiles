@@ -1,3 +1,5 @@
+local utils = require("utils")
+local G = utils.globals()
 return {
   log_level = "error",
 
@@ -9,7 +11,7 @@ return {
     end,
   },
   auto_session_enable_last_session = false,
-  auto_session_root_dir = nvim_data_dir .. path_sep .. "sessions" .. path_sep,
+  auto_session_root_dir = G.nvim_data_dir .. G.path_sep .. "sessions" .. G.path_sep,
   auto_session_enabled = true,
   auto_save_enabled = nil,
   auto_restore_enabled = nil,

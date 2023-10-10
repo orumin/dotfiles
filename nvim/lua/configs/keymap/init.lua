@@ -1,5 +1,3 @@
-local util = require("lib")
-
 return {
   [1] = {
     {"<ESC><ESC>", function () vim.v.hlsearch = 0 end, mode = "n", desc = "nohlsearch" },
@@ -38,7 +36,7 @@ return {
       end
       require("neo-tree.command").execute({
         toggle = true,
-        dir = require("lib").get_root(),
+        dir = require("utils").get_root(),
       })
     end,
     desc = "toggle NeoTree" }

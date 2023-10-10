@@ -1,4 +1,4 @@
-local palette = require("lib").get_palette()
+local palette = require("utils").get_palette()
 
 return {
 	autoselect_one = true,
