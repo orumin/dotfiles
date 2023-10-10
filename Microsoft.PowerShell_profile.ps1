@@ -55,7 +55,10 @@ Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 Import-Module 'C:\Users\$env:USERNAME\scoop\apps\scoop\current\supporting\completion\Scoop-Completion.psd1' -ErrorAction SilentlyContinue
 
 # import solo2 completion
-. 'C:\Users\$env:USERNAME\Documents\PowerShell\solo2.ps1'
+$solo2_completion_fpath = 'C:\Users\$env:USERNAME\Documents\PowerShell\solo2.ps1'
+if (Test-Path $solo2_completion_fpath) {
+    . $solo2_completion_fpath
+}
 
 # Alias
 
