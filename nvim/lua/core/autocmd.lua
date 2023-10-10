@@ -57,6 +57,24 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   end
 })
 
+vim.api.nvim_create_augroup("overrideKeywordprg", {clear = true})
+-- override keywordprg to man command
+vim.api.nvim_create_autocmd({'FileTYpe'}, {
+  group = 'overrideKeywordprg',
+  pattern = {"c", "cpp", "fish", "help", "man", "objc", "objcpp", "sh", "tmux", "toggleterm", "vim", "zsh"},
+  callback = function (ev)
+    vim.keymap.set("n", "K", function()
+      local cword = vim.fn.expand("<cword>")
+      if ev.match == "vim" or ev.match == "help" then
+        vim.cmd("help " .. cword)
+      else
+        vim.cmd(vim.o.keywordprg .. " " .. cword)
+      end
+    end, { buffer = ev.buf, desc = "search document by cword" })
+  end
+
+})
+
 -- NeoVim built-in Terminal
 vim.api.nvim_create_autocmd('TermOpen', {
   callback = function()

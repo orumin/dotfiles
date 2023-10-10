@@ -19,10 +19,6 @@ local clangd_settings = {
   on_attach = function (_, bufnr)
     vim.wo.signcolumn = 'yes'
     vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-    vim.keymap.set("n", "K", function()
-      local cword = vim.fn.expand("<cword>")
-      vim.cmd("Man " .. cword)
-    end, { buffer = bufnr, desc = "search doc by keywordprg" })
     vim.keymap.set("n", "<C-k>", "<Cmd>Lspsaga hover_doc<CR>", { buffer = bufnr })
 
     require("clangd_extensions.inlay_hints").setup_autocmd()

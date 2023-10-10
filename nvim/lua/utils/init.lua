@@ -4,6 +4,12 @@ local G = {}
 local uv = vim.uv
 
 function M.setting_global()
+  G.pr_info = function (msg, opts)
+    vim.notify(msg, vim.log.levels.INFO, opts)
+  end
+  G.pr_warn = function (msg, opts)
+    vim.notify(msg, vim.log.levels.WARN, opts)
+  end
   G.pr_error = function (msg, opts)
     vim.notify(msg, vim.log.levels.ERROR, opts)
   end

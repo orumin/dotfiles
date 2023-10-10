@@ -46,7 +46,9 @@ return {
     {"<C-j>", "<Plug>(skkeleton-toggle)", mode = {"c", "i"}, desc="skk"}
   },
   ["toggleterm"] = {
-    { "vt", "<Cmd>exe " .. vim.v.count1 .. ". \"ToggleTerm\"<CR>", mode = "n", desc = "open terminal" }
+    { "vtf", "<Cmd>exe " .. vim.v.count1 .. ". \"ToggleTerm direction=float\"<CR>", mode = "n", desc = "open float terminal" },
+    { "vts", "<Cmd>exe " .. vim.v.count1 .. ". \"ToggleTerm direction=horizontal size=25\"<CR>", mode = "n", desc = "open horizontal terminal" },
+    { "vtv", "<Cmd>exe " .. vim.v.count1 .. ". \"ToggleTerm direction=vertical size=40\"<CR>", mode = "n", desc = "open vertical terminal" }
   },
   ["translate"] = {
     { "<C-t>", ":<c-u>TransToEN<CR>", mode = "v", silent = true }

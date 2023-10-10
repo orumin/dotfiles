@@ -1,12 +1,10 @@
 #set environment variable
 source $HOME/.config/fish/environment.fish
-if test -z $TMUX
-    source $HOME/.config/fish/path.fish
+source $HOME/.config/fish/path.fish
 
-    # openSUSE on WSL1
-    if test (uname -r | awk -F- '{print $3}') = "Microsoft" -a $DIST_NAME = "openSUSE Leap" -a ! -d /var/run/systemd
-        systemd-tmpfiles --create
-    end
+# openSUSE on WSL1
+if test (uname -r | awk -F- '{print $3}') = "Microsoft" -a $DIST_NAME = "openSUSE Leap" -a ! -d /var/run/systemd
+    systemd-tmpfiles --create
 end
 
 source $HOME/.config/fish/secret.fish

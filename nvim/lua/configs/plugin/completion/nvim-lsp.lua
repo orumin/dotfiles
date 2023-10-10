@@ -58,7 +58,7 @@ return function()
   ---@param server_name string
   local function mason_handler(server_name)
     if vim.iter(global_settings.lsp_disabled_servers):find(server_name) ~= nil then
-      G.pr_error("skip setup language_server, " .. server_name, {title = "nvim-lspconfig"})
+      G.pr_info("skip setup language_server, " .. server_name, {title = "nvim-lspconfig"})
       return
     end
 

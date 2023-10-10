@@ -2,6 +2,7 @@
 
 if type -q nvim
     set -x EDITOR nvim
+    set -x MANPAGER 'nvim +Man!'
 else if type -q vim
     set -x EDITOR vim
 else
@@ -50,7 +51,6 @@ set -x VENDOR (uname -r | awk -F- '{print $3}')
 
 switch $OSTYPE
     case Linux
-        set -x BROWSER vivaldi-snapshot
         set -x PSPDEV "/opt/pspsdk"
         set -x PSPSDK "$PSPDEV/psp/sdk"
         set -x VITASDK "/usr/local/vitasdk"
@@ -77,8 +77,6 @@ switch $OSTYPE
     case Darwin
         set -x LANG en_US.UTF-8
     end
-
-set -x GO111MODULE on
 
 if test \( (uname -r | sed -e 's/#1-\(Microsoft\).*/\1/') = "Microsoft" \) \
     -o \( (uname -r | sed -e 's/#1-\(microsoft\).*/\1/') = "microsoft" \) \
