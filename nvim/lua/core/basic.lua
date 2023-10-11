@@ -48,6 +48,9 @@ local global_opts = {
   fileformats="unix,dos,mac",
   -- set ambiwidth size (single or double)
   ambiwidth="single",
+
+  -- popup menu transparency
+  pumblend = 15,
 }
 
 local buffer_local_opts = {

@@ -24,10 +24,10 @@ local settings = {
     yaml = { "yamllint" },
   },
   lsp_default_servers = {
-    "clangd", "cmake", "jsonls", "ltex", "lua_ls", "pyright", "rust_analyzer", "vimls"
+    "clangd", "cmake", "jsonls", "lua_ls", "pyright", "texlab", "rust_analyzer", "vimls"
   },
   lsp_disabled_servers = {
-    "ltex"
+--    "ltex"
   },
   icon = {
     nerd_ver = "3",

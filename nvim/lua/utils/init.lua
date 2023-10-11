@@ -221,14 +221,27 @@ function M.setting_clipboard()
     vim.g.clipboard = {
       name = "tmuxClipboard",
       copy = {
-        ["+"] = "tmux load-buffer -",
-        ["*"] = "tmux load-buffer -",
+        ["+"] = {"tmux", "load-buffer", "-"},
+        ["*"] = {"tmux", "load-buffer", "-"},
       },
       paste = {
-        ["+"] = "tmux save-buffer -",
-        ["*"] = "tmux save-buffer -",
+        ["+"] = {"tmux", "save-buffer", "-"},
+        ["*"] = {"tmux", "save-buffer", "-"},
       },
       cache_enabled = 1,
+    }
+  elseif vim.env.SSH_CONNECTION and vim.fn.executable("lemonade") == 1 then -- for SSH
+    vim.g.clipboard = {
+      name = "wl-Clipboard",
+      copy = {
+        ["+"] = {"lemonade", "copy"},
+        ["*"] = {"lemonade", "copy"},
+      },
+      paste = {
+        ["+"] = {"lemonade", "paste"},
+        ["*"] = {"lemonade", "paste"},
+      },
+      cache_enabled = 0,
     }
   elseif G.is_mac then
     vim.g.clipboard = {
@@ -242,12 +255,12 @@ function M.setting_clipboard()
       vim.g.clipboard = {
         name = "win32yank-Clipboard",
         copy = {
-          ["+"] = "win32yank.exe -i --crlf",
-          ["*"] = "win32yank.exe -i --crlf",
+          ["+"] = {"win32yank.exe", "-i", "--crlf"},
+          ["*"] = {"win32yank.exe", "-i", "--crlf"},
         },
         paste = {
-          ["+"] = "win32yank.exe -o --lf",
-          ["*"] = "win32yank.exe -o --lf",
+          ["+"] = {"win32yank.exe", "-o", "--lf"},
+          ["*"] = {"win32yank.exe", "-o", "--lf"},
         },
         cache_enabled = 0,
       }
@@ -258,64 +271,66 @@ function M.setting_clipboard()
         name = "windows-Clipboard",
         copy = { ["+"] = "clip.exe", ["*"] = "clip.exe", },
         paste = {
-          ["+"] = pwsh .. ' -Command [Console]::Out.Write($(Get-Clipboard -Raw)).tostring().replace("`r", ""))',
-          ["*"] = pwsh .. ' -Command [Console]::Out.Write($(Get-Clipboard -Raw)).tostring().replace("`r", ""))',
+          ["+"] = {pwsh, "-Command", '[Console]::Out.Write($(Get-Clipboard -Raw)).tostring().replace("`r", ""))'},
+          ["*"] = {pwsh, "-Command", '[Console]::Out.Write($(Get-Clipboard -Raw)).tostring().replace("`r", ""))'},
         },
         cache_enabled = 0,
       }
     end
-  elseif vim.fn.executable("lemonade") == 1 then -- for SSH
+  elseif vim.env.WAYLAND_DISPLAY ~= nil and
+    vim.fn.executable("wl-copy") == 1 and vim.fn.executable("wl-paste") == 1 then -- for Wayland
     vim.g.clipboard = {
       name = "wl-Clipboard",
       copy = {
-        ["+"] = "lemonade copy",
-        ["*"] = "lemonade copy",
+        ["+"] = {"wl-copy", "--type", "text/plain"},
+        ["*"] = {"wl-copy", "--primary", "--type", "text/plain"},
       },
       paste = {
-        ["+"] = "lemonade paste",
-        ["*"] = "lemonade paste",
+        ["+"] = {"wl-paste", "--no-newline"},
+        ["*"] = {"wl-paste", "--no-newline", "--primary"},
       },
-      cache_enabled = 0,
+      cache_enabled = 1,
     }
   elseif vim.env.WAYLAND_DISPLAY ~= nil and
-    vim.fn.executable("wl-copy") == 1 and vim.fn.executable("wl-paste") then -- for Wayland
+    vim.fn.executable("waycopy") == 1 and vim.fn.executable("waypaste") == 1 then
     vim.g.clipboard = {
-      name = "wl-Clipboard",
+      name = "way-Clipboard",
       copy = {
-        ["+"] = "wl-copy --foreground --type text/plain",
-        ["*"] = "wl-copy --foreground --type text/plain",
+        ["+"] = {"waycopy", "-t", "text/plain"},
+        ["*"] = {"waycopy", "-t", "text/plain"},
       },
       paste = {
-        ["+"] = "wl-paste --no-newline",
-        ["*"] = "wl-paste --no-newline",
+        ["+"] = {"waypaste", "-t", "text/plain"},
+        ["*"] = {"waypaste", "-t", "text/plain"},
       },
-      cache_enabled = 0,
+      cache_enabled = 1,
     }
-  elseif vim.env.DISPLAY ~= nil and vim.fn.executable("xsel") then -- for X11
+
+  elseif vim.env.DISPLAY ~= nil and vim.fn.executable("xsel") == 1 then -- for X11
     vim.g.clipboard = {
       name = "xsel-Clipboard",
       copy = {
-        ["+"] = "xsel --nodetach -i -b",
-        ["*"] = "xsel --nodetach -i -b",
+        ["+"] = {"xsel", "--nodetach", "-i", "-b"},
+        ["*"] = {"xsel", "--nodetach", "-i", "-p"},
       },
       paste = {
-        ["+"] = "xsel -o -b",
-        ["*"] = "xsel -o -b",
+        ["+"] = {"xsel", "-o", "-b"},
+        ["*"] = {"xsel", "-o", "-p"},
       },
-      cache_enabled = 0,
+      cache_enabled = 1,
     }
-  elseif vim.env.DISPLAY ~= nil and vim.fn.executable("xclip") then -- for X11
+  elseif vim.env.DISPLAY ~= nil and vim.fn.executable("xclip") == 1 then -- for X11
     vim.g.clipboard = {
       name = "xclip-Clipboard",
       copy = {
-        ["+"] = "xclip -quiet -i -selection clipboard",
-        ["*"] = "xclip -quiet -i -selection clipboard",
+        ["+"] = {"xclip", "-quiet", "-i", "-selection", "clipboard"},
+        ["*"] = {"xclip", "-quiet", "-i", "-selection", "primary"},
       },
       paste = {
-        ["+"] = "xclip -o -selection -clipboard",
-        ["*"] = "xclip -o -selection -clipboard",
+        ["+"] = {"xclip", "-o", "-selection", "clipboard"},
+        ["*"] = {"xclip", "-o", "-selection", "primary"},
       },
-      cache_enabled = 0,
+      cache_enabled = 1,
     }
   end
 end

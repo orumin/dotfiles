@@ -49,28 +49,30 @@ if not contains -- "$PSPDEV" $PATH
     set -x PATH $PATH "$VITASDK/bin"
 end
 
-if test $ostype != "Darwin";
-    and type -q -f ruby;
-    and not contains -- "ruby" $PATH
-    set -x PATH (ruby -rrubygems -e "puts Gem.user_dir")/bin $PATH
+if test $ostype != "Darwin"; and type -q -f ruby
+    set -x GEM_BIN_PATH (ruby -rrubygems -e "puts Gem.user_dir")/bin
+
+    if not contains -- "$GEM_BIN_PATH" $PATH
+        set -x PATH "$GEM_BIN_PATH" $PATH
+    end
 end
 
-if not contains -- "go" $PATH
-    set -x PATH "/home/$USER/go/bin" $PATH
+if not contains -- "$HOME/go/bin" $PATH
+    set -x PATH "$HOME/go/bin" $PATH
 end
-if not contains -- "cargo" $PATH
-    set -x PATH "/home/$USER/.cargo/bin" $PATH
+if not contains -- "$HOME/.cargo/bin" $PATH
+    set -x PATH "$HOME/.cargo/bin" $PATH
 end
-if not contains -- "cabal" $PATH
-    set -x PATH "/home/$USER/.cabal/bin" $PATH
+if not contains -- "$HOME/.cabal/bin" $PATH
+    set -x PATH "$HOME/.cabal/bin" $PATH
 end
-if not contains -- "npm-packages" $PATH
-    set -x PATH "/home/$USER/.npm-packages/bin" $PATH
+if not contains -- "$HOME/.npm-packages/bin" $PATH
+    set -x PATH "$HOME/.npm-packages/bin" $PATH
 end
-if not contains -- "ccache" $PATH
+if not contains -- "/usr/lib/ccache/bin" $PATH
     set -x PATH "/usr/lib/ccache/bin" $PATH
 end
-if not contains -- "diff-highlight" $PATH
+if not contains -- "/usr/share/git/diff-highlight" $PATH
     set -x PATH "/usr/share/git/diff-highlight" $PATH
 end
 
@@ -81,16 +83,18 @@ if echo $PATH | grep Gentoo > /dev/null
     set -x PATH $PATH "/usr/sbin" "/sbin"
 end
 
-set -x DENO_INSTALL "/home/$USER/.deno"
-set -x PATH "$DENO_INSTALL/bin" $PATH
+set -x DENO_INSTALL "$HOME/.deno"
+if not contains -- "$DENO_INSTALL/bin" $PATH
+    set -x PATH "$DENO_INSTALL/bin" $PATH
+end
 
 if not contains -- "/usr/share/man" $MANPATH
     set -x MANPATH "/usr/share/man" "/usr/local/man" "/usr/local/share/man" $MANPATH
 end
-if not contains -- "mingw" $MANPATH
+if not contains -- "/usr/i486-mingw32/share/man" $MANPATH
     set -x MANPATH $MANPATH "/usr/i486-mingw32/share/man"
 end
-if not contains -- "qt" $MANPATH
+if not contains -- "/opt/qt/man" $MANPATH
     set -x MANPATH $MANPATH "/opt/qt/man"
 end
 if not contains -- "/opt/pspsdk/man" $MANPATH

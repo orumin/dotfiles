@@ -48,7 +48,12 @@ return {
     "xiyaowong/transparent.nvim",
     lazy = true,
     event = { "BufWinEnter" },
-    config = require("ui.transparent_conf")
+    config = require("ui.transparent_conf"),
+    init = function ()
+      if vim.g.neovide then
+        vim.g.transparent_enabled = false
+      end
+    end,
   },
   -- icons
   { "nvim-tree/nvim-web-devicons", lazy = true },

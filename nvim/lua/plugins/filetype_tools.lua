@@ -48,34 +48,6 @@ return {
       "nvim-lua/plenary.nvim"
     },
   },
-  -- TeX
-  {
-    "lervag/vimtex",
-    lazy = true,
-    ft = {
-      "plaintex", "tex"
-    },
-    config = function()
-      vim.g["tex_flavor"] = "latex"
-      if G.is_mac then
-        vim.g["vimtex_view_method"] = "skim"
-      else
-        vim.g["vimtex_view_method"] = "general"
-        vim.g["vimtex_view_general_viewer"] = "fwdevince"
-        vim.g["vimtex_view_general_options"] = "@pdf @line @tex"
-      end
-      vim.g["vimtex_compiler_latexmk"] = {
-        options = {
-          "-pdfdvi",
-          "-file-line-error",
-          "-halt-on-error",
-          "-interaction=nonstopmode",
-          "-shell-escape",
-          "-synctex=1",
-        }
-      }
-    end
-  },
   -- x86 asm
   {
     "shiracamus/vim-syntax-x86-objdump-d",

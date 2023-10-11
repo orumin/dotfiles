@@ -15,6 +15,7 @@ return function()
     G.pr_error("error loading luasnip")
   end
 
+  local winopts = cmp.config.window.bordered()
   local opts = {
     snippet = {
       expand = function(args)
@@ -57,8 +58,8 @@ return function()
       end,
     },
     window = {
-      completion = cmp.config.window.bordered(),
-      documentation = cmp.config.window.bordered()
+      completion = winopts,
+      documentation = winopts
     },
     sources = cmp.config.sources({
       settings.use_skk and {name = "skkeleton"} or {},

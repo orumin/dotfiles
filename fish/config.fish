@@ -31,6 +31,7 @@ set fish_emoji_width 2
 set fish_amiguous_width 2
 
 if status is-interactive
+    and not set -q IN_NVIM
     and not set -q TMUX
     and type -q tmux
 

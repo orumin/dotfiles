@@ -28,7 +28,7 @@ return {
       "ToggleTermSendVisualSelection",
       "ToggleTermSetName",
     },
-    config = true
+    config = require("tools.toggleterm_conf")
   },
   -- Markdown previewer
   {

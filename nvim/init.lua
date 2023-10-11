@@ -1,3 +1,5 @@
+vim.env.IN_NVIM = "1"
+
 if vim.loader then
   vim.loader.enable()
 end
@@ -23,3 +25,6 @@ require('core.keymaps')
 
 color.settings()
 
+if vim.g.neovide then
+  require("configs.neovide")
+end
