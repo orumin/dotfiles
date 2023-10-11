@@ -33,7 +33,9 @@ return function ()
         }
       },
       custom_filter = function (bufnr)
-        return not not vim.api.nvim_buf_get_name(bufnr):find(vim.fn.getcwd(), 0, true)
+        local cwd = vim.fs.normalize(vim.fn.getcwd())
+        local current_fpath = vim.fs.normalize(vim.api.nvim_buf_get_name(bufnr))
+        return not not current_fpath:find(cwd, 0, true)
       end,
     },
     highlights = {},
