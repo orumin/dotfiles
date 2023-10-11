@@ -51,7 +51,7 @@ return {
     { "vtv", "<Cmd>exe " .. vim.v.count1 .. ". \"ToggleTerm direction=vertical size=40\"<CR>", mode = "n", desc = "open vertical terminal" }
   },
   ["translate"] = {
-    { "<C-t>", ":<c-u>TransToEN<CR>", mode = "v", silent = true }
+    { "<C-t>", "<cmd>TransToEN<CR>", mode = "v", silent = true, desc = "translate" }
   },
   ["trouble"] = require("configs.keymap.trouble"),
   ["windows"] = {

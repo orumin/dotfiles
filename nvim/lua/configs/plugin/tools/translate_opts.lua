@@ -17,7 +17,7 @@ return {
           "-e",
           "google",
           "-t",
-          "en",
+          "en-US",
           trans_source
         }
       end,
@@ -26,7 +26,7 @@ return {
       input = "selection",
       -- how to output translate result
       -- float_win | notify | clipboard | insert
-      output = { "notify", "clipboard" }
+      output = { "float_win" }
     },
   },
 }

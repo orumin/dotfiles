@@ -127,7 +127,7 @@ return {
     cmd = "TransToEN",
     keys = require("configs.keymap").translate,
     dependencies = {
-      "niuiic/niuiic-core.nvim"
+      "niuiic/core.nvim"
     },
     opts = require("tools.translate_opts"),
   },

@@ -36,6 +36,22 @@ function M.setting_global()
   G.plugin_config_dir = G.nvim_config_dir .. G.path_sep .. "lua" .. G.path_sep .. "configs" .. G.path_sep .. "plugin"
 
   G.homedir = uv.os_homedir()
+
+  if vim.fn.executable("w3m") == 1 then
+    G.cli_browser = "w3m"
+  elseif vim.fn.executable("lynx") == 1 then
+    G.cli_browser = "lynx"
+  elseif vim.fn.executable("links") == 1 then
+    G.cli_browser = "links"
+  end
+
+  if vim.fn.executable("carbonyl") == 1 then
+    G.cli_rich_browser = "carbonyl"
+  elseif vim.fn.executable("browsh") == 1 then
+    G.cli_rich_browser = "browsh"
+  end
+
+  G.browser = vim.env.BROWSER and vim.env.BROWSER or "vivaldi"
 end
 
 function M.globals()
