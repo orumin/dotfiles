@@ -77,7 +77,7 @@ function InstallPackageChocolatey { Install-Package -ProviderName ChocolateyGet 
 Set-Alias choco-install InstallPackageChocolatey
 
 # env
-
+$env:HOME = "$env:USERPROFILE"
 $env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config"
 if ( -not [String]::IsNullOrEmpty($env:WT_SESSION) ) {
     $env:COLORTERM = "truecolor"
