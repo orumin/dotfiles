@@ -1,6 +1,7 @@
 local icons = require("configs.ui.icons").get("ui")
 
 return function ()
+  local bufferline = require("bufferline")
   local opts = {
     options = {
       mode = "buffers",
@@ -45,6 +46,7 @@ return function ()
   if color.name:find("catppuccin") then
     local palette = require("utils").get_palette()
     local catppuccin_hl = {
+      ---@diagnostic disable-next-line: different-requires
       highlights = require("catppuccin.groups.integrations.bufferline").get({
         styles = { "italic", "bold" },
         custom = {
@@ -63,5 +65,5 @@ return function ()
     vim.tbl_deep_extend("force", opts, catppuccin_hl)
   end
 
-  require("bufferline").setup(opts)
+  bufferline.setup(opts)
 end
