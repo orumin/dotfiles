@@ -62,12 +62,12 @@ return {
       "DapTerminate"
     },
     dependencies = {
-      {
-        "rcarriga/nvim-dap-ui",
-        config = true,
-      },
+      "rcarriga/nvim-dap-ui",
+      "theHamsta/nvim-dap-virtual-text",
+      "jbyuki/one-small-step-for-vimkind",
       "jay-babu/mason-nvim-dap.nvim"
     },
+    config = require("editor.dap_conf")
   },
 ---------------------------------------------------------------
 -- improve editor feature

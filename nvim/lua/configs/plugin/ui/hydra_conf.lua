@@ -1,3 +1,6 @@
+local utils = require("envutils")
+local G = utils:globals()
+
 return function ()
   local Hydra = require("hydra")
   local cmd = require("hydra.keymap-util").cmd
@@ -114,9 +117,51 @@ return function ()
         { '<Esc>', nil, { exit = true, nowait = true } },
      }
   }
-  -- TODO: add dap mode
-  -- https://github.com/Allaman/nvim/blob/90e4e550d9aa6a2f870cf5a31bde257622243005/lua/core/plugins/hydra/dap.lua
-  -- memo
+
+  local dap = require("dap")
+  local dap_hint = [[
+ _n_: step over   _s_: Continue/Start   _b_: Breakpoint     _K_: Eval
+ _i_: step into   _x_: Quit             ^ ^                 ^ ^
+ _o_: step out    _X_: Stop             ^ ^
+ _c_: to cursor   _C_: Close UI
+ ^
+ ^ ^              _q_: exit
+]]
+
+  local dap_ui = {
+    name = 'dap',
+    hint = dap_hint,
+    config = {
+      color = 'pink',
+      invoke_on_body = true,
+      hint = {
+        position = 'bottom',
+        border = 'rounded'
+      }
+    },
+    mode = {'n', 'x'},
+    body = '<leader>dh',
+    heads = {
+      { 'n', dap.step_over, {silent = true} },
+      { 'i', dap.step_into, {silent = true} },
+      { 'o', dap.step_out,  {silent = true} },
+      { 'c', dap.run_to_cursor, {silent = true} },
+      { 's', dap.continue, {silent = true} },
+      { 'x', function () dap.disconnect({ terminateDebuggee = false }) end, {exit=true, silent=true} },
+      { 'X', dap.close, {silent=true} },
+      { 'C', function ()
+        require("dapui").close()
+        vim.cmd.DapVirtualTextForceRefresh()
+      end, {silent=true} },
+      { 'b', dap.toggle_breakpoint, {silent=true} },
+      { 'K', function ()
+        require("dap.ui.widgets").hover()
+      end, {silent=true} },
+      { 'q', nil, {exit=true, nowait=true} },
+    }
+  }
+
   Hydra(neogit_ui)
   Hydra(telescope_ui)
+  Hydra(dap_ui)
 end

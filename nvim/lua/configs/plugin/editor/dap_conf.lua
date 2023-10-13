@@ -1,0 +1,123 @@
+local utils = require("envutils")
+local G = utils:globals()
+
+local function setup_cpp()
+  local dap = require("dap")
+
+  dap.adapters.gdb = {
+    id = 'gdb',
+    type = 'executable',
+    command = 'gdb',
+    args = { "-i", "dap" }
+  }
+
+  dap.adapters.cppdbg = {
+    id = 'cppdbg',
+    type = 'executable',
+    command = G.nvim_data_dir .. G.path_sep .. "mason" .. G.path_sep .. "bin" .. G.path_sep .. "OpenDebugAD7"
+  }
+  if G.is_win then
+    dap.adapters.cppdbg.command = dap.adapters.cppdbg.command .. ".exe"
+    dap.adapters.cppdbg.options = { detached = false }
+  end
+
+  dap.configurations.cpp = {
+    {
+      name = "Launch file (gdb)",
+      type = "gdb",
+      request = "launch",
+      program = function ()
+        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+      end,
+      cwd = "${workspaceFolder}",
+    },
+    {
+      name = "Launch file (cppdbg)",
+      type = "cppdbg",
+      request = "launch",
+      program = function ()
+        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+      end,
+      cwd = "${workspaceFolder}",
+      stopAtEntry = true
+    },
+    {
+      name = "Attach to gdbserver :1234 (cppdbg)",
+      type = "cppdbg",
+      request = "launch",
+      MIMode = "gdb",
+      miDebuggerServerAddress = "localhost:1234",
+      miDebuggerPath = "/usr/bin/gdb",
+      program = function ()
+        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+      end,
+      cwd = "${workspaceFolder}",
+      text = "-enable-pretty-printing",
+      description = "enable pretty printing",
+      ignoreFailures = false
+    }
+  }
+
+  dap.configurations.c = dap.configurations.cpp
+  dap.configurations.rust = dap.configurations.cpp
+end
+
+local function setup_bash()
+  local dap = require("dap")
+
+  dap.adapters.bashdb = {
+    id = 'bashdb',
+    type = 'executable',
+    command = G.nvim_data_dir .. G.path_sep .. "mason" .. G.path_sep .. "bin" .. G.path_sep .. "bash-debug-adapter"
+  }
+
+  local pathBashdbLib = G.nvim_data_dir .. G.path_sep .. "mason" .. G.path_sep .. "packages" .. G.path_sep .. "bash-debug-adapter" .. G.path_sep .. "extension" .. G.path_sep .. "bashdb_dir"
+  dap.configurations.sh = {
+    {
+      name = "Launch file",
+      type = "bashdb",
+      request = "launch",
+      showDebugOutput = true,
+      pathBashdb = pathBashdbLib .. G.path_sep .. "bashdb",
+      pathBashdbLib = pathBashdbLib,
+      trace = true,
+      file = "${file}",
+      program = "${file}",
+      cwd = "${workspaceFolder}",
+      pathCat = "cat",
+      pathBash = "/bin/bash",
+      pathMkfifo = "mkfifo",
+      pathPkill = "pkill",
+      args = {},
+      env = {},
+      terminalKind = "integrated"
+    }
+  }
+end
+
+local function setup_lua()
+  local dap = require("dap")
+
+  dap.adapters.nlua = function (callback, config)
+    callback({type = 'server', host = config.host or "127.0.0.1", port = config.port or 8086 })
+  end
+
+  dap.configurations.lua = {
+    {
+      name = "Attach to running Neovim instance",
+      type = "nlua",
+      request = "attach"
+    }
+  }
+end
+
+return function ()
+  local dapui = require("dapui")
+  local dap_virt_text = require("nvim-dap-virtual-text")
+  setup_bash()
+  setup_cpp()
+  setup_lua()
+
+  dapui.setup()
+  dap_virt_text.setup()
+end

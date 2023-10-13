@@ -103,6 +103,7 @@ return {
     lazy = false,
     dependencies = {
       "lewis6991/gitsigns.nvim",
+      "mfussenegger/nvim-dap",
     },
     config = require("ui.hydra_conf")
   }
