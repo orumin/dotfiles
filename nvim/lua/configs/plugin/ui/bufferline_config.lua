@@ -44,7 +44,7 @@ return function ()
 
   local color = require("core.color")
   if color.name:find("catppuccin") then
-    local palette = require("utils").get_palette()
+    local palette = require("envutils").get_palette()
     local catppuccin_hl = {
       ---@diagnostic disable-next-line: different-requires
       highlights = require("catppuccin.groups.integrations.bufferline").get({

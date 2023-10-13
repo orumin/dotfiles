@@ -1,7 +1,11 @@
 local settings = require("configs.global_settings")
+local utils = require("envutils")
+local G = utils:globals()
 
+--###############################################################
+-- remove trailing spaces on save
+--###############################################################
 if settings.remove_trailing_space then
-  -- remove trailing spaces on save
   vim.api.nvim_create_autocmd('BufWritePre', {
     pattern = '',
     command = ":%s/\\s\\+$//e"
@@ -29,6 +33,9 @@ vim.api.nvim_create_autocmd('FileType', {
   end
 })
 
+--###############################################################
+-- file type
+--###############################################################
 vim.api.nvim_create_augroup('setFileType', { clear = true })
 -- yml as ansible, instead of yaml
 vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
@@ -57,6 +64,9 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   end
 })
 
+--###############################################################
+-- Search document by cword
+--###############################################################
 vim.api.nvim_create_augroup("overrideKeywordprg", {clear = true})
 -- override keywordprg to man command
 vim.api.nvim_create_autocmd({'FileTYpe'}, {
@@ -66,7 +76,7 @@ vim.api.nvim_create_autocmd({'FileTYpe'}, {
     vim.keymap.set("n", "K", function()
       local cword = vim.fn.expand("<cword>")
       if ev.match == "vim" or ev.match == "help" then
-        vim.cmd("help " .. cword)
+        vim.cmd.help(cword)
       else
         vim.cmd(vim.o.keywordprg .. " " .. cword)
       end
@@ -75,6 +85,9 @@ vim.api.nvim_create_autocmd({'FileTYpe'}, {
 
 })
 
+--###############################################################
+-- Terminal
+--###############################################################
 -- NeoVim built-in Terminal
 vim.api.nvim_create_autocmd('TermOpen', {
   callback = function()
@@ -90,6 +103,9 @@ vim.api.nvim_create_autocmd('TermOpen', {
   command = 'startinsert'
 })
 
+--###############################################################
+-- LSP
+--###############################################################
 -- LspSaga
 vim.api.nvim_create_augroup("UserLspConfig", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
@@ -100,6 +116,31 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
+--###############################################################
+-- IME
+--###############################################################
+local function set_ime(args)
+    if args.event:match("Enter$") then
+        vim.g.neovide_input_ime = true
+    else
+        vim.g.neovide_input_ime = false
+    end
+end
+
+if not G.is_headless then
+  local ime_input = vim.api.nvim_create_augroup("ime_input", { clear = true })
+  vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
+      group = ime_input,
+      pattern = "*",
+      callback = set_ime
+  })
+
+  vim.api.nvim_create_autocmd({ "CmdlineEnter", "CmdlineLeave" }, {
+      group = ime_input,
+      pattern = "[/\\?]",
+      callback = set_ime
+  })
+end
 ---- disale IME on InsertEnter and restore IME status on Leave
 --if not vim.env.WT_SESSION then
 --  vim.api.nvim_create_augroup("RestoreIME", { clear = true })

@@ -8,10 +8,8 @@ if vim.g.vscode then
   return
 end
 
-local utils = require("utils")
-utils.disable_rtp_plugins()
-utils.setting_shell()
-utils.setting_clipboard()
+local utils = require("envutils")
+utils:setup()
 
 local color = require("core.color")
 
@@ -25,6 +23,4 @@ require('core.keymaps')
 
 color.settings()
 
-if vim.g.neovide then
-  require("configs.neovide")
-end
+require("configs.neovide")

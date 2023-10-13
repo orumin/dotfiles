@@ -1,5 +1,5 @@
-local utils = require("utils")
-local G = utils.globals()
+local utils = require("envutils")
+local G = utils:globals()
 local global_settings = require("configs.global_settings")
 return function()
   local icons = {

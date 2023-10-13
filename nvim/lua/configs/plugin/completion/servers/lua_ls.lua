@@ -3,7 +3,10 @@ local opt = {
     Lua = {
       runtime = {
         version = '5.4',
-        path = vim.split(package.path, ';'),
+        path = {
+          '?.lua',
+          '?/init.lua',
+        }
       },
       workspace = {
         library = {

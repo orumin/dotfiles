@@ -5,8 +5,16 @@ local opts = {
     "Conditional", "Repeat", "Operator", "Structure", "LineNr", "NonText",
     "SignColumn", "CursorLineNr", "EndOfBuffer",
   },
-  extra_groups = {}, -- table: additional groups that should be cleared
+  extra_groups = {        -- table: additional groups that should be cleared
+    "CursorColumn",       -- indent-blankline indent
+    "Whitespace",         -- indent-blankline indent
+    "NormalFloat",        -- plugins with have float panel such as Lazy, Mason, LspInfo
+    "NeoTreeNormal",      -- NeoTree
+    "NeoTreeNormalNC",    -- NeoTree
+  },
   exclude_groups = {}, -- table: groups you don't want to clear
+  lualine_style = "default",
+  --lualine_style = "stealth",
 }
 
 return function ()
@@ -14,5 +22,5 @@ return function ()
   transparent.setup(opts)
   --transparent.clear_prefix("BufferLine")
   transparent.clear_prefix("NeoTree")
-  --transparent.clear_prefix("lualine")
+  transparent.clear_prefix("lualine")
 end

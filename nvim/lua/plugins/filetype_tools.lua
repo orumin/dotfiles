@@ -1,5 +1,3 @@
-local utils = require("utils")
-local G = utils.globals()
 return {
 ---------------------------------------------------------------
 -- filetype plugin

@@ -1,6 +1,8 @@
-local utils = require("utils")
-local G = utils.globals()
+local utils = require("envutils")
+local G = utils:globals()
 local global_opts = {
+  -- font for GUI client
+  guifont = "PlemolJP Console NF:h9",
   -- backup directories
   undofile = true,
   undodir = G.nvim_cache_dir .. G.path_sep .. 'undo',

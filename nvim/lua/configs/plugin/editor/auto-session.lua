@@ -1,5 +1,5 @@
-local utils = require("utils")
-local G = utils.globals()
+local utils = require("envutils")
+local G = utils:globals()
 return {
   log_level = "error",
 

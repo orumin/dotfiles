@@ -1,3 +1,5 @@
+local utils = require("envutils")
+local G = utils:globals()
 return {
 ---------------------------------------------------------------
 --UI
@@ -50,7 +52,7 @@ return {
     event = { "BufWinEnter" },
     config = require("ui.transparent_conf"),
     init = function ()
-      if vim.g.neovide then
+      if G.is_headless or vim.g.neovide then
         vim.g.transparent_enabled = false
       end
     end,

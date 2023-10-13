@@ -1,4 +1,4 @@
-local palette = require("utils").get_palette()
+local palette = require("envutils").get_palette()
 
 return {
 	autoselect_one = true,

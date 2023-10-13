@@ -1,4 +1,4 @@
-local utils = require("utils")
+local utils = require("envutils")
 local palette = utils.get_palette()
 
 local highlight = {
@@ -14,10 +14,10 @@ local highlight = {
 local ibl_opts = {
   indent = {
     char = '▏',
-    highlight = {"CursorColumn", "Whitespace"}
+    highlight = {"IblIndent", "IblWhitespace"},
   },
   whitespace = {
-    highlight = {"CursorColumn", "Whitespace"},
+    highlight = {"IblIndent", "IblWhitespace"},
     remove_blankline_trail = false,
   },
   scope = {
@@ -42,6 +42,8 @@ function M.indent_blankline()
     vim.api.nvim_set_hl(0, highlight[5], {fg=palette.green})
     vim.api.nvim_set_hl(0, highlight[6], {fg=palette.mauve})
     vim.api.nvim_set_hl(0, highlight[7], {fg=palette.teal})
+    vim.api.nvim_set_hl(0, "IblIndent",     {bg=palette.mantle})
+    vim.api.nvim_set_hl(0, "IblWhitespace", {bg=palette.base})
   end)
 
   require("ibl").setup(ibl_opts)

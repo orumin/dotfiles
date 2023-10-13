@@ -23,7 +23,9 @@ local opts = {
     sign = false,
   },
   ui = {
+    theme = "round",
     border = "rounded",
+    winblend = 30,
     title = true,
     actionfix = icons.ui.Spell,
     expand = icons.ui.ArrowClosed,

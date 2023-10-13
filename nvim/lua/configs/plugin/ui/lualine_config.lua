@@ -1,4 +1,4 @@
-local palette = require("utils").get_palette()
+local palette = require("envutils").get_palette()
 local diagnostic_icons = require("configs.ui.icons").get("diagnostics", true)
 local _, auto_session_lib = pcall(require, "auto-session.lib")
 return {

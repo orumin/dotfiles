@@ -1,6 +1,6 @@
-local utils = require("utils")
-local G = utils.globals()
-local dict_dir= G.homedir .. G.path_sep .. ".config" .. G.path_sep .. "skk" .. G.path_sep .. "dict" .. G.path_sep
+local utils = require("envutils")
+local G = utils:globals()
+local dict_dir = G.homedir .. G.path_sep .. ".config" .. G.path_sep .. "skk" .. G.path_sep .. "dict" .. G.path_sep
 return function ()
   vim.fn["skkeleton#config"]({
     eggLikeNewline = true,

@@ -2,13 +2,6 @@ return {
   [1] = {
     {"<ESC><ESC>", function () vim.v.hlsearch = 0 end, mode = "n", desc = "nohlsearch" },
     {"<leader>s", function () vim.o.spell = not vim.o.spell end, mode = "n", desc = "toggle spell"},
---    -- terminal
---    {"vt", util.open_float_term, mode = "n", desc = "open terminal with float window"},
---    {"vst", function ()
---      vim.cmd("belowright terminal")
---      vim.api.nvim_win_set_height(0, 25)
---    end, mode = "n", desc = "open terminal belowright"},
-    --
     {"<S-c>", function ()
       local it = vim.iter(vim.opt.listchars:get())
       local space = it:any(function (k,_) return k == "space" end)
@@ -17,7 +10,8 @@ return {
       else
         vim.opt.listchars:prepend("space:⋅")
       end
-    end, mode = "n", desc = "toggle display 'space'"}
+    end, mode = "n", desc = "toggle display 'space'"},
+    {"<leader>di", function () vim.notify(vim.inspect(vim.inspect_pos())) end, mode = "n", desc = "inspect at cursor"},
   },
   ["accelerated_jk"] = {
     { "j", "<Plug>(accelerated_jk_gj)", mode = "n", desc = "accelerated-jk"},
@@ -36,7 +30,7 @@ return {
       end
       require("neo-tree.command").execute({
         toggle = true,
-        dir = require("utils").get_root(),
+        dir = require("envutils").get_root(),
       })
     end,
     desc = "toggle NeoTree" }
