@@ -37,6 +37,7 @@ local uv = vim.uv
 ---@field globals fun(utils): globals
 ---@field get_palette fun(): { [string]: string }
 ---@field get_root fun(): string
+---@field get_keymap_opts fun(table): table
 ---@field setup fun(utils)
 
 ---@type utils
@@ -189,6 +190,17 @@ local M = {
     end
 
     return palette
+  end,
+
+  get_keymap_opts = function(keys)
+    local skip = { mode = true, ft = true, rhs = true, lhs = true }
+    local ret = {}
+    for k, v in pairs(keys) do
+      if type(k) ~= "number" and not skip[k] then
+        ret[k] = v
+      end
+    end
+    return ret
   end,
 
   disable_rtp_plugins = function ()

@@ -11,18 +11,29 @@ return {
 --    cond = false,
 --    optional = true,
 --  },
+  -- startup display
   {
     "goolord/alpha-nvim",
     lazy = true,
     event = "VimEnter",
     config  = require("ui.dashboard")
   },
+  -- show buffer like tab
   {
     "akinsho/bufferline.nvim",
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     keys = require("configs.keymap").bufferline,
     config  = require("ui.bufferline_config")
+  },
+  -- breadcrumbs (winbar)
+  {
+    "Bekaboo/dropbar.nvim",
+    lazy = true,
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    dependencies = {
+      "nvim-telescope/telescope-fzf-native.nvim"
+    },
   },
   -- color schemes
   {
@@ -104,6 +115,7 @@ return {
     dependencies = {
       "lewis6991/gitsigns.nvim",
       "mfussenegger/nvim-dap",
+      "jbyuki/venn.nvim",
     },
     config = require("ui.hydra_conf")
   }

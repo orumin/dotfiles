@@ -8,19 +8,24 @@ if vim.g.vscode then
   return
 end
 
+-- load utilities
 local utils = require("envutils")
 utils:setup()
 
+-- should call before load 'core.plugin'
 local color = require("core.color")
 
+-- load plugins
 require('core.plugin')
 
+-- basic settings
 require('core.autocmd')
 require('core.basic')
-require('core.diagnostic')
 --require('core.encoding')
 require('core.keymaps')
-
+require('core.lsp').setup()
+-- setup colorscheme
 color.settings()
 
+-- setup neovide
 require("configs.neovide")

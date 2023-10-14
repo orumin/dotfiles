@@ -1,11 +1,6 @@
-local utils = require("envutils")
-local G = utils:globals()
-
-return function ()
-  local Hydra = require("hydra")
-  local cmd = require("hydra.keymap-util").cmd
+local function setup_gitmode()
   local gitsigns = require("gitsigns")
-  local neogit_hint = [[
+  local hint = [[
  _J_: next hunk   _s_: stage hunk        _d_: show deleted   _b_: blame line
  _K_: prev hunk   _u_: undo last stage   _p_: preview hunk   _B_: blame show full
  ^ ^              _S_: stage buffer      ^ ^                 _/_: show base file
@@ -13,9 +8,9 @@ return function ()
  ^ ^              _<Enter>_: Neogit              _q_: exit
 ]]
 
-  local neogit_ui = {
+  return {
     name = "Git",
-    hint = neogit_hint,
+    hint = hint,
     config = {
       color = "pink",
       invoke_on_body = true,
@@ -71,8 +66,11 @@ return function ()
       { "q", nil, { exit = true, nowait = true, desc = "exit" } },
     }
   }
+end
 
-  local telescope_hint = [[
+local function setup_telescope()
+  local cmd = require("hydra.keymap-util").cmd
+  local hint = [[
                  _f_: files       _m_: marks
    🭇🬭🬭🬭🬭🬭🬭🬭🬭🬼    _o_: old files   _g_: live grep
   🭉🭁🭠🭘    🭣🭕🭌🬾   _p_: projects    _/_: search in file
@@ -85,9 +83,9 @@ return function ()
                  _<Enter>_: Telescope           _<Esc>_
 ]]
 
-  local telescope_ui = {
+  return {
      name = 'Telescope',
-     hint = telescope_hint,
+     hint = hint,
      config = {
         color = 'teal',
         invoke_on_body = true,
@@ -117,9 +115,11 @@ return function ()
         { '<Esc>', nil, { exit = true, nowait = true } },
      }
   }
+end
 
+local function setup_dapmode()
   local dap = require("dap")
-  local dap_hint = [[
+  local hint = [[
  _n_: step over   _s_: Continue/Start   _b_: Breakpoint     _K_: Eval
  _i_: step into   _x_: Quit             ^ ^                 ^ ^
  _o_: step out    _X_: Stop             ^ ^
@@ -128,9 +128,9 @@ return function ()
  ^ ^              _q_: exit
 ]]
 
-  local dap_ui = {
+  return {
     name = 'dap',
-    hint = dap_hint,
+    hint = hint,
     config = {
       color = 'pink',
       invoke_on_body = true,
@@ -160,8 +160,47 @@ return function ()
       { 'q', nil, {exit=true, nowait=true} },
     }
   }
+end
 
-  Hydra(neogit_ui)
-  Hydra(telescope_ui)
-  Hydra(dap_ui)
+local function setup_venn()
+  local hint = [[
+ Arrow^^^^^^   Select region with <C-v>
+ ^ ^ _K_ ^ ^   _f_: surround it with box
+ _H_ ^ ^ _L_                      _<ESC>_
+ ^ ^ _J_ ^ ^
+]]
+
+  return {
+    name = "Draw Diagram",
+    hint = hint,
+    config = {
+      color = 'pink',
+      invoke_on_body = true,
+      hint = {
+        position = 'bottom',
+        border = 'rounded'
+      },
+      on_enter = function ()
+        vim.o.virtualedit = "all"
+      end,
+    },
+    mode = "n",
+    body = "<leader>v",
+    heads = {
+      {"H", "<C-v>h:VBox<CR>", {silent = true}},
+      {"J", "<C-v>j:VBox<CR>", {silent = true}},
+      {"K", "<C-v>k:VBox<CR>", {silent = true}},
+      {"L", "<C-v>l:VBox<CR>", {silent = true}},
+      {"f", ":VBox<CR>", {silent = true, mode = "v"}},
+      {"<ESC>", nil, {exit = true}},
+    }
+  }
+end
+
+return function ()
+  local Hydra = require("hydra")
+  Hydra(setup_gitmode())
+  Hydra(setup_telescope())
+  Hydra(setup_dapmode())
+  Hydra(setup_venn())
 end

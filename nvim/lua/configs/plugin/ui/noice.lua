@@ -8,15 +8,15 @@ return {
   lsp = {
     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
     override = {
-      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-      ["vim.lsp.util.stylize_markdown"] = true,
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+      ["vim.lsp.util.stylize_markdown"] = false,
       ["cmp.entry.get_documentation"] = true,
     },
     hover = {
       enabled = false,
     },
     signature = {
-      enabled = true,
+      enabled = false,
       auto_open = {
         enabled = true,
         trigger = true,

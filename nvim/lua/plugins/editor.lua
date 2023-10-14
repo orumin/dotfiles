@@ -39,10 +39,11 @@ return {
     "nvim-telescope/telescope.nvim",
     lazy = true,
     cmd = "Telescope",
-    opts = require("editor.telescope"),
+    config = require("editor.telescope_conf"),
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
+      "fdschmidt93/telescope-egrepify.nvim"
     }
   },
 ---------------------------------------------------------------

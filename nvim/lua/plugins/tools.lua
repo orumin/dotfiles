@@ -57,6 +57,7 @@ return {
     lazy = true,
     ft = "gitrebase"
   },
+  -- diff tool
   {
     "sindrets/diffview.nvim",
     lazy = true,
@@ -105,6 +106,11 @@ return {
       "asciidoc", "gitcommit", "gitrebase", "help", "hybrid", "markdown", "pandoc", "rst", "tex", "text", "vcs-commit"
     },
   },
+  -- writing ascii diagram
+  {
+    "jbyuki/venn.nvim",
+    lazy = true,
+  },
   -- measure startup time
   {
     "dstein64/vim-startuptime",
@@ -120,16 +126,36 @@ return {
     lazy = true,
     cmd = "Vinarise",
   },
+  -- godbolt Compiler Explorer
+  {
+    "krady21/compiler-explorer.nvim",
+    lazy = true,
+    cmd = {
+      "CECompile",
+      "CECompileLive",
+      "CEFormat",
+      "CEAddLibrary",
+      "CELoadExample",
+      "CEOpenWebsite",
+      "CEDeleteCache",
+      "CEShowTooltip",
+      "CEGotoLabel"
+    }
+  },
   -- translation
   {
-    "niuiic/translate.nvim",
+    "voldikss/vim-translator",
     lazy = true,
-    cmd = "TransToEN",
-    keys = require("configs.keymap").translate,
-    dependencies = {
-      "niuiic/core.nvim"
-    },
-    opts = require("tools.translate_opts"),
+    keys = require("configs.keymap").translator,
+    config = require("tools.translator"),
+    cmd = {
+      "Translate",
+      "TranslateW",
+      "TranslateR",
+      "TranslateX",
+      "TranslateH",
+      "TranslateL",
+    }
   },
   -- search nerd font icons
   {

@@ -48,6 +48,12 @@ local lazy_opts = {
   ui = {
     wrap = true,
     border = "rounded",
+    margin = {
+      top = 0,
+      right = 0,
+      botoom = 0,
+      left = 0
+    },
     icons = {
       cmd = icons.misc.Code,
       config = icons.ui.Gear,

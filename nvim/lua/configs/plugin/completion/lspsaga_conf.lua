@@ -8,10 +8,11 @@ local opts = {
     layout = 'float'
   },
   hover = {
+    enable = false,
     max_width = 2.0,
   },
   symbol_in_winbar = {
-    enable = true,
+    enable = false,
     separator = " " .. icons.ui.Separator,
     show_file = true,
     color_mode = true,

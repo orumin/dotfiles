@@ -62,7 +62,7 @@ vim.g.neovide_fullscreen = false
 vim.g.neovide_remember_window_size = true
 
 -- Profiler
-vim.g.neovide_profiler = true
+vim.g.neovide_profiler = false
 
 --#################################
 -- Input settings
