@@ -44,7 +44,14 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
       "fdschmidt93/telescope-egrepify.nvim",
-      "folke/trouble.nvim"
+      "folke/trouble.nvim",
+      {
+        "rmagatti/session-lens",
+        dependencies = {
+          "rmagatti/auto-session"
+        }
+      },
+      "debugloop/telescope-undo.nvim"
     }
   },
 ---------------------------------------------------------------

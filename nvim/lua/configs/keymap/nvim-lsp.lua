@@ -4,7 +4,10 @@ return {
       { "gI", vim.lsp.buf.implementation, mode = "n", silent = true, desc = "LSP implementation" },
     },
     references = {
-      { "gh", "<Cmd>Telescope lsp_references<CR>", mode = "n", silent = true, desc = "LSP fuzzy find references" },
+      { "gh", function ()
+        local builtin = require("telescope.builtin")
+        builtin.lsp_references()
+      end, mode = "n", silent = true, desc = "LSP fuzzy find references" },
       { "gr", vim.lsp.buf.references, mode = "n", silent = true, desc = "LSP references" },
     },
     rename = {
@@ -51,11 +54,17 @@ return {
   callHierarchy = {
     incomingCalls = {
 --      { "<leader>ci", vim.lsp.buf.incoming_calls, mode ="n", silent = true, desc = "LSP incoming_calls" },
-      { "<leader>ci", "<Cmd>Telescope lsp_incoming_calls<CR>", mode ="n", silent = true, desc = "LSP incoming_calls" },
+      { "<leader>ci", function ()
+        local builtin = require("telescope.builtin")
+        builtin.lsp_incoming_calls()
+      end, mode ="n", silent = true, desc = "LSP incoming_calls" },
     },
     outgoingCalls = {
 --      { "<leader>co", vim.lsp.buf.outgoing_calls, mode ="n", silent = true, desc = "LSP outgoing_calls" },
-      { "<leader>co", "<Cmd>Telescope lsp_outgoing_calls<CR>", mode ="n", silent = true, desc = "LSP outgoing_calls" },
+      { "<leader>co", function ()
+        local builtin = require("telescope.builtin")
+        builtin.lsp_outgoin_calls()
+      end, mode ="n", silent = true, desc = "LSP outgoing_calls" },
     },
   },
   workspace = {

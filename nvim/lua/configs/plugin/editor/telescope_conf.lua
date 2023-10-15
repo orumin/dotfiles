@@ -1,9 +1,9 @@
 return function ()
-  local actions = require("telescope.actions")
   local trouble = require("trouble.providers.telescope")
   local egrep_actions = require("telescope._extensions.egrepify.actions")
 
-  require("telescope").setup({
+  local telescope = require("telescope")
+  telescope.setup({
     defaults = {
       -- Default configuration for telescope goes here:
       -- config_key = value,
@@ -75,4 +75,7 @@ return function ()
       noice = {}
     }
   })
+
+  telescope.load_extension("session-lens")
+  telescope.load_extension("undo")
 end
