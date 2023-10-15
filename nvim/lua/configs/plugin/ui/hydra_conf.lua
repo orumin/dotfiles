@@ -1,4 +1,5 @@
 local function setup_gitmode()
+  local cmd = require("hydra.keymap-util").cmd
   local gitsigns = require("gitsigns")
   local hint = [[
  _J_: next hunk   _s_: stage hunk        _d_: show deleted   _b_: blame line
@@ -54,7 +55,7 @@ local function setup_gitmode()
         end,
         { expr = true, desc = "prev hunk" }
       },
-      { "s", ":Gitsigns stage_hunk<CR>", { silent = true, desc = "stage hunk" } },
+      { "s", cmd "Gitsigns stage_hunk", { silent = true, desc = "stage hunk" } },
       { "u", gitsigns.undo_stage_hunk, { desc = "undo last stage" } },
       { "S", gitsigns.stage_buffer, { desc = "stage buffer" } },
       { "p", gitsigns.preview_hunk, { desc = "preview hunk" } },
@@ -62,7 +63,7 @@ local function setup_gitmode()
       { "b", gitsigns.blame_line, { desc = "blame" } },
       { "B", function () gitsigns.blame_line({full = true}) end, { desc = "blame show full" } },
       { "/", gitsigns.show, { exit = true, desc = "show base file" } }, -- show the base of the file
-      { "<Enter>", "<Cmd>Neogit<CR>", { exit = true, desc = "Neogit" } },
+      { "<Enter>", cmd "Neogit", { exit = true, desc = "Neogit" } },
       { "q", nil, { exit = true, nowait = true, desc = "exit" } },
     }
   }
