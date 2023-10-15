@@ -36,16 +36,6 @@ return {
   },
   -- pretty good LSP UI
   {
-    "nvimdev/lspsaga.nvim",
-    lazy = true,
-    event = "LspAttach",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    config = require("lsp.lspsaga_conf"),
-  },
-  {
     "folke/trouble.nvim",
     lazy = true,
     cmd = { "Trouble", "TroubleToggle", "TroubleRefresh" },

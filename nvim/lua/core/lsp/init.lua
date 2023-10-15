@@ -238,6 +238,45 @@ local function make_capabilities()
 	return capabilities
 end
 
+---@param err lsp.ResponseError|nil
+---@param result lsp.Location|lsp.LocationLink
+---@param context lsp.HandlerContext
+---@param config table|nil
+---@return any?
+local function preview_location_cb(err, result, context, config)
+  if not result or vim.tbl_isempty(result) then
+    vim.lsp.log.info(context, "No location found. show hover doc instead")
+    vim.lsp.hover()
+    return nil
+  end
+  local location = vim.tbl_islist(result) and result[1] or result
+  local bufnr, winnr = vim.lsp.util.preview_location(location, {
+    border = "rounded"
+  })
+end
+
+---@return table<integer, integer> client_request_ids Map of client-id:request-id pairs
+---for all successful requests.
+---@return function _cancel_all_requests Function which can be used to
+---cancel all the requests. You could instead
+---iterate all clients and call their `cancel_request()` methods.
+M.peek_definition = function()
+  local methods = vim.lsp.protocol.Methods
+  local params = vim.lsp.util.make_position_params()
+  return vim.lsp.buf_request(0, methods.textDocument_definition, params, preview_location_cb)
+end
+
+---@return table<integer, integer> client_request_ids Map of client-id:request-id pairs
+---for all successful requests.
+---@return function _cancel_all_requests Function which can be used to
+---cancel all the requests. You could instead
+---iterate all clients and call their `cancel_request()` methods.
+M.peek_type_definition = function()
+  local methods = vim.lsp.protocol.Methods
+  local params = vim.lsp.util.make_position_params()
+  return vim.lsp.buf_request(0, methods.textDocument_typeDefinition, params, preview_location_cb)
+end
+
 M.setup_handlers = function()
   local icons = {
     ui = require("configs.ui.icons").get("ui"),

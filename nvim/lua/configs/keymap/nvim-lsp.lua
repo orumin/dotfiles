@@ -4,20 +4,27 @@ return {
       { "gI", vim.lsp.buf.implementation, mode = "n", silent = true, desc = "LSP implementation" },
     },
     references = {
-      { "gh", "<Cmd>Lspsaga finder<CR>", mode = "n", silent = true, desc = "LSP fuzzy find references" },
+      { "gh", "<Cmd>Telescope lsp_references<CR>", mode = "n", silent = true, desc = "LSP fuzzy find references" },
       { "gr", vim.lsp.buf.references, mode = "n", silent = true, desc = "LSP references" },
     },
     rename = {
-      { "<leader>rpn", "<Cmd>Lspsaga project_replace<CR>", mode = "n", silent = true, desc = "LSP workspace rename" },
+      --{ "<leader>rpn", "<Cmd>Lspsaga project_replace<CR>", mode = "n", silent = true, desc = "LSP workspace rename" },
       { "<leader>rn", vim.lsp.buf.rename, mode = "n", silent = true, desc = "LSP rename" },
     },
     definition = {
       { "gD", vim.lsp.buf.definition, mode = "n", silent = true, desc = "LSP goto_definition" },
-      { "gd", "<Cmd>Lspsaga peek_definition<CR>", desc = "LSP peek_definition" },
+      { "gd", function ()
+        local lsp = require("core.lsp")
+        lsp.peek_definition()
+      end, desc = "LSP peek_definition" },
     },
     typeDefinition = {
       { "<leader>D", vim.lsp.buf.declaration, mode = "n", silent = true, desc = "LSP peek_type_definition" },
-      { "gs", "<Cmd>Lspsaga goto_type_definition<CR>", mode = "n", silent = true, desc = "LSP goto_type_definition" },
+      { "gsg", vim.lsp.buf.type_definition, mode = "n", silent = true, desc = "LSP goto_type_definition" },
+      { "gsp", function ()
+        local lsp = require("core.lsp")
+        lsp.peek_type_definition()
+      end, mode = "n", silent = true, desc = "LSP peek_type_definition" },
     },
     documentSymbol = {
       { "go", "<Cmd>SymbolsOutline<CR>", mode ="n", silent = true, desc = "LSP show symbol outline" },
@@ -45,13 +52,13 @@ return {
     },
   },
   callHierarchy = {
-    ncomingCalls = {
+    incomingCalls = {
 --      { "<leader>ci", vim.lsp.buf.incoming_calls, mode ="n", silent = true, desc = "LSP incoming_calls" },
-      { "<leader>ci", "<Cmd>Lspsaga incoming_calls<CR>", mode ="n", silent = true, desc = "LSP incoming_calls" },
+      { "<leader>ci", "<Cmd>Telescope lsp_incoming_calls<CR>", mode ="n", silent = true, desc = "LSP incoming_calls" },
     },
     outgoingCalls = {
 --      { "<leader>co", vim.lsp.buf.outgoing_calls, mode ="n", silent = true, desc = "LSP outgoing_calls" },
-      { "<leader>co", "<Cmd>Lspsaga outgoing_calls<CR>", mode ="n", silent = true, desc = "LSP outgoing_calls" },
+      { "<leader>co", "<Cmd>Telescope lsp_outgoing_calls<CR>", mode ="n", silent = true, desc = "LSP outgoing_calls" },
     },
   },
   workspace = {

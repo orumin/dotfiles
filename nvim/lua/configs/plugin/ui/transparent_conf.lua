@@ -11,7 +11,7 @@ local opts = {
     "NormalFloat",        -- plugins with have float panel such as Lazy, Mason, LspInfo
     "NeoTreeNormal",      -- NeoTree
     "NeoTreeNormalNC",    -- NeoTree
-    "SagaFloat"           -- Lspsaga
+    "TroubleNormal"       -- trouble
   },
   exclude_groups = {}, -- table: groups you don't want to clear
   lualine_style = "default",
