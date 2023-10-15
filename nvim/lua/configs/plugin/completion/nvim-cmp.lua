@@ -1,5 +1,3 @@
-local utils = require("envutils")
-local G = utils:globals()
 local settings = require("configs.global_settings")
 return function()
   local icons = {
@@ -9,11 +7,7 @@ return function()
   }
 
   local cmp = require("cmp")
-
-  local ok, luasnip = pcall(require, "luasnip")
-  if not ok then
-    G.pr_error("error loading luasnip")
-  end
+  local luasnip = require( "luasnip")
 
   local winopts = cmp.config.window.bordered()
   local opts = {
@@ -31,17 +25,17 @@ return function()
         string.format(" %s %s", lspkind_icons[vim_item.kind] or icons.cmp.undefined, vim_item.kind or "")
 
         vim_item.menu = setmetatable({
-          cmp_tabnine = "[TN]",
-          copilot = "[CPLT]",
-          buffer = "[BUF]",
-          orgmode = "[ORG]",
-          nvim_lsp = "[LSP]",
-          nvim_lua = "[LUA]",
-          path = "[PATH]",
-          tmux = "[TMUX]",
-          treesitter = "[TS]",
-          luasnip = "[SNIP]",
-          spell = "[SPELL]",
+          cmp_tabnine = icons.cmp.cmp_tabnine .. "[TN]",
+          copilot = icons.cmp.copilot .. "[CPLT]",
+          buffer = icons.cmp.buffer .. "[BUF]",
+          orgmode = icons.cmp.orgmode .. "[ORG]",
+          nvim_lsp = icons.cmp.nvim_lsp .. "[LSP]",
+          nvim_lua = icons.cmp.nvim_lua .. "[LUA]",
+          path = icons.cmp.path .. "[PATH]",
+          tmux = icons.cmp.tmux .. "[TMUX]",
+          treesitter = icons.cmp.treesitter .. "[TS]",
+          luasnip = icons.cmp.luasnip .. "[SNIP]",
+          spell = icons.cmp.spell .. "[SPELL]",
           }, {
             __index = function()
               return "[BTN]" -- builtin/unknown source names
@@ -65,6 +59,7 @@ return function()
       settings.use_skk and {name = "skkeleton"} or {},
       {name = "nvim_lsp", max_item_count = 100 },
       {name = "luasnip", option = { show_autosnippets = true } },
+      {name = "luasnip_choice"},
       {name = "buffer"},
       {name = "path"},
       {name = "cmdline_history"},
@@ -154,11 +149,9 @@ return function()
     )
   })
 
-  local cmp_pandoc
-  ok, cmp_pandoc = pcall(require, "cmp_pandoc")
-  if ok then
-    cmp_pandoc.setup()
-  else
-    G.pr_error("error loading cmp_pandoc")
-  end
+  require("cmp_git").setup()
+  require("cmp_pandoc").setup()
+  require("cmp_luasnip_choice").setup({
+    auto_open = true
+  })
 end

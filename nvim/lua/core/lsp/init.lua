@@ -29,7 +29,9 @@ local function on_lsp_attach(client, bufnr)
   local methods = vim.lsp.protocol.Methods
 
   vim.wo.signcolumn = 'yes'
+  vim.bo[bufnr].formatexpr = "v:lua.vim.lsp.formatexpr()"
   vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+  vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
 
   for k, v in pairs(keymaps["textDocument"]) do
     if client.supports_method(methods["textDocument_" .. k]) then
@@ -88,31 +90,40 @@ local function on_lsp_attach(client, bufnr)
   end
 
   if client.supports_method(methods["textDocument_inlayHint"]) then
-      local inlay_hints_group = vim.api.nvim_create_augroup('LSP_inlayHints', { clear = false })
+    local inlay_hints_group = vim.api.nvim_create_augroup('LSP_inlayHints', { clear = false })
 
-      -- Initial inlay hint display.
-      -- Idk why but without the delay inlay hints aren't displayed at the very start.
-      vim.defer_fn(function()
-          local mode = vim.api.nvim_get_mode().mode
-          vim.lsp.inlay_hint(bufnr, mode == 'n' or mode == 'v')
-      end, 500)
+    -- Initial inlay hint display.
+    -- Idk why but without the delay inlay hints aren't displayed at the very start.
+    vim.defer_fn(function()
+      local mode = vim.api.nvim_get_mode().mode
+      vim.lsp.inlay_hint(bufnr, mode == 'n' or mode == 'v')
+    end, 500)
 
-      vim.api.nvim_create_autocmd('InsertEnter', {
-          group = inlay_hints_group,
-          desc = 'Enable inlay hints',
-          buffer = bufnr,
-          callback = function()
-              vim.lsp.inlay_hint(bufnr, false)
-          end,
-      })
-      vim.api.nvim_create_autocmd('InsertLeave', {
-          group = inlay_hints_group,
-          desc = 'Disable inlay hints',
-          buffer = bufnr,
-          callback = function()
-              vim.lsp.inlay_hint(bufnr, true)
-          end,
-      })
+    vim.api.nvim_create_autocmd('InsertEnter', {
+      group = inlay_hints_group,
+      desc = 'Enable inlay hints',
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.inlay_hint(bufnr, false)
+      end,
+    })
+    vim.api.nvim_create_autocmd('InsertLeave', {
+      group = inlay_hints_group,
+      desc = 'Disable inlay hints',
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.inlay_hint(bufnr, true)
+      end,
+    })
+
+    local comment_hl = vim.api.nvim_get_hl(0, {name = "Comment"})
+    local cursorline_hl = vim.api.nvim_get_hl(0, {name = "CursorLine"})
+    vim.api.nvim_set_hl(0, "LspInlayHint", {
+      fg = comment_hl.fg,
+      bg = cursorline_hl.bg,
+      cterm = comment_hl.cterm,
+      italic = comment_hl.italic
+    })
   end
 end
 
@@ -323,7 +334,7 @@ M.setup = function()
         return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
       end
     },
-    signs = false
+    signs = true
   })
   -- Update mappings when registering dynamic capabilites.
   local register_method = vim.lsp.protocol.Methods.client_registerCapability

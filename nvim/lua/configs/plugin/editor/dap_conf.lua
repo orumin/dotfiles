@@ -1,6 +1,10 @@
 local utils = require("envutils")
 local G = utils:globals()
 
+local icons = {
+  dap = require("configs.ui.icons").get("dap")
+}
+
 local function setup_cpp()
   local dap = require("dap")
 
@@ -112,8 +116,14 @@ local function setup_lua()
 end
 
 return function ()
+  require("dap")
   local dapui = require("dapui")
   local dap_virt_text = require("nvim-dap-virtual-text")
+
+  vim.fn.sign_define("DapBreakpoint", { text = icons.dap.Breakpoint, texthl = "DapBreakpoint", linehl = "", numhl = ""})
+  vim.fn.sign_define("DapBreakpointCondition", { text = icons.dap.BreakpointCondition, texthl = "DapBreakpointCondition", linehl = "", numhl = ""})
+  vim.fn.sign_define("DapLogPoint", { text = icons.dap.LogPoint, texthl = "DapLogPoint", linehl = "", numhl = ""})
+
   setup_bash()
   setup_cpp()
   setup_lua()

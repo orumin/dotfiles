@@ -6,11 +6,12 @@ local opts = {
     "SignColumn", "CursorLineNr", "EndOfBuffer",
   },
   extra_groups = {        -- table: additional groups that should be cleared
-    "CursorColumn",       -- indent-blankline indent
-    "Whitespace",         -- indent-blankline indent
+    "IblIndent",          -- indent-blankline indent
+    "IblWhitespace",      -- indent-blankline indent
     "NormalFloat",        -- plugins with have float panel such as Lazy, Mason, LspInfo
     "NeoTreeNormal",      -- NeoTree
     "NeoTreeNormalNC",    -- NeoTree
+    "SagaFloat"           -- Lspsaga
   },
   exclude_groups = {}, -- table: groups you don't want to clear
   lualine_style = "default",
@@ -22,5 +23,5 @@ return function ()
   transparent.setup(opts)
   --transparent.clear_prefix("BufferLine")
   transparent.clear_prefix("NeoTree")
-  transparent.clear_prefix("lualine")
+  --transparent.clear_prefix("lualine")
 end

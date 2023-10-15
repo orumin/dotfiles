@@ -17,18 +17,16 @@ local clangd_settings = {
     semanticHighlighting = true,
   },
   on_attach = function (_, bufnr)
-    vim.wo.signcolumn = 'yes'
-    vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-    vim.keymap.set("n", "<C-k>", "<Cmd>Lspsaga hover_doc<CR>", { buffer = bufnr })
-
-    require("clangd_extensions.inlay_hints").setup_autocmd()
-    require("clangd_extensions.inlay_hints").set_inlay_hints()
+    vim.keymap.set("n", "<C-k>", vim.lsp.buf.hover, { buffer = bufnr })
+    vim.keymap.set("n", "K", function()
+      vim.cmd(vim.o.keywordprg .. " " .. vim.fn.expand("<cword>"))
+    end, { buffer = bufnr, desc = "search document by cword" })
   end,
 }
 
 local clangd_extensions_opts = {
   inlay_hints = {
-    inline = vim.fn.has("nvim-0.10") == 1,
+    inline = false,
     -- Options other than `highlight' and `priority' only work
     -- if `inline' is disabled
     -- Only show inlay hints for the current line

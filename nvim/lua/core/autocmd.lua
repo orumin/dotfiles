@@ -69,7 +69,7 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
 --###############################################################
 vim.api.nvim_create_augroup("overrideKeywordprg", {clear = true})
 -- override keywordprg to man command
-vim.api.nvim_create_autocmd({'FileTYpe'}, {
+vim.api.nvim_create_autocmd({'FileType'}, {
   group = 'overrideKeywordprg',
   pattern = {"c", "cpp", "fish", "help", "man", "objc", "objcpp", "sh", "tmux", "toggleterm", "vim", "zsh"},
   callback = function (ev)

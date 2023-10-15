@@ -7,15 +7,14 @@ return function ()
       mode = "buffers",
       separator_style = "slant",
       diagnostics = false,
-      numbers = function (opts)
-        return string.format('%s %s', opts.raise(opts.id), opts.lower(opts.ordinal))
-      end,
+      numbers = "ordinal",
       sort_by = "insert_at_end",
-      buffer_close_icon = icons.Close,
-      modified_icon = icons.Circle,
-      close_icon = icons.Close_alt,
-      left_trunc_marker = icons.Left,
-      right_trunc_marker = icons.Right,
+      right_mouse_command = "bdelete! %d",
+      left_mouse_command = "buffer %d",
+      middle_mouse_command = nil,
+      indicator = {
+        style = "underline"
+      },
       offsets = {
         {
           filetype = "neo-tree",
@@ -27,8 +26,8 @@ return function ()
           padding = 1,
         },
         {
-          filetype = "lspsagaoutline",
-          text = "Lspsaga Outline",
+          filetype = "Outline",
+          text = "LSP symbols outline",
           text_align = "center",
           padding = 1,
         }
@@ -38,6 +37,17 @@ return function ()
         local current_fpath = vim.fs.normalize(vim.api.nvim_buf_get_name(bufnr))
         return not not current_fpath:find(cwd, 0, true)
       end,
+      buffer_close_icon = icons.Close,
+      modified_icon = icons.Circle,
+      close_icon = icons.Close_alt,
+      left_trunc_marker = icons.Left,
+      right_trunc_marker = icons.Right,
+      color_icons = true,
+      show_buffer_icons = true,
+      show_buffer_close_icons = true,
+      show_close_icon = true,
+      show_tab_indicators = true,
+
     },
     highlights = {},
   }
@@ -50,13 +60,14 @@ return function ()
       highlights = require("catppuccin.groups.integrations.bufferline").get({
         styles = { "italic", "bold" },
         custom = {
+          all = {
+            fill = { bg = "#000000" },
+          },
           mocha = {
-            hint = { fg = palette.rosewater },
-            hint_visible = { fg = palette.rosewater },
-            hint_selected = { fg = palette.rosewater },
-            hint_diagnostic = { fg = palette.rosewater },
-            hint_diagnostic_visible = { fg = palette.rosewater },
-            hint_diagnostic_selected = { fg = palette.rosewater },
+            background = { fg = palette.txt }
+          },
+          latte = {
+            background = { fg = "#000000" }
           }
         }
       })

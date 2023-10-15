@@ -11,8 +11,10 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "jay-babu/mason-nvim-dap.nvim",
       {
-        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-      }
+        "simrat39/symbols-outline.nvim",
+        config = require("lsp.symbols_outline_conf")
+      },
+      "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     },
     init = function ()
       -- disable lsp watcher. Too slow on linux
@@ -30,7 +32,7 @@ return {
     "mfussenegger/nvim-lint",
     lazy = true,
     event = "VeryLazy",
-    config = require("completion.linter_config"),
+    config = require("lsp.linter_config"),
   },
   -- pretty good LSP UI
   {
@@ -41,14 +43,7 @@ return {
       "nvim-tree/nvim-web-devicons",
       "nvim-treesitter/nvim-treesitter",
     },
-    opts = require("completion.lspsaga_conf"),
-    config = function(_, opts)
-      local ok, catppuccin_kind = pcall(require, "catppuccin.groups.integrations.lsp_saga")
-      if ok then
-        opts.ui.kind = catppuccin_kind.custom_kind()
-      end
-      require("lspsaga").setup(opts)
-    end
+    config = require("lsp.lspsaga_conf"),
   },
   {
     "folke/trouble.nvim",
@@ -58,7 +53,7 @@ return {
       "nvim-tree/nvim-web-devicons"
     },
     keys = require("configs.keymap").trouble,
-    opts = require("completion.trouble"),
+    opts = require("lsp.trouble"),
   },
 }
 

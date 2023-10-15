@@ -3,25 +3,22 @@ local icons = {
   type = require("configs.ui.icons").get("type", true),
   ui = require("configs.ui.icons").get("ui"),
 }
+
 local opts = {
   callhierarchy = {
     layout = 'float'
   },
   hover = {
     enable = false,
-    max_width = 2.0,
   },
   symbol_in_winbar = {
     enable = false,
-    separator = " " .. icons.ui.Separator,
-    show_file = true,
-    color_mode = true,
   },
   code_action = {
     extend_gitsigns = true,
   },
   lightbulb = {
-    sign = false,
+    sign = true,
   },
   ui = {
     theme = "round",
@@ -77,4 +74,10 @@ local opts = {
   }
 }
 
-return opts
+return function ()
+  local ok, catppuccin_kind = pcall(require, "catppuccin.groups.integrations.lsp_saga")
+  if ok then
+    opts.ui.kind = catppuccin_kind.custom_kind()
+  end
+  require("lspsaga").setup(opts)
+end
