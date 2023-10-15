@@ -255,7 +255,7 @@ local M = {
   end,
 
   setting_shell = function(self)
-    if self.G.globals.is_win then
+    if self:globals().is_win then
       if not (vim.fn.executable("pwsh") == 1 or vim.fn.executable("powershell") == 1) then
         vim.notify(
           [[
@@ -310,14 +310,14 @@ local M = {
         },
         cache_enabled = 0,
       }
-    elseif self.G.globals.is_mac then
+    elseif self:globals().is_mac then
       vim.g.clipboard = {
         name = "macOS-clipboard",
         copy = { ["+"] = "pbcopy", ["*"] = "pbcopy", },
         paste = { ["+"] = "pbpaste", ["*"] = "pbpaste", },
         cache_enabled = 0,
       }
-    elseif self.G.globals.is_win or self.G.globals.is_wsl then
+    elseif self:globals().is_win or self:globals().is_wsl then
       if vim.fn.executable("win32yank") == 1 then
         vim.g.clipboard = {
           name = "win32yank-Clipboard",
