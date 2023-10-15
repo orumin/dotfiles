@@ -29,15 +29,7 @@ return {
   [1] = {
     {"<ESC><ESC>", function () vim.v.hlsearch = 0 end, mode = "n", desc = "nohlsearch" },
     {"<leader>s", function () vim.o.spell = not vim.o.spell end, mode = "n", desc = "toggle spell"},
-    {"<S-c>", function ()
-      local it = vim.iter(vim.opt.listchars:get())
-      local space = it:any(function (k,_) return k == "space" end)
-      if space then
-        vim.opt.listchars:remove("space")
-      else
-        vim.opt.listchars:prepend("space:⋅")
-      end
-    end, mode = "n", desc = "toggle display 'space'"},
+    {"<S-c>", "<Cmd>ListcharsToggle<CR>", mode = "n", desc = "toggle display 'tab,space,eol'"},
     {"<leader>di", function () vim.notify(vim.inspect(vim.inspect_pos())) end, mode = "n", desc = "inspect at cursor"},
   },
   ["accelerated_jk"] = {

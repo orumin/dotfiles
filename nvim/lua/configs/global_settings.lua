@@ -23,6 +23,14 @@ local settings = {
     sql = { "sqlfluff" },
     yaml = { "yamllint" },
   },
+  listchars = {
+    trail = "-",
+    tab = "▸ ",
+    space = "⋅",
+    eol = "↲",
+    extends = "❯",
+    precedes = "❮"
+  },
   lsp_default_servers = {
     "clangd", "cmake", "jsonls", "lua_ls", "pyright", "texlab", "rust_analyzer", "vimls"
   },

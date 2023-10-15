@@ -17,6 +17,10 @@ return function ()
         enabled = true,
         colored_indent_levels = true,
       },
+      illuminate = {
+        enabled = true,
+        lsp = true
+      },
       lsp_saga = true,
       lsp_trouble = true,
       markdown = true,

@@ -43,7 +43,8 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
-      "fdschmidt93/telescope-egrepify.nvim"
+      "fdschmidt93/telescope-egrepify.nvim",
+      "folke/trouble.nvim"
     }
   },
 ---------------------------------------------------------------
@@ -73,6 +74,12 @@ return {
 ---------------------------------------------------------------
 -- improve editor feature
 ---------------------------------------------------------------
+  -- listchar
+  {
+    "fraso-dev/nvim-listchars",
+    lazy = false,
+    config = require("editor.listchars")
+  },
   -- save/restore session like IDE
   {
     "rmagatti/auto-session",
@@ -112,6 +119,12 @@ return {
     lazy = true,
     keys = require("configs.keymap").accelerated_jk,
     event = "VeryLazy",
+  },
+  -- improve highlight
+  {
+    "RRethy/vim-illuminate",
+    config = require("editor.illuminate_conf"),
+    lazy = false
   },
   -- support write regex
   {
