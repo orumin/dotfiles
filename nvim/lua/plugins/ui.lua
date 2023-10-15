@@ -111,13 +111,14 @@ return {
   {
     "anuvyklack/hydra.nvim",
     name = "hydra",
-    lazy = false,
+    lazy = true,
     dependencies = {
       "lewis6991/gitsigns.nvim",
       "mfussenegger/nvim-dap",
       "jbyuki/venn.nvim",
     },
-    config = require("ui.hydra_conf")
+    keys = require("ui.hydra_conf").get_keymaps,
+    config = require("ui.hydra_conf").setup
   }
 }
 

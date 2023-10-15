@@ -77,7 +77,8 @@ return {
   -- listchar
   {
     "fraso-dev/nvim-listchars",
-    lazy = false,
+    lazy = true,
+    event = "VeryLazy",
     config = require("editor.listchars")
   },
   -- save/restore session like IDE
@@ -123,8 +124,9 @@ return {
   -- improve highlight
   {
     "RRethy/vim-illuminate",
+    lazy = true,
+    event = { "CursorHold", "CursorHoldI" },
     config = require("editor.illuminate_conf"),
-    lazy = false
   },
   -- support write regex
   {
@@ -164,7 +166,8 @@ return {
       commands_create = false,
       silent = false,
       lookup_parents = false,
-    }
+    },
+    cond = false,
   },
 }
 

@@ -1,3 +1,11 @@
+local M = {}
+M.keymaps = {
+  ["git"] = { [1]="<leader>g", [2]=nil, mode = {"n", "x"}, desc = "Git" },
+  ["telescope"] = { [1]="<leader>f", [2]=nil, mode = "n", desc = "Telescope" },
+  ["dap"] = { [1]="<leader>dh", [2]=nil, mode = {"n", "x"}, desc = "DAP" },
+  ["venn"] = { [1]="<leader>v", [2]=nil, mode = "n", desc = "Draw Diagram" }
+}
+
 local function setup_gitmode()
   local cmd = require("hydra.keymap-util").cmd
   local gitsigns = require("gitsigns")
@@ -10,7 +18,7 @@ local function setup_gitmode()
 ]]
 
   return {
-    name = "Git",
+    name = M.keymaps["git"].desc,
     hint = hint,
     config = {
       color = "pink",
@@ -34,8 +42,8 @@ local function setup_gitmode()
         gitsigns.toggle_deleted(false)
       end
     },
-    mode = {"n", "x"},
-    body = "<leader>g",
+    mode = M.keymaps["git"].mode,
+    body = M.keymaps["git"][1],
     heads = {
       {
         "J",
@@ -85,7 +93,7 @@ local function setup_telescope()
 ]]
 
   return {
-     name = 'Telescope',
+     name = M.keymaps["telescope"].desc,
      hint = hint,
      config = {
         color = 'teal',
@@ -95,8 +103,8 @@ local function setup_telescope()
            border = 'rounded',
         },
      },
-     mode = 'n',
-     body = '<Leader>f',
+     mode = M.keymaps["telescope"].mode,
+     body = M.keymaps["telescope"][1],
      heads = {
         { 'f', cmd 'Telescope find_files' },
         { 'g', cmd 'Telescope live_grep' },
@@ -130,7 +138,7 @@ local function setup_dapmode()
 ]]
 
   return {
-    name = 'dap',
+    name = M.keymaps["dap"].desc,
     hint = hint,
     config = {
       color = 'pink',
@@ -140,8 +148,8 @@ local function setup_dapmode()
         border = 'rounded'
       }
     },
-    mode = {'n', 'x'},
-    body = '<leader>dh',
+    mode = M.keymaps["dap"].mode,
+    body = M.keymaps["dap"][1],
     heads = {
       { 'n', dap.step_over, {silent = true} },
       { 'i', dap.step_into, {silent = true} },
@@ -172,7 +180,7 @@ local function setup_venn()
 ]]
 
   return {
-    name = "Draw Diagram",
+    name = M.keymaps["venn"].desc,
     hint = hint,
     config = {
       color = 'pink',
@@ -185,8 +193,8 @@ local function setup_venn()
         vim.o.virtualedit = "all"
       end,
     },
-    mode = "n",
-    body = "<leader>v",
+    mode = M.keymaps["venn"].mode,
+    body = M.keymaps["venn"][1],
     heads = {
       {"H", "<C-v>h:VBox<CR>", {silent = true}},
       {"J", "<C-v>j:VBox<CR>", {silent = true}},
@@ -198,10 +206,20 @@ local function setup_venn()
   }
 end
 
-return function ()
+M.get_keymaps = function ()
+  local ret = {}
+  for _, v in pairs(M.keymaps) do
+    table.insert(ret, v)
+  end
+  return ret
+end
+
+M.setup = function ()
   local Hydra = require("hydra")
   Hydra(setup_gitmode())
   Hydra(setup_telescope())
   Hydra(setup_dapmode())
   Hydra(setup_venn())
 end
+
+return M

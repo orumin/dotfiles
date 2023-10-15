@@ -51,6 +51,16 @@ local function on_lsp_attach(client, bufnr)
     end
   end
 
+  if client.supports_method(methods["textDocument_signatureHelp"]) then
+    local signature_help_group = vim.api.nvim_create_augroup("LSP_signatureHelp", { clear = false })
+    vim.api.nvim_create_autocmd("CursorHoldI", {
+      group = signature_help_group,
+      desc = "Show signatureHelp in insert mode",
+      buffer = bufnr,
+      callback = vim.lsp.buf.signature_help
+    })
+  end
+
   if client.supports_method(methods["textDocument_documentHighlight"]) then
     local under_cursor_highlights_group =
       vim.api.nvim_create_augroup('LSP_documentHighlights', { clear = false })
@@ -245,8 +255,9 @@ end
 ---@return any?
 local function preview_location_cb(err, result, context, config)
   if not result or vim.tbl_isempty(result) then
-    vim.lsp.log.info(context, "No location found. show hover doc instead")
-    vim.lsp.hover()
+    local log = require("vim.lsp.log")
+    log.info(context, "No location found.")
+    vim.lsp.buf.hover()
     return nil
   end
   local location = vim.tbl_islist(result) and result[1] or result

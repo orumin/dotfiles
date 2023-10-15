@@ -14,6 +14,10 @@ return {
         "simrat39/symbols-outline.nvim",
         config = require("lsp.symbols_outline_conf")
       },
+      {
+        "Wansmer/symbol-usage.nvim",
+        config = require("lsp.symbol_usage_conf")
+      },
       "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     },
     init = function ()

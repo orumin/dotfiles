@@ -41,9 +41,6 @@ return {
       { "]e", function () vim.diagnostic.goto_next({severity=vim.diagnostic.severity.ERROR}) end,
         mode = "n", silent = true, desc = "LSP next error" },
     },
-    signatureHelp = {
-      { "<C-s>", vim.lsp.buf.signature_help, mode = "i", silent = true, desc = "LSP signature help" }
-    },
     codeLens = {
       { "<leader>cl", vim.lsp.codelens.run, mode = "n", silent = true, desc = "LSP run CodeLens" }
     },
