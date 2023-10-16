@@ -1,30 +1,3 @@
-local function toggle_venn()
-  local winnr = vim.api.nvim_get_current_win()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local maps = {
-    -- draw a line on HJKL keystrokes
-    {"n", "J", "<C-v>j:VBox<CR>", {noremap = true, desc = "draw a line"}},
-    {"n", "K", "<C-v>k:VBox<CR>", {noremap = true, desc = "draw a line"}},
-    {"n", "L", "<C-v>l:VBox<CR>", {noremap = true, desc = "draw a line"}},
-    {"n", "H", "<C-v>h:VBox<CR>", {noremap = true, desc = "draw a line"}},
-    -- draw a box by pressing "f" with visual selection
-    {"v", "f", ":VBox<CR>", {noremap = true, desc = "draw a box"}},
-  }
-  if not vim.b.venn_enabled then
-    vim.b.venn_enabled = true
-    vim.wo[winnr].virtualedit = "all"
-    for _,v in pairs(maps) do
-      vim.api.nvim_buf_set_keymap(bufnr, v[1], v[2], v[3], v[4])
-    end
-  else
-    for _,v in pairs(maps) do
-      vim.api.nvim_buf_del_keymap(bufnr, v[1], v[2])
-    end
-    vim.wo[winnr].virtualedit = nil
-    vim.b.venn_enabled = nil
-  end
-end
-
 return {
   [1] = {
     {"<ESC><ESC>", function () vim.v.hlsearch = 0 end, mode = "n", desc = "nohlsearch" },
@@ -37,6 +10,7 @@ return {
     { "k", "<Plug>(accelerated_jk_gk)", mode = "n", desc = "accelerated-jk"},
   },
   ["bufferline"] = require("configs.keymap.bufferline_keyconf"),
+  ["hydra"] = require("configs.keymap.hydra_keyconf"),
   ["neotree"] = {
     { "<leader>nt", function ()
       if package.loaded["neo-tree.command"] == nil then
@@ -73,9 +47,6 @@ return {
     { "<leader>tx", "<Plug>TranslateX",  mode = "n", silent = true, desc = "translate the text in clipboard" },
   },
   ["trouble"] = require("configs.keymap.trouble"),
-  ["venn"] = {
-    { "<leader>v", toggle_venn, mode = "n", noremap = true, desc = "toggle venn" }
-  },
   ["windows"] = {
     {"<C-w>z", "<Cmd>WindowsMaximize<CR>" },
     {"<C-w>_", "<Cmd>WindowsMaximizeVertically<CR>" },

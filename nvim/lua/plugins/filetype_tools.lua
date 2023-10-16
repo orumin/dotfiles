@@ -25,13 +25,6 @@ return {
     lazy = true,
     ft = { "c", "cpp", "objc", "objcpp" }
   },
-  -- Pandoc markdown
-  {
-    "aspeddro/pandoc.nvim",
-    lazy = true,
-    ft = "pandoc",
-    config = true,
-  },
   {
     "vim-pandoc/vim-pandoc-syntax",
     lazy = true,

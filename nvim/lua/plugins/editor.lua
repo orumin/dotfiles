@@ -21,16 +21,17 @@ return {
     branch = "v3.x",
     keys = require("configs.keymap").neotree,
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
+      { "nvim-lua/plenary.nvim", lazy = true },
+      { "nvim-tree/nvim-web-devicons", lazy = true },
+      { "MunifTanjim/nui.nvim", lazy = true },
       {
         "s1n7ax/nvim-window-picker",
+        lazy = true,
         name = "window-picker",
-        opts = require("editor.window_picker"),
+        config = require("editor.window_picker"),
       },
     },
-    opts = require("editor.neotree"),
+    config = require("editor.neotree"),
   },
 ---------------------------------------------------------------
 -- Fuzzy Finder
@@ -39,20 +40,25 @@ return {
     "nvim-telescope/telescope.nvim",
     lazy = true,
     cmd = "Telescope",
-    config = require("editor.telescope_conf"),
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "fdschmidt93/telescope-egrepify.nvim",
-      "folke/trouble.nvim",
+      { "nvim-lua/plenary.nvim", lazy = true },
+      { "nvim-tree/nvim-web-devicons", lazy = true },
+      { "fdschmidt93/telescope-egrepify.nvim", lazy = true },
+      { "folke/trouble.nvim", lazy = true },
       {
         "rmagatti/session-lens",
+        lazy = true,
         dependencies = {
-          "rmagatti/auto-session"
+          { "rmagatti/auto-session", lazy = true }
         }
       },
-      "debugloop/telescope-undo.nvim"
-    }
+      { "debugloop/telescope-undo.nvim", lazy = true }
+    },
+    keys = require("configs.keymap").hydra["telescope"],
+    config = function ()
+      require("editor.telescope_conf").setup()
+      require("ui.hydra_conf").setup["telescope"]()
+    end
   },
 ---------------------------------------------------------------
 -- Debugger Adapter Protocol
@@ -71,12 +77,17 @@ return {
       "DapTerminate"
     },
     dependencies = {
-      "rcarriga/nvim-dap-ui",
-      "theHamsta/nvim-dap-virtual-text",
-      "jbyuki/one-small-step-for-vimkind",
-      "jay-babu/mason-nvim-dap.nvim"
+      { "rcarriga/nvim-dap-ui", lazy = true },
+      { "theHamsta/nvim-dap-virtual-text", lazy = true },
+      { "jbyuki/one-small-step-for-vimkind", lazy = true },
+      { "jay-babu/mason-nvim-dap.nvim", lazy = true },
+      { "anuvyklack/hydra.nvim", lazy = true }
     },
-    config = require("editor.dap_conf")
+    keys = require("configs.keymap").hydra["dap"],
+    config = function ()
+      require("editor.dap_conf")()
+      require("ui.hydra_conf").setup["dap"]()
+    end,
   },
 ---------------------------------------------------------------
 -- improve editor feature
@@ -96,7 +107,7 @@ return {
     init = function ()
       vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
     end,
-    opts = require("editor.auto-session")
+    config = require("editor.auto-session")
   },
   -- auto size window
   {
@@ -104,7 +115,7 @@ return {
     lazy = true,
     cmd = { "WindowsMaximize", "WindowsMaximizeVertically", "WindowsMaximizeHorizontally", "WindowsEqualize", },
     dependencies = {
-      "anuvyklack/middleclass",
+      { "anuvyklack/middleclass", lazy = true }
     },
     keys = require("configs.keymap").windows,
     config = true,
@@ -113,13 +124,13 @@ return {
   {
     "ojroques/nvim-bufdel",
     lazy = true,
-    event = "BufReadPost",
+    cmd = { "BufDel", "BufDelAll", "BufDelOthers" }
   },
   -- smooth scroll
   {
     "karb94/neoscroll.nvim",
     lazy = true,
-    event = "BufReadPost",
+    event = { "CursorHold", "CursorHoldI" },
     config = true,
   },
   {
@@ -148,7 +159,7 @@ return {
   {
     "folke/which-key.nvim",
     lazy = true,
-    event = "VeryLazy",
+    event = { "CursorHold", "CursorHoldI" },
     init = function ()
       vim.o.timeout = true
       vim.o.timeoutlen = 500
@@ -165,6 +176,7 @@ return {
   -- project local setting
   {
     "klen/nvim-config-local",
+    lazy = true,
     opts = {
       config_files = { ".nvim.lua", ".nvimrc" },
       hashfile = G.nvim_data_dir .. G.path_sep .. "config-local",

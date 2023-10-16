@@ -42,15 +42,15 @@ return {
     "NeogitOrg/neogit",
     lazy = true,
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-      "sindrets/diffview.nvim",
+      { "nvim-lua/plenary.nvim", lazy = true },
     },
     cmd = "Neogit",
     config = true
   },
   {
     "rhysd/committia.vim",
+    lazy = true,
+    ft = "gitcommit"
   },
   {
     "hotwatermorning/auto-git-diff",
@@ -83,7 +83,7 @@ return {
     keys = require("configs.keymap").skkeleton,
     cond = vim.fn.has("nvim-0.8") == 1 and settings.use_skk, -- disable
     dependencies = {
-      "vim-denops/denops.vim",
+      { "vim-denops/denops.vim" },
       {
         "delphinus/skkeleton_indicator.nvim",
         init = function ()
@@ -110,6 +110,9 @@ return {
   {
     "jbyuki/venn.nvim",
     lazy = true,
+    cmd = "VBox",
+    keys = require("configs.keymap").hydra["venn"],
+    config = require("ui.hydra_conf").setup["venn"]
   },
   -- measure startup time
   {
@@ -162,8 +165,8 @@ return {
     "2kabhishek/nerdy.nvim",
     lazy = true,
     dependencies = {
-      "stevearc/dressing.nvim",
-      "nvim-telescope/telescope.nvim",
+      { "stevearc/dressing.nvim", lazy = true },
+      { "nvim-telescope/telescope.nvim", lazy = true }
     },
     cmd = "Nerdy",
   },

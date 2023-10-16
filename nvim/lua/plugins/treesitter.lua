@@ -5,19 +5,21 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = true,
-    event = { "CursorHold", "CursorHoldI" },
+    event = { "BufReadPost" },
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-context",
+      { "nvim-treesitter/nvim-treesitter-context" },
       {
         "NvChad/nvim-colorizer.lua",
         name = "colorizer",
         config = true,
       }
     },
-    build = ":TSUpdate",
-    config = function()
-      require("editor.treesitter")
-    end
+    build = function ()
+      if #vim.api.nvim_list_uis() ~= 0 then
+        vim.cmd([[TSUpdate]])
+      end
+    end,
+    config = require("editor.treesitter")
   },
   -- indent
   {
@@ -49,6 +51,7 @@ return {
   -- joke with treesitter
   {
     "Eandrju/cellular-automaton.nvim",
+    lazy = true,
     cmd = "CellularAutomaton",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",

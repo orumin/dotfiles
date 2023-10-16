@@ -32,7 +32,7 @@ return {
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     dependencies = {
-      "nvim-telescope/telescope-fzf-native.nvim"
+      { "nvim-telescope/telescope-fzf-native.nvim", lazy = true }
     },
   },
   -- color schemes
@@ -75,16 +75,20 @@ return {
     lazy = true,
     event = "VeryLazy",
     dependencies = {
-      "MunifTanjim/nui.nvim",
+      { "MunifTanjim/nui.nvim", lazy = true },
       {
         "rcarriga/nvim-notify",
-        opts = {
-          background_colour = "#000000",
-        },
+        lazy = true,
+        event = "VeryLazy",
+        config = function ()
+          require("notify").setup({
+            background_colour = "#000000"
+          })
+        end
       },
-      "nvim-treesitter/nvim-treesitter",
+      { "nvim-treesitter/nvim-treesitter", lazy = true }
     },
-    opts = require("ui.noice")
+    config = require("ui.noice_conf")
   },
   -- status line
   {
@@ -104,21 +108,18 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     lazy = true,
-    event = {"FocusLost", "CursorHold"},
-    config = true,
+    event = {"CursorHold", "CursorHoldI"},
+    dependencies = {
+      { "anuvyklack/hydra.nvim", lazy = true }
+    },
+    keys = require("configs.keymap").hydra["git"],
+    config = require("ui.hydra_conf").setup["git"]
   },
   -- Hydra
   {
     "anuvyklack/hydra.nvim",
     name = "hydra",
     lazy = true,
-    dependencies = {
-      "lewis6991/gitsigns.nvim",
-      "mfussenegger/nvim-dap",
-      "jbyuki/venn.nvim",
-    },
-    keys = require("ui.hydra_conf").get_keymaps,
-    config = require("ui.hydra_conf").setup
   }
 }
 

@@ -1,12 +1,12 @@
 local M = {}
-M.keymaps = {
-  ["git"] = { [1]="<leader>g", [2]=nil, mode = {"n", "x"}, desc = "Git" },
-  ["telescope"] = { [1]="<leader>f", [2]=nil, mode = "n", desc = "Telescope" },
-  ["dap"] = { [1]="<leader>dh", [2]=nil, mode = {"n", "x"}, desc = "DAP" },
-  ["venn"] = { [1]="<leader>v", [2]=nil, mode = "n", desc = "Draw Diagram" }
+
+---@type function[]
+M.setup = {
 }
 
-local function setup_gitmode()
+M.setup["git"] = function()
+  local keymaps = require("configs.keymap.hydra_keyconf")
+  local Hydra = require("hydra")
   local cmd = require("hydra.keymap-util").cmd
   local gitsigns = require("gitsigns")
   local hint = [[
@@ -17,8 +17,8 @@ local function setup_gitmode()
  ^ ^              _<Enter>_: Neogit              _q_: exit
 ]]
 
-  return {
-    name = M.keymaps["git"].desc,
+  Hydra({
+    name = keymaps["git"].desc,
     hint = hint,
     config = {
       color = "pink",
@@ -42,8 +42,8 @@ local function setup_gitmode()
         gitsigns.toggle_deleted(false)
       end
     },
-    mode = M.keymaps["git"].mode,
-    body = M.keymaps["git"][1],
+    mode = keymaps["git"].mode,
+    body = keymaps["git"][1],
     heads = {
       {
         "J",
@@ -74,10 +74,12 @@ local function setup_gitmode()
       { "<Enter>", cmd "Neogit", { exit = true, desc = "Neogit" } },
       { "q", nil, { exit = true, nowait = true, desc = "exit" } },
     }
-  }
+  })
 end
 
-local function setup_telescope()
+M.setup["telescope"] = function()
+  local keymaps = require("configs.keymap.hydra_keyconf")
+  local Hydra = require("hydra")
   local builtin = require("telescope.builtin")
   local hint = [[
                  _f_: files       _m_: marks
@@ -92,8 +94,8 @@ local function setup_telescope()
                  _<Enter>_: Telescope           _<Esc>_
 ]]
 
-  return {
-    name = M.keymaps["telescope"].desc,
+  Hydra({
+    name = keymaps["telescope"].desc,
     hint = hint,
     config = {
       color = 'teal',
@@ -103,8 +105,8 @@ local function setup_telescope()
         border = 'rounded',
       },
     },
-    mode = M.keymaps["telescope"].mode,
-    body = M.keymaps["telescope"][1],
+    mode = keymaps["telescope"].mode,
+    body = keymaps["telescope"][1],
     heads = {
       { 'f', builtin.find_files, { desc = "find files" } },
       { 'g', builtin.live_grep, { desc = "live grep" } },
@@ -123,10 +125,12 @@ local function setup_telescope()
       { '<Enter>', builtin.builtin, { exit = true, desc = "list all pickers" } },
       { '<Esc>', nil, { exit = true, nowait = true } },
     }
-  }
+  })
 end
 
-local function setup_dapmode()
+M.setup["dap"] = function()
+  local keymaps = require("configs.keymap.hydra_keyconf")
+  local Hydra = require("hydra")
   local dap = require("dap")
   local hint = [[
  _n_: step over   _s_: Continue/Start   _b_: Breakpoint     _K_: Eval
@@ -137,8 +141,8 @@ local function setup_dapmode()
  ^ ^              _q_: exit
 ]]
 
-  return {
-    name = M.keymaps["dap"].desc,
+  Hydra({
+    name = keymaps["dap"].desc,
     hint = hint,
     config = {
       color = 'pink',
@@ -148,8 +152,8 @@ local function setup_dapmode()
         border = 'rounded'
       }
     },
-    mode = M.keymaps["dap"].mode,
-    body = M.keymaps["dap"][1],
+    mode = keymaps["dap"].mode,
+    body = keymaps["dap"][1],
     heads = {
       { 'n', dap.step_over, {silent = true} },
       { 'i', dap.step_into, {silent = true} },
@@ -168,10 +172,12 @@ local function setup_dapmode()
       end, {silent=true} },
       { 'q', nil, {exit=true, nowait=true} },
     }
-  }
+  })
 end
 
-local function setup_venn()
+M.setup["venn"] = function ()
+  local keymaps = require("configs.keymap.hydra_keyconf")
+  local Hydra = require("hydra")
   local hint = [[
  Arrow^^^^^^   Select region with <C-v>
  ^ ^ _K_ ^ ^   _f_: surround it with box
@@ -179,8 +185,8 @@ local function setup_venn()
  ^ ^ _J_ ^ ^
 ]]
 
-  return {
-    name = M.keymaps["venn"].desc,
+  Hydra({
+    name = keymaps["venn"].desc,
     hint = hint,
     config = {
       color = 'pink',
@@ -193,8 +199,8 @@ local function setup_venn()
         vim.o.virtualedit = "all"
       end,
     },
-    mode = M.keymaps["venn"].mode,
-    body = M.keymaps["venn"][1],
+    mode = keymaps["venn"].mode,
+    body = keymaps["venn"][1],
     heads = {
       {"H", "<C-v>h:VBox<CR>", {silent = true}},
       {"J", "<C-v>j:VBox<CR>", {silent = true}},
@@ -203,23 +209,7 @@ local function setup_venn()
       {"f", ":VBox<CR>", {silent = true, mode = "v"}},
       {"<ESC>", nil, {exit = true}},
     }
-  }
-end
-
-M.get_keymaps = function ()
-  local ret = {}
-  for _, v in pairs(M.keymaps) do
-    table.insert(ret, v)
-  end
-  return ret
-end
-
-M.setup = function ()
-  local Hydra = require("hydra")
-  Hydra(setup_gitmode())
-  Hydra(setup_telescope())
-  Hydra(setup_dapmode())
-  Hydra(setup_venn())
+  })
 end
 
 return M

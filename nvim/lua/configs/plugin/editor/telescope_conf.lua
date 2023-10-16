@@ -1,25 +1,24 @@
-return function ()
-  local trouble = require("trouble.providers.telescope")
+local M = {}
+
+M.defaults = {
+  -- Default configuration for telescope goes here:
+  -- config_key = value,
+  mappings = {
+    i = {
+      -- map actions.which_key to <C-h> (default: <C-/>)
+      -- actions.which_key shows the mappings for your picker,
+      -- e.g. git_{create, delete, ...}_branch for the git_branches picker
+      ["<C-h>"] = "which_key",
+    },
+  }
+}
+
+M.setup = function ()
   local egrep_actions = require("telescope._extensions.egrepify.actions")
 
   local telescope = require("telescope")
   telescope.setup({
-    defaults = {
-      -- Default configuration for telescope goes here:
-      -- config_key = value,
-      mappings = {
-        i = {
-          -- map actions.which_key to <C-h> (default: <C-/>)
-          -- actions.which_key shows the mappings for your picker,
-          -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-          ["<C-h>"] = "which_key",
-          ["<C-t>"] = trouble.open_with_trouble
-        },
-        n = {
-          ["<C-t>"] = trouble.open_with_trouble
-        }
-      }
-    },
+    defaults = M.defaults,
     pickers = {
       -- Default configuration for builtin pickers goes here:
       -- picker_name = {
@@ -79,3 +78,5 @@ return function ()
   telescope.load_extension("session-lens")
   telescope.load_extension("undo")
 end
+
+return M
