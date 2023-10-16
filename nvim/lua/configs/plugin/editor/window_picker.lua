@@ -1,7 +1,7 @@
 return function ()
   local palette = require("envutils").get_palette()
 
-  require("window_picker").setup({
+  require("window-picker").setup({
     autoselect_one = true,
     include_current = false,
     filter_rules = {
