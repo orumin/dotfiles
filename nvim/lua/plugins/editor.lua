@@ -1,6 +1,6 @@
 local utils = require("envutils")
 local G = utils:globals()
-local settings = require("configs.global_settings")
+local configs = require("configs")
 return {
 ---------------------------------------------------------------
 -- common plugin
@@ -8,7 +8,7 @@ return {
   { "nvim-lua/plenary.nvim", lazy = true },
   {
     "vim-denops/denops.vim",
-    cond = settings.use_denops or settings.use_skk,
+    cond = configs.use_denops or configs.use_skk,
     lazy = false,
   },
 ---------------------------------------------------------------
@@ -52,12 +52,14 @@ return {
           { "rmagatti/auto-session", lazy = true }
         }
       },
-      { "debugloop/telescope-undo.nvim", lazy = true }
+      { "debugloop/telescope-undo.nvim", lazy = true },
+      { "anuvyklack/hydra.nvim", lazy = true }
     },
     keys = require("configs.keymap").hydra["telescope"],
     config = function ()
+      local Hydra = require("hydra")
       require("editor.telescope_conf").setup()
-      require("ui.hydra_conf").setup["telescope"]()
+      Hydra(require("ui.hydra_conf").setup["telescope"]())
     end
   },
 ---------------------------------------------------------------
@@ -85,8 +87,9 @@ return {
     },
     keys = require("configs.keymap").hydra["dap"],
     config = function ()
+      local Hydra = require("hydra")
       require("editor.dap_conf")()
-      require("ui.hydra_conf").setup["dap"]()
+      Hydra(require("ui.hydra_conf").setup["dap"]())
     end,
   },
 ---------------------------------------------------------------
@@ -159,12 +162,13 @@ return {
   {
     "folke/which-key.nvim",
     lazy = true,
-    event = { "CursorHold", "CursorHoldI" },
+    event = "VeryLazy",
+--    event = { "CursorHold", "CursorHoldI" },
     init = function ()
       vim.o.timeout = true
       vim.o.timeoutlen = 500
     end,
-    config = true,
+    config = require("editor.which-key_conf"),
   },
   -- fix ambiwidth character width by 'setcellwidths()'
   {

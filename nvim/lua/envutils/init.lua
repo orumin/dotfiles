@@ -1,4 +1,4 @@
-local settings = require("configs.global_settings")
+local configs = require("configs")
 local uv = vim.uv
 
 ---@diagnostic disable: duplicate-doc-field
@@ -205,7 +205,7 @@ local M = {
 
   disable_rtp_plugins = function ()
     local get_flag = function (name)
-      return settings.disabled_rtp_plugins[name] and 1 or nil
+      return configs.disabled_rtp_plugins[name] and 1 or nil
     end
     --disable menu loading
     vim.g.did_install_default_menus = 1
@@ -279,12 +279,12 @@ local M = {
       vim.o.shellquote = nil
       vim.o.shellxquote = nil
     else
-      vim.o.shell = settings.shell
+      vim.o.shell = configs.shell
     end
   end,
 
   setting_clipboard = function (self)
-    if vim.env.SSH_CONNECTION and vim.env.TMUX ~= nil then
+    if vim.env.SSH_CONNECTION and vim.env.TMUX ~= nil and not self:globals().is_headless then
       vim.g.clipboard = {
         name = "tmuxClipboard",
         copy = {

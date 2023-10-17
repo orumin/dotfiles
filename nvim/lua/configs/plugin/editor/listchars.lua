@@ -1,9 +1,9 @@
-local settings = require("configs.global_settings")
+local configs = require("configs")
 
 return function ()
   require("nvim-listchars").setup({
     save_state = false,
-    listchars = settings.listchars,
+    listchars = configs.listchars,
     exclude_filetypes = {
       "markdown"
     },

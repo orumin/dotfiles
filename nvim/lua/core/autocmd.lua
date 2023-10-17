@@ -1,12 +1,12 @@
-local settings = require("configs.global_settings")
-local utils = require("envutils")
-local G = utils:globals()
+local configs = require("configs")
 
 --###############################################################
 -- remove trailing spaces on save
 --###############################################################
-if settings.remove_trailing_space then
+vim.api.nvim_create_augroup('trailingSpace', { clear = true })
+if configs.remove_trailing_space then
   vim.api.nvim_create_autocmd('BufWritePre', {
+    group = "trailingSpace",
     pattern = '',
     command = ":%s/\\s\\+$//e"
   })
@@ -89,7 +89,9 @@ vim.api.nvim_create_autocmd({'FileType'}, {
 -- Terminal
 --###############################################################
 -- NeoVim built-in Terminal
+vim.api.nvim_create_augroup("terminalConfig", {clear = true})
 vim.api.nvim_create_autocmd('TermOpen', {
+  group = "terminalConfig",
   callback = function()
     vim.wo.listchars = ''
     vim.wo.number = false
@@ -99,6 +101,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
 })
 
 vim.api.nvim_create_autocmd('TermOpen', {
+  group = "terminalConfig",
   pattern = '',
   command = 'startinsert'
 })
@@ -119,28 +122,28 @@ vim.api.nvim_create_autocmd("FileType", {
 --###############################################################
 -- IME
 --###############################################################
-local function set_ime(args)
-    if args.event:match("Enter$") then
-        vim.g.neovide_input_ime = true
-    else
-        vim.g.neovide_input_ime = false
-    end
-end
-
-if not G.is_headless then
-  local ime_input = vim.api.nvim_create_augroup("ime_input", { clear = true })
-  vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
-      group = ime_input,
-      pattern = "*",
-      callback = set_ime
-  })
-
-  vim.api.nvim_create_autocmd({ "CmdlineEnter", "CmdlineLeave" }, {
-      group = ime_input,
-      pattern = "[/\\?]",
-      callback = set_ime
-  })
-end
+--local function set_ime(args)
+--    if args.event:match("Enter$") then
+--        vim.g.neovide_input_ime = true
+--    else
+--        vim.g.neovide_input_ime = false
+--    end
+--end
+--
+--if not G.is_headless then
+--  local ime_input = vim.api.nvim_create_augroup("ime_input", { clear = true })
+--  vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
+--      group = ime_input,
+--      pattern = "*",
+--      callback = set_ime
+--  })
+--
+--  vim.api.nvim_create_autocmd({ "CmdlineEnter", "CmdlineLeave" }, {
+--      group = ime_input,
+--      pattern = "[/\\?]",
+--      callback = set_ime
+--  })
+--end
 ---- disale IME on InsertEnter and restore IME status on Leave
 --if not vim.env.WT_SESSION then
 --  vim.api.nvim_create_augroup("RestoreIME", { clear = true })

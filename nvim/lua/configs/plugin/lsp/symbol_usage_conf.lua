@@ -46,6 +46,7 @@ local function text_format(symbol)
 end
 
 return function ()
+  ---@diagnostic disable-next-line: missing-fields
   require('symbol-usage').setup({
     text_format = text_format,
   })

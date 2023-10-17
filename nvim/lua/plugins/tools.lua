@@ -1,5 +1,5 @@
 local palette = require("envutils").get_palette()
-local settings = require("configs.global_settings")
+local configs = require("configs")
 return {
 ---------------------------------------------------------------
 -- Tools
@@ -36,6 +36,13 @@ return {
     lazy = true,
     config = require("tools.glow_conf"),
     cmd = "Glow"
+  },
+  -- cmake-tools
+  {
+    "Civitasv/cmake-tools.nvim",
+    lazy = true,
+    cmd = { "CMakeGenerate", "CMakeBuild", "CMakeRun" },
+    config = require("tools.cmake_tools_conf")
   },
   -- Git
   {
@@ -81,7 +88,7 @@ return {
     "vim-skk/skkeleton",
     lazy = false,
     keys = require("configs.keymap").skkeleton,
-    cond = vim.fn.has("nvim-0.8") == 1 and settings.use_skk, -- disable
+    cond = vim.fn.has("nvim-0.8") == 1 and configs.use_skk, -- disable
     dependencies = {
       { "vim-denops/denops.vim" },
       {
@@ -111,8 +118,14 @@ return {
     "jbyuki/venn.nvim",
     lazy = true,
     cmd = "VBox",
+    dependencies = {
+      { "anuvyklack/hydra.nvim", lazy = true }
+    },
     keys = require("configs.keymap").hydra["venn"],
-    config = require("ui.hydra_conf").setup["venn"]
+    config = function ()
+      local Hydra = require("hydra")
+      Hydra(require("ui.hydra_conf").setup["venn"]())
+    end
   },
   -- measure startup time
   {

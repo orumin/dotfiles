@@ -1,4 +1,5 @@
 local settings = {
+  mapleader = " ",
   disabled_rtp_plugins = {
     gzip = true,
     man = nil,

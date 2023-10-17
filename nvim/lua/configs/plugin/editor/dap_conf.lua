@@ -8,24 +8,27 @@ local icons = {
 local function setup_cpp()
   local dap = require("dap")
 
-  dap.adapters.gdb = {
+  dap.adapters.gdb= {
     id = 'gdb',
     type = 'executable',
     command = 'gdb',
-    args = { "-i", "dap" }
+      args = { "-i", "dap" },
   }
 
+  local cppdbg_options = nil
+  local cppdbg_command = G.nvim_data_dir .. G.path_sep .. "mason" .. G.path_sep .. "bin" .. G.path_sep .. "OpenDebugAD7"
+  if G.is_win then
+    cppdbg_command = cppdbg_command .. ".exe"
+    cppdbg_options = { detached = false }
+  end
   dap.adapters.cppdbg = {
     id = 'cppdbg',
     type = 'executable',
-    command = G.nvim_data_dir .. G.path_sep .. "mason" .. G.path_sep .. "bin" .. G.path_sep .. "OpenDebugAD7"
+    command = cppdbg_command,
+    options = cppdbg_options
   }
-  if G.is_win then
-    dap.adapters.cppdbg.command = dap.adapters.cppdbg.command .. ".exe"
-    dap.adapters.cppdbg.options = { detached = false }
-  end
 
-  dap.configurations.cpp = {
+  dap.configurations["cpp"] = {
     {
       name = "Launch file (gdb)",
       type = "gdb",
@@ -62,8 +65,8 @@ local function setup_cpp()
     }
   }
 
-  dap.configurations.c = dap.configurations.cpp
-  dap.configurations.rust = dap.configurations.cpp
+  dap.configurations["c"] = dap.configurations.cpp
+  dap.configurations["rust"] = dap.configurations.cpp
 end
 
 local function setup_bash()
@@ -76,7 +79,7 @@ local function setup_bash()
   }
 
   local pathBashdbLib = G.nvim_data_dir .. G.path_sep .. "mason" .. G.path_sep .. "packages" .. G.path_sep .. "bash-debug-adapter" .. G.path_sep .. "extension" .. G.path_sep .. "bashdb_dir"
-  dap.configurations.sh = {
+  dap.configurations["sh"] = {
     {
       name = "Launch file",
       type = "bashdb",
@@ -103,10 +106,11 @@ local function setup_lua()
   local dap = require("dap")
 
   dap.adapters.nlua = function (callback, config)
+    ---@diagnostic disable-next-line: undefined-field
     callback({type = 'server', host = config.host or "127.0.0.1", port = config.port or 8086 })
   end
 
-  dap.configurations.lua = {
+  dap.configurations["lua"] = {
     {
       name = "Attach to running Neovim instance",
       type = "nlua",
@@ -129,5 +133,5 @@ return function ()
   setup_lua()
 
   dapui.setup()
-  dap_virt_text.setup()
+  dap_virt_text.setup({})
 end

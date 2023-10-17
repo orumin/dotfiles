@@ -1,13 +1,11 @@
 local M = {}
 
----@type function[]
+---@type { [string]: fun(): Hydra }
 M.setup = {
 }
 
 M.setup["git"] = function()
   local keymaps = require("configs.keymap.hydra_keyconf")
-  local Hydra = require("hydra")
-  local cmd = require("hydra.keymap-util").cmd
   local gitsigns = require("gitsigns")
   local hint = [[
  _J_: next hunk   _s_: stage hunk        _d_: show deleted   _b_: blame line
@@ -17,7 +15,7 @@ M.setup["git"] = function()
  ^ ^              _<Enter>_: Neogit              _q_: exit
 ]]
 
-  Hydra({
+  return {
     name = keymaps["git"].desc,
     hint = hint,
     config = {
@@ -63,7 +61,7 @@ M.setup["git"] = function()
         end,
         { expr = true, desc = "prev hunk" }
       },
-      { "s", cmd "Gitsigns stage_hunk", { silent = true, desc = "stage hunk" } },
+      { "s", "<Cmd>Gitsigns stage_hunk<CR>", { silent = true, desc = "stage hunk" } },
       { "u", gitsigns.undo_stage_hunk, { desc = "undo last stage" } },
       { "S", gitsigns.stage_buffer, { desc = "stage buffer" } },
       { "p", gitsigns.preview_hunk, { desc = "preview hunk" } },
@@ -71,15 +69,14 @@ M.setup["git"] = function()
       { "b", gitsigns.blame_line, { desc = "blame" } },
       { "B", function () gitsigns.blame_line({full = true}) end, { desc = "blame show full" } },
       { "/", gitsigns.show, { exit = true, desc = "show base file" } }, -- show the base of the file
-      { "<Enter>", cmd "Neogit", { exit = true, desc = "Neogit" } },
+      { "<Enter>", "<Cmd>Neogit<CR>", { exit = true, desc = "Neogit" } },
       { "q", nil, { exit = true, nowait = true, desc = "exit" } },
     }
-  })
+  }
 end
 
 M.setup["telescope"] = function()
   local keymaps = require("configs.keymap.hydra_keyconf")
-  local Hydra = require("hydra")
   local builtin = require("telescope.builtin")
   local hint = [[
                  _f_: files       _m_: marks
@@ -94,7 +91,7 @@ M.setup["telescope"] = function()
                  _<Enter>_: Telescope           _<Esc>_
 ]]
 
-  Hydra({
+  return {
     name = keymaps["telescope"].desc,
     hint = hint,
     config = {
@@ -125,13 +122,13 @@ M.setup["telescope"] = function()
       { '<Enter>', builtin.builtin, { exit = true, desc = "list all pickers" } },
       { '<Esc>', nil, { exit = true, nowait = true } },
     }
-  })
+  }
 end
 
 M.setup["dap"] = function()
   local keymaps = require("configs.keymap.hydra_keyconf")
-  local Hydra = require("hydra")
   local dap = require("dap")
+  local dapui = require("dapui")
   local hint = [[
  _n_: step over   _s_: Continue/Start   _b_: Breakpoint     _K_: Eval
  _i_: step into   _x_: Quit             ^ ^                 ^ ^
@@ -141,7 +138,7 @@ M.setup["dap"] = function()
  ^ ^              _q_: exit
 ]]
 
-  Hydra({
+  return {
     name = keymaps["dap"].desc,
     hint = hint,
     config = {
@@ -150,7 +147,14 @@ M.setup["dap"] = function()
       hint = {
         position = 'bottom',
         border = 'rounded'
-      }
+      },
+      on_enter = function ()
+        dapui.open()
+      end,
+      on_exit = function ()
+        dap.terminate()
+        dapui.close()
+      end,
     },
     mode = keymaps["dap"].mode,
     body = keymaps["dap"][1],
@@ -172,12 +176,11 @@ M.setup["dap"] = function()
       end, {silent=true} },
       { 'q', nil, {exit=true, nowait=true} },
     }
-  })
+  }
 end
 
 M.setup["venn"] = function ()
   local keymaps = require("configs.keymap.hydra_keyconf")
-  local Hydra = require("hydra")
   local hint = [[
  Arrow^^^^^^   Select region with <C-v>
  ^ ^ _K_ ^ ^   _f_: surround it with box
@@ -185,7 +188,7 @@ M.setup["venn"] = function ()
  ^ ^ _J_ ^ ^
 ]]
 
-  Hydra({
+  return {
     name = keymaps["venn"].desc,
     hint = hint,
     config = {
@@ -209,7 +212,7 @@ M.setup["venn"] = function ()
       {"f", ":VBox<CR>", {silent = true, mode = "v"}},
       {"<ESC>", nil, {exit = true}},
     }
-  })
+  }
 end
 
 return M

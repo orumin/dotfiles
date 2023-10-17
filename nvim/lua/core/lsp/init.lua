@@ -1,6 +1,6 @@
 local utils = require("envutils")
 local G = utils:globals()
-local global_settings = require("configs.global_settings")
+local configs = require("configs")
 local diagnostic_icons = require("configs.ui.icons").get("diagnostics")
 local signs = {
   ERROR = diagnostic_icons.Error,
@@ -8,7 +8,9 @@ local signs = {
   INFO = diagnostic_icons.Information,
   HINT = diagnostic_icons.Hint_alt,
 }
+local md_namespace = vim.api.nvim_create_namespace("LSP_float")
 
+---@class myLspConf
 local M = {}
 
 ---@param bufnr integer
@@ -24,6 +26,8 @@ local function set_keymaps(bufnr, maps)
   end
 end
 
+---@param client lsp.Client
+---@param bufnr integer
 local function on_lsp_attach(client, bufnr)
   local keymaps = require("configs.keymap").nvim_lsp
   local methods = vim.lsp.protocol.Methods
@@ -85,7 +89,7 @@ local function on_lsp_attach(client, bufnr)
       desc = 'Disable CodeLens in insert mode',
       buffer = bufnr,
       callback = function()
-        vim.lsp.codelens.clear(nil, bufnr)
+        vim.lsp.codelens.clear(client.id, bufnr)
       end,
     })
     vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
@@ -106,7 +110,8 @@ local function on_lsp_attach(client, bufnr)
     -- Idk why but without the delay inlay hints aren't displayed at the very start.
     vim.defer_fn(function()
       local mode = vim.api.nvim_get_mode().mode
-      vim.lsp.inlay_hint(bufnr, mode == 'n' or mode == 'v')
+      local enabled = mode == "n" or mode == "v"
+      vim.lsp.inlay_hint(bufnr, enabled)
     end, 500)
 
     vim.api.nvim_create_autocmd('InsertEnter', {
@@ -137,11 +142,66 @@ local function on_lsp_attach(client, bufnr)
   end
 end
 
-local md_namespace = vim.api.nvim_create_namespace("LSP_float")
+---@param bufnr integer
+---@param winnr integer
+---@return any?
+local function enhanced_float_win(bufnr, winnr)
+  -- Conceal everything.
+  vim.wo[winnr].concealcursor = 'n'
+
+  -- Extra highlights.
+  for l, line in ipairs(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)) do
+    for pattern, hl_group in pairs {
+      ['|%S-|'] = '@text.reference',
+      ['@%S+'] = '@parameter',
+      ['^%s*(Parameters:)'] = '@text.title',
+      ['^%s*(Return:)'] = '@text.title',
+      ['^%s*(See also:)'] = '@text.title',
+      ['{%S-}'] = '@parameter',
+    } do
+      local from = 1 ---@type integer?
+      while from do
+        local to
+        from, to = line:find(pattern, from)
+        if from then
+          vim.api.nvim_buf_set_extmark(bufnr, md_namespace, l - 1, from - 1, {
+            end_col = to,
+            hl_group = hl_group,
+          })
+        end
+        from = to and to + 1 or nil
+      end
+    end
+  end
+
+  -- Add keymaps for opening links.
+  if not vim.b[bufnr].markdown_keys then
+    vim.keymap.set('n', 'K', function()
+      -- Vim help links.
+      local url = (vim.fn.expand '<cWORD>' --[[@as string]]):match '|(%S-)|'
+      if url then
+        return vim.cmd.help(url)
+      end
+
+      -- Markdown links.
+      local col = vim.api.nvim_win_get_cursor(0)[2] + 1
+      local from, to
+      from, to, url = vim.api.nvim_get_current_line():find '%[.-%]%((%S-)%)'
+      if from and col >= from and col <= to then
+        vim.system({ 'open', url }, nil, function(res)
+          if res.code ~= 0 then
+            vim.notify('Failed to open URL' .. url, vim.log.levels.ERROR)
+          end
+        end)
+      end
+    end, { buffer = bufnr, silent = true })
+    vim.b[bufnr].markdown_keys = true
+  end
+end
 
 ---LSP handler that adds extra inline highlights, keymaps, and window options.
 ---Code inspired from `noice`.
----@param handler fun(err: any, result: any, ctx: any, config: any): integer, integer
+---@param handler fun(err: lsp.ResponseError|nil, result: table?, context: lsp.HandlerContext, config: table|nil): any?
 ---@return function
 local function enhanced_float_handler(handler)
   return function(err, result, ctx, config)
@@ -161,60 +221,11 @@ local function enhanced_float_handler(handler)
       return
     end
 
-    -- Conceal everything.
-    vim.wo[winnr].concealcursor = 'n'
-
-    -- Extra highlights.
-    for l, line in ipairs(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)) do
-      for pattern, hl_group in pairs {
-        ['|%S-|'] = '@text.reference',
-        ['@%S+'] = '@parameter',
-        ['^%s*(Parameters:)'] = '@text.title',
-        ['^%s*(Return:)'] = '@text.title',
-        ['^%s*(See also:)'] = '@text.title',
-        ['{%S-}'] = '@parameter',
-      } do
-        local from = 1 ---@type integer?
-        while from do
-          local to
-          from, to = line:find(pattern, from)
-          if from then
-            vim.api.nvim_buf_set_extmark(bufnr, md_namespace, l - 1, from - 1, {
-              end_col = to,
-              hl_group = hl_group,
-            })
-          end
-          from = to and to + 1 or nil
-        end
-      end
-    end
-
-    -- Add keymaps for opening links.
-    if not vim.b[bufnr].markdown_keys then
-      vim.keymap.set('n', 'K', function()
-        -- Vim help links.
-        local url = (vim.fn.expand '<cWORD>' --[[@as string]]):match '|(%S-)|'
-        if url then
-          return vim.cmd.help(url)
-        end
-
-        -- Markdown links.
-        local col = vim.api.nvim_win_get_cursor(0)[2] + 1
-        local from, to
-        from, to, url = vim.api.nvim_get_current_line():find '%[.-%]%((%S-)%)'
-        if from and col >= from and col <= to then
-          vim.system({ 'open', url }, nil, function(res)
-            if res.code ~= 0 then
-              vim.notify('Failed to open URL' .. url, vim.log.levels.ERROR)
-            end
-          end)
-        end
-      end, { buffer = bufnr, silent = true })
-      vim.b[bufnr].markdown_keys = true
-    end
+    enhanced_float_win(bufnr, winnr)
   end
 end
 
+---@return lsp.ClientCapabilities
 local function make_capabilities()
   local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
   if not ok then
@@ -253,6 +264,7 @@ end
 ---@param context lsp.HandlerContext
 ---@param config table|nil
 ---@return any?
+---@diagnostic disable-next-line: unused-local
 local function preview_location_cb(err, result, context, config)
   if not result or vim.tbl_isempty(result) then
     local log = require("vim.lsp.log")
@@ -264,6 +276,11 @@ local function preview_location_cb(err, result, context, config)
   local bufnr, winnr = vim.lsp.util.preview_location(location, {
     border = "rounded"
   })
+
+  if not bufnr or not winnr then
+    return
+  end
+  enhanced_float_win(bufnr, winnr)
 end
 
 ---@return table<integer, integer> client_request_ids Map of client-id:request-id pairs
@@ -288,6 +305,17 @@ M.peek_type_definition = function()
   return vim.lsp.buf_request(0, methods.textDocument_typeDefinition, params, preview_location_cb)
 end
 
+---@return table<integer, integer> client_request_ids Map of client-id:request-id pairs
+---for all successful requests.
+---@return function _cancel_all_requests Function which can be used to
+---cancel all the requests. You could instead
+---iterate all clients and call their `cancel_request()` methods.
+M.peek_implementation = function()
+  local methods = vim.lsp.protocol.Methods
+  local params = vim.lsp.util.make_position_params()
+  return vim.lsp.buf_request(0, methods.textDocument_implementation, params, preview_location_cb)
+end
+
 M.setup_handlers = function()
   local icons = {
     ui = require("configs.ui.icons").get("ui"),
@@ -301,7 +329,7 @@ M.setup_handlers = function()
   local mason = require("mason")
   local mason_lspconfig = require("mason-lspconfig")
   local linters = {}
-  for _, v in pairs(global_settings.linters) do
+  for _, v in pairs(configs.linters) do
     vim.list_extend(linters, v)
   end
   mason.setup({
@@ -328,7 +356,7 @@ M.setup_handlers = function()
 
   ---@param server_name string
   local function mason_handler(server_name)
-    if vim.iter(global_settings.lsp_disabled_servers):find(server_name) ~= nil then
+    if vim.iter(configs.lsp_disabled_servers):find(server_name) ~= nil then
       G.pr_info("skip setup language_server, " .. server_name, {title = "nvim-lspconfig"})
       return
     end
@@ -346,7 +374,7 @@ M.setup_handlers = function()
     end
   end
 
-  local servers = global_settings.lsp_default_servers
+  local servers = configs.lsp_default_servers
   mason_lspconfig.setup({
     ensure_installed = servers,
   })
@@ -391,7 +419,7 @@ M.setup = function()
   local register_capability = vim.lsp.handlers[register_method]
   vim.lsp.handlers[register_method] = function(err, result, ctx)
     local client = vim.lsp.get_client_by_id(ctx.client_id)
-    on_lsp_attach(client, vim.api.nvim_get_current_buf())
+    if client then on_lsp_attach(client, vim.api.nvim_get_current_buf()) end
     return register_capability(err, result, ctx)
   end
 
@@ -399,7 +427,7 @@ M.setup = function()
     desc = "Configure LSP keymappings",
     callback = function(ev)
       local client = vim.lsp.get_client_by_id(ev.data.client_id)
-      on_lsp_attach(client, ev.buf)
+      if client then on_lsp_attach(client, ev.buf) end
     end
   })
 end

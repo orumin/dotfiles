@@ -1,6 +1,6 @@
 local utils = require("envutils")
 local G = utils:globals()
-local settings = require("configs.global_settings")
+local configs = require("configs")
 local icons = {
   documents = require("configs.ui.icons").get("documents"),
   kind = require("configs.ui.icons").get("kind"),
@@ -28,7 +28,7 @@ package.path = package.path .. ";" .. G.plugin_config_dir .. G.path_sep .. "?.lu
 
 local disabled_plugins = {}
 local count = 1
-for k, _ in pairs(settings.disabled_rtp_plugins) do
+for k, _ in pairs(configs.disabled_rtp_plugins) do
   disabled_plugins[count] = k
   count = count + 1
 end

@@ -8,6 +8,9 @@ if vim.g.vscode then
   return
 end
 
+local settings = require("configs")
+vim.g.mapleader = settings.mapleader
+
 -- load utilities
 local utils = require("envutils")
 utils:setup()

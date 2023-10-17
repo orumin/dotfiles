@@ -25,13 +25,13 @@ SOFTWARE.
 
 -- original code is taken from https://github.com/ayamir/nvimdots/blob/8631b662fe37dbfc2576aaf74a1d38d8ab71a2a3/lua/modules/utils/icons.lua
 
-local settings = require("configs.global_settings")
+local configs = require("configs")
 local function get_icon(arg)
   if type(arg) ~= "table" or #arg ~= 2 then
     return " "
   end
-  return settings.icon.nerd_ver == "2" and arg[1] or
-    settings.icon.nerd_ver == "3" and arg[2] or
+  return configs.icon.nerd_ver == "2" and arg[1] or
+    configs.icon.nerd_ver == "3" and arg[2] or
     "?"
 end
 local icons = {}

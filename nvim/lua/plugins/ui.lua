@@ -81,6 +81,7 @@ return {
         lazy = true,
         event = "VeryLazy",
         config = function ()
+          ---@diagnostic disable-next-line: missing-fields
           require("notify").setup({
             background_colour = "#000000"
           })
@@ -113,12 +114,14 @@ return {
       { "anuvyklack/hydra.nvim", lazy = true }
     },
     keys = require("configs.keymap").hydra["git"],
-    config = require("ui.hydra_conf").setup["git"]
+    config = function()
+      local Hydra = require("hydra")
+      Hydra(require("ui.hydra_conf").setup["git"]())
+    end
   },
   -- Hydra
   {
     "anuvyklack/hydra.nvim",
-    name = "hydra",
     lazy = true,
   }
 }

@@ -2,6 +2,10 @@ local utils = require("envutils")
 local G = utils:globals()
 local palette = utils.get_palette()
 
+if G.is_headless then
+  vim.g.neovide_no_custom_clipboard = true
+end
+
 --#################################
 -- Display
 --#################################

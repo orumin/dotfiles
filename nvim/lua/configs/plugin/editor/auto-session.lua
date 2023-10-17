@@ -12,6 +12,7 @@ return function ()
       end,
     },
     auto_session_enable_last_session = false,
+    auto_session_last_session_dir = G.nvim_data_dir .. G.path_sep .. "last_session" .. G.path_sep,
     auto_session_root_dir = G.nvim_data_dir .. G.path_sep .. "sessions" .. G.path_sep,
     auto_session_enabled = true,
     auto_save_enabled = nil,

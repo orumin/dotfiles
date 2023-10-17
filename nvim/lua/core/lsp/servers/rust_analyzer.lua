@@ -13,18 +13,10 @@ return function(opts)
   if G.is_linux then liblldb_path = liblldb_path .. ".so" end
   if G.is_mac then liblldb_path = liblldb_path .. ".dylib" end
 
-  local rust_tools_opts = {
-    tools = {
-      executor = rt_executor,
-      on_initialized = nil,
-      reload_workspace_from_cargo_toml = true,
-      inlay_hints = { auto = false }
-    },
-    server = {},
-    dap = {}
-  }
+  local rust_tools_opts = require("configs.plugin.lsp.servers.rust_analyzer_conf")
 
-  rust_tools_opts.server.autostart = true
+  rust_tools_opts.tools.executor = rt_executor
+
   rust_tools_opts.server.capabilities = opts.capabilities
   rust_tools_opts.server.on_attach = function (_, bufnr)
     vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr, desc = "rust hover actions"  })

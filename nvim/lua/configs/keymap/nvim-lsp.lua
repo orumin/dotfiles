@@ -1,7 +1,11 @@
 return {
   textDocument = {
     implementation = {
-      { "gI", vim.lsp.buf.implementation, mode = "n", silent = true, desc = "LSP implementation" },
+      { "gI", vim.lsp.buf.implementation, mode = "n", silent = true, desc = "LSP goto implementation" },
+      { "gi", function ()
+        local lsp = require("core.lsp")
+        lsp.peek_implementation()
+      end, mode = "n", silent = true, desc = "LSP peek implementation" },
     },
     references = {
       { "gh", function ()

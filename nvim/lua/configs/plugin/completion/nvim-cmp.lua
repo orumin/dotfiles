@@ -1,4 +1,4 @@
-local settings = require("configs.global_settings")
+local configs = require("configs")
 return function()
   local icons = {
     kind = require("configs.ui.icons").get("kind"),
@@ -56,7 +56,7 @@ return function()
       documentation = winopts
     },
     sources = cmp.config.sources({
-      settings.use_skk and {name = "skkeleton"} or {},
+      configs.use_skk and {name = "skkeleton"} or {},
       {name = "nvim_lsp", max_item_count = 100 },
       {name = "luasnip", option = { show_autosnippets = true } },
       {name = "luasnip_choice"},
@@ -101,6 +101,7 @@ return function()
 
   cmp.setup(opts)
 
+  ---@diagnostic disable-next-line: missing-fields
   cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources(
       {
@@ -112,6 +113,7 @@ return function()
     )
   })
 
+  ---@diagnostic disable-next-line: missing-fields
   cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources(
@@ -125,6 +127,7 @@ return function()
     )
   })
 
+  ---@diagnostic disable-next-line: missing-fields
   cmp.setup.cmdline( ":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources(
@@ -140,6 +143,7 @@ return function()
     )
   })
 
+  ---@diagnostic disable-next-line: missing-fields
   cmp.setup.cmdline( "@", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources(
