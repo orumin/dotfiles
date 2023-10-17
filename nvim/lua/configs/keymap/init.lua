@@ -30,7 +30,12 @@ return {
   },
   ["nvim_lsp"] = require("configs.keymap.nvim-lsp"),
   ["skkeleton"] = {
-    {"<C-j>", "<Plug>(skkeleton-toggle)", mode = {"c", "i"}, desc="skk"}
+    {"<C-j>", "<Plug>(skkeleton-toggle)", mode = {"c", "i"}, desc="skk" }
+  },
+  ["ssr"] = {
+    {"<leader>sr", function ()
+      require("ssr").open()
+    end, mode = {"n", "x"}, desc = "structual search & rename" }
   },
   ["toggleterm"] = {
     { "vtf", "<Cmd>exe " .. vim.v.count1 .. ". \"ToggleTerm direction=float\"<CR>", mode = "n", desc = "open float terminal" },

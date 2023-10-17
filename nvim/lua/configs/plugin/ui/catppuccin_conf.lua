@@ -43,6 +43,7 @@ return function ()
         },
       },
       neogit = true,
+      neotest = true,
       neotree = true,
       noice = true,
       notify = true,
@@ -51,6 +52,7 @@ return function ()
       symbols_outline = true,
       telescope = {
         enabled = true,
+        style = "nvchad"
       },
       treesitter = true,
       treesitter_context = true,

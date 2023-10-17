@@ -58,13 +58,24 @@ return function()
     sources = cmp.config.sources({
       configs.use_skk and {name = "skkeleton"} or {},
       {name = "nvim_lsp", max_item_count = 100 },
+      {name = "nvim_lsp_signature_help"},
       {name = "luasnip", option = { show_autosnippets = true } },
       {name = "luasnip_choice"},
       {name = "buffer"},
       {name = "path"},
       {name = "cmdline_history"},
       {name = "cmdline"},
+      {
+        name = "look",
+        keyword_length = 2,
+        option = {
+          convert_case = true,
+          loud = true,
+          -- dict = "/usr/share/dict/words"
+        }
+      },
       {name = "cmp_pandoc"},
+      {name = "latex_symbols"},
     }),
     mapping = cmp.mapping.preset.insert({
       ["<C-e>"] = cmp.mapping.abort(),
@@ -118,12 +129,14 @@ return function()
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources(
       {
+        { name = "nvim_lsp_document_symbol" },
+      },
+      {
         { name = "buffer" },
       },
       {
         { name = "cmdline_history" },
       }
-
     )
   })
 

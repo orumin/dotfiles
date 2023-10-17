@@ -112,6 +112,13 @@ return {
     end,
     config = require("editor.auto-session")
   },
+  -- rename improve
+  {
+    "cshuaimin/ssr.nvim",
+    lazy = true,
+    keys = require("configs.keymap").ssr,
+    config = require("editor.ssr_conf")
+  },
   -- auto size window
   {
     "anuvyklack/windows.nvim",

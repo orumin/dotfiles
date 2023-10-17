@@ -32,4 +32,16 @@ M.buttons = function(button)
   }
 end
 
+M.layout = {
+  [1] = { type = "padding", val = vim.fn.floor(vim.fn.winheight(0) * 0.2) },
+  -- [2] = header,
+  [3] = { type = "padding", val = 5 },
+  -- [4] = buttons,
+  -- [5] = footer
+}
+
+M.opts = {
+  noautocmd = true
+}
+
 return M

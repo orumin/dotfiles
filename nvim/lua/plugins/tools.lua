@@ -41,8 +41,30 @@ return {
   {
     "Civitasv/cmake-tools.nvim",
     lazy = true,
+    dependencies = {
+      { "nvim-lua/plenary.nvim", lazy = true }
+    },
     cmd = { "CMakeGenerate", "CMakeBuild", "CMakeRun" },
     config = require("tools.cmake_tools_conf")
+  },
+  -- run test
+  {
+    "nvim-neotest/neotest",
+    lazy = true,
+    dependencies = {
+      { "nvim-lua/plenary.nvim", lazy = true },
+      { "nvim-treesitter/nvim-treesitter", lazy = true },
+    }
+  },
+  -- show coverage
+  {
+    "andythigpen/nvim-coverage",
+    lazy = true,
+    dependencies = {
+      { "nvim-lua/plenary.nvim", lazy = true }
+    },
+    cmd = { "CoverageLoad", "CoverageClear" },
+    config = require("tools.coverage_conf")
   },
   -- Git
   {
