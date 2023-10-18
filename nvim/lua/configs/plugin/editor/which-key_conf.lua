@@ -1,4 +1,5 @@
 return function ()
+  local configs = require("configs")
   local icons = {
     ui = require("configs.ui.icons").get("ui"),
     misc = require("configs.ui.icons").get("misc")
@@ -25,7 +26,7 @@ return function ()
       position = "bottom",
       margin = { 1, 0, 1, 0 },
       padding = { 1, 1, 1, 1 },
-      winblend = 10,
+      winblend = configs.winblend,
     }
   })
 end

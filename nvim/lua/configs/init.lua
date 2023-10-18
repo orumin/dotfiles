@@ -32,6 +32,11 @@ local settings = {
     extends = "❯",
     precedes = "❮"
   },
+  lsp_timeout = {
+    stopTimeout  = 1000 * 60 * 5, -- ms, timeout before stopping all LSP servers
+    startTimeout = 1000 * 10,     -- ms, timeout before restart
+    silent       = false
+  },
   lsp_default_servers = {
     "clangd", "cmake", "jsonls", "lua_ls", "pyright", "texlab", "rust_analyzer", "vimls"
   },
@@ -40,6 +45,10 @@ local settings = {
   },
   icon = {
     nerd_ver = "3",
+  },
+  window_style = {
+    border = "rounded",
+    winblend = 15
   },
   remove_trailing_space = true,
   shell = "fish",

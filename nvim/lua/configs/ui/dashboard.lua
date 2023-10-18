@@ -28,7 +28,7 @@ M.buttons = function(button)
     button("g", "󰈬  Find word", "<Cmd>Telescope live_grep<CR>"),
 --    button("SPC f m", "  Jump to bookmarks"),
 --    button("SPC s l", "  Open last session"),
-    button("q", "Quit NeoVIM", "<Cmd>qa<CR>"),
+    button("q", "Quit NeoVim", "<Cmd>qa<CR>"),
   }
 end
 

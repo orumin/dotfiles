@@ -12,6 +12,7 @@ return function ()
         enabled = true,
         color_mode = true
       },
+      fidget = true,
       gitsigns = true,
       indent_blankline = {
         enabled = true,

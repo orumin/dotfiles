@@ -210,10 +210,10 @@ local function enhanced_float_handler(handler)
       result,
       ctx,
       vim.tbl_deep_extend('force', config or {}, {
-        border = 'rounded',
+        border = configs.window_style.border,
         max_height = math.floor(vim.o.lines * 0.5),
         max_width = math.floor(vim.o.columns * 0.4),
-        winblend = 15
+        winblend = configs.window_style.winblend
       })
     )
 
@@ -259,6 +259,8 @@ local function make_capabilities()
 	return capabilities
 end
 
+M.windows = {}
+
 ---@param err lsp.ResponseError|nil
 ---@param result lsp.Location|lsp.LocationLink
 ---@param context lsp.HandlerContext
@@ -272,15 +274,88 @@ local function preview_location_cb(err, result, context, config)
     vim.lsp.buf.hover()
     return nil
   end
-  local location = vim.tbl_islist(result) and result[1] or result
-  local bufnr, winnr = vim.lsp.util.preview_location(location, {
-    border = "rounded"
-  })
+  local current_bufnr = vim.api.nvim_get_current_buf()
 
-  if not bufnr or not winnr then
+  local id = "location"
+  local target_win = vim.iter(vim.api.nvim_list_wins()):find(function(v)
+    return vim.F.npcall(vim.api.nvim_win_get_var, v, id) == current_bufnr
+  end)
+  if target_win and vim.api.nvim_win_is_valid(target_win) and vim.fn.pumvisible() == 0 then
+    vim.api.nvim_set_current_win(target_win)
+    vim.cmd("stopinsert")
     return
   end
-  enhanced_float_win(bufnr, winnr)
+
+  local existing_win = vim.F.npcall(vim.api.nvim_buf_get_var, current_bufnr, "lsp_peek")
+  if existing_win and vim.api.nvim_win_is_valid(existing_win) then vim.api.nvim_win_close(existing_win, true) end
+
+  local location = vim.tbl_islist(result) and result[1] or result
+  local uri = location.targetUri or location.uri
+  local range = location.targetRange or location.range
+  local preview_bufnr = vim.uri_to_bufnr(uri)
+  if not vim.api.nvim_buf_is_loaded(preview_bufnr) then
+    vim.fn.bufload(preview_bufnr)
+  end
+
+  local current_cursor = vim.api.nvim_win_get_cursor(vim.api.nvim_get_current_win())
+  local preview_winnr = vim.api.nvim_open_win(preview_bufnr, false, {
+    relative = "win",
+    bufpos = current_cursor,
+    height = 20,
+    width = 120,
+    zindex = #M.windows + 1,
+    style = "minimal",
+    border = configs.window_style.border,
+    title = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(preview_bufnr), ":."),
+  })
+  table.insert(M.windows, preview_winnr)
+  vim.api.nvim_win_set_cursor(preview_winnr, {range.start.line+1, range.start.character})
+
+  vim.wo[preview_winnr].conceallevel = 2
+  vim.wo[preview_winnr].foldenable = false
+  vim.bo[preview_bufnr].modifiable = false
+  vim.bo[preview_bufnr].bufhidden = "wipe"
+  vim.api.nvim_win_set_var(preview_winnr, id, current_bufnr)
+  vim.api.nvim_buf_set_var(current_bufnr, "lsp_peek", preview_winnr)
+
+  vim.keymap.set("n", "q", "<Cmd>bdelete<CR>", {silent = true, noremap = true, nowait = true})
+
+  local close_window = function(winnr, bufnrs)
+    vim.schedule(function ()
+      if bufnrs and vim.list_contains(bufnrs, vim.api.nvim_get_current_buf()) then
+        return
+      end
+
+      if vim.api.nvim_win_get_config(vim.api.nvim_get_current_win()).relative ~= "" then
+        return
+      end
+
+      local augroup = "preview_window_" .. winnr
+      pcall(vim.api.nvim_del_augroup_by_name, augroup)
+      pcall(vim.api.nvim_win_close, winnr, true)
+      for i, v in ipairs(M.windows) do
+        if v == winnr then
+          table.remove(M.windows, i)
+          return
+        end
+      end
+    end)
+  end
+
+  local augroup = vim.api.nvim_create_augroup("peek_window_" .. preview_winnr, {clear = true})
+  vim.api.nvim_create_autocmd("BufEnter", {
+    group = augroup,
+    callback = function ()
+      close_window(preview_winnr, {preview_bufnr, current_bufnr})
+    end
+  })
+  vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI", "InsertCharPre" }, {
+    group = augroup,
+    buffer = current_bufnr,
+    callback = function ()
+      close_window(preview_winnr)
+    end
+  })
 end
 
 ---@return table<integer, integer> client_request_ids Map of client-id:request-id pairs
@@ -323,8 +398,8 @@ M.setup_handlers = function()
   }
   local lspconfig = require("lspconfig")
   local win_opt = require("lspconfig.ui.windows").default_options
-  win_opt.border = "rounded"
-  win_opt.winblend = 10
+  win_opt.border = configs.window_style.border
+  win_opt.winblend = configs.window_style.winblend
   require("lsp_lines").setup()
   local mason = require("mason")
   local mason_lspconfig = require("mason-lspconfig")
@@ -335,7 +410,7 @@ M.setup_handlers = function()
   mason.setup({
     ensure_installed = linters,
     ui = {
-      border = "rounded",
+      border = configs.window_style.border,
       icons = {
         package_pending = icons.ui.Modified_alt,
         package_installed = icons.ui.Check,
@@ -403,8 +478,8 @@ M.setup = function()
 --      end
 --    },
     float = {
-      border = "rounded",
-      winblend = 15,
+      border = configs.window_style.border,
+      winblend = configs.window_style.winblend,
       source = "if_many",
       prefix = function (diagnostic)
         local level = vim.diagnostic.severity[diagnostic.severity]

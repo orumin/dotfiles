@@ -30,7 +30,34 @@ return {
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     config = require("lsp.linter_config"),
   },
+  -- start/stop LSP servers upon demand;
+  -- keeps RAM usage low
+  {
+    "hinell/lsp-timeout.nvim",
+    lazy = true,
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    dependencies = {
+      { "neovim/nvim-lspconfig" }
+    },
+    init = function()
+      local configs = require("configs")
+      for k, v in pairs(configs.lsp_timeout) do
+        vim.g[k] = v
+      end
+    end
+  },
   -- pretty good LSP UI
+  {
+    "j-hui/fidget.nvim",
+    lazy = true,
+    tag = "legacy",
+    event = "LspAttach",
+    config = function ()
+      require("fidget").setup({
+        window = { relative = "editor", blend = 15 }
+      })
+    end
+  },
   {
     "folke/trouble.nvim",
     lazy = true,

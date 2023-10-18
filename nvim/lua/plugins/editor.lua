@@ -99,7 +99,7 @@ return {
   {
     "fraso-dev/nvim-listchars",
     lazy = true,
-    event = "VeryLazy",
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
     config = require("editor.listchars")
   },
   -- save/restore session like IDE

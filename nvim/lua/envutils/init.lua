@@ -412,7 +412,7 @@ local M = {
   --  local row=math.ceil((current_height-height) / 2-1)
   --
   --  local opts = {
-  --    border="rounded",
+  --    border=configs.window_style.border,
   --    width=width,
   --    height=height,
   --    relative='editor',

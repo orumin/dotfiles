@@ -11,6 +11,14 @@ return {
           '?/init.lua',
         }
       },
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.RUNTIME,
+          "${3rd}/luv/library",
+          "${3rd}/busted/library",
+        }
+      }
     },
   }
 }

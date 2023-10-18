@@ -47,7 +47,7 @@ local lazy_opts = {
   diff = { cmd = "git" },
   ui = {
     wrap = true,
-    border = "rounded",
+    border = configs.window_style.border,
     margin = {
       top = 0,
       right = 0,

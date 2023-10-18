@@ -36,7 +36,7 @@ vim.api.nvim_create_autocmd('FileType', {
 --###############################################################
 -- file type
 --###############################################################
-vim.api.nvim_create_augroup('setFileType', { clear = true })
+vim.api.nvim_create_augroup('setFileType', { clear = false })
 -- yml as ansible, instead of yaml
 vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   group = 'setFileType',
@@ -61,6 +61,15 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
   pattern = {"*.bb", "*.bbappend", "*.bbclass"},
   callback = function()
     vim.o.filetype = 'bitbake'
+  end
+})
+
+-- dis as disassembly
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+  group = 'setFileType',
+  pattern = {"*.dis"},
+  callback = function()
+    vim.o.filetype = 'disassembly'
   end
 })
 
