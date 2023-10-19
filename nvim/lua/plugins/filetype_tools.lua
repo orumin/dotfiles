@@ -43,7 +43,7 @@ return {
   {
     "shiracamus/vim-syntax-x86-objdump-d",
     lazy = true,
-    ft = "disassembly",
+    ft = "dis",
   },
 }
 

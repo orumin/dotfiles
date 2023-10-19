@@ -1,5 +1,27 @@
 local settings = {
   mapleader = " ",
+  filetypes = {
+    extension = {
+      bb = "bitbake",
+      bbappend ="bitbake",
+      bbclass = "bitbake",
+      dis = "dis",
+      md = "markdown",
+      mdwn = "markdown",
+      mkd = "markdown",
+      mkdn = "markdown",
+--      yml = "ansible",
+    },
+    filename = {
+      [".gitignore_global"] = "gitignore",
+      ["launch.json"] = "jsonc",
+      ["settings.json"] = "jsonc"
+    },
+    pattern = {
+      [".*%.env%..*"] = "env",
+      [".*%.mark%.*"] = "markdown"
+    }
+  },
   disabled_rtp_plugins = {
     gzip = true,
     man = nil,
@@ -17,8 +39,7 @@ local settings = {
   linters = {
 --    lua = { "luacheck" },
     markdown = { "vale" },
---    proto = { "buf", "protolint" },
-    proto = { "buf_lint" },
+--    proto = { "buf_lint" },
     python = { "mypy" },
     sh = { "shellcheck" },
     sql = { "sqlfluff" },
@@ -38,10 +59,16 @@ local settings = {
     silent       = false
   },
   lsp_default_servers = {
-    "clangd", "cmake", "jsonls", "lua_ls", "pyright", "texlab", "rust_analyzer", "vimls"
+    "asm_lsp", "awk_ls", "bashls", "bufls", "clangd", "cmake", "docker_compose_language_service",
+    "dockerls", "fennel_language_server", "gopls", "html", "java_language_server", "jsonls",
+    "luau_lsp", "marksman", "ocamllsp", "powershell_es", "solargraph", "tsserver",
+    "lua_ls", "pyright", "texlab", "rust_analyzer", "vimls"
   },
   lsp_disabled_servers = {
 --    "ltex"
+  },
+  dap_default_servers = {
+    "bash", "codelldb", "cppdbg", "delve", "python"
   },
   icon = {
     nerd_ver = "3",
@@ -52,7 +79,7 @@ local settings = {
   },
   remove_trailing_space = true,
   shell = "fish",
-  use_skk = false,
+  use_skk = true,
   use_denops = false,
 }
 

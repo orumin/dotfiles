@@ -108,32 +108,34 @@ return {
   -- ime
   {
     "vim-skk/skkeleton",
-    lazy = false,
-    keys = require("configs.keymap").skkeleton,
+    lazy = true,
+    event = { "InsertEnter", "CmdlineEnter" },
     cond = vim.fn.has("nvim-0.8") == 1 and configs.use_skk, -- disable
     dependencies = {
-      { "vim-denops/denops.vim" },
-      {
-        "delphinus/skkeleton_indicator.nvim",
-        init = function ()
-          vim.api.nvim_set_hl(0, "SkkeletonIndicatorEiji", { fg=palette.blue, bg=palette.base, bold=true })
-          vim.api.nvim_set_hl(0, "SkkeletonIndicatorHira", { fg=palette.base, bg=palette.green, bold=true })
-          vim.api.nvim_set_hl(0, "SkkeletonIndicatorKata", { fg=palette.base, bg=palette.yellow, bold=true})
-          vim.api.nvim_set_hl(0, "SkkeletonIndicatorHankaku", { fg=palette.base, bg=palette.pink, bold=true})
-          vim.api.nvim_set_hl(0, "SkkeletonIndicatorZenkaku", { fg=palette.base, bg=palette.blue, bold=true})
-        end,
-        config = true,
-      },
+      { "vim-denops/denops.vim", lazy = true },
+      { "yuki-yano/denops-lazy.nvim", lazy = true },
     },
     config = require("tools.skkeleton"),
   },
+  {
+    "delphinus/skkeleton_indicator.nvim",
+    lazy = true,
+    event = { "InsertEnter", "CmdlineEnter" },
+    init = function ()
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorEiji", { fg=palette.blue, bg=palette.base, bold=true })
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorHira", { fg=palette.base, bg=palette.green, bold=true })
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorKata", { fg=palette.base, bg=palette.yellow, bold=true})
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorHankaku", { fg=palette.base, bg=palette.pink, bold=true})
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorZenkaku", { fg=palette.base, bg=palette.blue, bold=true})
+      vim.api.nvim_set_hl(0, "SkkeletonIndicatorAbbrev", { fg=palette.base, bg=palette.red, bold=true})
+    end,
+    config = true,
+  },
   -- writing table in plain text
   {
-    "dhruvasagar/vim-table-mode",
+    "mattn/vim-maketable",
     lazy = true,
-    ft = {
-      "asciidoc", "gitcommit", "gitrebase", "help", "hybrid", "markdown", "pandoc", "rst", "tex", "text", "vcs-commit"
-    },
+    cmd = { "MakeTable", "UnmakeTable" }
   },
   -- writing ascii diagram
   {
@@ -182,18 +184,11 @@ return {
   },
   -- translation
   {
-    "voldikss/vim-translator",
+    "potamides/pantran.nvim",
     lazy = true,
-    keys = require("configs.keymap").translator,
-    config = require("tools.translator"),
-    cmd = {
-      "Translate",
-      "TranslateW",
-      "TranslateR",
-      "TranslateX",
-      "TranslateH",
-      "TranslateL",
-    }
+    keys = require("configs.keymap").pantran,
+    cmd = "Pantran",
+    config = require("tools.pantran_conf"),
   },
   -- search nerd font icons
   {
@@ -205,5 +200,11 @@ return {
     },
     cmd = "Nerdy",
   },
+  -- profiler
+  {
+    "stevearc/profile.nvim",
+    lazy = true,
+    keys = require("configs.keymap").profile
+  }
 }
 

@@ -8,8 +8,8 @@ return {
   { "nvim-lua/plenary.nvim", lazy = true },
   {
     "vim-denops/denops.vim",
+    lazy = true,
     cond = configs.use_denops or configs.use_skk,
-    lazy = false,
   },
 ---------------------------------------------------------------
 -- File tree explorer
@@ -79,10 +79,11 @@ return {
       "DapTerminate"
     },
     dependencies = {
+      { "williamboman/mason.nvim", lazy = true },
+      { "jay-babu/mason-nvim-dap.nvim", lazy = true },
       { "rcarriga/nvim-dap-ui", lazy = true },
       { "theHamsta/nvim-dap-virtual-text", lazy = true },
       { "jbyuki/one-small-step-for-vimkind", lazy = true },
-      { "jay-babu/mason-nvim-dap.nvim", lazy = true },
       { "anuvyklack/hydra.nvim", lazy = true }
     },
     keys = require("configs.keymap").hydra["dap"],
@@ -136,18 +137,26 @@ return {
     lazy = true,
     cmd = { "BufDel", "BufDelAll", "BufDelOthers" }
   },
+  -- create and management window layout
+  {
+    "folke/edgy.nvim",
+    event = "VeryLazy",
+    config = true
+  },
   -- smooth scroll
   {
     "karb94/neoscroll.nvim",
     lazy = true,
     event = { "CursorHold", "CursorHoldI" },
     config = true,
+    cond = false,
   },
   {
     "rainbowhxch/accelerated-jk.nvim",
     lazy = true,
     keys = require("configs.keymap").accelerated_jk,
     event = "VeryLazy",
+    cond = false,
   },
   -- improve highlight
   {
@@ -190,7 +199,7 @@ return {
     lazy = true,
     opts = {
       config_files = { ".nvim.lua", ".nvimrc" },
-      hashfile = G.nvim_data_dir .. G.path_sep .. "config-local",
+      hashfile = utils:path_concat({G.nvim_data_dir, "config-local"}),
 
       autocommands_create = false,
       commands_create = false,

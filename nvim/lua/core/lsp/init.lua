@@ -55,15 +55,16 @@ local function on_lsp_attach(client, bufnr)
     end
   end
 
-  if client.supports_method(methods["textDocument_signatureHelp"]) then
-    local signature_help_group = vim.api.nvim_create_augroup("LSP_signatureHelp", { clear = false })
-    vim.api.nvim_create_autocmd("CursorHoldI", {
-      group = signature_help_group,
-      desc = "Show signatureHelp in insert mode",
-      buffer = bufnr,
-      callback = vim.lsp.buf.signature_help
-    })
-  end
+  -- show signatureHelp by nvim-cmp
+  --if client.supports_method(methods["textDocument_signatureHelp"]) then
+  --  local signature_help_group = vim.api.nvim_create_augroup("LSP_signatureHelp", { clear = false })
+  --  vim.api.nvim_create_autocmd("CursorHoldI", {
+  --    group = signature_help_group,
+  --    desc = "Show signatureHelp in insert mode",
+  --    buffer = bufnr,
+  --    callback = vim.lsp.buf.signature_help
+  --  })
+  --end
 
   if client.supports_method(methods["textDocument_documentHighlight"]) then
     local under_cursor_highlights_group =
@@ -313,12 +314,21 @@ local function preview_location_cb(err, result, context, config)
 
   vim.wo[preview_winnr].conceallevel = 2
   vim.wo[preview_winnr].foldenable = false
-  vim.bo[preview_bufnr].modifiable = false
-  vim.bo[preview_bufnr].bufhidden = "wipe"
+  if current_bufnr ~= preview_bufnr then
+    vim.bo[preview_bufnr].modifiable = false
+    vim.bo[preview_bufnr].bufhidden = "wipe"
+  end
   vim.api.nvim_win_set_var(preview_winnr, id, current_bufnr)
   vim.api.nvim_buf_set_var(current_bufnr, "lsp_peek", preview_winnr)
 
-  vim.keymap.set("n", "q", "<Cmd>bdelete<CR>", {silent = true, noremap = true, nowait = true})
+  if current_bufnr == preview_bufnr then
+    vim.keymap.set("n", "q", function()
+      vim.api.nvim_win_close(preview_winnr, true)
+      vim.keymap.del("n", "q", {buffer = preview_bufnr})
+    end, {buffer = preview_bufnr, silent = true, noremap = true, nowait = true})
+  else
+    vim.keymap.set("n", "q", "<Cmd>bdelete<CR>", {buffer = preview_bufnr, silent = true, noremap = true, nowait = true})
+  end
 
   local close_window = function(winnr, bufnrs)
     vim.schedule(function ()

@@ -1,5 +1,7 @@
 vim.env.IN_NVIM = "1"
 
+require("setup_profiler").init()
+
 if vim.loader then
   vim.loader.enable()
 end
@@ -24,6 +26,7 @@ require('core.plugin')
 -- basic settings
 require('core.autocmd')
 require('core.basic')
+require('core.filetypes')
 --require('core.encoding')
 require('core.keymaps')
 require('core.lsp').setup()

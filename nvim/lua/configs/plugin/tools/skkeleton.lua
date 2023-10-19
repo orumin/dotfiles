@@ -1,7 +1,38 @@
 local utils = require("envutils")
 local G = utils:globals()
-local dict_dir = G.homedir .. G.path_sep .. ".config" .. G.path_sep .. "skk" .. G.path_sep .. "dict" .. G.path_sep
+local dict_dir = utils:path_concat({G.homedir,  ".config", "skk", "dict", ""})
 return function ()
+  local maps = require("configs.keymap").skkeleton
+  require("denops-lazy").load("skkeleton", { wait_load = false })
+  for _, v in pairs(maps) do
+    vim.keymap.set(v.mode, v[1], v[2], { remap = true, desc = v.desc })
+  end
+
+  local mkdir_p = function(path, mode)
+    local success, err = vim.uv.fs_mkdir(path, mode)
+    if success then
+      return true
+    elseif err and string.match(err, "^EEXIST") then
+      return true
+    elseif err and string.match(err, "^ENOENT") then
+      success, err = vim.uv.fs_mkdir(utils:path_concat({path, ".."}), mode)
+      if not success then return nil, err end
+      return vim.uv.fs_mkdir(path, mode)
+    end
+
+    return nil, err
+  end
+  
+  local userJisyoDir = utils:path_concat({G.nvim_data_dir, "skk", ""})
+  local S_IRWXU = 0x1C0 -- 0700 (octal)
+  local S_IRGRP = 0x020 -- 0040 (octal)
+  local S_IXGRP = 0x008 -- 0010 (octal)
+  local S_IROTH = 0x004 -- 0004 (octal)
+  local S_IXOTH = 0x001 -- 0001 (octal)
+  local mode = S_IRWXU + S_IRGRP + S_IXGRP + S_IROTH + S_IXOTH -- 0755 (octal)
+  local success, err = mkdir_p(userJisyoDir, mode)
+  if not success then return end
+
   vim.fn["skkeleton#config"]({
     eggLikeNewline = true,
     globalDictionaries = {
@@ -33,6 +64,7 @@ return function ()
       dict_dir .. "SKK-JISYO.edict2",
       { dict_dir .. "SKK-JISYO.china_taiwan", "euc-jp"},
       dict_dir .. "SKK-JISYO.pinyin",
-    }
+    },
+    userJisyo = utils:path_concat({userJisyoDir, "neovim-skk-userdict.txt"})
   })
 end

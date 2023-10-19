@@ -10,7 +10,6 @@ return {
       { "folke/neodev.nvim", lazy = true },
       { "williamboman/mason.nvim", lazy = true },
       { "williamboman/mason-lspconfig.nvim", lazy = true },
-      { "jay-babu/mason-nvim-dap.nvim", lazy = true },
     },
     init = function ()
       -- disable lsp watcher. Too slow on linux
@@ -28,6 +27,10 @@ return {
     "mfussenegger/nvim-lint",
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    dependencies = {
+      { "williamboman/mason.nvim", lazy = true },
+      { "rshkarin/mason-nvim-lint", lazy = true }
+    },
     config = require("lsp.linter_config"),
   },
   -- start/stop LSP servers upon demand;

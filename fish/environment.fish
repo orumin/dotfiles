@@ -94,3 +94,6 @@ or set -x XDG_CONFIG_HOME $HOME/.config
 
 set -lqx XDG_CACHE_HOME
 or set -x XDG_CACHE_HOME $HOME/.cache
+
+set -lqx $N_PREFIX
+or set -x N_PREFIX $HOME/node

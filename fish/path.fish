@@ -57,6 +57,9 @@ if test $ostype != "Darwin"; and type -q -f ruby
     end
 end
 
+if not contains -- "$HOME/.luarocks/bin" $PATH
+    set -x PATH "$HOME/.luarocks/bin" $PATH
+end
 if not contains -- "$HOME/go/bin" $PATH
     set -x PATH "$HOME/go/bin" $PATH
 end
@@ -66,8 +69,14 @@ end
 if not contains -- "$HOME/.cabal/bin" $PATH
     set -x PATH "$HOME/.cabal/bin" $PATH
 end
-if not contains -- "$HOME/.npm-packages/bin" $PATH
-    set -x PATH "$HOME/.npm-packages/bin" $PATH
+if not contains -- "$HOME/.opam/bin" $PATH
+    set -x PATH "$HOME/.opam/bin" $PATH
+end
+if not contains -- "$HOME/node/bin" $PATH
+    set -x PATH "$HOME/node/bin" $PATH
+end
+if not contains -- "$HOME/node/npm-packages/bin" $PATH
+    set -x PATH "$HOME/node/npm-packages/bin" $PATH
 end
 if not contains -- "/usr/lib/ccache/bin" $PATH
     set -x PATH "/usr/lib/ccache/bin" $PATH

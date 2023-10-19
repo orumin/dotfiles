@@ -5,7 +5,7 @@ return function (opts)
   -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
   require("neodev").setup({
     override = function(root_dir, library)
-      if root_dir:find(G.homedir .. G.path_sep .. "dotfiles", 1, true) == 1 then
+      if root_dir:find(utils:path_concat({G.homedir, "dotfiles"}), 1, true) == 1 then
         library.enabled = true
         library.runtime = true
         library.types = true

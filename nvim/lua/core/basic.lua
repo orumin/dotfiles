@@ -5,9 +5,9 @@ local global_opts = {
   guifont = "PlemolJP Console NF:h9",
   -- backup directories
   undofile = true,
-  undodir = G.nvim_cache_dir .. G.path_sep .. 'undo',
-  backupdir = G.nvim_cache_dir .. G.path_sep .. 'backup',
-  directory = G.nvim_cache_dir .. G.path_sep .. 'swp',
+  undodir = utils:path_concat({G.nvim_cache_dir, 'undo'}),
+  backupdir = utils:path_concat({G.nvim_cache_dir, 'backup'}),
+  directory = utils:path_concat({G.nvim_cache_dir, 'swp'}),
   -- https://github.com/neovim/neovim/issues/6041
   guicursor = "",
 

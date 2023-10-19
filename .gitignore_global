@@ -1,5 +1,7 @@
-# Vim
-.vimrc.local
+.cache/
+
+# C/C++
+compile_commands.json
 
 # Swap
 [._]*.s[a-v][a-z]

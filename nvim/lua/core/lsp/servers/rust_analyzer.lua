@@ -6,9 +6,10 @@ return function(opts)
   local rt_executor = require("rust-tools.executors").termopen
   local rt_dap = require("rust-tools.dap")
 
-  local codelldb_dir = G.nvim_data_dir .. G.path_sep .. "mason" .. G.path_sep .. "packages" .. G.path_sep .. "codelldb" .. G.path_sep .. "extension"
-  local codelldb_path = codelldb_dir .. G.path_sep .. "adapter" .. G.path_sep .. "codelldb" .. (G.is_win and ".exe" or "")
-  local liblldb_path = codelldb_dir .. G.path_sep .. "lldb" .. G.path_sep .. (G.is_win and "bin" .. G.path_sep .. "liblldb.dll" or "lib" .. G.path_sep .. "liblldb")
+  local codelldb_dir = utils:path_concat({G.nvim_data_dir, "mason", "packages", "codelldb", "extension"})
+  local codelldb_path = utils:path_concat({codelldb_dir, "adapter", "codelldb"}) .. (G.is_win and ".exe" or "")
+  local liblldb_bin_path = utils:path_concat({(G.is_win and "bin" or "lib"), (G.is_win and "liblldb.dll" or "liblldb")})
+  local liblldb_path = utils:path_concat({codelldb_dir, "lldb", liblldb_bin_path})
 
   if G.is_linux then liblldb_path = liblldb_path .. ".so" end
   if G.is_mac then liblldb_path = liblldb_path .. ".dylib" end

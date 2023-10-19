@@ -29,6 +29,30 @@ return {
     desc = "toggle NeoTree" }
   },
   ["nvim_lsp"] = require("configs.keymap.nvim-lsp"),
+  ["pantran"] = {
+    {"<leader>tr", mode = {"n", "x"}, function ()
+      require("pantran").motion_translate()
+    end, noremap = true, silent = true, expr = true, desc = "translate"},
+    {"<leader>trr", mode = "n", function ()
+      return require("pantran").motion_translate() .. "_"
+    end, noremap = true, silent = true, expr = true, desc = "translate"},
+  },
+  ["profile"] = {
+    {"<F1>", function()
+      local prof = require("profile")
+      if prof and prof.is_recording() then
+        prof.stop()
+        vim.ui.input({ prompt = "Save profile to:", completion = "file", default = "profile.json" }, function(filename)
+          if filename then
+            prof.export(filename)
+            --vim.notify(string.format("Wrote %s", filename))
+          end
+        end)
+      else
+        prof.start("*")
+      end
+    end, desc = "start/stop profiler"}
+  },
   ["skkeleton"] = {
     {"<C-j>", "<Plug>(skkeleton-toggle)", mode = {"c", "i"}, desc="skk" }
   },
@@ -41,15 +65,6 @@ return {
     { "vtf", "<Cmd>exe " .. vim.v.count1 .. ". \"ToggleTerm direction=float\"<CR>", mode = "n", desc = "open float terminal" },
     { "vts", "<Cmd>exe " .. vim.v.count1 .. ". \"ToggleTerm direction=horizontal\"<CR>", mode = "n", desc = "open horizontal terminal" },
     { "vtv", "<Cmd>exe " .. vim.v.count1 .. ". \"ToggleTerm direction=vertical\"<CR>", mode = "n", desc = "open vertical terminal" }
-  },
-  ["translator"] = {
-    { "<leader>tt", "<Plug>Translate",   mode = "n", silent = true, desc = "echo translation in the cmdline" },
-    { "<leader>tt", "<Plug>TranslateV",  mode = "v", silent = true, desc = "echo translation in the cmdline" },
-    { "<leader>tw", "<Plug>TranslateW",  mode = "n", silent = true, desc = "display translation in a window" },
-    { "<leader>tw", "<Plug>TranslateWV", mode = "v", silent = true, desc = "display translation in a window" },
-    { "<leader>tr", "<Plug>TranslateR",  mode = "n", silent = true, desc = "replace the text with transation" },
-    { "<leader>tr", "<Plug>TranslateRV", mode = "v", silent = true, desc = "replace the text with transation" },
-    { "<leader>tx", "<Plug>TranslateX",  mode = "n", silent = true, desc = "translate the text in clipboard" },
   },
   ["trouble"] = require("configs.keymap.trouble"),
   ["windows"] = {

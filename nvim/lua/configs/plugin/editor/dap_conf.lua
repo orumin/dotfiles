@@ -16,7 +16,7 @@ local function setup_cpp()
   }
 
   local cppdbg_options = nil
-  local cppdbg_command = G.nvim_data_dir .. G.path_sep .. "mason" .. G.path_sep .. "bin" .. G.path_sep .. "OpenDebugAD7"
+  local cppdbg_command = utils:path_concat({G.nvim_data_dir, "mason", "bin", "OpenDebugAD7"})
   if G.is_win then
     cppdbg_command = cppdbg_command .. ".exe"
     cppdbg_options = { detached = false }
@@ -75,17 +75,17 @@ local function setup_bash()
   dap.adapters.bashdb = {
     id = 'bashdb',
     type = 'executable',
-    command = G.nvim_data_dir .. G.path_sep .. "mason" .. G.path_sep .. "bin" .. G.path_sep .. "bash-debug-adapter"
+    command = utils:path_concat({G.nvim_data_dir, "mason", "bin", "bash-debug-adapter"})
   }
 
-  local pathBashdbLib = G.nvim_data_dir .. G.path_sep .. "mason" .. G.path_sep .. "packages" .. G.path_sep .. "bash-debug-adapter" .. G.path_sep .. "extension" .. G.path_sep .. "bashdb_dir"
+  local pathBashdbLib = utils:path_concat({G.nvim_data_dir, "mason", "packages", "bash-debug-adapter", "extension", "bashdb_dir"})
   dap.configurations["sh"] = {
     {
       name = "Launch file",
       type = "bashdb",
       request = "launch",
       showDebugOutput = true,
-      pathBashdb = pathBashdbLib .. G.path_sep .. "bashdb",
+      pathBashdb = utils:path_concat({pathBashdbLib, "bashdb"}),
       pathBashdbLib = pathBashdbLib,
       trace = true,
       file = "${file}",
@@ -121,6 +121,10 @@ end
 
 return function ()
   require("dap")
+  require("mason-nvim-dap").setup({
+    automatic_installation = true,
+    ensure_installed = require("configs").dap_default_servers
+  })
   local dapui = require("dapui")
   local dap_virt_text = require("nvim-dap-virtual-text")
 
