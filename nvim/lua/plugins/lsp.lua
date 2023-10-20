@@ -22,6 +22,12 @@ return {
     end,
     config = require("core.lsp").setup_handlers,
   },
+  {
+      "williamboman/mason.nvim",
+    lazy = true,
+    cmd = "Mason",
+    config = require("lsp.mason_conf"),
+  },
   -- other linter
   {
     "mfussenegger/nvim-lint",
@@ -49,7 +55,7 @@ return {
       end
     end
   },
-  -- pretty good LSP UI
+  -- show progress of LSP server
   {
     "j-hui/fidget.nvim",
     lazy = true,
@@ -61,6 +67,7 @@ return {
       })
     end
   },
+  -- get LSP diagnostics and references to quickfix window
   {
     "folke/trouble.nvim",
     lazy = true,
@@ -72,18 +79,21 @@ return {
     keys = require("configs.keymap").trouble,
     config = require("lsp.trouble"),
   },
+  -- show symbol outline get from LSP to sidebar
   {
     "simrat39/symbols-outline.nvim",
     lazy = true,
     event = "LspAttach",
     config = require("lsp.symbols_outline_conf"),
   },
+  -- display number of references of the symbol above that
   {
     "Wansmer/symbol-usage.nvim",
     lazy = true,
     event = "LspAttach",
     config = require("lsp.symbol_usage_conf")
   },
+  -- show diagnostics at cursor by virtual text with more details
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     lazy = true,

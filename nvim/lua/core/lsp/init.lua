@@ -1,21 +1,10 @@
-local utils = require("envutils")
-local G = utils:globals()
-local configs = require("configs")
-local diagnostic_icons = require("configs.ui.icons").get("diagnostics")
-local signs = {
-  ERROR = diagnostic_icons.Error,
-  WARN = diagnostic_icons.Warning,
-  INFO = diagnostic_icons.Information,
-  HINT = diagnostic_icons.Hint_alt,
-}
-local md_namespace = vim.api.nvim_create_namespace("LSP_float")
-
 ---@class myLspConf
 local M = {}
 
 ---@param bufnr integer
 ---@param maps table[]
 local function set_keymaps(bufnr, maps)
+  local utils = require("envutils")
   for _, v in pairs(maps) do
     local opts = utils.get_keymap_opts(v)
     local lhs = v.lhs or v[1]
@@ -55,7 +44,7 @@ local function on_lsp_attach(client, bufnr)
     end
   end
 
-  -- show signatureHelp by nvim-cmp
+  -- show signatureHelp by nvim-cmp. so didn't create keymaps to call vim.lsp.buf.signature_help
   --if client.supports_method(methods["textDocument_signatureHelp"]) then
   --  local signature_help_group = vim.api.nvim_create_augroup("LSP_signatureHelp", { clear = false })
   --  vim.api.nvim_create_autocmd("CursorHoldI", {
@@ -143,6 +132,7 @@ local function on_lsp_attach(client, bufnr)
   end
 end
 
+local md_namespace = vim.api.nvim_create_namespace("LSP_float")
 ---@param bufnr integer
 ---@param winnr integer
 ---@return any?
@@ -206,6 +196,7 @@ end
 ---@return function
 local function enhanced_float_handler(handler)
   return function(err, result, ctx, config)
+    local configs = require("configs")
     local bufnr, winnr = handler(
       err,
       result,
@@ -228,6 +219,8 @@ end
 
 ---@return lsp.ClientCapabilities
 local function make_capabilities()
+  local utils = require("envutils")
+  local G = utils:globals()
   local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
   if not ok then
     G.pr_error("error loading cmp_nvim_lsp")
@@ -298,6 +291,7 @@ local function preview_location_cb(err, result, context, config)
     vim.fn.bufload(preview_bufnr)
   end
 
+  local configs = require("configs")
   local current_cursor = vim.api.nvim_win_get_cursor(vim.api.nvim_get_current_win())
   local preview_winnr = vim.api.nvim_open_win(preview_bufnr, false, {
     relative = "win",
@@ -402,33 +396,6 @@ M.peek_implementation = function()
 end
 
 M.setup_handlers = function()
-  local icons = {
-    ui = require("configs.ui.icons").get("ui"),
-    misc = require("configs.ui.icons").get("misc")
-  }
-  local lspconfig = require("lspconfig")
-  local win_opt = require("lspconfig.ui.windows").default_options
-  win_opt.border = configs.window_style.border
-  win_opt.winblend = configs.window_style.winblend
-  require("lsp_lines").setup()
-  local mason = require("mason")
-  local mason_lspconfig = require("mason-lspconfig")
-  local linters = {}
-  for _, v in pairs(configs.linters) do
-    vim.list_extend(linters, v)
-  end
-  mason.setup({
-    ensure_installed = linters,
-    ui = {
-      border = configs.window_style.border,
-      icons = {
-        package_pending = icons.ui.Modified_alt,
-        package_installed = icons.ui.Check,
-        package_uninstalled = icons.misc.Ghost
-      }
-    },
-  })
-
   local opts = {
     autostart = true,
     capabilities = make_capabilities(),
@@ -441,6 +408,10 @@ M.setup_handlers = function()
 
   ---@param server_name string
   local function mason_handler(server_name)
+    local configs = require("configs")
+    local utils = require("envutils")
+    local G = utils:globals()
+    local lspconfig = require("lspconfig")
     if vim.iter(configs.lsp_disabled_servers):find(server_name) ~= nil then
       G.pr_info("skip setup language_server, " .. server_name, {title = "nvim-lspconfig"})
       return
@@ -459,7 +430,9 @@ M.setup_handlers = function()
     end
   end
 
+  local configs = require("configs")
   local servers = configs.lsp_default_servers
+  local mason_lspconfig = require("mason-lspconfig")
   mason_lspconfig.setup({
     ensure_installed = servers,
   })
@@ -467,6 +440,15 @@ M.setup_handlers = function()
 end
 
 M.setup = function()
+  local configs = require("configs")
+  local diagnostic_icons = require("configs.ui.icons").get("diagnostics")
+  local signs = {
+    ERROR = diagnostic_icons.Error,
+    WARN = diagnostic_icons.Warning,
+    INFO = diagnostic_icons.Information,
+    HINT = diagnostic_icons.Hint_alt,
+  }
+
   -- Define the diagnostic signs
   for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type:sub(1,1) .. type:sub(2):lower()
@@ -499,6 +481,7 @@ M.setup = function()
     },
     signs = true
   })
+  require("lsp_lines").setup() -- override diagnostic handlers
   -- Update mappings when registering dynamic capabilites.
   local register_method = vim.lsp.protocol.Methods.client_registerCapability
   local register_capability = vim.lsp.handlers[register_method]
