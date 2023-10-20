@@ -101,39 +101,39 @@ vim.api.nvim_create_autocmd('TermOpen', {
 --  })
 --end
 -- disale IME on InsertEnter and restore IME status on Leave
-if not vim.env.WT_SESSION then
-  vim.api.nvim_create_augroup("RestoreIME", { clear = true })
-  vim.api.nvim_create_autocmd("InsertEnter", {
-    group = "RestoreIME",
-    pattern = "*",
-    callback = function ()
-      if vim.env.TMUX then
-        vim.fn.chansend(vim.v.stderr, [[\ePtmux;\e\e[<r\e\\]])
-      else
-        vim.fn.chansend(vim.v.stderr, [[\e[<r]])
-      end
-    end
-  })
-  vim.api.nvim_create_autocmd("InsertLeave", {
-    group = "RestoreIME",
-    pattern = "*",
-    callback = function ()
-      if vim.env.TMUX then
-        vim.fn.chansend(vim.v.stderr, [[\ePtmux;\e\e[<s\e\e[<0t\e\\]])
-      else
-        vim.fn.chansend(vim.v.stderr, [[\e[<s\e[<0t]])
-      end
-    end
-  })
-  vim.api.nvim_create_autocmd("VimLeave", {
-    group = "RestoreIME",
-    pattern = "*",
-    callback = function ()
-      if vim.env.TMUX then
-        vim.fn.chansend(vim.v.stderr, [[\ePtmux;\e\e[<0t\e\e[<s\e\\]])
-      else
-        vim.fn.chansend(vim.v.stderr, [[\e[<0t\e[<s]])
-      end
-    end
-  })
-end
+--if not vim.env.WT_SESSION then
+--  vim.api.nvim_create_augroup("RestoreIME", { clear = true })
+--  vim.api.nvim_create_autocmd("InsertEnter", {
+--    group = "RestoreIME",
+--    pattern = "*",
+--    callback = function ()
+--      if vim.env.TMUX then
+--        vim.fn.chansend(vim.v.stderr, [[\ePtmux;\e\e[<r\e\\]])
+--      else
+--        vim.fn.chansend(vim.v.stderr, [[\e[<r]])
+--      end
+--    end
+--  })
+--  vim.api.nvim_create_autocmd("InsertLeave", {
+--    group = "RestoreIME",
+--    pattern = "*",
+--    callback = function ()
+--      if vim.env.TMUX then
+--        vim.fn.chansend(vim.v.stderr, [[\ePtmux;\e\e[<s\e\e[<0t\e\\]])
+--      else
+--        vim.fn.chansend(vim.v.stderr, [[\e[<s\e[<0t]])
+--      end
+--    end
+--  })
+--  vim.api.nvim_create_autocmd("VimLeave", {
+--    group = "RestoreIME",
+--    pattern = "*",
+--    callback = function ()
+--      if vim.env.TMUX then
+--        vim.fn.chansend(vim.v.stderr, [[\ePtmux;\e\e[<0t\e\e[<s\e\\]])
+--      else
+--        vim.fn.chansend(vim.v.stderr, [[\e[<0t\e[<s]])
+--      end
+--    end
+--  })
+--end

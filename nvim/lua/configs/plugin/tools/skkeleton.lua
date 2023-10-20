@@ -22,7 +22,8 @@ return function ()
 
     return nil, err
   end
-  
+
+  local userJisyo = nil
   local userJisyoDir = utils:path_concat({G.nvim_data_dir, "skk", ""})
   local S_IRWXU = 0x1C0 -- 0700 (octal)
   local S_IRGRP = 0x020 -- 0040 (octal)
@@ -31,7 +32,11 @@ return function ()
   local S_IXOTH = 0x001 -- 0001 (octal)
   local mode = S_IRWXU + S_IRGRP + S_IXGRP + S_IROTH + S_IXOTH -- 0755 (octal)
   local success, err = mkdir_p(userJisyoDir, mode)
-  if not success then return end
+  if success then
+    userJisyo = utils:path_concat({userJisyoDir, "neovim-skk-userdict.txt"})
+  elseif err then
+    utils.pr_error("failed to create directory for skk user-dict", {title = "skkeleton"})
+  end
 
   vim.fn["skkeleton#config"]({
     eggLikeNewline = true,
@@ -65,6 +70,6 @@ return function ()
       { dict_dir .. "SKK-JISYO.china_taiwan", "euc-jp"},
       dict_dir .. "SKK-JISYO.pinyin",
     },
-    userJisyo = utils:path_concat({userJisyoDir, "neovim-skk-userdict.txt"})
+    userJisyo = userJisyo
   })
 end

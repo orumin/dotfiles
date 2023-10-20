@@ -59,9 +59,8 @@ local settings = {
     silent       = false
   },
   lsp_default_servers = {
-    "asm_lsp", "awk_ls", "bashls", "bufls", "clangd", "cmake", "docker_compose_language_service",
-    "dockerls", "fennel_language_server", "gopls", "html", "java_language_server", "jsonls",
-    "luau_lsp", "marksman", "ocamllsp", "powershell_es", "solargraph", "tsserver",
+    "bashls", "bufls", "clangd", "docker_compose_language_service", "dockerls",
+    "gopls", "html", "jsonls", "luau_lsp", "marksman", "powershell_es", "tsserver",
     "lua_ls", "pyright", "texlab", "rust_analyzer", "vimls"
   },
   lsp_disabled_servers = {
@@ -82,5 +81,27 @@ local settings = {
   use_skk = true,
   use_denops = false,
 }
+
+if not vim.fn.has("win32") == 1 then
+  table.insert(settings.lsp_default_servers, "awk_ls")
+  table.insert(settings.lsp_default_servers, "cmake")
+end
+
+if vim.fn.executable("cargo") == 1 then
+  table.insert(settings.lsp_default_servers, "asm_lsp")
+  table.insert(settings.lsp_default_servers, "fennel_language_server")
+end
+
+if vim.fn.executable("gem") == 1 then
+  table.insert(settings.lsp_default_servers, "solargraph")
+end
+
+if vim.fn.executable("mvn") == 1 then
+  table.insert(settings.lsp_default_servers, "java_language_server")
+end
+
+if vim.fn.executable("opam") == 1 then
+  table.insert(settings.lsp_default_servers, "ocamllsp")
+end
 
 return settings

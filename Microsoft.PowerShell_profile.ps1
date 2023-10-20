@@ -1,3 +1,5 @@
+# setting character encoding to UTF-8 (w/o BOM)
+$OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8")
 # Import the module
 Import-Module PSReadLine
 Import-Module Catppuccin

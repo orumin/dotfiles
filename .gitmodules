@@ -19,3 +19,6 @@
 [submodule "skk/dict"]
 	path = skk/dict
 	url = https://github.com/skk-dev/dict
+[submodule "catppuccin/wezterm"]
+	path = catppuccin/wezterm
+	url = https://github.com/catppuccin/wezterm

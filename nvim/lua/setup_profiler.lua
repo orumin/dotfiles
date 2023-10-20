@@ -4,7 +4,7 @@ M.init = function ()
   local should_profile = vim.env.NVIM_PROFILE ~= nil
   if should_profile then
     local nvim_data_dir = vim.fn.stdpath("data")
-    local is_win = vim.fn.has("win") == 1
+    local is_win = vim.fn.has("win32") == 1
     local profile_path = table.concat({nvim_data_dir, "lazy", "profile.nvim"}, is_win and "\\" or "/")
     vim.opt.runtimepath:append(profile_path)
 
