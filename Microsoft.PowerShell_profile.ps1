@@ -61,7 +61,6 @@ $solo2_completion_fpath = 'C:\Users\$env:USERNAME\Documents\PowerShell\solo2.ps1
 if (Test-Path $solo2_completion_fpath) {
     . $solo2_completion_fpath
 }
-
 # Alias
 
 Set-Alias vi nvim
@@ -79,6 +78,8 @@ function InstallPackageChocolatey { Install-Package -ProviderName ChocolateyGet 
 Set-Alias choco-install InstallPackageChocolatey
 
 # env
+$env:RYE_HOME = "$env:USERPROFILE\scoop\persist\rye"
+$env:PATH = "$env:RYE_HOME\shims;" + $env:PATH
 $env:HOME = "$env:USERPROFILE"
 $env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config"
 if ( -not [String]::IsNullOrEmpty($env:WT_SESSION) ) {
