@@ -1,12 +1,3 @@
-local function h(name) return vim.api.nvim_get_hl(0, { name = name }) end
-
--- hl-groups can have any name
-vim.api.nvim_set_hl(0, 'SymbolUsageRounding', { fg = h('CursorLine').bg, italic = true })
-vim.api.nvim_set_hl(0, 'SymbolUsageContent', { bg = h('CursorLine').bg, fg = h('Comment').fg, italic = true })
-vim.api.nvim_set_hl(0, 'SymbolUsageRef', { fg = h('Function').fg, bg = h('CursorLine').bg, italic = true })
-vim.api.nvim_set_hl(0, 'SymbolUsageDef', { fg = h('Type').fg, bg = h('CursorLine').bg, italic = true })
-vim.api.nvim_set_hl(0, 'SymbolUsageImpl', { fg = h('@keyword').fg, bg = h('CursorLine').bg, italic = true })
-
 local function text_format(symbol)
   local res = {}
 
@@ -46,6 +37,7 @@ local function text_format(symbol)
 end
 
 return function ()
+  require("configs.ui.color").set_symbolusage_hl()
   ---@diagnostic disable-next-line: missing-fields
   require('symbol-usage').setup({
     text_format = text_format,

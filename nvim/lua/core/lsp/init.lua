@@ -121,14 +121,8 @@ local function on_lsp_attach(client, bufnr)
       end,
     })
 
-    local comment_hl = vim.api.nvim_get_hl(0, {name = "Comment"})
-    local cursorline_hl = vim.api.nvim_get_hl(0, {name = "CursorLine"})
-    vim.api.nvim_set_hl(0, "LspInlayHint", {
-      fg = comment_hl.fg,
-      bg = cursorline_hl.bg,
-      cterm = comment_hl.cterm,
-      italic = comment_hl.italic
-    })
+    require("configs.ui.color").set_lsp_hl()
+
   end
 end
 
@@ -411,7 +405,9 @@ M.setup_handlers = function()
     local configs = require("configs")
     local utils = require("envutils")
     local G = utils:globals()
+    require("lspconfig.ui.windows").default_options.border = configs.window_style.border
     local lspconfig = require("lspconfig")
+
     if vim.iter(configs.lsp_disabled_servers):find(server_name) ~= nil then
       G.pr_info("skip setup language_server, " .. server_name, {title = "nvim-lspconfig"})
       return

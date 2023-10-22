@@ -145,6 +145,13 @@ return {
   },
   -- smooth scroll
   {
+    "echasnovski/mini.animate",
+    lazy = true,
+    event = "VeryLazy",
+    config = true,
+    cond = not vim.g.neovide and not G.is_headless
+  },
+  {
     "karb94/neoscroll.nvim",
     lazy = true,
     event = { "CursorHold", "CursorHoldI" },

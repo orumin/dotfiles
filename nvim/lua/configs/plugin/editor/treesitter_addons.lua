@@ -1,16 +1,6 @@
 local utils = require("envutils")
 local palette = utils.get_palette()
 
-local highlight = {
-  "RainbowRed",
-  "RainbowYellow",
-  "RainbowBlue",
-  "RainbowOrange",
-  "RainbowGreen",
-  "RainbowViolet",
-  "RainbowCyan",
-}
-
 local ibl_opts = {
   indent = {
     char = '▏',
@@ -35,16 +25,9 @@ local M = {}
 function M.indent_blankline()
   local hooks = require("ibl.hooks")
   hooks.register(hooks.type.HIGHLIGHT_SETUP, function ()
-    vim.api.nvim_set_hl(0, highlight[1], {fg=palette.red})
-    vim.api.nvim_set_hl(0, highlight[2], {fg=palette.yellow})
-    vim.api.nvim_set_hl(0, highlight[3], {fg=palette.blue})
-    vim.api.nvim_set_hl(0, highlight[4], {fg=palette.peach})
-    vim.api.nvim_set_hl(0, highlight[5], {fg=palette.green})
-    vim.api.nvim_set_hl(0, highlight[6], {fg=palette.mauve})
-    vim.api.nvim_set_hl(0, highlight[7], {fg=palette.teal})
-    vim.api.nvim_set_hl(0, "IblIndent",     {bg=palette.mantle})
-    vim.api.nvim_set_hl(0, "IblWhitespace", {bg=palette.base})
   end)
+
+  require("configs.ui.color").set_treesitter_rainbow_hl()
 
   require("ibl").setup(ibl_opts)
 

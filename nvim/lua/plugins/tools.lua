@@ -121,14 +121,7 @@ return {
     "delphinus/skkeleton_indicator.nvim",
     lazy = true,
     event = { "InsertEnter", "CmdlineEnter" },
-    init = function ()
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorEiji", { fg=palette.blue, bg=palette.base, bold=true })
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorHira", { fg=palette.base, bg=palette.green, bold=true })
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorKata", { fg=palette.base, bg=palette.yellow, bold=true})
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorHankaku", { fg=palette.base, bg=palette.pink, bold=true})
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorZenkaku", { fg=palette.base, bg=palette.blue, bold=true})
-      vim.api.nvim_set_hl(0, "SkkeletonIndicatorAbbrev", { fg=palette.base, bg=palette.red, bold=true})
-    end,
+    init = require("configs.ui.color").set_skkeleton_indicator_hl(),
     config = true,
   },
   -- writing table in plain text

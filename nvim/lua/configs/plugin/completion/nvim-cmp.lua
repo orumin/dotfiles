@@ -1,5 +1,7 @@
 local configs = require("configs")
+
 return function()
+  require("configs.ui.color").set_nvim_cmp_hl()
   local icons = {
     kind = require("configs.ui.icons").get("kind"),
     type = require("configs.ui.icons").get("type"),
@@ -9,38 +11,59 @@ return function()
   local cmp = require("cmp")
   local luasnip = require( "luasnip")
 
-  local winopts = cmp.config.window.bordered()
+  local snippet_expand, snippet_jumpable, snippet_jump
+  if vim.snippet then
+    snippet_expand = vim.snippet.expand
+    snippet_jumpable = vim.snippet.jumpable
+    snippet_jump = vim.snippet.jump
+  else
+    snippet_expand = luasnip.lsp_expand
+    snippet_jumpable = luasnip.jumpable
+    snippet_jump = luasnip.jump
+  end
+
   local opts = {
     snippet = {
       expand = function(args)
-        luasnip.lsp_expand(args.body)
+        snippet_expand(args.body)
       end
     },
+    window = {
+      completion = {
+        winhighlight = "Normal:Pmenu,FloatBoard:Pmenu,Search:None",
+        col_offset = -3,
+        side_padding = 0,
+        pumblend = 10
+      },
+      documentation = nil,
+    },
     formatting = {
-      fields = { "abbr", "kind", "menu" },
+      fields = { "kind", "abbr", "menu"},
       format = function(entry, vim_item)
         local lspkind_icons = vim.tbl_deep_extend("force", icons.kind, icons.type, icons.cmp) or {}
+        local kind_text = vim_item.kind
         -- load lspkind icons
-        vim_item.kind =
-        string.format(" %s %s", lspkind_icons[vim_item.kind] or icons.cmp.undefined, vim_item.kind or "")
+        vim_item.kind = " " .. (lspkind_icons[vim_item.kind] or icons.cmp.undefined) .. " "
 
-        vim_item.menu = setmetatable({
-          cmp_tabnine = icons.cmp.cmp_tabnine .. "[TN]",
-          copilot = icons.cmp.copilot .. "[CPLT]",
-          buffer = icons.cmp.buffer .. "[BUF]",
-          orgmode = icons.cmp.orgmode .. "[ORG]",
-          nvim_lsp = icons.cmp.nvim_lsp .. "[LSP]",
-          nvim_lua = icons.cmp.nvim_lua .. "[LUA]",
-          path = icons.cmp.path .. "[PATH]",
-          tmux = icons.cmp.tmux .. "[TMUX]",
-          treesitter = icons.cmp.treesitter .. "[TS]",
-          luasnip = icons.cmp.luasnip .. "[SNIP]",
-          spell = icons.cmp.spell .. "[SPELL]",
+        local menu_item = setmetatable({
+          cmp_tabnine = icons.cmp.cmp_tabnine .. " [TN]",
+          copilot = icons.cmp.copilot .. " [CPLT]",
+          buffer = icons.cmp.buffer .. " [BUF]",
+          orgmode = icons.cmp.orgmode .. " [ORG]",
+          nvim_lsp = icons.cmp.nvim_lsp .. " [LSP]",
+          nvim_lua = icons.cmp.nvim_lua .. " [LUA]",
+          path = icons.cmp.path .. " [PATH]",
+          tmux = icons.cmp.tmux .. " [TMUX]",
+          treesitter = icons.cmp.treesitter .. " [TS]",
+          luasnip = icons.cmp.luasnip .. " [SNIP]",
+          spell = icons.cmp.spell .. " [SPELL]",
           }, {
             __index = function()
-              return "[BTN]" -- builtin/unknown source names
+              return " [BLTIN]" -- builtin/unknown source names
             end,
         })[entry.source.name]
+
+        vim_item.menu = "   (" .. (kind_text or "") .. ")    " .. menu_item
 
         local label = vim_item.abbr
         local truncated_label = vim.fn.strcharpart(label, 0, 80)
@@ -50,10 +73,6 @@ return function()
 
         return vim_item
       end,
-    },
-    window = {
-      completion = winopts,
-      documentation = winopts
     },
     sources = cmp.config.sources({
       configs.use_skk and {name = "skkeleton"} or {},
@@ -89,8 +108,8 @@ return function()
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.mapping.select_next_item()
-        elseif luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
+        elseif snippet_jumpable(1) then
+            snippet_jump(1)
         else
           fallback()
         end
@@ -98,16 +117,13 @@ return function()
       ["<S-Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.mapping.select_prev_item()
-        elseif luasnip.jumpable(-1) then
-          luasnip.jump(-1)
+        elseif snippet_jumpable(-1) then
+          snippet_jump(-1)
         else
           fallback()
         end
       end, { "i", "s" }),
     }),
-    --view = {
-    --  entries = "native",
-    --},
   }
 
   cmp.setup(opts)
