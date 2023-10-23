@@ -33,9 +33,10 @@ return function()
         winhighlight = "Normal:Pmenu,FloatBoard:Pmenu,Search:None",
         col_offset = -3,
         side_padding = 0,
-        pumblend = 10
       },
-      documentation = nil,
+      documentation = {
+        winhighlight = "Normal:Pmenu,FloatBoard:Pmenu,Search:None",
+      },
     },
     formatting = {
       fields = { "kind", "abbr", "menu"},

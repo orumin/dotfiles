@@ -193,6 +193,26 @@ return {
     },
     cmd = "Nerdy",
   },
+  -- pmodoro timer
+--  {
+--    "orumin/pomodoro.nvim",
+--    lazy = true,
+--    cmd = {
+--      "PomodoroStart",
+--      "PomodoroStatus",
+--      "PomodoroStop",
+--    },
+--    dependencies = {
+--      { "MunifTanjim/nui.nvim" }
+--    },
+--    config = true,
+--  },
+  {
+    "ttak0422/piccolo-pomodoro.nvim",
+    lazy = true,
+    keys = require("configs.keymap").pomodoro,
+    config = require("tools.pomodoro_conf"),
+  },
   -- profiler
   {
     "stevearc/profile.nvim",
