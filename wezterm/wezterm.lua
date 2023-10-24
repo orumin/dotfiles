@@ -17,13 +17,14 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
-for k, v in pairs(keymaps) do
-  config[k] = v
-end
+config.leader = keymaps.leader
+config.disable_default_key_bindings = keymaps.disable_default_key_bindings
+config.keys = keymaps.keys
+local key_tables = config.key_tables or {}
+key_tables.copy_mode = keymaps.key_tables.copy_mode
+key_tables.search_mode = keymaps.key_tables.search_mode
+config.key_tables = key_tables
 
-if utils.is_win then
-  config.term = ""
-end
 config.default_prog = { utils.shell_prog }
 
 config.color_scheme = "Catppuccin Mocha"

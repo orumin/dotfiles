@@ -22,64 +22,50 @@ M.keys = {
   { mods = "LEADER", key = "p", action = wezterm.action.ActivateTabRelative(-1) },
   { mods = "LEADER|SHIFT", key = "&", action = wezterm.action.CloseCurrentTab{confirm=true} },
   { mods = "LEADER", key = "x", action = wezterm.action.CloseCurrentPane{confirm=true} },
+  { mods = "LEADER", key = "[", action = "ActivateCopyMode" },
+  { mods = "LEADER", key = "]", action = wezterm.action.PasteFrom("Clipboard") },
 }
-
 for i = 0, 9 do
   table.insert(M.keys, {
     mods = "LEADER", key = tostring(i), action = wezterm.action.ActivateTab(i)
   })
 end
 
+
+M.key_tables = {
+  copy_mode = {
+    { mods = "NONE", key = "q", action = wezterm.action.CopyMode("Close") },
+    { mods = "NONE", key = "w", action = wezterm.action.CopyMode("MoveForwardWord") },
+    { mods = "NONE", key = "b", action = wezterm.action.CopyMode("MoveBackwardWord") },
+    { mods = "NONE", key = "0", action = wezterm.action.CopyMode("MoveToStartOfLine") },
+    { mods = "NONE", key = "^", action = wezterm.action.CopyMode("MoveToStartOfLineContent") },
+    { mods = "SHIFT", key = "^", action = wezterm.action.CopyMode("MoveToStartOfLineContent") },
+    { mods = "NONE", key = "$", action = wezterm.action.CopyMode("MoveToEndOfLineContent") },
+    { mods = "SHIFT", key = "$", action = wezterm.action.CopyMode("MoveToEndOfLineContent") },
+    { mods = "NONE", key = "g", action = wezterm.action.CopyMode("MoveToScrollbackTop") },
+    { mods = "NONE", key = "G", action = wezterm.action.CopyMode("MoveToScrollbackBottom") },
+    { mods = "SHIFT", key = "G", action = wezterm.action.CopyMode("MoveToScrollbackBottom") },
+    { mods = "CTRL", key = "f", action = wezterm.action.CopyMode("PageDown") },
+    { mods = "CTRL", key = "b", action = wezterm.action.CopyMode("PageUp") },
+    { mods = "NONE", key = "V", action = wezterm.action.CopyMode{ SetSelectionMode = "Line" } },
+    { mods = "SHIFT", key = "V", action = wezterm.action.CopyMode{ SetSelectionMode = "Line" } },
+    { mods = "Ctrl", key = "v", action = wezterm.action.CopyMode{ SetSelectionMode = "Block" } },
+    { mods = "NONE", key = "y", action = wezterm.action.Multiple{
+        { CopyTo = "ClipboardAndPrimarySelection" }, { CopyMode = "Close" }
+      },
+    },
+    { mods = "NONE", key = "h", action = wezterm.action.CopyMode("MoveLeft") },
+    { mods = "NONE", key = "j", action = wezterm.action.CopyMode("MoveDown") },
+    { mods = "NONE", key = "k", action = wezterm.action.CopyMode("MoveUp") },
+    { mods = "NONE", key = "l", action = wezterm.action.CopyMode("MoveRight") },
+  },
+
+  search_mode = {
+    { mods = "NONE", key = "Escape", action = wezterm.action.CopyMode("ClearPattern") },
+    { mods = "NONE", key = "n", action = wezterm.action.CopyMode("NextMatch") },
+    { mods = "SHIFT", key = "N", action = wezterm.action.CopyMode("PriorMatch") },
+  }
+}
+
 return M
 
-
---tmux keybindings
---C-b C-z     Suspend the current client
---C-b Space   Select next layout
---C-b !       Break pane to a new window
---C-b #       List all paste buffers
---C-b $       Rename current session
---C-b '       Prompt for window index to select
---C-b (       Switch to previous client
---C-b )       Switch to next client
---C-b ,       Rename current window
---C-b -       Delete the most recent paste buffer
---C-b .       Move the current window
---C-b /       Describe key binding
---C-b :       Prompt for a command
---C-b ;       Move to the previously active pane
---C-b =       Choose a paste buffer from a list
---C-b ?       List key bindings
---C-b C       Customize options
---C-b D       Choose a client from a list
---C-b E       Spread panes out evenly
---C-b L       Switch to the last client
---C-b M       Clear the marked pane
---C-b ]       Paste the most recent paste buffer
---C-b d       Detach the current client
---C-b f       Search for a pane
---C-b i       Display window information
---C-b m       Toggle the marked pane
---C-b o       Select the next pane
---C-b q       Display pane numbers
---C-b s       Choose a session from a list
---C-b t       Show a clock
---C-b w       Choose a window from a list
---C-b z       Zoom the active pane
---C-b {       Swap the active pane with the pane above
---C-b }       Swap the active pane with the pane below
---C-b ~       Show messages
---C-b DC      Reset so the visible part of the window follows the cursor
---C-b PPage   Enter copy mode and scroll up
---C-b M-1     Set the even-horizontal layout
---C-b M-2     Set the even-vertical layout
---C-b M-3     Set the main-horizontal layout
---C-b M-4     Set the main-vertical layout
---C-b M-5     Select the tiled layout
---C-b M-n     Select the next window with an alert
---C-b M-o     Rotate through the panes in reverse
---C-b M-p     Select the previous window with an alert
---C-b S-Up    Move the visible part of the window up
---C-b S-Down  Move the visible part of the window down
---C-b S-Left  Move the visible part of the window left
---C-b S-Right Move the visible part of the window right
