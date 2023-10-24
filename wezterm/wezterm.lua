@@ -1,4 +1,7 @@
+-- Embedding lua in wezterm has version 5.4 (wezterm/config/Cargo.toml -> dependencies -> mlua)
 local keymaps = require("keymaps")
+local utils = require("utils")
+local restore = require("restore")
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 
@@ -7,6 +10,9 @@ local config = {}
 -- In newer versions of wezterm, use the config_builder which will
 -- help provide clearer error messages
 
+wezterm.on("gui-startup", restore.save_window_size_on_startup)
+wezterm.on("window-resized", restore.save_window_size_on_resize)
+
 if wezterm.config_builder then
   config = wezterm.config_builder()
 end
@@ -14,6 +20,11 @@ end
 for k, v in pairs(keymaps) do
   config[k] = v
 end
+
+if utils.is_win then
+  config.term = ""
+end
+config.default_prog = { utils.shell_prog }
 
 config.color_scheme = "Catppuccin Mocha"
 
