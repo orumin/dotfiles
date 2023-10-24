@@ -26,7 +26,7 @@ return function()
     end,
 
     break_format = function(ctx)
-      return string.format("󰛊 break %02d:%02d", ctx.m, ctx.s)
+      return string.format("☕ break %02d:%02d", ctx.m, ctx.s)
     end,
   })
 end
