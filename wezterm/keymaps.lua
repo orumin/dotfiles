@@ -5,8 +5,8 @@ M.leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 }
 M.disable_default_key_bindings = true
 M.keys = {
   { mods = "LEADER|CTRL", key = "b", action=wezterm.action{SendString="\x02"} }, -- Send <C-b> to the terminal when pressing <C-b> twice
-  { mods = "LEADER", key = "%", action = wezterm.action.SplitVertical{domain="CurrentPaneDomain"} },
-  { mods = "LEADER", key = "\"", action = wezterm.action.SplitHorizontal{domain="CurrentPaneDomain"} },
+  { mods = "LEADER|SHIFT", key = "\"", action = wezterm.action.SplitVertical{domain="CurrentPaneDomain"} },
+  { mods = "LEADER|SHIFT", key = "%", action = wezterm.action.SplitHorizontal{domain="CurrentPaneDomain"} },
   { mods = "LEADER", key = "z", action = "TogglePaneZoomState" },
   { mods = "LEADER", key = "c", action = wezterm.action.SpawnTab("CurrentPaneDomain") },
   { mods = "LEADER", key = "o", action = wezterm.action.RotatePanes("Clockwise") },

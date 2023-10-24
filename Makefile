@@ -1,7 +1,7 @@
 EXCLUDE_FILES  = .git .gitmodules .gitignore .travis.yml
 INSTALL_TARGET = $(wildcard .??*)
 DOTFILES       = $(filter-out $(EXCLUDE_FILES), $(INSTALL_TARGET))
-XDG_CONFIGS	   = alacritty bat btop firenvim fish glamour mpv nvim skk tmux
+XDG_CONFIGS	   = alacritty bat btop firenvim fish glamour mpv nvim skk tmux wezterm
 
 ifeq ($(OS),Windows_NT)
 	HOME := $(USERPROFILE)
@@ -56,7 +56,7 @@ endif
 
 link:
 ifeq ($(OS),Windows_NT)
-	pwsh.exe -Command New-Item -Value $(subst /,\,$(SOURCE)) -Path $(subst /,\,$(TARGET)) -ItemType SymbolicLink -Force
+	pwsh.exe -Command New-Item -Value $(subst /,\,$(SOURCE)) -Path $(subst /,\,$(TARGET)) -ItemType SymbolicLink -Force -ErrorAction SilentlyContinue
 else
 	ln -sfnv $(SOURCE) $(TARGET)
 endif
