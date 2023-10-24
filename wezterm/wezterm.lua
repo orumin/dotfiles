@@ -1,3 +1,4 @@
+local keymaps = require("keymaps")
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 
@@ -10,14 +11,19 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
--- This is where you actually apply your config choices
+for k, v in pairs(keymaps) do
+  config[k] = v
+end
 
--- For example, changing the color scheme:
 config.color_scheme = "Catppuccin Mocha"
 
 config.window_background_opacity = 0.8
 
 config.font_size = 9.0
+
+config.inactive_pane_hsb = {
+  hue = 1.0, saturation = 1.0, brightness = 1.0
+}
 
 config.use_ime = true
 
