@@ -47,9 +47,10 @@ M.key_tables = {
     { mods = "SHIFT", key = "G", action = wezterm.action.CopyMode("MoveToScrollbackBottom") },
     { mods = "CTRL", key = "f", action = wezterm.action.CopyMode("PageDown") },
     { mods = "CTRL", key = "b", action = wezterm.action.CopyMode("PageUp") },
+    { mods = "NONE", key = "v", action = wezterm.action.CopyMode{ SetSelectionMode = "Cell" } },
     { mods = "NONE", key = "V", action = wezterm.action.CopyMode{ SetSelectionMode = "Line" } },
     { mods = "SHIFT", key = "V", action = wezterm.action.CopyMode{ SetSelectionMode = "Line" } },
-    { mods = "Ctrl", key = "v", action = wezterm.action.CopyMode{ SetSelectionMode = "Block" } },
+    { mods = "CTRL", key = "v", action = wezterm.action.CopyMode{ SetSelectionMode = "Block" } },
     { mods = "NONE", key = "y", action = wezterm.action.Multiple{
         { CopyTo = "ClipboardAndPrimarySelection" }, { CopyMode = "Close" }
       },

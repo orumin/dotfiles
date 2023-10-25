@@ -47,4 +47,16 @@ config.window_decorations = "RESIZE"
 
 config.automatically_reload_config = true
 
+local ssh_domains = {}
+for host, config in pairs(wezterm.enumerate_ssh_hosts()) do
+  table.insert(ssh_domains, {
+    name = host,
+    remote_address = host,
+    --multiplexing = "None",
+    assume_shell = "Posix",
+  })
+end
+
+config.ssh_domains = ssh_domains
+
 return config

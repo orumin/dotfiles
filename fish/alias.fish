@@ -77,5 +77,3 @@ alias neofetch='curl -s https://raw.githubusercontent.com/dylanaraps/neofetch/ma
 alias tokyomx='play_tv GR 16'
 alias ud='play_tv GR 28'
 alias bs11='play_tv BS BS09_0'
-
-alias wezterm='flatpak run org.wezfurlong.wezterm'
