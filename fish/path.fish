@@ -78,6 +78,9 @@ end
 if not contains -- "$HOME/node/npm-packages/bin" $PATH
     set -x PATH "$HOME/node/npm-packages/bin" $PATH
 end
+if not contains -- "$HOME/.nimble/bin" $PATH
+    set -x PATH "$HOME/.nimble/bin" $PATH
+end
 if not contains -- "/usr/lib/ccache/bin" $PATH
     set -x PATH "/usr/lib/ccache/bin" $PATH
 end

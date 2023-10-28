@@ -57,8 +57,8 @@ function M.set_lsp_hl()
   })
 end
 
-function M.set_treesitter_rainbow_hl()
-  local highlight = {
+function M.get_rainbow_highlights()
+  return {
     "RainbowRed",
     "RainbowYellow",
     "RainbowBlue",
@@ -67,6 +67,10 @@ function M.set_treesitter_rainbow_hl()
     "RainbowViolet",
     "RainbowCyan",
   }
+end
+
+function M.set_treesitter_rainbow_hl()
+  local highlight = M.get_rainbow_highlights()
   vim.api.nvim_set_hl(0, highlight[1], {fg=palette.red})
   vim.api.nvim_set_hl(0, highlight[2], {fg=palette.yellow})
   vim.api.nvim_set_hl(0, highlight[3], {fg=palette.blue})

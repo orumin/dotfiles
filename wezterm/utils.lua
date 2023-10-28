@@ -74,8 +74,9 @@ function M.mk_cache_dir()
     -- libc's system() is always call cmd.exe as shell in Windows, not pwsh.exe/powershell.exe
     command = "if not exist " .. M.cache_dir .. " mkdir " .. M.cache_dir
   else
-    command = "[ ! -e " .. M.cache_dir .. " ] && mkdir -p " .. M.cache_dir
+    command = "if [ ! -e " .. M.cache_dir .. " ]; then mkdir -p " .. M.cache_dir .. "; fi"
   end
+  print(command)
   return os.execute(command) or false
 end
 

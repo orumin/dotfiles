@@ -103,6 +103,14 @@ return {
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     config = require("editor.listchars")
   },
+  -- show current mode
+  {
+    "mvllow/modes.nvim",
+    lazy = true,
+    event = "VeryLazy",
+    tag = "v0.2.0",
+    config = true,
+  },
   -- save/restore session like IDE
   {
     "rmagatti/auto-session",

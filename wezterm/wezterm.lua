@@ -2,6 +2,7 @@
 local keymaps = require("keymaps")
 local utils = require("utils")
 local restore = require("restore")
+local status = require("status")
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 
@@ -12,10 +13,7 @@ local config = {}
 
 wezterm.on("gui-startup", restore.save_window_size_on_startup)
 wezterm.on("window-resized", restore.save_window_size_on_resize)
-
-if wezterm.config_builder then
-  config = wezterm.config_builder()
-end
+wezterm.on("update-right-status", status.update_right_status)
 
 config.leader = keymaps.leader
 config.disable_default_key_bindings = keymaps.disable_default_key_bindings

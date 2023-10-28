@@ -1,9 +1,15 @@
-local palette = require("envutils").get_palette()
 local configs = require("configs")
 return {
 ---------------------------------------------------------------
 -- Tools
 ---------------------------------------------------------------
+  -- auto correct
+  {
+    "https://git.sr.ht/~swaits/thethethe.nvim",
+    lazy = true,
+    event = "VeryLazy",
+    config = true
+  },
   -- edit with sudo
   {
     "lambdalisue/suda.vim",

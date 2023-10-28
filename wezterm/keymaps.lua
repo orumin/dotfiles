@@ -24,6 +24,9 @@ M.keys = {
   { mods = "LEADER", key = "x", action = wezterm.action.CloseCurrentPane{confirm=true} },
   { mods = "LEADER", key = "[", action = "ActivateCopyMode" },
   { mods = "LEADER", key = "]", action = wezterm.action.PasteFrom("Clipboard") },
+  { mods = "CTRL", key = "-", action = "DecreaseFontSize" },
+  { mods = "CTRL|SHIFT", key = "+", action = "IncreaseFontSize" },
+  { mods = "CTRL", key = "=", action = "IncreaseFontSize" },
 }
 for i = 0, 9 do
   table.insert(M.keys, {

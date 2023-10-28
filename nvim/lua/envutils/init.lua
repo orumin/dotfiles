@@ -122,14 +122,12 @@ function M.get_root()
   local path = uv.fs_realpath(vim.api.nvim_buf_get_name(0))
   ---@type string[]
   local roots = {}
-  if path and path ~= "" then
+  if path ~= "" then
     for _, client in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
       local root_dir = client.config.root_dir
       local workspace = client.config.workspace_folders
-      local paths = root_dir and { root_dir } or
-                    workspace and vim.tbl_map(function(ws)
-                                                return vim.uri_to_fname(ws.uri) end,
-                                              workspace) or
+      local paths = workspace and vim.iter(workspace):map(function(v) return vim.uri_to_fname(v.uri) end):totable() or
+                    root_dir and { root_dir } or
                     {}
       for _, p in ipairs(paths) do
         local r = uv.fs_realpath(p)
@@ -142,12 +140,7 @@ function M.get_root()
   ---@type string?
   local root = roots[1]
   if not root then
-    if path == nil or path == "" then
-      path = uv.cwd()
-    else
-      path = vim.fs.dirname(path)
-    end
-    ---@type string?
+    path = path == "" and uv.cwd() or vim.fs.dirname(path)
     root = vim.fs.find({ ".git" }, { path = path, upward = true })[1]
     root = root and vim.fs.dirname(root) or uv.cwd()
   end
