@@ -9,6 +9,7 @@ M.keys = {
   { mods = "LEADER|SHIFT", key = "%", action = wezterm.action.SplitHorizontal{domain="CurrentPaneDomain"} },
   { mods = "LEADER", key = "z", action = "TogglePaneZoomState" },
   { mods = "LEADER", key = "c", action = wezterm.action.SpawnTab("CurrentPaneDomain") },
+  { mods = "LEADER|SHIFT", key = "C", action = wezterm.action.ShowLauncher },
   { mods = "LEADER", key = "o", action = wezterm.action.RotatePanes("Clockwise") },
   { mods = "LEADER", key = "h", action = wezterm.action.ActivatePaneDirection("Left") },
   { mods = "LEADER", key = "j", action = wezterm.action.ActivatePaneDirection("Down") },
@@ -38,6 +39,7 @@ end
 M.key_tables = {
   copy_mode = {
     { mods = "NONE", key = "q", action = wezterm.action.CopyMode("Close") },
+    { mods = "NONE", key = "i", action = wezterm.action.CopyMode("Close") },
     { mods = "NONE", key = "w", action = wezterm.action.CopyMode("MoveForwardWord") },
     { mods = "NONE", key = "b", action = wezterm.action.CopyMode("MoveBackwardWord") },
     { mods = "NONE", key = "0", action = wezterm.action.CopyMode("MoveToStartOfLine") },
@@ -49,7 +51,9 @@ M.key_tables = {
     { mods = "NONE", key = "G", action = wezterm.action.CopyMode("MoveToScrollbackBottom") },
     { mods = "SHIFT", key = "G", action = wezterm.action.CopyMode("MoveToScrollbackBottom") },
     { mods = "CTRL", key = "f", action = wezterm.action.CopyMode("PageDown") },
-    { mods = "CTRL", key = "b", action = wezterm.action.CopyMode("PageUp") },
+    { mods = "LEADER|CTRL", key = "b", action = wezterm.action.CopyMode("PageUp") },
+    { mods = "NONE", key = "PageDown", action = wezterm.action.CopyMode("PageDown") },
+    { mods = "NONE", key = "PageUp", action = wezterm.action.CopyMode("PageUp") },
     { mods = "NONE", key = "v", action = wezterm.action.CopyMode{ SetSelectionMode = "Cell" } },
     { mods = "NONE", key = "V", action = wezterm.action.CopyMode{ SetSelectionMode = "Line" } },
     { mods = "SHIFT", key = "V", action = wezterm.action.CopyMode{ SetSelectionMode = "Line" } },
