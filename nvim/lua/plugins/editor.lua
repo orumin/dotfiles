@@ -212,16 +212,8 @@ return {
   {
     "klen/nvim-config-local",
     lazy = true,
-    opts = {
-      config_files = { ".nvim.lua", ".nvimrc" },
-      hashfile = utils:path_concat({G.nvim_data_dir, "config-local"}),
-
-      autocommands_create = false,
-      commands_create = false,
-      silent = false,
-      lookup_parents = false,
-    },
-    cond = false,
+    event = "VeryLazy",
+    config = require("editor.local_conf")
   },
 }
 
