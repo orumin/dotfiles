@@ -4,12 +4,11 @@ return {
 ---------------------------------------------------------------
   {
     "neovim/nvim-lspconfig",
-    lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     dependencies = {
-      { "folke/neodev.nvim", lazy = true },
-      { "williamboman/mason.nvim", lazy = true },
-      { "williamboman/mason-lspconfig.nvim", lazy = true },
+      { "folke/neodev.nvim" },
+      { "williamboman/mason.nvim" },
+      { "williamboman/mason-lspconfig.nvim" },
     },
     init = function ()
       -- disable lsp watcher. Too slow on linux
@@ -24,26 +23,29 @@ return {
   },
   {
       "williamboman/mason.nvim",
-    lazy = true,
     cmd = "Mason",
     config = require("lsp.mason_conf"),
   },
-  -- other linter
+  -- other linters
   {
     "mfussenegger/nvim-lint",
-    lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     dependencies = {
-      { "williamboman/mason.nvim", lazy = true },
-      { "rshkarin/mason-nvim-lint", lazy = true }
+      { "williamboman/mason.nvim" },
+      { "rshkarin/mason-nvim-lint" }
     },
     config = require("lsp.linter_config"),
+  },
+  -- formatter
+  {
+    "stevearc/conform.nvim",
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    config = require("lsp.formatter_config"),
   },
   -- start/stop LSP servers upon demand;
   -- keeps RAM usage low
   {
     "hinell/lsp-timeout.nvim",
-    lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     dependencies = {
       { "neovim/nvim-lspconfig" }
@@ -58,7 +60,6 @@ return {
   -- show progress of LSP server
   {
     "j-hui/fidget.nvim",
-    lazy = true,
     tag = "legacy",
     event = "LspAttach",
     config = function ()
@@ -70,34 +71,29 @@ return {
   -- get LSP diagnostics and references to quickfix window
   {
     "folke/trouble.nvim",
-    lazy = true,
     cmd = { "Trouble", "TroubleToggle", "TroubleRefresh" },
     dependencies = {
-      { "nvim-tree/nvim-web-devicons", lazy = true },
-      { "nvim-telescope/telescope.nvim", lazy = true }
+      { "nvim-tree/nvim-web-devicons" },
+      { "nvim-telescope/telescope.nvim" }
     },
-    keys = require("configs.keymap").trouble,
+    keys = require("configs.keymap.trouble"),
     config = require("lsp.trouble"),
   },
   -- show symbol outline get from LSP to sidebar
   {
     "simrat39/symbols-outline.nvim",
-    lazy = true,
     event = "LspAttach",
     config = require("lsp.symbols_outline_conf"),
   },
   -- display number of references of the symbol above that
   {
     "Wansmer/symbol-usage.nvim",
-    lazy = true,
     event = "LspAttach",
     config = require("lsp.symbol_usage_conf")
   },
   -- show diagnostics at cursor by virtual text with more details
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    lazy = true,
     event = "LspAttach"
   }
 }
-

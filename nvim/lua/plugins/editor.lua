@@ -1,6 +1,3 @@
-local utils = require("envutils")
-local G = utils:globals()
-local configs = require("configs")
 return {
 ---------------------------------------------------------------
 -- common plugin
@@ -9,24 +6,22 @@ return {
   {
     "vim-denops/denops.vim",
     lazy = true,
-    cond = configs.use_denops or configs.use_skk,
+    cond = require("configs").use_denops or require("configs").use_skk,
   },
 ---------------------------------------------------------------
 -- File tree explorer
 ---------------------------------------------------------------
   {
     "nvim-neo-tree/neo-tree.nvim",
-    lazy = true,
     cmd = "Neotree",
     branch = "v3.x",
-    keys = require("configs.keymap").neotree,
+    keys = require("configs.keymap.neotree"),
     dependencies = {
-      { "nvim-lua/plenary.nvim", lazy = true },
-      { "nvim-tree/nvim-web-devicons", lazy = true },
-      { "MunifTanjim/nui.nvim", lazy = true },
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-tree/nvim-web-devicons" },
+      { "MunifTanjim/nui.nvim" },
       {
         "s1n7ax/nvim-window-picker",
-        lazy = true,
         name = "window-picker",
         config = require("editor.window_picker"),
       },
@@ -38,24 +33,22 @@ return {
 ---------------------------------------------------------------
   {
     "nvim-telescope/telescope.nvim",
-    lazy = true,
     cmd = "Telescope",
     dependencies = {
-      { "nvim-lua/plenary.nvim", lazy = true },
-      { "nvim-tree/nvim-web-devicons", lazy = true },
-      { "fdschmidt93/telescope-egrepify.nvim", lazy = true },
-      { "folke/trouble.nvim", lazy = true },
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-tree/nvim-web-devicons" },
+      { "fdschmidt93/telescope-egrepify.nvim" },
+      { "folke/trouble.nvim" },
       {
         "rmagatti/session-lens",
-        lazy = true,
         dependencies = {
-          { "rmagatti/auto-session", lazy = true }
+          { "rmagatti/auto-session" }
         }
       },
-      { "debugloop/telescope-undo.nvim", lazy = true },
-      { "anuvyklack/hydra.nvim", lazy = true }
+      { "debugloop/telescope-undo.nvim" },
+      { "anuvyklack/hydra.nvim" }
     },
-    keys = require("configs.keymap").hydra["telescope"],
+    keys = require("configs.keymap.hydra").telescope,
     config = function ()
       local Hydra = require("hydra")
       require("editor.telescope_conf").setup()
@@ -67,7 +60,6 @@ return {
 ---------------------------------------------------------------
   {
     "mfussenegger/nvim-dap",
-    lazy = true,
     cmd = {
       "DapSetLogLevel",
       "DapShowLog",
@@ -79,14 +71,14 @@ return {
       "DapTerminate"
     },
     dependencies = {
-      { "williamboman/mason.nvim", lazy = true },
-      { "jay-babu/mason-nvim-dap.nvim", lazy = true },
-      { "rcarriga/nvim-dap-ui", lazy = true },
-      { "theHamsta/nvim-dap-virtual-text", lazy = true },
-      { "jbyuki/one-small-step-for-vimkind", lazy = true },
-      { "anuvyklack/hydra.nvim", lazy = true }
+      { "williamboman/mason.nvim" },
+      { "jay-babu/mason-nvim-dap.nvim" },
+      { "rcarriga/nvim-dap-ui" },
+      { "theHamsta/nvim-dap-virtual-text" },
+      { "jbyuki/one-small-step-for-vimkind" },
+      { "anuvyklack/hydra.nvim" }
     },
-    keys = require("configs.keymap").hydra["dap"],
+    keys = require("configs.keymap.hydra").dap,
     config = function ()
       local Hydra = require("hydra")
       require("editor.dap_conf")()
@@ -99,22 +91,25 @@ return {
   -- listchar
   {
     "fraso-dev/nvim-listchars",
-    lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     config = require("editor.listchars")
   },
   -- show current mode
   {
     "mvllow/modes.nvim",
-    lazy = true,
     event = "VeryLazy",
     tag = "v0.2.0",
     config = true,
   },
+  -- auto indent like VSCode
+  {
+    "VidocqH/auto-indent.nvim",
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    config = true
+  },
   -- save/restore session like IDE
   {
     "rmagatti/auto-session",
-    lazy = true,
     cmd = { "Autosession", "SessionSave", "SessionRestore", "SessionDelete" },
     init = function ()
       vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
@@ -124,17 +119,15 @@ return {
   -- rename improve
   {
     "cshuaimin/ssr.nvim",
-    lazy = true,
-    keys = require("configs.keymap").ssr,
+    keys = require("configs.keymap.ssr"),
     config = require("editor.ssr_conf")
   },
   -- auto size window
   {
     "anuvyklack/windows.nvim",
-    lazy = true,
     cmd = { "WindowsMaximize", "WindowsMaximizeVertically", "WindowsMaximizeHorizontally", "WindowsEqualize", },
     dependencies = {
-      { "anuvyklack/middleclass", lazy = true }
+      { "anuvyklack/middleclass" }
     },
     keys = require("configs.keymap").windows,
     config = true,
@@ -142,7 +135,6 @@ return {
   -- improve buffer delete command
   {
     "ojroques/nvim-bufdel",
-    lazy = true,
     cmd = { "BufDel", "BufDelAll", "BufDelOthers" }
   },
   -- create and management window layout
@@ -154,21 +146,18 @@ return {
   -- smooth scroll
   {
     "echasnovski/mini.animate",
-    lazy = true,
     event = "VeryLazy",
     config = true,
-    cond = not vim.g.neovide and not G.is_headless
+    cond = not vim.g.neovide and not require("envutils"):globals().is_headless
   },
   {
     "karb94/neoscroll.nvim",
-    lazy = true,
     event = { "CursorHold", "CursorHoldI" },
     config = true,
     cond = false,
   },
   {
     "rainbowhxch/accelerated-jk.nvim",
-    lazy = true,
     keys = require("configs.keymap").accelerated_jk,
     event = "VeryLazy",
     cond = false,
@@ -176,7 +165,6 @@ return {
   -- improve highlight
   {
     "RRethy/vim-illuminate",
-    lazy = true,
     event = { "CursorHold", "CursorHoldI" },
     config = require("editor.illuminate_conf"),
   },
@@ -184,7 +172,6 @@ return {
   {
     "tomiis4/Hypersonic.nvim",
     name = "hypersonic",
-    lazy = true,
     event = "CmdlineEnter",
     cmd = "Hypersonic",
     config = true,
@@ -192,7 +179,6 @@ return {
   -- cheetsheet
   {
     "folke/which-key.nvim",
-    lazy = true,
     event = "VeryLazy",
 --    event = { "CursorHold", "CursorHoldI" },
     init = function ()
@@ -211,9 +197,7 @@ return {
   -- project local setting
   {
     "klen/nvim-config-local",
-    lazy = true,
     event = "VeryLazy",
     config = require("editor.local_conf")
   },
 }
-

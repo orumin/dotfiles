@@ -4,7 +4,6 @@ return {
 ---------------------------------------------------------------
   {
     "nvim-treesitter/nvim-treesitter",
-    lazy = true,
     event = { "BufReadPost" },
     dependencies = {
       { "nvim-treesitter/nvim-treesitter-context" },
@@ -24,7 +23,6 @@ return {
   -- indent
   {
     "lukas-reineke/indent-blankline.nvim",
-    lazy = true,
     event = { "BufReadPost" },
     main = "ibl",
     config = require("editor.treesitter_addons").indent_blankline,
@@ -32,7 +30,6 @@ return {
   -- parentheses
   {
     "HiPhish/rainbow-delimiters.nvim",
-    lazy = true,
     event = { "BufReadPost" },
     config = require("editor.treesitter_addons").rainbow_delimiters,
     dependencies = {
@@ -42,7 +39,6 @@ return {
   -- todo comments
   {
     "folke/todo-comments.nvim",
-    lazy = true,
     event = { "CursorHold", "CursorHoldI" },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
@@ -51,11 +47,9 @@ return {
   -- joke with treesitter
   {
     "Eandrju/cellular-automaton.nvim",
-    lazy = true,
     cmd = "CellularAutomaton",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
   },
 }
-

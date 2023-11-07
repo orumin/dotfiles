@@ -149,14 +149,10 @@ function M.get_root()
 end
 
 function M.get_palette()
-  local color = require("core.color")
-  local ok, catppuccin_palettes
+  local ok, catppuccin_palettes = pcall(require, "catppuccin.palettes")
   local palette = nil
-  if color.name:find("catppuccin") then
-    ok, catppuccin_palettes = pcall(require, "catppuccin.palettes")
-    if ok then
-      palette = catppuccin_palettes.get_palette()
-    end
+  if ok then
+    palette = catppuccin_palettes.get_palette()
   end
 
   if not palette then

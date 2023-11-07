@@ -18,7 +18,7 @@ end
 ---@param client lsp.Client
 ---@param bufnr integer
 local function on_lsp_attach(client, bufnr)
-  local keymaps = require("configs.keymap").nvim_lsp
+  local keymaps = require("configs.keymap.nvim-lsp")
   local methods = vim.lsp.protocol.Methods
 
   vim.wo.signcolumn = 'yes'

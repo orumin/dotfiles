@@ -37,10 +37,7 @@ end
 
 local lazy_opts = {
   root = utils:path_concat({G.nvim_data_dir, "lazy"}),
-  defauls = { lazy = false, version = nil, cond = nil },
-  spec = {
-    { import = "plugins" }, -- load plugin list from vim.fn.stdpath("config") .. "/lua/plugins/?.lua"
-  },
+  defauls = { lazy = true, version = nil, cond = nil },
   lockfile = utils:path_concat({G.nvim_config_dir, "lazy-lock.json"}),
   install = {
     missing = true,
@@ -92,4 +89,52 @@ local lazy_opts = {
 }
 
 vim.opt.runtimepath:prepend(lazypath)
-require("lazy").setup(lazy_opts)
+require("lazy").setup(
+  {
+    {
+      "catppuccin/nvim",
+      lazy = true,
+      name = "catppuccin",
+      priority = 1000,
+      init = function ()
+        local termcolor = require("configs.ui.termcolor")
+        for k, v in pairs(termcolor) do
+          vim.g[k] = v
+        end
+
+        vim.cmd.colorscheme("catppuccin")
+      end,
+      config = require("ui.catppuccin_conf"),
+    },
+    { import = "plugins.editor" },
+    { import = "plugins.ui" },
+    { import = "plugins.treesitter" },
+    { import = "plugins.lsp" },
+    { import = "plugins.completion" },
+    { import = "plugins.tools" },
+    { import = "plugins.filetype_tools" },
+    { import = "plugins.misc" },
+    {
+      "options",
+      lazy = true,
+      event = "VeryLazy",
+      dir = require("envutils"):globals().nvim_config_dir,
+      init = function()
+        require('core.autocmd')
+        require('core.filetypes')
+        require('core.lsp').setup()
+        vim.o.foldlevelstart = 99
+      end,
+      config = function()
+        -- basic settings
+        require('core.basic').finalize()
+        --require('core.encoding')
+        require('core.keymaps')
+
+        -- setup neovide
+        require("configs.neovide")
+        pcall(vim.cmd.rshada, { bang = true })
+      end
+    }
+  },
+  lazy_opts)

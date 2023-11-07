@@ -10,10 +10,6 @@ return function(opts)
   local clangd_opts = vim.tbl_deep_extend("force", {}, opts, clangd_settings)
   require("lspconfig").clangd.setup(clangd_opts)
 
-
-  local clangd_extensions_opts = clangd_conf.ext_opts
-  require("clangd_extensions").setup(clangd_extensions_opts)
-
   local augroup = vim.api.nvim_create_augroup("CppLspAttach", {clear = true })
   vim.api.nvim_create_autocmd("LspAttach", {
     group = augroup,

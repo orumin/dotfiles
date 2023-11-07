@@ -1,4 +1,3 @@
-local configs = require("configs")
 return {
 ---------------------------------------------------------------
 -- Tools
@@ -6,14 +5,12 @@ return {
   -- auto correct
   {
     "https://git.sr.ht/~swaits/thethethe.nvim",
-    lazy = true,
-    event = "VeryLazy",
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
     config = true
   },
   -- edit with sudo
   {
     "lambdalisue/suda.vim",
-    lazy = true,
     cmd = { "SudaRead", "SudaWrite" },
     config = function()
       vim.g["suda#prompt"] = "Enter administrator password: "
@@ -22,7 +19,6 @@ return {
   -- terminal
   {
     "akinsho/toggleterm.nvim",
-    lazy = true,
     keys = require("configs.keymap").toggleterm,
     cmd = {
       "ToggleTerm",
@@ -39,16 +35,14 @@ return {
   -- Markdown previewer
   {
     "orumin/glow.nvim",
-    lazy = true,
     config = require("tools.glow_conf"),
     cmd = "Glow"
   },
   -- cmake-tools
   {
     "Civitasv/cmake-tools.nvim",
-    lazy = true,
     dependencies = {
-      { "nvim-lua/plenary.nvim", lazy = true }
+      { "nvim-lua/plenary.nvim" }
     },
     cmd = { "CMakeGenerate", "CMakeBuild", "CMakeRun" },
     config = require("tools.cmake_tools_conf")
@@ -58,16 +52,15 @@ return {
     "nvim-neotest/neotest",
     lazy = true,
     dependencies = {
-      { "nvim-lua/plenary.nvim", lazy = true },
-      { "nvim-treesitter/nvim-treesitter", lazy = true },
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-treesitter/nvim-treesitter" },
     }
   },
   -- show coverage
   {
     "andythigpen/nvim-coverage",
-    lazy = true,
     dependencies = {
-      { "nvim-lua/plenary.nvim", lazy = true }
+      { "nvim-lua/plenary.nvim" }
     },
     cmd = { "CoverageLoad", "CoverageClear" },
     config = require("tools.coverage_conf")
@@ -75,27 +68,23 @@ return {
   -- Git
   {
     "NeogitOrg/neogit",
-    lazy = true,
     dependencies = {
-      { "nvim-lua/plenary.nvim", lazy = true },
+      { "nvim-lua/plenary.nvim" },
     },
     cmd = "Neogit",
     config = true
   },
   {
     "rhysd/committia.vim",
-    lazy = true,
     ft = "gitcommit"
   },
   {
     "hotwatermorning/auto-git-diff",
-    lazy = true,
     ft = "gitrebase"
   },
   -- diff tool
   {
     "sindrets/diffview.nvim",
-    lazy = true,
     cmd = {
       "DiffviewOpen",
       "DiffviewToogleFile",
@@ -105,7 +94,6 @@ return {
   -- Gist
   {
     "lambdalisue/vim-gista",
-    lazy = true,
     cmd = "Gista",
     config = function()
       vim.g["gista#github_user"] = "orumin"
@@ -114,18 +102,16 @@ return {
   -- ime
   {
     "vim-skk/skkeleton",
-    lazy = true,
     event = { "InsertEnter", "CmdlineEnter" },
-    cond = vim.fn.has("nvim-0.8") == 1 and configs.use_skk, -- disable
+    cond = vim.fn.has("nvim-0.8") == 1 and require("configs").use_skk, -- disable
     dependencies = {
-      { "vim-denops/denops.vim", lazy = true },
-      { "yuki-yano/denops-lazy.nvim", lazy = true },
+      { "vim-denops/denops.vim" },
+      { "yuki-yano/denops-lazy.nvim" },
     },
     config = require("tools.skkeleton"),
   },
   {
     "delphinus/skkeleton_indicator.nvim",
-    lazy = true,
     event = { "InsertEnter", "CmdlineEnter" },
     init = require("configs.ui.color").set_skkeleton_indicator_hl(),
     config = true,
@@ -133,18 +119,16 @@ return {
   -- writing table in plain text
   {
     "mattn/vim-maketable",
-    lazy = true,
     cmd = { "MakeTable", "UnmakeTable" }
   },
   -- writing ascii diagram
   {
     "jbyuki/venn.nvim",
-    lazy = true,
     cmd = "VBox",
     dependencies = {
-      { "anuvyklack/hydra.nvim", lazy = true }
+      { "anuvyklack/hydra.nvim" }
     },
-    keys = require("configs.keymap").hydra["venn"],
+    keys = require("configs.keymap.hydra").venn,
     config = function ()
       local Hydra = require("hydra")
       Hydra(require("ui.hydra_conf").setup["venn"]())
@@ -153,7 +137,6 @@ return {
   -- measure startup time
   {
     "dstein64/vim-startuptime",
-    lazy = true,
     cmd = "StartupTime",
     init = function()
       vim.g.startuptime_tries = 10
@@ -162,13 +145,11 @@ return {
   -- binary edit in vim
   {
     "Shougo/vinarise",
-    lazy = true,
     cmd = "Vinarise",
   },
   -- godbolt Compiler Explorer
   {
     "krady21/compiler-explorer.nvim",
-    lazy = true,
     cmd = {
       "CECompile",
       "CECompileLive",
@@ -184,25 +165,22 @@ return {
   -- translation
   {
     "potamides/pantran.nvim",
-    lazy = true,
-    keys = require("configs.keymap").pantran,
+    keys = require("configs.keymap.pantran"),
     cmd = "Pantran",
     config = require("tools.pantran_conf"),
   },
   -- search nerd font icons
   {
     "2kabhishek/nerdy.nvim",
-    lazy = true,
     dependencies = {
-      { "stevearc/dressing.nvim", lazy = true },
-      { "nvim-telescope/telescope.nvim", lazy = true }
+      { "stevearc/dressing.nvim" },
+      { "nvim-telescope/telescope.nvim" }
     },
     cmd = "Nerdy",
   },
   -- pmodoro timer
 --  {
 --    "orumin/pomodoro.nvim",
---    lazy = true,
 --    cmd = {
 --      "PomodoroStart",
 --      "PomodoroStatus",
@@ -215,15 +193,13 @@ return {
 --  },
   {
     "ttak0422/piccolo-pomodoro.nvim",
-    lazy = true,
-    keys = require("configs.keymap").pomodoro,
+    keys = require("configs.keymap.pomodoro"),
     config = require("tools.pomodoro_conf"),
   },
   -- profiler
   {
     "stevearc/profile.nvim",
-    lazy = true,
-    keys = require("configs.keymap").profile
+    keys = require("configs.keymap.profile"),
+    cond = false
   }
 }
-

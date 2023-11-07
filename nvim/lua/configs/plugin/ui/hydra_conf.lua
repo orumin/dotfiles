@@ -5,7 +5,7 @@ M.setup = {
 }
 
 M.setup["git"] = function()
-  local keymaps = require("configs.keymap.hydra_keyconf")
+  local keymaps = require("configs.keymap.hydra")
   local gitsigns = require("gitsigns")
   local hint = [[
  _J_: next hunk   _s_: stage hunk        _d_: show deleted   _b_: blame line
@@ -76,7 +76,7 @@ M.setup["git"] = function()
 end
 
 M.setup["telescope"] = function()
-  local keymaps = require("configs.keymap.hydra_keyconf")
+  local keymaps = require("configs.keymap.hydra")
   local builtin = require("telescope.builtin")
   local hint = [[
                  _f_: files       _m_: marks
@@ -126,7 +126,7 @@ M.setup["telescope"] = function()
 end
 
 M.setup["dap"] = function()
-  local keymaps = require("configs.keymap.hydra_keyconf")
+  local keymaps = require("configs.keymap.hydra")
   local dap = require("dap")
   local dapui = require("dapui")
   local hint = [[
@@ -180,7 +180,7 @@ M.setup["dap"] = function()
 end
 
 M.setup["venn"] = function ()
-  local keymaps = require("configs.keymap.hydra_keyconf")
+  local keymaps = require("configs.keymap.hydra")
   local hint = [[
  Arrow^^^^^^   Select region with <C-v>
  ^ ^ _K_ ^ ^   _f_: surround it with box

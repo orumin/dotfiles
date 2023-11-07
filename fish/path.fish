@@ -60,6 +60,9 @@ end
 if not contains -- "$HOME/.luarocks/bin" $PATH
     set -x PATH "$HOME/.luarocks/bin" $PATH
 end
+if not contains -- "$HOME/.rye/shims" $PATH
+    set -x PATH "$HOME/.rye/shims" $PATH
+end
 if not contains -- "$HOME/go/bin" $PATH
     set -x PATH "$HOME/go/bin" $PATH
 end

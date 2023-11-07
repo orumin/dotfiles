@@ -52,29 +52,26 @@ return function ()
     highlights = {},
   }
 
-  local color = require("core.color")
-  if color.name:find("catppuccin") then
-    local palette = require("envutils").get_palette()
-    local catppuccin_hl = {
-      ---@diagnostic disable-next-line: different-requires
-      highlights = require("catppuccin.groups.integrations.bufferline").get({
-        styles = { "italic", "bold" },
-        custom = {
-          all = {
-            fill = { bg = "#000000" },
-          },
-          mocha = {
-            background = { fg = palette.txt }
-          },
-          latte = {
-            background = { fg = "#000000" }
-          }
+  local palette = require("envutils").get_palette()
+  local catppuccin_hl = {
+    ---@diagnostic disable-next-line: different-requires
+    highlights = require("catppuccin.groups.integrations.bufferline").get({
+      styles = { "italic", "bold" },
+      custom = {
+        all = {
+          fill = { bg = "#000000" },
+        },
+        mocha = {
+          background = { fg = palette.txt }
+        },
+        latte = {
+          background = { fg = "#000000" }
         }
-      })
-    }
+      }
+    })
+  }
 
-    vim.tbl_deep_extend("force", opts, catppuccin_hl)
-  end
+  vim.tbl_deep_extend("force", opts, catppuccin_hl)
 
   bufferline.setup(opts)
 end

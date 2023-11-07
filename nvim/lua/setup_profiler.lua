@@ -16,7 +16,7 @@ M.init = function ()
     end
   end
 
-  local map = require("configs.keymap")["profile"][1]
+  local map = require("configs.keymap.profile")[1]
   vim.keymap.set("", map[1], map[2], {desc = map.desc})
 end
 
