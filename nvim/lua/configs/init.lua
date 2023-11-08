@@ -69,9 +69,6 @@ local settings = {
   dap_default_servers = {
     "bash", "codelldb", "cppdbg", "delve", "python"
   },
-  icon = {
-    nerd_ver = "3",
-  },
   window_style = {
     border = "rounded",
     winblend = 15
