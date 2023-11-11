@@ -1,7 +1,5 @@
-local icons = require("configs.ui.icons").get("ui")
-
 return function ()
-  local bufferline = require("bufferline")
+  local icons = require("configs.ui.icons").get("ui")
   local opts = {
     options = {
       mode = "buffers",
@@ -33,7 +31,7 @@ return function ()
         }
       },
       custom_filter = function (bufnr)
-        local cwd = vim.fs.normalize(vim.fn.getcwd())
+        local cwd = vim.fs.normalize(vim.fn.getcwd() --[[@as string]])
         local current_fpath = vim.fs.normalize(vim.api.nvim_buf_get_name(bufnr))
         return not not current_fpath:find(cwd, 0, true)
       end,
@@ -62,7 +60,7 @@ return function ()
           fill = { bg = "#000000" },
         },
         mocha = {
-          background = { fg = palette.txt }
+          background = { fg = palette.text }
         },
         latte = {
           background = { fg = "#000000" }
@@ -73,5 +71,5 @@ return function ()
 
   vim.tbl_deep_extend("force", opts, catppuccin_hl)
 
-  bufferline.setup(opts)
+  require("bufferline").setup(opts)
 end

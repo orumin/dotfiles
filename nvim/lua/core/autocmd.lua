@@ -3,27 +3,27 @@ local configs = require("configs")
 --###############################################################
 -- remove trailing spaces on save
 --###############################################################
-vim.api.nvim_create_augroup('trailingSpace', { clear = true })
+local trailingsp_augroup = vim.api.nvim_create_augroup('trailingSpace', { clear = true })
 if configs.remove_trailing_space then
   vim.api.nvim_create_autocmd('BufWritePre', {
-    group = "trailingSpace",
+    group = trailingsp_augroup,
     pattern = '',
     command = ":%s/\\s\\+$//e"
   })
 end
 
-vim.api.nvim_create_augroup('setTextwidth', { clear = true })
+local tw_augroup = vim.api.nvim_create_augroup('setTextwidth', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
-  group = 'setTextwidth',
+  group = tw_augroup,
   pattern = { 'text', 'nroff' },
   callback = function()
     vim.bo.textwidth = 78
   end
 })
 
-vim.api.nvim_create_augroup('setIndent', { clear = true })
+local indent_augroup = vim.api.nvim_create_augroup('setIndent', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
-  group = 'setIndent',
+  group = indent_augroup,
   pattern = {'ansible', 'cmake', 'lua', 'yaml'},
   callback = function()
     vim.bo.shiftwidth     = 2
@@ -36,10 +36,10 @@ vim.api.nvim_create_autocmd('FileType', {
 --###############################################################
 -- Search document by cword
 --###############################################################
-vim.api.nvim_create_augroup("overrideKeywordprg", {clear = true})
+local cwordprg_augroup = vim.api.nvim_create_augroup("overrideKeywordprg", {clear = true})
 -- override keywordprg to man command
 vim.api.nvim_create_autocmd({'FileType'}, {
-  group = 'overrideKeywordprg',
+  group = cwordprg_augroup,
   pattern = {"c", "cpp", "fish", "help", "man", "objc", "objcpp", "sh", "tmux", "toggleterm", "vim", "zsh"},
   callback = function (ev)
     vim.keymap.set("n", "K", function()
@@ -58,9 +58,9 @@ vim.api.nvim_create_autocmd({'FileType'}, {
 -- Terminal
 --###############################################################
 -- NeoVim built-in Terminal
-vim.api.nvim_create_augroup("terminalConfig", {clear = true})
+local term_augroup = vim.api.nvim_create_augroup("terminalConfig", {clear = true})
 vim.api.nvim_create_autocmd('TermOpen', {
-  group = "terminalConfig",
+  group = term_augroup,
   callback = function()
     vim.wo.listchars = ''
     vim.wo.number = false
@@ -69,71 +69,38 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end
 })
 
-vim.api.nvim_create_autocmd('TermOpen', {
-  group = "terminalConfig",
-  pattern = '',
-  command = 'startinsert'
-})
+--vim.api.nvim_create_autocmd('TermOpen', {
+--  group = term_augroup,
+--  pattern = '',
+--  command = 'startinsert'
+--})
 
 --###############################################################
--- IME
+-- show tips on entering nvim
 --###############################################################
---local function set_ime(args)
---    if args.event:match("Enter$") then
---        vim.g.neovide_input_ime = true
---    else
---        vim.g.neovide_input_ime = false
---    end
---end
---
---if not G.is_headless then
---  local ime_input = vim.api.nvim_create_augroup("ime_input", { clear = true })
---  vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
---      group = ime_input,
---      pattern = "*",
---      callback = set_ime
---  })
---
---  vim.api.nvim_create_autocmd({ "CmdlineEnter", "CmdlineLeave" }, {
---      group = ime_input,
---      pattern = "[/\\?]",
---      callback = set_ime
---  })
---end
--- disale IME on InsertEnter and restore IME status on Leave
---if not vim.env.WT_SESSION then
---  vim.api.nvim_create_augroup("RestoreIME", { clear = true })
---  vim.api.nvim_create_autocmd("InsertEnter", {
---    group = "RestoreIME",
---    pattern = "*",
---    callback = function ()
---      if vim.env.TMUX then
---        vim.fn.chansend(vim.v.stderr, [[\ePtmux;\e\e[<r\e\\]])
---      else
---        vim.fn.chansend(vim.v.stderr, [[\e[<r]])
---      end
---    end
---  })
---  vim.api.nvim_create_autocmd("InsertLeave", {
---    group = "RestoreIME",
---    pattern = "*",
---    callback = function ()
---      if vim.env.TMUX then
---        vim.fn.chansend(vim.v.stderr, [[\ePtmux;\e\e[<s\e\e[<0t\e\\]])
---      else
---        vim.fn.chansend(vim.v.stderr, [[\e[<s\e[<0t]])
---      end
---    end
---  })
---  vim.api.nvim_create_autocmd("VimLeave", {
---    group = "RestoreIME",
---    pattern = "*",
---    callback = function ()
---      if vim.env.TMUX then
---        vim.fn.chansend(vim.v.stderr, [[\ePtmux;\e\e[<0t\e\e[<s\e\\]])
---      else
---        vim.fn.chansend(vim.v.stderr, [[\e[<0t\e[<s]])
---      end
---    end
---  })
---end
+local vimtip_augroup = vim.api.nvim_create_augroup("vimTip", {clear = true})
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = vimtip_augroup,
+  callback = function ()
+    vim.system({ "curl", "https://vtip.43z.one" }, nil,
+      function(obj)
+        local res = obj.stdout
+        if not obj.code then
+          res = "Error fetching tip: " .. res
+        end
+        vim.notify(res, 2, { title = "Tip!" })
+      end
+    )
+  end
+})
+----###############################################################
+---- auto toggle Neo-Tree
+----###############################################################
+--local auneotree = vim.api.nvim_create_augroup("AutoToggleNeoTree", {clear = true})
+--vim.api.nvim_create_autocmd("VimEnter", {
+--  group = auneotree,
+--  callback = function ()
+--    vim.cmd("Neotree")
+--    vim.cmd("wincmd p")
+--  end
+--})

@@ -141,7 +141,7 @@ return {
   {
     "folke/edgy.nvim",
     event = "VeryLazy",
-    config = true
+    config = require("editor.edgy_conf")
   },
   -- smooth scroll
   {
@@ -168,6 +168,16 @@ return {
     event = { "CursorHold", "CursorHoldI" },
     config = require("editor.illuminate_conf"),
   },
+  -- add search panel
+  {
+    "nvim-pack/nvim-spectre",
+    dependencies = {
+      { "nvim-lua/plenary.nvim" }
+    },
+    cmd = "Spectre",
+    keys = require("configs.keymap.spectre"),
+    config = true
+  },
   -- support write regex
   {
     "tomiis4/Hypersonic.nvim",
@@ -181,10 +191,6 @@ return {
     "folke/which-key.nvim",
     event = "VeryLazy",
 --    event = { "CursorHold", "CursorHoldI" },
-    init = function ()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 500
-    end,
     config = require("editor.which-key_conf"),
   },
   -- fix ambiwidth character width by 'setcellwidths()'

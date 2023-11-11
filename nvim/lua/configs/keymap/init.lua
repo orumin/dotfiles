@@ -13,9 +13,8 @@ return {
     {"<C-j>", "<Plug>(skkeleton-toggle)", mode = {"c", "i"}, desc="skk" }
   },
   ["toggleterm"] = {
-    { "vtf", "<Cmd>exe " .. vim.v.count1 .. ". \"ToggleTerm direction=float\"<CR>", mode = "n", desc = "open float terminal" },
-    { "vts", "<Cmd>exe " .. vim.v.count1 .. ". \"ToggleTerm direction=horizontal\"<CR>", mode = "n", desc = "open horizontal terminal" },
-    { "vtv", "<Cmd>exe " .. vim.v.count1 .. ". \"ToggleTerm direction=vertical\"<CR>", mode = "n", desc = "open vertical terminal" }
+    { "tt", "<Cmd>ToggleTerm direction=horizontal<CR>", mode = "n", desc = "open terminal" },
+    { "tf", "<Cmd>exe " .. vim.v.count1 .. ". \"ToggleTerm direction=float\"<CR>", mode = "n", desc = "open float terminal" },
   },
   ["windows"] = {
     {"<C-w>z", "<Cmd>WindowsMaximize<CR>" },

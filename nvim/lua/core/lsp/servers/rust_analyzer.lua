@@ -1,7 +1,6 @@
-local utils = require("envutils")
-local G = utils:globals()
-
 return function(opts)
+  local utils = require("envutils")
+  local G = utils:globals()
   local rt = require("rust-tools")
   local rt_executor = require("rust-tools.executors").termopen
   local rt_dap = require("rust-tools.dap")

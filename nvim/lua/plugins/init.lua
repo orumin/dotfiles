@@ -123,7 +123,6 @@ require("lazy").setup(
         require('core.autocmd')
         require('core.filetypes')
         require('core.lsp').setup()
-        vim.o.foldlevelstart = 99
       end,
       config = function()
         -- basic settings

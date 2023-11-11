@@ -16,10 +16,22 @@ return {
   },
   -- show buffer like tab
   {
+    "willothy/nvim-cokeline",
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons"
+    },
+    keys = require("configs.keymap.cokeline"),
+    config = require("ui.cokeline_conf"),
+    --cond = false
+  },
+  {
     "akinsho/bufferline.nvim",
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     keys = require("configs.keymap.bufferline"),
-    config  = require("ui.bufferline_config")
+    config  = require("ui.bufferline_config"),
+    cond = false
   },
   -- breadcrumbs (winbar)
   {

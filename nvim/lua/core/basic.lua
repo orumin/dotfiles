@@ -40,8 +40,11 @@ M.init = function ()
   -- spell
   vim.opt.spelllang = {"en_us", "cjk"}
 
+  -- chars
+  -- NOTE: listchars setting in 'nvim-listchars'
   vim.opt.backspace = {"indent", "eol", "start"}
 
+  -- fold
   vim.opt.foldenable = true
   vim.opt.foldlevelstart = 99
 
@@ -68,10 +71,14 @@ M.init = function ()
   vim.opt.smartindent = true
   vim.opt.breakindent = true
 
-  --listchars setting in 'nvim-listchars'
   vim.opt.number = true
   vim.opt.wrap = false
 
+  -- Default splitting will cause your main splits to jump when opening an edgebar
+  -- To prevent this, set `splitkeep` to either `screen` or `topline`
+  vim.opt.splitkeep = "screen"
+
+  -- rShaDa
   vim.o.shada = ""
 end
 
@@ -90,8 +97,10 @@ M.finalize = function ()
   vim.opt.ruler = true
   vim.opt.laststatus = 3
 
-  vim.opt.timeout = false
   vim.opt.updatetime = 400
+  -- for which-key.nvim
+  vim.opt.timeout = true
+  vim.opt.timeoutlen = 500
 
   -- popup menu transparency
   vim.opt.pumblend = 15
