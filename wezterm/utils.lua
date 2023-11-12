@@ -11,6 +11,7 @@ local wezterm = require("wezterm")
 local M = {}
 
 M.is_win = wezterm.target_triple == "x86_64-pc-windows-msvc"
+M.is_mac = wezterm.target_triple:find("darwin") ~= nil
 M.path_sep = M.is_win and "\\" or "/"
 
 ---@param path string

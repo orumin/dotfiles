@@ -28,6 +28,7 @@ M.keys = {
   { mods = "CTRL", key = "-", action = "DecreaseFontSize" },
   { mods = "CTRL|SHIFT", key = "+", action = "IncreaseFontSize" },
   { mods = "CTRL", key = "=", action = "IncreaseFontSize" },
+  { mods = "CTRL", key = "L", action = wezterm.action.ShowDebugOverlay },
 }
 for i = 0, 9 do
   table.insert(M.keys, {

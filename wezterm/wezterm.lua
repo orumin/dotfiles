@@ -7,9 +7,9 @@ local status = require("status")
 local wezterm = require("wezterm")
 
 -- This table will hold the configuration.
-local config = {}
--- In newer versions of wezterm, use the config_builder which will
--- help provide clearer error messages
+local config = wezterm.config_builder()
+
+config = require("appearance").setup(config)
 
 wezterm.on("gui-startup", restore.save_window_size_on_startup)
 wezterm.on("window-resized", restore.save_window_size_on_resize)
@@ -28,28 +28,27 @@ if not utils.is_win then
   config.default_prog[#config.default_prog+1] = "-l"
 end
 
-config.color_scheme = "Catppuccin Mocha"
-
-config.window_background_opacity = 0.8
-
-config.font_size = 9.0
-
-config.inactive_pane_hsb = {
-  hue = 1.0, saturation = 1.0, brightness = 1.0
-}
+for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
+  if gpu.backend == "Vulkan" and gpu.device_type == "DiscreteGpu" then
+    config.front_end = "WebGpu"
+    config.webgpu_preferred_adapter = gpu
+    config.webgpu_power_preference = "HighPerformance"
+    break
+  elseif gpu.backend == "Vulkan" and gpu.device_type == "IntegratedGpu" then
+    config.front_end = "WebGpu"
+    config.webgpu_preferred_adapter = gpu
+    config.webgpu_power_preference = "LowPower"
+    break
+  end
+end
 
 config.use_ime = true
 
---config.hide_tab_bar_if_only_one_tab = true
-
 config.adjust_window_size_when_changing_font_size = false
 
-config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
-config.integrated_title_buttons = {"Hide", "Maximize", "Close"}
+config.audible_bell = "Disabled"
 
 config.automatically_reload_config = true
-
-config.front_end = "WebGpu"
 
 local launch_menu = {}
 table.insert(launch_menu, {
