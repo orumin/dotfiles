@@ -76,7 +76,7 @@
   "pantran.nvim": { "branch": "main", "commit": "461799624948bfb66f73b20b6fffa7e4c8ca6d08" },
   "piccolo-pomodoro.nvim": { "branch": "main", "commit": "ad2e1840bb87b9c853ce7bf743fa08223cc8c34d" },
   "plenary.nvim": { "branch": "master", "commit": "50012918b2fc8357b87cff2a7f7f0446e47da174" },
-  "rainbow-delimiters.nvim": { "branch": "master", "commit": "67d360cb994b21fe346d1d9125ff3acb7958f46f" },
+  "rainbow-delimiters.nvim": { "branch": "master", "commit": "a5e8fb4960f905a52031b28113cf43088cfeae22" },
   "rust-tools.nvim": { "branch": "master", "commit": "0cc8adab23117783a0292a0c8a2fbed1005dc645" },
   "session-lens": { "branch": "main", "commit": "1b65d8e1bcd1836c5135cce118ba18d662a9dabd" },
   "skkeleton": { "branch": "main", "commit": "276dedd33d036cd399fcd293a54b1553825a35ae" },
