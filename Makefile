@@ -1,7 +1,7 @@
 EXCLUDE_FILES  = .git .gitmodules .gitignore .travis.yml
 INSTALL_TARGET = $(wildcard .??*)
 DOTFILES       = $(filter-out $(EXCLUDE_FILES), $(INSTALL_TARGET))
-XDG_CONFIGS	   = alacritty bat btop firenvim fish glamour mpv nvim skk tmux wezterm
+XDG_CONFIGS	   = bat btop firenvim fish glamour mpv nvim skk starship.toml tmux wezterm
 
 ifeq ($(OS),Windows_NT)
 	HOME := $(USERPROFILE)
@@ -31,7 +31,6 @@ deploy: init
 
 deploy_win: init
 	make link SOURCE:="$(abspath Microsoft.PowerShell_profile.ps1)" TARGET:="$(HOME)\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
-	make link SOURCE:="$(abspath alacritty)" TARGET:="$(APPDATA)\alacritty"
 	make link SOURCE:="$(abspath nvim)" TARGET:="$(LOCALAPPDATA)\nvim"
 	make link SOURCE:="$(abspath firenvim)" TARGET:="$(LOCALAPPDATA)\firenvim"
 
@@ -43,7 +42,6 @@ uninstall:
 
 uninstall_win:
 	make unlink Value:="$(HOME)\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
-	make unlink_dir Value:="$(APPDATA)\alacritty"
 	make unlink_dir Value:="$(LOCALAPPDATA)\nvim"
 	make unlink_dir Value:="$(LOCALAPPDATA)\firenvim"
 

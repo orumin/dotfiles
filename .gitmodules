@@ -19,3 +19,6 @@
 [submodule "catppuccin/wezterm"]
 	path = catppuccin/wezterm
 	url = https://github.com/catppuccin/wezterm
+[submodule "catppuccin/starship"]
+	path = catppuccin/starship
+	url = https://github.com/catppuccin/starship
