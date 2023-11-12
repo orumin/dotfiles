@@ -32,13 +32,11 @@ return function ()
   local dashboard = require("alpha.themes.dashboard")
 
   local command = utils:path_concat({G.nvim_config_dir, "assets", "logo", "hsd_with_text"})
-  if vim.o.shell == "pwsh" or vim.o.shell == "powershell" then
+  if G.is_win then
     command = command .. ".ps1"
   else
     command = command .. ".sh"
   end
-
-  vim.notify(command)
 
   --dashboard.section.header = custom_theme.header
   dashboard.section.terminal.command = command

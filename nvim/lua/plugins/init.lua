@@ -10,8 +10,7 @@ local icons = {
 }
 local lazypath = utils:path_concat({G.nvim_data_dir, "lazy","lazy.nvim"})
 
-local uv = nil
-if vim.uv then uv = vim.uv else uv = vim.loop end
+local uv = vim.uv
 
 if not uv.fs_stat(lazypath) then
   vim.fn.system({
@@ -126,7 +125,7 @@ require("lazy").setup(
       end,
       config = function()
         -- basic settings
-        require('core.basic').finalize()
+        require('core').finalize()
         --require('core.encoding')
         require('core.keymaps')
 

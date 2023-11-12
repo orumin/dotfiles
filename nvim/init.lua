@@ -1,2 +1,2 @@
-require("core.basic").init()
+require("core").init()
 require('plugins')
