@@ -1,5 +1,22 @@
 # Sets user-defined palette
 palette = "catppuccin_mocha"
+format = """
+[░▒▓](subtext1)\
+$hostname\
+[](bg:blue fg:subtext1)\
+$directory\
+[](fg:blue bg:surface2)\
+$git_branch\
+$git_status\
+[](fg:surface2 bg:surface1)\
+$nodejs\
+$rust\
+$golang\
+$php\
+[](fg:surface1 bg:base)\
+$time\
+[ ](fg:base)\
+\n$character"""
 
 [character]
 # Note the use of Catppuccin color 'maroon'
@@ -7,10 +24,57 @@ success_symbol = "[[♥](green) ❯](maroon)"
 error_symbol = "[❯](red)"
 vimcmd_symbol = "[❮](green)"
 
+[hostname]
+style = "bg:subtext1 fg:base"
+ssh_only = false
+format = "[ $ssh_symbol$hostname ]($style)"
+
 [directory]
-truncation_length = 4
-# Catppuccin 'lavender'
-style = "bold lavender"
+style = "fg:base bg:blue"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+[git_branch]
+symbol = ""
+style = "bg:surface2"
+format = '[[ $symbol $branch ](fg:blue bg:surface2)]($style)'
+
+[git_status]
+style = "bg:surface2"
+format = '[[($all_status$ahead_behind )](fg:blue bg:surface2)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:surface1"
+format = '[[ $symbol ($version) ](fg:blue bg:surface1)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:surface1"
+format = '[[ $symbol ($version) ](fg:blue bg:surface1)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:surface1"
+format = '[[ $symbol ($version) ](fg:blue bg:surface1)]($style)'
+
+[php]
+symbol = ""
+style = "bg:surface1"
+format = '[[ $symbol ($version) ](fg:blue bg:surface1)]($style)'
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "bg:base"
+format = '[[  $time ](fg:text bg:base)]($style)'
 
 [battery]
 full_symbol = '🔋 '
