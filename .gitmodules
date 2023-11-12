@@ -10,9 +10,6 @@
 [submodule "catppuccin/bat"]
 	path = catppuccin/bat
 	url = https://github.com/catppuccin/bat
-[submodule "catppuccin/alacritty"]
-	path = catppuccin/alacritty
-	url = https://github.com/catppuccin/alacritty
 [submodule "catppuccin/glamour"]
 	path = catppuccin/glamour
 	url = https://github.com/catppuccin/glamour
