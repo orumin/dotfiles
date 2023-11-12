@@ -1,7 +1,7 @@
 EXCLUDE_FILES  = .git .gitmodules .gitignore .travis.yml
 INSTALL_TARGET = $(wildcard .??*)
 DOTFILES       = $(filter-out $(EXCLUDE_FILES), $(INSTALL_TARGET))
-XDG_CONFIGS	   = bat btop firenvim fish glamour mpv nvim skk starship.toml tmux wezterm
+XDG_CONFIGS	   = bat btop firenvim fish glamour mpv nvim powershell skk starship.toml tmux wezterm
 
 ifeq ($(OS),Windows_NT)
 	HOME := $(USERPROFILE)
@@ -28,9 +28,11 @@ $(CONFIG_DIR):
 deploy: init
 	@$(foreach val, $(DOTFILES), make link SOURCE:="$(abspath $(val))" TARGET:="$(HOME)/$(val)";)
 	@$(foreach val, $(XDG_CONFIGS), make link SOURCE:="$(abspath $(val))" TARGET:="$(CONFIG_DIR)/$(val)";)
+	make link SOURCE:="$(abspath catppuccin/powershell)" TARGET:="$(HOME)/.local/share/powershell/Modules/Catppuccin"
 
 deploy_win: init
-	make link SOURCE:="$(abspath Microsoft.PowerShell_profile.ps1)" TARGET:="$(HOME)\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+	make link SOURCE:="$(abspath powershell\Microsoft.PowerShell_profile.ps1)" TARGET:="$(HOME)\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+	make link SOURCE:="$(abspath catppuccin\powershell)" TARGET:="$(HOME)\Documents\PowerShell\Modules\Catppuccin"
 	make link SOURCE:="$(abspath nvim)" TARGET:="$(LOCALAPPDATA)\nvim"
 	make link SOURCE:="$(abspath firenvim)" TARGET:="$(LOCALAPPDATA)\firenvim"
 

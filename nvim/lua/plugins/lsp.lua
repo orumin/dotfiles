@@ -81,9 +81,9 @@ return {
   },
   -- show symbol outline get from LSP to sidebar
   {
-    "simrat39/symbols-outline.nvim",
+    "hedyhli/outline.nvim",
     event = "LspAttach",
-    config = require("lsp.symbols_outline_conf"),
+    config = require("lsp.outline_conf"),
   },
   -- display number of references of the symbol above that
   {

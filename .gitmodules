@@ -22,3 +22,6 @@
 [submodule "catppuccin/starship"]
 	path = catppuccin/starship
 	url = https://github.com/catppuccin/starship
+[submodule "catppuccin/powershell"]
+	path = catppuccin/powershell
+	url = https://github.com/catppuccin/powershell

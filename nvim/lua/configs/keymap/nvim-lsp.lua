@@ -34,7 +34,7 @@ return {
       end, mode = "n", silent = true, desc = "LSP peek_type_definition" },
     },
     documentSymbol = {
-      { "go", "<Cmd>SymbolsOutline<CR>", mode ="n", silent = true, desc = "LSP show symbol outline" },
+      { "go", "<Cmd>Outline<CR>", mode ="n", silent = true, desc = "LSP show symbol outline" },
     },
     hover = {
       { "K", vim.lsp.buf.hover, mode = "n", silent = true, desc = "LSP hover document" },

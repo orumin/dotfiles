@@ -1,6 +1,15 @@
 # setting character encoding to UTF-8 (w/o BOM)
 $OutputEncoding = [System.Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
 
+# env
+if ($IsWindows) {
+    $env:HOME = "$env:USERPROFILE"
+    $env:RYE_HOME = "$env:USERPROFILE\scoop\persist\rye"
+    $env:PATH = "$env:RYE_HOME\shims;" + $env:PATH
+    $env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config"
+}
+$env:COLORTERM = "truecolor"
+
 Import-Module Catppuccin
 
 # Set a flavor for easy access
@@ -46,10 +55,13 @@ Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 
 
 ## scoop completion
-Import-Module 'C:\Users\$env:USERNAME\scoop\apps\scoop\current\supporting\completion\Scoop-Completion.psd1' -ErrorAction SilentlyContinue
+$scoop_completion_fpath = '$env:HOME\scoop\apps\scoop\current\supporting\completion\Scoop-Completion.psd1'
+if (Test-Path $scoop_completion_fpath) {
+    Import-Module $scoop_completion_fpath -ErrorAction SilentlyContinue
+}
 
 # import solo2 completion
-$solo2_completion_fpath = 'C:\Users\$env:USERNAME\Documents\PowerShell\solo2.ps1'
+$solo2_completion_fpath = '$env:HOME\Documents\PowerShell\solo2.ps1'
 if (Test-Path $solo2_completion_fpath) {
     . $solo2_completion_fpath
 }
@@ -57,13 +69,6 @@ if (Test-Path $solo2_completion_fpath) {
 
 Set-Alias vi nvim
 Set-Alias vim nvim
-
-# env
-$env:RYE_HOME = "$env:USERPROFILE\scoop\persist\rye"
-$env:PATH = "$env:RYE_HOME\shims;" + $env:PATH
-$env:HOME = "$env:USERPROFILE"
-$env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config"
-$env:COLORTERM = "truecolor"
 
 if (Get-Command "starship") {
     Invoke-Expression (&starship init powershell)
