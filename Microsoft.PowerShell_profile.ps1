@@ -7,15 +7,6 @@ Import-Module Catppuccin
 # Set a flavor for easy access
 $Flavor = $Catppuccin['Mocha']
 
-# Modified from the built-in prompt function at: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_prompts
-function prompt {
-    $(if (Test-Path variable:/PSDebugContext) { "$($Flavor.Red.Foreground())[DBG]: " }
-      else { '' }) + "$($Flavor.Teal.Foreground())PS $($Flavor.Yellow.Foreground())" + $(Get-Location) +
-        "$($Flavor.Green.Foreground())" + $(if ($NestedPromptLevel -ge 1) { '>>' }) + '> ' + $($PSStyle.Reset)
-}
-# The above example requires the automatic variable $PSStyle to be available, so can be only used in PS 7.2+
-# Replace $PSStyle.Reset with "`e[0m" for PS 6.0 through PS 7.1 or "$([char]27)[0m" for PS 5.1
-
 $Colors = @{
 	# Largely based on the Code Editor style guide
 	# Emphasis, ListPrediction and ListPredictionSelected are inspired by the Catppuccin fzf theme
@@ -82,8 +73,18 @@ $env:RYE_HOME = "$env:USERPROFILE\scoop\persist\rye"
 $env:PATH = "$env:RYE_HOME\shims;" + $env:PATH
 $env:HOME = "$env:USERPROFILE"
 $env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config"
-if ( -not [String]::IsNullOrEmpty($env:WT_SESSION) ) {
-    $env:COLORTERM = "truecolor"
+$env:COLORTERM = "truecolor"
+
+if (Get-Command "starship") {
+    Invoke-Expression (&starship init powershell)
+} else {
+    # Modified from the built-in prompt function at: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_prompts
+    function prompt {
+        $(if (Test-Path variable:/PSDebugContext) { "$($Flavor.Red.Foreground())[DBG]: " }
+          else { '' }) + "$($Flavor.Teal.Foreground())PS $($Flavor.Yellow.Foreground())" + $(Get-Location) +
+            "$($Flavor.Green.Foreground())" + $(if ($NestedPromptLevel -ge 1) { '>>' }) + '> ' + $($PSStyle.Reset)
+    }
+    # The above example requires the automatic variable $PSStyle to be available, so can be only used in PS 7.2+
+    # Replace $PSStyle.Reset with "`e[0m" for PS 6.0 through PS 7.1 or "$([char]27)[0m" for PS 5.1
 }
 
-$env:WSLENV = "WT_SESSION/u:COLORTERM/u:WT_PROFILE_ID/u"
