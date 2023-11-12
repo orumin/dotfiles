@@ -1,5 +1,5 @@
 # environment variable
-if [ -z $TMUX ]; then
+if [ -z $IS_PATH_SET ]; then
     case `uname` in
         Darwin)
             export PATH="$PATH:/Library/TeX/texbin"
@@ -34,6 +34,7 @@ if [ -z $TMUX ]; then
 
     # OCaml OPAM
     [ -f ~/.opam/opam-init/init.zsh ] && . $HOME/.opam/opam-init/init.zsh /dev/null 2> /dev/null || true
+    export IS_PATH_SET=1
 fi
 
 # other environment variable
@@ -269,28 +270,32 @@ bindkey '' push-line-or-edit # to use buffer stack on vi keybind
 # Set Prompt
 #
 
-update_prompt(){
-    PROMPTTTY=`tty | sed -e 's/\/dev\///'`
-    if [ -n "$(echo $PATH | grep Gentoo)" ]; then
-        gentoo_prompt="${fg_default}Gentoo on "
-    fi
-    if [ -n "$SSH_CONNECTION" ]; then
-        prompt_hostname="${fg_yellow}${underline}%m${clear}"
-    else
-        prompt_hostname="${fg_green}%m${fg_default}"
-    fi
-    PROMPT="%b${fg_green}%n${fg_default}@${gentoo_prompt}${prompt_hostname}<%B${PROMPTTTY}%b>
-%(?..${bg_blue}%?)${clear}%(!.#.$) "
-    RPROMPT=" %B%(?.${fg_yellow}[%39<...<%~]%b${fg_default}.:()"
-    SPROMPT="correct: %R -> %r ? "
+if [ -n "$(command -v starship)" ]; then
+    eval "$(starship init zsh)"
+else
+    update_prompt(){
+        PROMPTTTY=`tty | sed -e 's/\/dev\///'`
+        if [ -n "$(echo $PATH | grep Gentoo)" ]; then
+            gentoo_prompt="${fg_default}Gentoo on "
+        fi
+        if [ -n "$SSH_CONNECTION" ]; then
+            prompt_hostname="${fg_yellow}${underline}%m${clear}"
+        else
+            prompt_hostname="${fg_green}%m${fg_default}"
+        fi
+        PROMPT="%b${fg_green}%n${fg_default}@${gentoo_prompt}${prompt_hostname}<%B${PROMPTTTY}%b>
+    %(?..${bg_blue}%?)${clear}%(!.#.$) "
+        RPROMPT=" %B%(?.${fg_yellow}[%39<...<%~]%b${fg_default}.:()"
+        SPROMPT="correct: %R -> %r ? "
 
-    LANG=C vcs_info >&/dev/null
-    if [ -n "$vcs_info_msg_0_" ]; then
-        RPROMPT="${vcs_info_msg_0_}-${RPROMPT}"
-    fi
-}
+        LANG=C vcs_info >&/dev/null
+        if [ -n "$vcs_info_msg_0_" ]; then
+            RPROMPT="${vcs_info_msg_0_}-${RPROMPT}"
+        fi
+    }
 
-precmd_functions=($precmd_functions update_prompt)
+    precmd_functions=($precmd_functions update_prompt)
+fi
 
 #
 # resize console
@@ -450,7 +455,6 @@ fi
 
 [ -f ~/.zshrc.utils ] && source ~/.zshrc.utils || true
 [ -f ~/.zshrc.search ] && source ~/.zshrc.search || true
-[ -f ~/.zshrc.tmux ] && source ~/.zshrc.tmux || true
 [ -f ~/.zshrc.vimode ] && source ~/.zshrc.vimode || true
 [ -f ~/alias-sradio.txt ] && source ~/alias-sradio.txt || true
 #[ -f ~/zsh_plugin/zaw/zaw.zsh ] && source ~/zsh_plugin/zaw/zaw.zsh || true

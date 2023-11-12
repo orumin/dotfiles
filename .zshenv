@@ -53,4 +53,3 @@ case $(uname -v | sed -e 's/#1-\(Microsoft\).*/\1/') in
     export DISPLAY=localhost:0.0
     ;;
 esac
-. "$HOME/.cargo/env"
