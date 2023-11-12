@@ -104,3 +104,6 @@ function mode_prompt --description "Display vi prompt mode"
         echo -n ' '
     end
 end
+
+function fish_mode_prompt
+end

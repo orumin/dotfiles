@@ -21,21 +21,20 @@ source $HOME/.config/fish/alias.fish
 ## colors
 #source $HOME/.config/fish/color.fish
 
+# prompt
+if type -q -f starship
+    starship init fish | source
+else
+    source $HOME/.config/fish/git_prompt.fish
+    source $HOME/.config/fish/prompt.fish
+end
+
 # completion
 if type -q -f gh
     eval (gh completion -s fish)
 end
 
 set fish_greeting
-set fish_emoji_width 2
-set fish_amiguous_width 2
+set fish_emoji_width 1
+set fish_amiguous_width 1
 
-# use wezterm instead of tmux
-#if status is-interactive
-#    and not set -q IN_NVIM
-#    and not set -q TMUX
-#    and type -q tmux
-#
-##    exec tmux
-#    tmux
-#end
