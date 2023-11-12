@@ -160,6 +160,13 @@ M.setup = function (config)
     }
   end
 
+  config.window_padding = {
+    left = 2,
+    right = 2,
+    top = 0,
+    bottom = 0
+  }
+
   config.show_new_tab_button_in_tab_bar = false
   config.tab_bar_at_bottom = true
 
