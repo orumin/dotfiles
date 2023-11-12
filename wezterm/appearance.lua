@@ -161,10 +161,10 @@ M.setup = function (config)
   end
 
   config.window_padding = {
-    left = 2,
-    right = 2,
-    top = 0,
-    bottom = 0
+    left = "0.5cell",
+    right = "0.5cell",
+    top = "0.125cell",
+    bottom = "0cell"
   }
 
   config.show_new_tab_button_in_tab_bar = false
