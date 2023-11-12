@@ -53,7 +53,7 @@ return function()
       {
         ft = "Outline",
         pinned = true,
-        open = "SymbolsOutlineOpen",
+        open = "OutlineOpen",
       },
       -- any other neo-tree windows
       "neo-tree",

@@ -32,16 +32,16 @@ return function ()
   local dashboard = require("alpha.themes.dashboard")
 
   local command
-  if vim.fn.executable("wezterm") == 1 then
-    command = "wezterm imgcat " .. utils:path_concat({G.nvim_config_dir, "assets", "logo", "hsd.png"})
-  else
+  --if vim.fn.executable("wezterm") == 1 then
+  --  command = "wezterm imgcat " .. utils:path_concat({G.nvim_config_dir, "assets", "logo", "hsd.png"})
+  --else
     command = utils:path_concat({G.nvim_config_dir, "assets", "logo", "hsd_with_text"})
     if G.is_win then
       command = command .. ".ps1"
     else
       command = command .. ".sh"
     end
-  end
+  --end
 
   --dashboard.section.header = custom_theme.header
   dashboard.section.terminal.command = command

@@ -32,6 +32,7 @@ return function ()
     devicon = {
       text = function (buf) return buf.devicon.icon end,
       fg = function (buf) return buf.devicon.color end,
+      bg = get_hex("ColorColumn", "bg"),
       truncation = { priority = 1 }
     },
     index = {
