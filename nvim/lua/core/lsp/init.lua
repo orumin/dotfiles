@@ -94,6 +94,10 @@ local function on_lsp_attach(client, bufnr)
   end
 
   if client.supports_method(methods["textDocument_inlayHint"]) then
+    local ltype = type(vim.lsp.inlay_hint)
+    local toggle_inlay_hint = (ltype == "function") and vim.lsp.inlay_hint
+                              or (ltype == "table" and vim.lsp.inlay_hint.enable)
+                              or function () end
     local inlay_hints_group = vim.api.nvim_create_augroup('LSP_inlayHints', { clear = false })
 
     -- Initial inlay hint display.
@@ -101,7 +105,7 @@ local function on_lsp_attach(client, bufnr)
     vim.defer_fn(function()
       local mode = vim.api.nvim_get_mode().mode
       local enabled = mode == "n" or mode == "v"
-      vim.lsp.inlay_hint(bufnr, enabled)
+      toggle_inlay_hint(bufnr, enabled)
     end, 500)
 
     vim.api.nvim_create_autocmd('InsertEnter', {
@@ -109,7 +113,7 @@ local function on_lsp_attach(client, bufnr)
       desc = 'Enable inlay hints',
       buffer = bufnr,
       callback = function()
-        vim.lsp.inlay_hint(bufnr, false)
+        toggle_inlay_hint(bufnr, false)
       end,
     })
     vim.api.nvim_create_autocmd('InsertLeave', {
@@ -117,7 +121,7 @@ local function on_lsp_attach(client, bufnr)
       desc = 'Disable inlay hints',
       buffer = bufnr,
       callback = function()
-        vim.lsp.inlay_hint(bufnr, true)
+        toggle_inlay_hint(bufnr, true)
       end,
     })
 
