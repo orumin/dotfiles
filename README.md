@@ -1,7 +1,11 @@
 # dotfiles
 
-orumin の個人的な dotfiles 管理レポジトリです．
+this is personaly customized dotfiles for @orumin
 
-`make deploy && make init` とかすれば入ります．
+![screenshot](https://raw.githubusercontent.com/orumin/dotfiles/main/examples/example_a.png?raw=true)
 
-いくつか，FreeBSD／Linux／Windows で条件分岐を書いてますが，ぶっちゃけ大分 Linux 依存です．
+## installation
+
+```sh
+make init && make deploy
+```
