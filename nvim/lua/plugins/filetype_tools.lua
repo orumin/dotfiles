@@ -2,16 +2,6 @@ return {
 ---------------------------------------------------------------
 -- filetype plugin
 ---------------------------------------------------------------
-  -- Asciidoc (w/ asciidoctor)
-  {
-    "habamax/vim-asciidoctor",
-    ft = "asciidoc",
-    init = function()
-      vim.g["asciidoctor_syntax_conceal"] = 1
-      vim.g["asciidoctor_syntax_indented"] = 1
-      vim.g["asciidoctor_fenced_languages"] = {"c", "cpp", "rust"}
-    end
-  },
   -- BitBake
   {
     "kergoth/vim-bitbake",

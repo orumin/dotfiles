@@ -3,7 +3,6 @@ local M = {}
 M.setup = function (config)
   local wezterm = require("wezterm")
   local utils = require("utils")
-  config.font_size = 9.0
 
   local scheme = wezterm.get_builtin_color_schemes()["Catppuccin Mocha"]
   local bg = {}
@@ -178,8 +177,83 @@ M.setup = function (config)
   --end
 
   config.inactive_pane_hsb = {
-    hue = 1.0, saturation = 1.0, brightness = 1.0
+    hue = 1.0, saturation = 1.0, brightness = 0.7
   }
+
+  config.font_shaper = "Harfbuzz"
+  local jpfont
+  if utils.is_win then
+    jpfont = "BIZ UDゴシック"
+  else
+    jpfont = "PlemolJP Console NF"
+  end
+  config.font_size = 10.0
+  config.font = wezterm.font_with_fallback({
+    {
+      --family = "Monaspace Neon",
+      family = "Monaspace Argon",
+      --family = "Monaspace Xenon",
+      --family = "Monaspace Radon",
+      --family = "Monaspace Krypton",
+      weight="Regular",
+      harfbuzz_features = { "calt", "liga", "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss08" },
+    },
+    "Symbols Nerd Font Mono",
+    { family = jpfont, assume_emoji_presentation=false },
+    "Noto Color Emoji",
+  })
+  config.font_rules = {
+    -- for comment in code (italic)
+    {
+      intensity = "Normal",
+      italic = true,
+      font = wezterm.font_with_fallback({
+        {
+          family = "Monaspace Radon",
+          weight="ExtraLight",
+          stretch="Normal",
+          style="Normal",
+          harfbuzz_features = { "calt", "liga", "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss08" },
+        },
+        { family = jpfont, weight="Regular", italic=true, assume_emoji_presentation=false },
+      })
+    },
+    -- for highlighted text in code (bold)
+    {
+      intensity = "Bold",
+      italic = false,
+      font = wezterm.font_with_fallback({
+        {
+          family = "Monaspace Krypton",
+          weight="Light",
+          stretch="Normal",
+          style="Normal",
+          harfbuzz_features = { "calt", "liga", "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss08" },
+        },
+        { family = jpfont, weight="ExtraLight", italic=true, assume_emoji_presentation=false },
+      })
+    },
+    -- bold-italic
+    {
+      intensity = "Bold",
+      italic = true,
+      font = wezterm.font_with_fallback({
+        {
+          family = "Monaspace Radon",
+          weight="Light",
+          stretch="Normal",
+          style="Normal",
+          harfbuzz_features = { "calt", "liga", "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss08" },
+        },
+        { family = jpfont, weight="Regular", italic=true, assume_emoji_presentation=false },
+      })
+    },
+
+  }
+  config.freetype_interpreter_version = 40
+  config.freetype_load_flags = "NO_HINTING|NO_BITMAP|MONOCHROME"
+  config.freetype_load_target = "Light"
+  config.freetype_render_target = "Normal"
 
   return config
 end

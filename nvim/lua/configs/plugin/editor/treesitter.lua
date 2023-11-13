@@ -1,4 +1,15 @@
 return function()
+  local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+  parser_config.asciidoc = {
+    install_info = {
+      url = "https://github.com/cathaysia/tree-sitter-asciidoc",
+      files = { "src/parser.c", "src/scanner.c" },
+      branch = "master",
+      generate_requires_npm = false,
+      requires_generate_from_grammar = false,
+    },
+    filetype = "asciidoc"
+  }
   local treesitter_config = require("nvim-treesitter.configs")
 
   vim.treesitter.language.register('yaml', 'ansible')
