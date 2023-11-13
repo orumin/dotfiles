@@ -2,6 +2,9 @@
 palette = "catppuccin_mocha"
 format = """
 [░▒▓](subtext1)\
+$os\
+$username\
+[@](bg:subtext1 fg:base)\
 $hostname\
 [](bg:blue fg:subtext1)\
 $directory\
@@ -16,7 +19,8 @@ $php\
 [](fg:surface1 bg:base)\
 $time\
 [ ](fg:base)\
-\n$character"""
+$line_break\
+$character"""
 
 add_newline = false
 
@@ -26,15 +30,41 @@ success_symbol = "[[♥](green) ❯](maroon)"
 error_symbol = "[❯](red)"
 vimcmd_symbol = "[❮](green)"
 
+[line_break]
+disabled = false
+
+[os]
+style = "bg:subtext1 fg:base"
+format = "[$symbol]($style)"
+disabled = false
+
+[os.symbols]
+Fedora = ""
+FreeBSD = ""
+Gentoo = ""
+Illumos = ""
+Linux = ""
+Macos = "󰀵"
+OpenBSD = ""
+openSUSE = ""
+Ubuntu = ""
+Windows = ""
+
+[username]
+format = "[ $user]($style)"
+style_user = "bg:subtext1 fg:base"
+style_root = "bg:subtext1 fg:red"
+show_always = true
+
 [hostname]
 style = "bg:subtext1 fg:base"
 ssh_only = false
-format = "[ $ssh_symbol$hostname ]($style)"
+format = "[$ssh_symbol$hostname ]($style)"
 
 [directory]
 style = "fg:base bg:blue"
 format = "[ $path ]($style)"
-truncation_length = 3
+truncation_length = 10
 truncation_symbol = "…/"
 
 [directory.substitutions]
@@ -50,6 +80,17 @@ format = '[[ $symbol $branch ](fg:blue bg:surface2)]($style)'
 
 [git_status]
 style = "bg:surface2"
+conflicted = '🏳'
+up_to_date = ''
+untracked = ' '
+ahead = '⇡${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+behind = '⇣${count}'
+stashed = '󰏗 '
+modified = ' '
+staged = '[++\($count\)](green)'
+renamed = '󰖷 '
+deleted = ' '
 format = '[[($all_status$ahead_behind )](fg:blue bg:surface2)]($style)'
 
 [nodejs]
@@ -79,13 +120,23 @@ style = "bg:base"
 format = '[[  $time ](fg:text bg:base)]($style)'
 
 [battery]
-full_symbol = '🔋 '
-charging_symbol = '⚡️ '
-discharging_symbol = '💀 '
+full_symbol = "󰁹 "
+charging_symbol = "󰂄 "
+discharging_symbol = "󱟞 "
+unknown_symbol = "󰂑 "
+empty_symbol = "󰂎 "
 
 [[battery.display]]
-threshold = 10
+threshold = 20
 style = "bold red"
+
+[[battery.display]]
+threshold = 40
+style = "bold yellow"
+
+[[battery.display]]
+threshold = 80
+style = "bold green"
 
 # palette tables should be last in the config ⚓️
 [palettes.catppuccin_macchiato]
