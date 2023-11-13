@@ -1,9 +1,17 @@
 return {
   {
-    "orumin/ttene.nvim",
+    "himanoa/ttene.nvim",
     branch = "rewrite_with_lua",
     event = { "InsertEnter" },
-    config = true,
+    config = function()
+      local utils = require("envutils")
+      local G = utils:globals()
+      local opt = {
+        cmd = "mpv",
+        voices_dir = utils:path_concat({G.nvim_data_dir, "ttene"})
+      }
+      require("ttene").setup(opt)
+    end,
     cond = false
   },
   {
@@ -30,5 +38,4 @@ return {
       col = 8
     }
   },
-
 }

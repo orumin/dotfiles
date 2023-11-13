@@ -93,6 +93,7 @@ return {
 --  },
   {
     "sontungexpt/sttusline",
+    branch = "table_version",
     event = { "BufEnter" },
     config = require("ui.sttusline_conf"),
   },
