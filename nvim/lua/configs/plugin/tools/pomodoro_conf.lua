@@ -14,15 +14,15 @@ return function()
     on_pause = function() end,
 
     on_complete_focus_time = function()
-      vim.notify("Complete focus time", vim.log.levels.INFO, {title="pomodoro"})
+      vim.notify(" Complete focus time", vim.log.levels.INFO, {title="pomodoro"})
     end,
 
     on_complete_break_time = function()
-      vim.notify("Break time completed", vim.log.levels.INFO, {title="pomodoro"})
+      vim.notify(" Break time completed", vim.log.levels.INFO, {title="pomodoro"})
     end,
 
     focus_format = function(ctx)
-      return string.format("󰔟 focus %02d:%02d", ctx.m, ctx.s)
+      return string.format(" focus %02d:%02d", ctx.m, ctx.s)
     end,
 
     break_format = function(ctx)

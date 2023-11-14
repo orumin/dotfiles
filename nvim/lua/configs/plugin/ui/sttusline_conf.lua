@@ -3,7 +3,6 @@ return function ()
     misc = require("configs.ui.icons").get("misc")
   }
   local utils = require("envutils")
-  local G = utils:globals()
   local palette = utils.get_palette()
 
   local mode_component = require("sttusline.components.mode")
@@ -41,6 +40,21 @@ return function ()
     return (configs[enc] or enc or "") .. " " .. icons.misc.Vbar .. (vim.bo.ff or "")
   end
 
+  local pomodoro = {
+    name = "pomodoro",
+    timing = true,
+    configs = {
+    },
+    update = function ()
+      local ok, mod = pcall(require, "piccolo-pomodoro")
+      if ok then
+        return { {mod.status(), { fg = palette.red }} }
+      end
+      return ""
+    end
+
+  }
+
   require("sttusline").setup({
     on_attach = function (create_update_group) end,
     -- statusline_color = "#000000",
@@ -59,6 +73,8 @@ return function ()
       --"filename",
       "git-branch",
       "git-diff",
+      "%=",
+      pomodoro,
       "%=",
       "diagnostics",
       "lsps-formatters",

@@ -81,6 +81,7 @@ return function()
       {name = "nvim_lsp_signature_help"},
       {name = "luasnip", option = { show_autosnippets = true } },
       {name = "luasnip_choice"},
+      {name = "copilot"},
       {name = "buffer"},
       {name = "path"},
       {name = "cmdline_history"},
