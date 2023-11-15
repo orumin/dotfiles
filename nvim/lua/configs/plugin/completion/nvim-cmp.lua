@@ -1,6 +1,5 @@
-local configs = require("configs")
-
 return function()
+  local configs = require("configs")
   require("configs.ui.color").set_nvim_cmp_hl()
   local icons = {
     kind = require("configs.ui.icons").get("kind"),
@@ -81,7 +80,7 @@ return function()
       {name = "nvim_lsp_signature_help"},
       {name = "luasnip", option = { show_autosnippets = true } },
       {name = "luasnip_choice"},
-      {name = "copilot"},
+      configs.use_copilot and {name = "copilot"} or {},
       {name = "buffer"},
       {name = "path"},
       {name = "cmdline_history"},

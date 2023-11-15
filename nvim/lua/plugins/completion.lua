@@ -42,6 +42,7 @@ return {
   -- Copilot (trial)
   {
     "github/copilot.vim",
-    cmd = "Copilot"
+    cmd = "Copilot",
+    cond = require("configs").use_copilot
   },
 }
