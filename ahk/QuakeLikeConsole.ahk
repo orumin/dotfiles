@@ -62,7 +62,8 @@ ToggleConsole(ThisHotkey)
         }
     } else {
         Try {
-            Run(command, workingDir, "Max")  ; see http://ahkscript.org/docs/commands/Run.htm
+            Run(command, workingDir)  ; see http://ahkscript.org/docs/commands/Run.htm
+            WinWait(windowMatcher)
         } Catch Error as e {
             TrayTip("Could not execute command", command, 3)
             Throw e

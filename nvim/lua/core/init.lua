@@ -232,7 +232,11 @@ M.init = function ()
   local G = utils:globals()
 
   -- font for GUI client
-  vim.opt.guifont = "PlemolJP Console NF:h9"
+  if G.is_win then
+    vim.opt.guifont = "Monaspace Argon,Symbols Nerd Font Mono,BIZ UDゴシック,Noto Color Emoji:h10:#h-slight"
+  else
+    vim.opt.guifont = "Monaspace Argon,Symbols Nerd Font Mono,PlemolJP Console NF,Noto Color Emoji:h10:#h-slight"
+  end
   -- backup directories
   vim.opt.undofile = true
   vim.opt.undodir = utils:path_concat({G.nvim_cache_dir, 'undo'})
