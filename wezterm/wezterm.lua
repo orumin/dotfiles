@@ -29,6 +29,8 @@ if not utils.is_win then
 end
 
 for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
+  config.max_fps = 60
+  config.animation_fps = 60
   if gpu.backend == "Vulkan" and gpu.device_type == "DiscreteGpu" then
     config.front_end = "WebGpu"
     config.webgpu_preferred_adapter = gpu
@@ -39,6 +41,9 @@ for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
     config.webgpu_preferred_adapter = gpu
     config.webgpu_power_preference = "LowPower"
     break
+  else
+    config.max_fps = 30
+    config.animation_fps = 10
   end
 end
 

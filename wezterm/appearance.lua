@@ -181,6 +181,7 @@ M.setup = function (config)
   }
 
   config.font_shaper = "Harfbuzz"
+  config.harfbuzz_features = {}
   local jpfont
   if utils.is_win then
     jpfont = "BIZ UDゴシック"
@@ -248,8 +249,8 @@ M.setup = function (config)
         { family = jpfont, weight="Regular", italic=true, assume_emoji_presentation=false },
       })
     },
-
   }
+
   config.freetype_interpreter_version = 40
   config.freetype_load_flags = "NO_HINTING|NO_BITMAP|MONOCHROME"
   config.freetype_load_target = "Light"

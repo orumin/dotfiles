@@ -16,7 +16,8 @@ version := "2.0"
 website := "https://github.com/orumin/dotfiles"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-#SingleInstance
+#SingleInstance Force
+#Warn
 
 ; Load a few environment variables
 userprofile := EnvGet("USERPROFILE")
@@ -42,13 +43,20 @@ Return
 ; Handle Hotkey events
 ToggleConsole(ThisHotkey)
 {
+    dim := GetActiveMonitorDimention()
+    ;MsgBox( "monIndex: " . dim.index . " x: " . dim.x . " y: " . dim.y . " width: " . dim.width . " height: " . dim.height)
     DetectHiddenWindows(true)
     ; see http://ahkscript.org/docs/misc/WinTitle.htm and use the AutoHotKey Window Spy
-    if WinExist(windowMatcher) {
+    local hwnd_id := WinExist(windowMatcher)
+    if (hwnd_id != 0) {
         DetectHiddenWindows(false)
         if WinActive() {
             WinHide()
+            ;AnimateWindow(hwnd_id, Integer(duration), 0x00050004)
         } else {
+            DetectHiddenWindows(true)
+            WinMove(dim.x, dim.y, dim.width, dim.height * Float(heightRatio), hwnd_id)
+            ;AnimateWindow(hwnd_id, Integer(duration), 0x00060004)
             WinShow()
             WinActivate()
         }
@@ -63,9 +71,42 @@ ToggleConsole(ThisHotkey)
     Return
 }
 
+GetActiveMonitorDimention()
+{
+    dim := {index: 0, x: 0, y: 0, width: 0, height: 0}
+    CoordMode("Mouse", "Screen")
+    MouseGetPos(&x, &y)
+    local count := MonitorGetCount()
+    Loop count {
+        MonitorGet(A_Index, &Left, &Top, &Right, &Bottom)
+        if (x >= Left) && (x <= Right) && (y <= Bottom) && (y >= Top) {
+            dim.index := A_Index
+            dim.x := Left
+            dim.y := Top
+            dim.width := Abs(Right - Left)
+            dim.height := Abs(Top - Bottom)
+        }
+    } Until (dim.width > 0)
+    return dim
+}
+
+;; Flag
+; 0x00000001 = AW_HOR_POSITIVE (Left to Right)
+; 0x00000002 = AW_HOR_NEGATIVE (Right to Left)
+; 0x00000004 = AW_VER_POSITIVE (Top to Bottom)
+; 0x00000008 = AW_VER_NEGATIVE (Bottom to Top)
+; 0x00000010 = AW_CENTER
+; 0x00010000 = AW_HIDE
+; 0x00020000 = AW_ACTIVE
+; 0x00040000 = AW_SLIDE
+; 0x00080000 = AW_BLEND (Fade-In/Out)
+AnimateWindow(hWnd, Duration, Flag)
+{
+    return DllCall("User32.dll\AnimateWindow", "Uint", hWnd, "Int", Duration, "Uint", Flag)
+}
 
 LoadConfig() {
-    global key, configFile, command, workingDir, windowMatcher, userprofile
+    global key, configFile, command, heightRatio, duration, workingDir, windowMatcher, userprofile
 
     Try {
         Hotkey(key, "Toggle")
@@ -91,11 +132,23 @@ LoadConfig() {
 
     key := IniRead(configFile, "Settings", "key", A_Space)
     if (key = "") {
-        key := "F1"
-        IniWrite("F1", configFile, "Settings", "key")
+        key := "^;"
+        IniWrite(key, configFile, "Settings", "key")
     }
 
-    IniWrite("https://goo.gl/uo0CRZ", configFile, "Help", "website")
+    heightRatio := IniRead(configFile, "Settings", "heightRatio", A_Space)
+    if (heightRatio = "") {
+        heightRatio := "0.6"
+        IniWrite(heightRatio, configFile, "Settings", "heightRatio")
+    }
+
+    duration := IniRead(configFile, "Settings", "duration", A_Space)
+    if (duration = "") {
+        duration := "500"
+        IniWrite(duration, configFile, "Settings", "duration")
+    }
+
+    IniWrite("https://github.com/orumin/dotfiles", configFile, "Help", "website")
     IniWrite("see https://www.autohotkey.com/docs/Hotkeys.htm", configFile, "Help", "key")
     IniWrite("see " . website, configFile, "Help", "windowMatcher")
 
