@@ -12,7 +12,7 @@ M.setup = function (config)
   scheme.tab_bar.background = transparent_bg
   local active_tab_bg = {}
   active_tab_bg.h, active_tab_bg.s, active_tab_bg.l, active_tab_bg.a =
-  wezterm.color.parse(scheme.tab_bar.active_tab.bg_color):hsla()
+    wezterm.color.parse(scheme.tab_bar.active_tab.bg_color):hsla()
   scheme.tab_bar.active_tab.bg_color = ("hsla(%s %s %s %s)"):format(
     active_tab_bg.h,
     active_tab_bg.s*100 .. "%",
