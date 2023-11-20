@@ -43,6 +43,9 @@ return {
   {
     "github/copilot.vim",
     cmd = "Copilot",
-    cond = require("configs").use_copilot
+    cond = require("configs").use_copilot,
+    config = function ()
+      vim.cmd [[Copilot enable]]
+    end
   },
 }

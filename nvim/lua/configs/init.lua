@@ -77,7 +77,7 @@ local settings = {
   shell = "fish",
   use_skk = true,
   use_denops = false,
-  use_copiolot = false,
+  use_copiolot = true,
 }
 
 if not vim.fn.has("win32") == 1 then
