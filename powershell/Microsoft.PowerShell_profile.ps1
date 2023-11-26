@@ -5,7 +5,7 @@ $OutputEncoding = [System.Console]::OutputEncoding = [System.Text.UTF8Encoding]:
 if ($IsWindows) {
     $env:HOME = "$env:USERPROFILE"
     $env:RYE_HOME = "$env:USERPROFILE\scoop\persist\rye"
-    $env:PATH = "$env:RYE_HOME\shims;" + $env:PATH
+    $env:PATH = "$env:RYE_HOME\shims;" + "$env:PATH;" + "$env:USERPROFILE\scoop\persist\rye\py\cpython@3.10.13\install\Scripts"
     $env:XDG_CONFIG_HOME = "$env:USERPROFILE\.config"
 }
 $env:COLORTERM = "truecolor"
