@@ -18,7 +18,7 @@ return {
         vim.cmd([[TSUpdate]])
       end
     end,
-    config = require("editor.treesitter")
+    config = require("editor.treesitter"),
   },
   -- indent
   {
@@ -26,6 +26,7 @@ return {
     event = { "BufReadPost" },
     main = "ibl",
     config = require("editor.treesitter_addons").indent_blankline,
+    cond = false
   },
   -- parentheses
   {

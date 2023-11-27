@@ -85,6 +85,11 @@ if test \( (uname -r | sed -e 's/#1-\(Microsoft\).*/\1/') = "Microsoft" \) \
     set -x COLORTERM truecolor
 end
 
+if test \( -n "$WEZTERM_EXECUTABLE" \) \
+    -a \( -e "$HOME/.terminfo/w/wezterm" \)
+    set -x TERM "wezterm"
+end
+
 if test "$COLORTERM" = truecolor
     set -g fish_term24bit 1
 end
