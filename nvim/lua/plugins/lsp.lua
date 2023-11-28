@@ -22,6 +22,11 @@ return {
     config = require("core.lsp").setup_handlers,
   },
   {
+    "folke/neodev.nvim",
+    ft = "lua",
+    cond = require("configs").use_neodev
+  },
+  {
       "williamboman/mason.nvim",
     cmd = "Mason",
     config = require("lsp.mason_conf"),

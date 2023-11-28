@@ -75,9 +75,10 @@ local settings = {
   },
   remove_trailing_space = true,
   shell = "fish",
-  use_skk = true,
+  use_copilot = true,
   use_denops = false,
-  use_copiolot = true,
+  use_neodev = true,
+  use_skk = true,
 }
 
 if not vim.fn.has("win32") == 1 then
