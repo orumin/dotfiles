@@ -28,23 +28,29 @@ if not utils.is_win then
   config.default_prog[#config.default_prog+1] = "-l"
 end
 
+local has_gpu = false
 for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
-  config.max_fps = 60
-  config.animation_fps = 60
+  if gpu.device_type ~= "Cpu" then has_gpu = true end
   if gpu.backend == "Vulkan" and gpu.device_type == "DiscreteGpu" then
     config.front_end = "WebGpu"
     config.webgpu_preferred_adapter = gpu
     config.webgpu_power_preference = "HighPerformance"
+    config.max_fps = 60
+    config.animation_fps = 60
     break
   elseif gpu.backend == "Vulkan" and gpu.device_type == "IntegratedGpu" then
     config.front_end = "WebGpu"
     config.webgpu_preferred_adapter = gpu
     config.webgpu_power_preference = "LowPower"
-    break
-  else
     config.max_fps = 30
-    config.animation_fps = 10
+    config.animation_fps = 30
+    break
   end
+end
+
+if not has_gpu then
+  config.front_end="Software"
+  config.animation_fps = 1
 end
 
 config.use_ime = true
@@ -82,6 +88,14 @@ for host, ssh_config in pairs(wezterm.enumerate_ssh_hosts()) do
 
   })
 end
+
+config.serial_ports = {
+  {
+    name = "USB tty",
+    port = "/dev/ttyUSB0",
+    baud = 115200
+  }
+}
 
 config.launch_menu = launch_menu
 config.ssh_domains = ssh_domains
