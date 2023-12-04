@@ -64,7 +64,7 @@ format = "[$ssh_symbol$hostname ]($style)"
 [directory]
 style = "fg:base bg:blue"
 format = "[ $path ]($style)"
-truncation_length = 10
+truncation_length = 40
 truncation_symbol = "…/"
 
 [directory.substitutions]
