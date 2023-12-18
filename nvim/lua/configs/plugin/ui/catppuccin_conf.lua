@@ -4,10 +4,8 @@ return function ()
       alpha = true,
       bufferline = true,
       cmp = true,
-      dap = {
-        enabled = true,
-        enable_ui = true,
-      },
+      dap = true,
+      dap_ui = true,
       dropbar = {
         enabled = true,
         color_mode = true

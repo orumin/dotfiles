@@ -100,7 +100,7 @@ local function setting_clipboard()
     }
   elseif vim.env.SSH_CONNECTION and vim.fn.executable("lemonade") == 1 then -- for SSH
     vim.g.clipboard = {
-      name = "wl-Clipboard",
+      name = "lemonadeClipboard",
       copy = {
         ["+"] = {"lemonade", "copy"},
         ["*"] = {"lemonade", "copy"},
@@ -244,7 +244,9 @@ M.init = function ()
   vim.opt.directory = utils:path_concat({G.nvim_cache_dir, 'swp'})
 
   -- copy to clipboard
-  vim.opt.clipboard = "unnamedplus"
+  if vim.g.clipboard then
+    vim.opt.clipboard = "unnamedplus"
+  end
 
   -- enable mouse
   vim.opt.mouse = "a"
