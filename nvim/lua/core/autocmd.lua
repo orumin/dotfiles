@@ -74,24 +74,24 @@ vim.api.nvim_create_autocmd('TermOpen', {
 --  command = 'startinsert'
 --})
 
---###############################################################
--- show tips on entering nvim
---###############################################################
-local vimtip_augroup = vim.api.nvim_create_augroup("vimTip", {clear = true})
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = vimtip_augroup,
-  callback = function ()
-    vim.system({ "curl", "https://vtip.43z.one" }, nil,
-      function(obj)
-        local res = obj.stdout
-        if not obj.code then
-          res = "Error fetching tip: " .. res
-        end
-        vim.notify(res, 2, { title = "Tip!" })
-      end
-    )
-  end
-})
+----###############################################################
+---- show tips on entering nvim
+----###############################################################
+--local vimtip_augroup = vim.api.nvim_create_augroup("vimTip", {clear = true})
+--vim.api.nvim_create_autocmd("VimEnter", {
+--  group = vimtip_augroup,
+--  callback = function ()
+--    vim.system({ "curl", "https://vtip.43z.one" }, nil,
+--      function(obj)
+--        local res = obj.stdout
+--        if not obj.code then
+--          res = "Error fetching tip: " .. res
+--        end
+--        vim.notify(res, 2, { title = "Tip!" })
+--      end
+--    )
+--  end
+--})
 ----###############################################################
 ---- auto toggle Neo-Tree
 ----###############################################################
