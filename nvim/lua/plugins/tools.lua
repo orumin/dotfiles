@@ -143,9 +143,18 @@ return {
     end,
   },
   -- binary edit in vim
+  --{
+  --  "Shougo/vinarise",
+  --  cmd = "Vinarise",
+  --},
   {
-    "Shougo/vinarise",
-    cmd = "Vinarise",
+    "RaafatTurki/hex.nvim",
+    cmd = {
+      "HexDump",
+      "HexAssemble",
+      "HexToggle",
+    },
+    config = true,
   },
   -- godbolt Compiler Explorer
   {
