@@ -75,7 +75,7 @@ local settings = {
   },
   remove_trailing_space = true,
   shell = "fish",
-  use_copilot = true,
+  use_copilot = false,
   use_denops = false,
   use_neodev = true,
   use_skk = true,

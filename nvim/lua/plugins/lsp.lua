@@ -60,7 +60,9 @@ return {
       for k, v in pairs(configs.lsp_timeout) do
         vim.g[k] = v
       end
-    end
+    end,
+    cond = false
+
   },
   -- show progress of LSP server
   {

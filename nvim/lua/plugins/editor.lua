@@ -96,10 +96,9 @@ return {
   },
   -- show current mode
   {
-    "mvllow/modes.nvim",
+    "rasulomaroff/reactive.nvim",
     event = "VeryLazy",
-    tag = "v0.2.0",
-    config = true,
+    config = require("editor.reactive")
   },
   -- auto indent like VSCode
   {
