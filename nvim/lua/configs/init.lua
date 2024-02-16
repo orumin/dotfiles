@@ -77,7 +77,6 @@ local settings = {
   shell = "fish",
   use_copilot = false,
   use_denops = false,
-  use_neodev = true,
   use_skk = true,
 }
 

@@ -24,7 +24,11 @@ return {
   {
     "folke/neodev.nvim",
     ft = "lua",
-    cond = require("configs").use_neodev
+    config = function()
+      if string.find(vim.api.nvim_buf_get_name(0), "dotfiles") then
+        require("neodev").setup({})
+      end
+    end
   },
   {
       "williamboman/mason.nvim",
