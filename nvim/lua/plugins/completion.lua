@@ -41,11 +41,27 @@ return {
   },
   -- Copilot (trial)
   {
-    "github/copilot.vim",
+    "zbirenbaum/copilot.lua",
     cmd = "Copilot",
+    event = "InsertEnter",
     cond = require("configs").use_copilot,
     config = function ()
-      vim.cmd [[Copilot enable]]
+      require("copilot").setup({
+        filetypes = {
+          markdown = true,
+          gitcommit = true,
+          ["*"] = false
+        },
+        server_opts_overrides = {
+          trace = "verbose",
+          settings = {
+            advanced = {
+              listCount = 10,
+              inlineSuggestCount = 3,
+            },
+          },
+        }
+      })
     end
   },
 }
