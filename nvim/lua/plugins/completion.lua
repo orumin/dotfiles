@@ -10,7 +10,6 @@ return {
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-nvim-lsp-signature-help" },
       { "hrsh7th/cmp-nvim-lsp-document-symbol" },
-      { "hrsh7th/cmp-copilot" },
       { "hrsh7th/cmp-cmdline" },
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-path" },
@@ -18,6 +17,12 @@ return {
       { "dmitmel/cmp-cmdline-history" },
       { "petertriho/cmp-git" },
       { "octaltree/cmp-look" },
+      {
+        "zbirenbaum/copilot-cmp",
+        config = function ()
+          require("copilot_cmp").setup()
+        end
+      },
       {
         "aspeddro/cmp-pandoc.nvim",
         dependencies = {
@@ -45,23 +50,7 @@ return {
     cmd = "Copilot",
     event = "InsertEnter",
     cond = require("configs").use_copilot,
-    config = function ()
-      require("copilot").setup({
-        filetypes = {
-          markdown = true,
-          gitcommit = true,
-          ["*"] = false
-        },
-        server_opts_overrides = {
-          trace = "verbose",
-          settings = {
-            advanced = {
-              listCount = 10,
-              inlineSuggestCount = 3,
-            },
-          },
-        }
-      })
-    end
+    config = require("completion.copilot_conf")
   },
 }
+
