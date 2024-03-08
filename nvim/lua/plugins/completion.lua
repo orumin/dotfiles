@@ -52,5 +52,16 @@ return {
     cond = require("configs").use_copilot,
     config = require("completion.copilot_conf")
   },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    build = function ()
+      vim.cmd("UpdateRemotePlugins")
+      vim.notify("Please restart Neovim")
+    end,
+    cmd = "CopilotChat",
+    config = require("completion.copilot_chat_conf"),
+    keys = require("configs.keymap.copilot_chat"),
+    cond = require("configs").use_copilot,
+  }
 }
 
