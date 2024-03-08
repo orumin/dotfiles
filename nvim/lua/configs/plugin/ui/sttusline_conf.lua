@@ -78,7 +78,6 @@ return function ()
       "%=",
       "diagnostics",
       "lsps-formatters",
-      "copilot",
       "copilot-loading",
       "indent",
       encoding,

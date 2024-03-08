@@ -296,12 +296,12 @@ M.init = function ()
   vim.opt.splitkeep = "screen"
 
   -- rShaDa
-  vim.o.shada = ""
+  --vim.o.shada = ""
 end
 
 M.finalize = function ()
   vim.opt.pumheight = 20
-  vim.o.shada = vim.o.shada
+  --vim.o.shada = vim.o.shada
 
   -- setting search
   vim.opt.hlsearch = true -- hilighting

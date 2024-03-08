@@ -98,7 +98,7 @@ return {
   {
     "rasulomaroff/reactive.nvim",
     event = "VeryLazy",
-    config = require("editor.reactive")
+    opts = require("editor.reactive")
   },
   -- auto indent like VSCode
   {

@@ -67,7 +67,7 @@ return {
 --      { "<leader>co", vim.lsp.buf.outgoing_calls, mode ="n", silent = true, desc = "LSP outgoing_calls" },
       { "<leader>co", function ()
         local builtin = require("telescope.builtin")
-        builtin.lsp_outgoin_calls()
+        builtin.lsp_outgoing_calls()
       end, mode ="n", silent = true, desc = "LSP outgoing_calls" },
     },
   },
