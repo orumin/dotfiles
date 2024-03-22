@@ -85,6 +85,12 @@ return {
       Hydra(require("ui.hydra_conf").setup["dap"]())
     end,
   },
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = {
+      "nvim-neotest/nvim-nio"
+    }
+  },
 ---------------------------------------------------------------
 -- improve editor feature
 ---------------------------------------------------------------

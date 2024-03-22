@@ -1,3 +1,6 @@
+local icons = {
+  ui = require("configs.ui.icons").get("ui", true)
+}
 return function()
   require("edgy").setup({
     bottom = {
@@ -58,5 +61,87 @@ return function()
       -- any other neo-tree windows
       "neo-tree",
     },
+    options = {
+      right = { size = 30 },
+    },
+    animate = {
+      enabled = true,
+      fsp = 100, -- frames per scond
+      csp = 120, -- cells per second
+      on_begin = function()
+        vim.g.minianimate_disable = true
+      end,
+      on_end = function()
+        vim.g.minianimate_disable = false
+      end,
+    },
+    spinner = {
+      frames = require("noice.util.spinners").spinners.circleFull,
+      interval = 80,
+    },
+    exit_when_last = false,
+    close_when_all_hidden = true,
+    wo = {
+      winbar = true,
+      winfixwidth = true,
+      winfixheight = false,
+      winhighlight = "WinBar:EdgyWinBar,Normal:EdgyNormal",
+      spell = false,
+      signcolumn = "no",
+    },
+    keys = {
+    -- close window
+    ["q"] = function(win)
+      win:close()
+    end,
+    -- hide window
+    ["<c-q>"] = function(win)
+      win:hide()
+    end,
+    -- close sidebar
+    ["Q"] = function(win)
+      win.view.edgebar:close()
+    end,
+    -- next open window
+    ["]w"] = function(win)
+      win:next({ visible = true, focus = true })
+    end,
+    -- previous open window
+    ["[w"] = function(win)
+      win:prev({ visible = true, focus = true })
+    end,
+    -- next loaded window
+    ["]W"] = function(win)
+      win:next({ pinned = false, focus = true })
+    end,
+    -- prev loaded window
+    ["[W"] = function(win)
+      win:prev({ pinned = false, focus = true })
+    end,
+    -- increase width
+    ["<c-w>>"] = function(win)
+      win:resize("width", 2)
+    end,
+    -- decrease width
+    ["<c-w><lt>"] = function(win)
+      win:resize("width", -2)
+    end,
+    -- increase height
+    ["<c-w>+"] = function(win)
+      win:resize("height", 2)
+    end,
+    -- decrease height
+    ["<c-w>-"] = function(win)
+      win:resize("height", -2)
+    end,
+    -- reset all custom sizing
+    ["<c-w>="] = function(win)
+      win.view.edgebar:equalize()
+    end,
+  },
+  icons = {
+    closed = icons.ui.ChevronRight,
+    open = icons.ui.ArrowOpen,
+  },
   })
 end

@@ -8,7 +8,7 @@ return function ()
     popup_border_style = "rounded",
     enable_git_status = true,
     enable_diagnostics = true,
-    open_files_do_not_replace_types = { "terminal", "trouble", "qf", "Outline" },
+    open_files_do_not_replace_types = { "terminal", "trouble", "qf", "Outline", "edgy" },
     sort_case_insensitive = false,
     sort_function = nil, -- use a custom function for sorting files and directories in the tree
     -- sort_function = function (a,b)

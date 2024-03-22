@@ -54,11 +54,18 @@ return {
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    build = function ()
-      vim.cmd("UpdateRemotePlugins")
-      vim.notify("Please restart Neovim")
-    end,
-    cmd = "CopilotChat",
+    cmd = {
+      "CopilotChatOpen",
+      "CopilotChatClose",
+      "CopilotChatToggle",
+      "CopilotChatReset",
+      "CopilotChatDebugInfo",
+    },
+    dependencies = {
+      { "zbirenbaum/copilot.lua" },
+      { "nvim-telescope/telescope.nvim" },
+      { "nvim-lua/plenary.nvim" },
+    },
     config = require("completion.copilot_chat_conf"),
     keys = require("configs.keymap.copilot_chat"),
     cond = require("configs").use_copilot,

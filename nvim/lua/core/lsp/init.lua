@@ -15,7 +15,7 @@ local function set_keymaps(bufnr, maps)
   end
 end
 
----@param client lsp.Client
+---@param client vim.lsp.Client
 ---@param bufnr integer
 local function on_lsp_attach(client, bufnr)
   local keymaps = require("configs.keymap.nvim-lsp")
@@ -26,23 +26,16 @@ local function on_lsp_attach(client, bufnr)
   vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
   vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
 
-  for k, v in pairs(keymaps["textDocument"]) do
-    if client.supports_method(methods["textDocument_" .. k]) then
-      set_keymaps(bufnr, v)
+  local function set_keymaps_for_supported_methods(method_prefix, keymap_table)
+    for k, v in pairs(keymap_table) do
+      if client.supports_method(methods[method_prefix .. k]) then
+        set_keymaps(bufnr, v)
+      end
     end
   end
-
-  for k, v in pairs(keymaps["callHierarchy"]) do
-    if client.supports_method(methods["callHierarchy_" .. k]) then
-      set_keymaps(bufnr, v)
-    end
-  end
-
-  for k, v in pairs(keymaps["workspace"]) do
-    if client.supports_method(methods["workspace_" .. k]) then
-      set_keymaps(bufnr, v)
-    end
-  end
+  set_keymaps_for_supported_methods("textDocument_", keymaps["textDocument"])
+  set_keymaps_for_supported_methods("callHierarchy_", keymaps["callHierarchy"])
+  set_keymaps_for_supported_methods("workspace_", keymaps["workspace"])
 
   -- show signatureHelp by nvim-cmp. so didn't create keymaps to call vim.lsp.buf.signature_help
   --if client.supports_method(methods["textDocument_signatureHelp"]) then
