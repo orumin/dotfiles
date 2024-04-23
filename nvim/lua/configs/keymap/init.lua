@@ -9,6 +9,9 @@ return {
     { "j", "<Plug>(accelerated_jk_gj)", mode = "n", desc = "accelerated-jk"},
     { "k", "<Plug>(accelerated_jk_gk)", mode = "n", desc = "accelerated-jk"},
   },
+  ["gh-addressed"] = {
+    {"<leader>gc", "<Cmd>GhReviewComments<CR>", desc = "GitHub Review Comments"},
+  },
   ["skkeleton"] = {
     {"<C-j>", "<Plug>(skkeleton-toggle)", mode = {"c", "i"}, desc="skk" }
   },

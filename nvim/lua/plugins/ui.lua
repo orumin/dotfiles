@@ -8,12 +8,12 @@ return {
 --    cond = false,
 --    optional = true,
 --  },
-  -- startup display
-  {
-    "goolord/alpha-nvim",
-    event = "VimEnter",
-    config  = require("ui.dashboard")
-  },
+--  -- startup display
+--  {
+--    "goolord/alpha-nvim",
+--    event = "VimEnter",
+--    config  = require("ui.dashboard")
+--  },
   -- show buffer like tab
   {
     "willothy/nvim-cokeline",
@@ -108,7 +108,7 @@ return {
     "lewis6991/gitsigns.nvim",
     event = {"CursorHold", "CursorHoldI"},
     dependencies = {
-      { "anuvyklack/hydra.nvim" }
+      { "nvimtools/hydra.nvim" }
     },
     keys = require("configs.keymap.hydra").git,
     config = function()
@@ -118,7 +118,7 @@ return {
   },
   -- Hydra
   {
-    "anuvyklack/hydra.nvim",
+    "nvimtools/hydra.nvim",
     lazy = true
   }
 }

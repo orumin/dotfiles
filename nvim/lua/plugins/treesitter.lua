@@ -14,9 +14,8 @@ return {
       }
     },
     build = function ()
-      if #vim.api.nvim_list_uis() ~= 0 then
-        vim.cmd([[TSUpdate]])
-      end
+      local ts_update = require("nvim-treesitter.install").update({with_sync = true})
+      ts_update()
     end,
     config = require("editor.treesitter"),
   },
@@ -26,7 +25,7 @@ return {
     event = { "BufReadPost" },
     main = "ibl",
     config = require("editor.treesitter_addons").indent_blankline,
-    cond = false
+--    cond = false
   },
   -- parentheses
   {

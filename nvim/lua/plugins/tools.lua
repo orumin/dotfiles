@@ -61,7 +61,7 @@ return {
   -- run test
   {
     "nvim-neotest/neotest",
-    lazy = true,
+    event = "VeryLazy",
     dependencies = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-treesitter/nvim-treesitter" },
@@ -110,6 +110,17 @@ return {
       vim.g["gista#github_user"] = "orumin"
     end
   },
+  -- show GitHub PR comment through folke/trouble.nvim
+  {
+    "dlvhdr/gh-addressed.nvim",
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "MunifTanjim/nui.nvim" },
+      { "folke/trouble.nvim" }
+    },
+    cmd = "GhReviewComments",
+    keys = require("configs.keymap")["gh-addressed"],
+  },
   -- ime
   {
     "vim-skk/skkeleton",
@@ -137,7 +148,7 @@ return {
     "jbyuki/venn.nvim",
     cmd = "VBox",
     dependencies = {
-      { "anuvyklack/hydra.nvim" }
+      { "nvimtools/hydra.nvim" }
     },
     keys = require("configs.keymap.hydra").venn,
     config = function ()

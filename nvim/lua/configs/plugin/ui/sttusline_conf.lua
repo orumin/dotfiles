@@ -55,6 +55,18 @@ return function ()
 
   }
 
+  local hydra = {
+    name = "hydra",
+    update = function ()
+      local ok, mod = pcall(require, "hydra.statusline")
+      if ok then
+        local fg = mod.is_active() and palette.green or palette.red
+        return { {mod.get_name(), { fg = fg }} }
+      end
+      return ""
+    end
+  }
+
   require("sttusline").setup({
     on_attach = function (create_update_group) end,
     -- statusline_color = "#000000",
@@ -76,6 +88,7 @@ return function ()
       "%=",
       pomodoro,
       "%=",
+      hydra,
       "diagnostics",
       "lsps-formatters",
       "copilot-loading",

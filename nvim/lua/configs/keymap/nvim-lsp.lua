@@ -36,6 +36,13 @@ return {
     documentSymbol = {
       { "go", "<Cmd>Outline<CR>", mode ="n", silent = true, desc = "LSP show symbol outline" },
     },
+    -- neovim support added icholy/lsplinks.nvim plugin
+    documentLink = {
+      {"gx", function ()
+        local lsplinks = require("lsplinks")
+        lsplinks.gx()
+      end, mode = "n", silent = true, desc = "LSP document link" },
+    },
     hover = {
       { "K", vim.lsp.buf.hover, mode = "n", silent = true, desc = "LSP hover document" },
     },

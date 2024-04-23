@@ -53,11 +53,6 @@ local settings = {
     extends = "❯",
     precedes = "❮"
   },
-  lsp_timeout = {
-    stopTimeout  = 1000 * 60 * 5, -- ms, timeout before stopping all LSP servers
-    startTimeout = 1000 * 10,     -- ms, timeout before restart
-    silent       = false
-  },
   lsp_default_servers = {
     "bashls", "bufls", "clangd", "docker_compose_language_service", "dockerls",
     "gopls", "html", "jsonls", "luau_lsp", "marksman", "powershell_es", "tsserver",

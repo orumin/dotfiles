@@ -13,13 +13,14 @@ return function()
   local treesitter_config = require("nvim-treesitter.configs")
 
   vim.treesitter.language.register('yaml', 'ansible')
+  vim.treesitter.language.register('markdown', 'copilot-chat')
 
   vim.o.foldmethod = "expr"
   vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
   local tsconfig = {
     modules = {},
-    sync_install = false,
+    sync_install = true,
     ensure_installed = {
       "bash", "bibtex", "bitbake", "c", "cmake", "comment", "cpp", "css", "csv", "cue",
       "devicetree", "diff", "dockerfile", "doxygen", "elvish", "fennel", "fish",

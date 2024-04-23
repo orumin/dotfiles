@@ -46,7 +46,7 @@ return {
         }
       },
       { "debugloop/telescope-undo.nvim" },
-      { "anuvyklack/hydra.nvim" }
+      { "nvimtools/hydra.nvim" }
     },
     keys = require("configs.keymap.hydra").telescope,
     config = function ()
@@ -87,6 +87,7 @@ return {
   },
   {
     "rcarriga/nvim-dap-ui",
+    event = "VeryLazy",
     dependencies = {
       "nvim-neotest/nvim-nio"
     }

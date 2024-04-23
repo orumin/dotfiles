@@ -26,6 +26,8 @@ local function on_lsp_attach(client, bufnr)
   vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
   vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
 
+  ---@param method_prefix string
+  ---@param keymap_table table
   local function set_keymaps_for_supported_methods(method_prefix, keymap_table)
     for k, v in pairs(keymap_table) do
       if client.supports_method(methods[method_prefix .. k]) then

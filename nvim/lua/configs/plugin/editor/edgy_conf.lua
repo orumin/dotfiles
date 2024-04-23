@@ -61,6 +61,13 @@ return function()
       -- any other neo-tree windows
       "neo-tree",
     },
+    right = {
+      {
+        title = "CopilotChat.nvim",
+        ft = "copilot-chat",
+        size = { width = 79 },
+      },
+    },
     options = {
       right = { size = 30 },
     },

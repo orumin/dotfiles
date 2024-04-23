@@ -54,30 +54,24 @@ return {
   -- start/stop LSP servers upon demand;
   -- keeps RAM usage low
   {
-    "hinell/lsp-timeout.nvim",
+    "zeioth/garbage-day.nvim",
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     dependencies = {
       { "neovim/nvim-lspconfig" }
     },
-    init = function()
-      local configs = require("configs")
-      for k, v in pairs(configs.lsp_timeout) do
-        vim.g[k] = v
-      end
-    end,
-    cond = false
 
   },
   -- show progress of LSP server
   {
     "j-hui/fidget.nvim",
-    tag = "legacy",
     event = "LspAttach",
-    config = function ()
-      require("fidget").setup({
-        window = { relative = "editor", blend = 15 }
-      })
-    end
+    opts = {},
+  },
+  -- support document link from textDocument/documentLink
+  {
+    "icholy/lsplinks.nvim",
+    event = "LspAttach",
+    opts = {},
   },
   -- get LSP diagnostics and references to quickfix window
   {

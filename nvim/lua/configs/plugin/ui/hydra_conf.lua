@@ -4,6 +4,7 @@ local M = {}
 M.setup = {
 }
 
+---@return Hydra
 M.setup["git"] = function()
   local keymaps = require("configs.keymap.hydra")
   local gitsigns = require("gitsigns")
@@ -22,7 +23,8 @@ M.setup["git"] = function()
       color = "pink",
       invoke_on_body = true,
       hint = {
-        border = "rounded",
+        type = "window",
+        position = "bottom",
       },
       on_enter = function ()
         vim.cmd.mkview()
@@ -75,6 +77,7 @@ M.setup["git"] = function()
   }
 end
 
+---@return Hydra
 M.setup["telescope"] = function()
   local keymaps = require("configs.keymap.hydra")
   local builtin = require("telescope.builtin")
@@ -98,8 +101,8 @@ M.setup["telescope"] = function()
       color = 'teal',
       invoke_on_body = true,
       hint = {
+        type = "window",
         position = 'middle',
-        border = 'rounded',
       },
     },
     mode = keymaps["telescope"].mode,
@@ -125,6 +128,7 @@ M.setup["telescope"] = function()
   }
 end
 
+---@return Hydra
 M.setup["dap"] = function()
   local keymaps = require("configs.keymap.hydra")
   local dap = require("dap")
@@ -145,8 +149,8 @@ M.setup["dap"] = function()
       color = 'pink',
       invoke_on_body = true,
       hint = {
+        type = 'window',
         position = 'bottom',
-        border = 'rounded'
       },
       on_enter = function ()
         dapui.open()
@@ -179,6 +183,7 @@ M.setup["dap"] = function()
   }
 end
 
+---@return Hydra
 M.setup["venn"] = function ()
   local keymaps = require("configs.keymap.hydra")
   local hint = [[
@@ -195,8 +200,8 @@ M.setup["venn"] = function ()
       color = 'pink',
       invoke_on_body = true,
       hint = {
+        type = 'window',
         position = 'bottom',
-        border = 'rounded'
       },
       on_enter = function ()
         vim.o.virtualedit = "all"
