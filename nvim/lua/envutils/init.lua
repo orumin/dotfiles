@@ -35,6 +35,7 @@ local uv = vim.uv
 ---@field get_root fun(): string
 ---@field get_keymap_opts fun(table): table
 ---@field path_concat fun(self: utils, dir_table: string[]): string
+---@field mkdir_p fun(self: utils, path: string, mode: integer): (success: boolean?, err_name: string?, err_msg: string?)
 
 ---@type utils
 ---@diagnostic disable-next-line: missing-fields
@@ -55,6 +56,27 @@ local M = {
     },
     cached = false
   },
+  S_IRWXU = 0x1C0, -- 0700 (octal) '(S_IRUSR | S_IWUSR | S_IXUSR)'
+  S_IRUSR = 0x100, -- 0400 (octal) read permission for the owner of the file
+  S_IWUSR = 0x080, -- 0200 (octal) write permission for the owner of the file
+  S_IXUSR = 0x040, -- 0100 (octal) execute or search permission bit for the owner of the file
+  S_IREAD = 0x100, -- 0400 (octal) read permission for the owner of the file
+  S_IWRITE = 0x080, -- 0200 (octal) write permission for the owner of the file
+  S_IEXEC = 0x100, -- 0400 (octal) read permission for the owner of the file
+
+  S_IRWXG = 0x038, -- 0070 (octal) '(S_IRGRP | S_IWGRP | S_IXGRP)'
+  S_IRGRP = 0x020, -- 0040 (octal) read permission for the group owner of the file
+  S_IWGRP = 0x010, -- 0020 (octal) write permission for the group owner of the file
+  S_IXGRP = 0x008, -- 0010 (octal) execute or search pewrmission bit for the group owner of the file
+
+  S_IWRXO = 0x007, -- 0007 (octal) '(S_IROTH | S_IWOTH | S_IXOTH)'
+  S_IROTH = 0x004, -- 0004 (octal) read permission bit for other users
+  S_IWOTH = 0x002, -- 0002 (octal) write permission bit for other users
+  S_IXOTH = 0x001, -- 0001 (octal) execute or search permission bit for other users
+
+  S_ISUID = 0x800, -- 4000 (octal) set-user-ID
+  S_ISGID = 0x400, -- 2000 (octal) set-group-ID
+  S_ISVTX = 0x200, -- 1000 (octal) sticky-bit
 }
 
 ---@diagnostic disable-next-line: invisible
@@ -235,6 +257,21 @@ function M:path_concat(dir_table)
   end
 
   return table.concat(dir_table, self:globals().path_sep)
+end
+
+function M:mkdir_p(path, mode)
+  local success, err_name, err_msg = vim.uv.fs_mkdir(path, mode)
+  if success then
+    return true
+  elseif err_name and string.match(err_name, "^EEXIST") then
+    return true
+  elseif err_name and string.match(err_name, "^ENOENT") then
+    success, err_name, err_msg = vim.uv.fs_mkdir(M:path_concat({path, ".."}), mode)
+    if not success then return false, err_name, err_msg  end
+    return vim.uv.fs_mkdir(path, mode)
+  end
+
+  return false, err_name, err_msg
 end
 
 return M

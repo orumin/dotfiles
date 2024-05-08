@@ -1,4 +1,5 @@
 -- original code is here: https://gist.github.com/GnikDroy/62556534324f9dc9192f7bba5a88cc43
+-- https://www.reddit.com/r/neovim/comments/1b24uhk/reimagining_intro/
 if vim.fn.argc() ~= 0 or #vim.api.nvim_list_wins() ~= 1 then return end
 vim.opt.shortmess:remove("I") -- Enable default startscreen
 local WIDTH = vim.api.nvim_win_get_width(0)

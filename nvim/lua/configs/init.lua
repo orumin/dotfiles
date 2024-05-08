@@ -73,6 +73,7 @@ local settings = {
   use_copilot = false,
   use_denops = false,
   use_skk = true,
+  use_ttene = false,
 }
 
 if not vim.fn.has("win32") == 1 then

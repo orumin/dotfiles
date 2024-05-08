@@ -49,7 +49,6 @@ return {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
-    cond = require("configs").use_copilot,
     config = require("completion.copilot_conf")
   },
   {
@@ -66,9 +65,8 @@ return {
       { "nvim-telescope/telescope.nvim" },
       { "nvim-lua/plenary.nvim" },
     },
-    config = require("completion.copilot_chat_conf"),
     keys = require("configs.keymap.copilot_chat"),
-    cond = require("configs").use_copilot,
+    config = require("completion.copilot_chat_conf"),
   }
 }
 

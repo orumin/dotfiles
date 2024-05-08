@@ -153,20 +153,12 @@ return {
   {
     "echasnovski/mini.animate",
     event = "VeryLazy",
-    config = true,
-    cond = not vim.g.neovide and not require("envutils"):globals().is_headless
-  },
-  {
-    "karb94/neoscroll.nvim",
-    event = { "CursorHold", "CursorHoldI" },
-    config = true,
-    cond = false,
-  },
-  {
-    "rainbowhxch/accelerated-jk.nvim",
-    keys = require("configs.keymap").accelerated_jk,
-    event = "VeryLazy",
-    cond = false,
+    config = function()
+      local cond = not vim.g.neovide and not require("envutils"):globals().is_headless
+      if cond then
+        require("mini.animate").setup()
+      end
+    end,
   },
   -- improve highlight
   {
@@ -198,13 +190,6 @@ return {
     event = "VeryLazy",
 --    event = { "CursorHold", "CursorHoldI" },
     config = require("editor.which-key_conf"),
-  },
-  -- fix ambiwidth character width by 'setcellwidths()'
-  {
-    "rbtnn/vim-ambiwidth",
-    lazy = false,
-    --cond = vim.fn.has("nvim-0.9") == 1,
-    cond = false,
   },
   -- project local setting
   {

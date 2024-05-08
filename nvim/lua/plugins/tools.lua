@@ -125,7 +125,6 @@ return {
   {
     "vim-skk/skkeleton",
     event = { "InsertEnter", "CmdlineEnter" },
-    cond = vim.fn.has("nvim-0.8") == 1 and require("configs").use_skk, -- disable
     dependencies = {
       { "vim-denops/denops.vim" },
       { "yuki-yano/denops-lazy.nvim" },
@@ -210,18 +209,6 @@ return {
     cmd = "Nerdy",
   },
   -- pmodoro timer
---  {
---    "orumin/pomodoro.nvim",
---    cmd = {
---      "PomodoroStart",
---      "PomodoroStatus",
---      "PomodoroStop",
---    },
---    dependencies = {
---      { "MunifTanjim/nui.nvim" }
---    },
---    config = true,
---  },
   {
     "ttak0422/piccolo-pomodoro.nvim",
     keys = require("configs.keymap.pomodoro"),
@@ -231,6 +218,5 @@ return {
   {
     "stevearc/profile.nvim",
     keys = require("configs.keymap.profile"),
-    cond = false
   }
 }

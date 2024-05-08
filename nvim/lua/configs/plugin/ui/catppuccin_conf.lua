@@ -4,6 +4,10 @@ return function ()
       alpha = true,
       bufferline = true,
       cmp = true,
+      colorful_winsep = {
+        enabled = true,
+        color = "lavender"
+      },
       dap = true,
       dap_ui = true,
       dropbar = {

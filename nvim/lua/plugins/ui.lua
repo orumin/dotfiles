@@ -2,12 +2,6 @@ return {
 ---------------------------------------------------------------
 --UI
 ---------------------------------------------------------------
---  {
---    "thinca/vim-splash",
---    event = { "BufWinEnter" },
---    cond = false,
---    optional = true,
---  },
 --  -- startup display
 --  {
 --    "goolord/alpha-nvim",
@@ -24,14 +18,6 @@ return {
     },
     keys = require("configs.keymap.cokeline"),
     config = require("ui.cokeline_conf"),
-    --cond = false
-  },
-  {
-    "akinsho/bufferline.nvim",
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
-    keys = require("configs.keymap.bufferline"),
-    config  = require("ui.bufferline_config"),
-    cond = false
   },
   -- breadcrumbs (winbar)
   {
@@ -41,17 +27,15 @@ return {
       { "nvim-telescope/telescope-fzf-native.nvim" }
     },
   },
+  -- colorful window separator
+  {
+    "nvim-zh/colorful-winsep.nvim",
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    config = function ()
+      require("colorful-winsep").setup()
+    end,
+  },
   -- transparency
---  {
---    'orumin/ya-seiya.nvim',
---    event = { "BufWinEnter" },
---    name = "seiya",
---    opts = {
---      auto_enabled = true,
---      target_groups = {"ctermbg"}
-----      target_groups = {"ctermbg", "guibg"}
---    }
---  },
   {
     "xiyaowong/transparent.nvim",
     event = { "BufWinEnter" },
@@ -85,12 +69,6 @@ return {
     config = require("ui.noice_conf")
   },
   -- status line
---  {
---    "nvim-lualine/lualine.nvim",
---    event = { "BufReadPost", "BufAdd", "BufNewFile" },
---    opts = require("ui.lualine_config"),
---    cond = false
---  },
   {
     "sontungexpt/sttusline",
     branch = "table_version",

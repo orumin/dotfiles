@@ -25,7 +25,6 @@ return {
     event = { "BufReadPost" },
     main = "ibl",
     config = require("editor.treesitter_addons").indent_blankline,
---    cond = false
   },
   -- parentheses
   {

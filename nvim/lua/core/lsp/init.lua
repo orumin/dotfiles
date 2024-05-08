@@ -100,7 +100,7 @@ local function on_lsp_attach(client, bufnr)
     vim.defer_fn(function()
       local mode = vim.api.nvim_get_mode().mode
       local enabled = mode == "n" or mode == "v"
-      toggle_inlay_hint(bufnr, enabled)
+      toggle_inlay_hint(enabled, {bufnr = bufnr})
     end, 500)
 
     vim.api.nvim_create_autocmd('InsertEnter', {
@@ -108,7 +108,7 @@ local function on_lsp_attach(client, bufnr)
       desc = 'Enable inlay hints',
       buffer = bufnr,
       callback = function()
-        toggle_inlay_hint(bufnr, false)
+        toggle_inlay_hint(false, {bufnr = bufnr})
       end,
     })
     vim.api.nvim_create_autocmd('InsertLeave', {
@@ -116,7 +116,7 @@ local function on_lsp_attach(client, bufnr)
       desc = 'Disable inlay hints',
       buffer = bufnr,
       callback = function()
-        toggle_inlay_hint(bufnr, true)
+        toggle_inlay_hint(true, {bufnr = bufnr})
       end,
     })
 
@@ -276,7 +276,9 @@ local function preview_location_cb(err, result, context, config)
   local existing_win = vim.F.npcall(vim.api.nvim_buf_get_var, current_bufnr, "lsp_peek")
   if existing_win and vim.api.nvim_win_is_valid(existing_win) then vim.api.nvim_win_close(existing_win, true) end
 
-  local location = vim.tbl_islist(result) and result[1] or result
+---@diagnostic disable-next-line: deprecated
+  local islist = vim.tbl_islist or vim.islist
+  local location = islist(result) and result[1] or result
   local uri = location.targetUri or location.uri
   local range = location.targetRange or location.range
   local preview_bufnr = vim.uri_to_bufnr(uri)
