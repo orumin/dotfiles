@@ -5,7 +5,7 @@ return function (opts)
 
   -- IMPORTANT: make sure to setup neodev BEFORE lspconfig
   local ok, neodev = pcall(require, "neodev")
-  if ok then
+  if ok and not G.is_wsl then
     neodev.setup({
       override = function(root_dir, library)
         if root_dir:find(utils:path_concat({G.homedir, "dotfiles"}), 1, true) == 1 then

@@ -119,7 +119,7 @@ local function setting_clipboard()
       cache_enabled = 0,
     }
   elseif G.is_win or G.is_wsl then
-    if vim.fn.executable("win32yank") == 1 then
+    if vim.fn.executable("win32yank.exe") == 1 then
       vim.g.clipboard = {
         name = "win32yank-Clipboard",
         copy = {
