@@ -76,7 +76,7 @@ return {
       { "rcarriga/nvim-dap-ui" },
       { "theHamsta/nvim-dap-virtual-text" },
       { "jbyuki/one-small-step-for-vimkind" },
-      { "anuvyklack/hydra.nvim" }
+      { "nvimtools/hydra.nvim" }
     },
     keys = require("configs.keymap.hydra").dap,
     config = function ()
