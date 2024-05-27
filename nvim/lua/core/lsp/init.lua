@@ -81,11 +81,13 @@ local function on_lsp_attach(client, bufnr)
       group = codelens_group,
       desc = 'Refresh CodeLens',
       buffer = bufnr,
-      callback = vim.lsp.codelens.refresh,
+      callback = function()
+        vim.lsp.codelens.refresh({ bufnr = bufnr })
+      end,
     })
 
     -- Initial CodeLens display.
-    vim.lsp.codelens.refresh()
+    vim.lsp.codelens.refresh({ bufnr = bufnr })
   end
 
   if client.supports_method(methods["textDocument_inlayHint"]) then
@@ -484,7 +486,7 @@ M.setup = function()
   local register_capability = vim.lsp.handlers[register_method]
   vim.lsp.handlers[register_method] = function(err, result, ctx)
     local client = vim.lsp.get_client_by_id(ctx.client_id)
-    if client then on_lsp_attach(client, vim.api.nvim_get_current_buf()) end
+    if client then on_lsp_attach(client, ctx.bufnr) end
     return register_capability(err, result, ctx)
   end
 
