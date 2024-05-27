@@ -12,11 +12,11 @@ return {
         local builtin = require("telescope.builtin")
         builtin.lsp_references()
       end, mode = "n", silent = true, desc = "LSP fuzzy find references" },
-      { "gr", vim.lsp.buf.references, mode = "n", silent = true, desc = "LSP references" },
+      { "grr", vim.lsp.buf.references, mode = "n", silent = true, desc = "LSP references" },
     },
     rename = {
       --{ "<leader>rpn", "<Cmd>Lspsaga project_replace<CR>", mode = "n", silent = true, desc = "LSP workspace rename" },
-      { "<leader>rn", vim.lsp.buf.rename, mode = "n", silent = true, desc = "LSP rename" },
+      { "grn", vim.lsp.buf.rename, mode = "n", silent = true, desc = "LSP rename" },
     },
     definition = {
       { "gD", vim.lsp.buf.definition, mode = "n", silent = true, desc = "LSP goto_definition" },
@@ -56,10 +56,10 @@ return {
         mode = "n", silent = true, desc = "LSP next error" },
     },
     codeLens = {
-      { "<leader>cl", vim.lsp.codelens.run, mode = "n", silent = true, desc = "LSP run CodeLens" }
+      { "grl", vim.lsp.codelens.run, mode = "n", silent = true, desc = "LSP run CodeLens" }
     },
     codeAction = {
-      { "<leader>ca", vim.lsp.buf.code_action, mode = { "n", "v" }, silent = true, desc = "LSP code action" },
+      { "gra", vim.lsp.buf.code_action, mode = { "n", "v" }, silent = true, desc = "LSP code action" },
     },
   },
   callHierarchy = {
