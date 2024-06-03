@@ -197,15 +197,24 @@ local data = {
     Macos = "",
     ManUp = "",
     NetBSD = "",
-    PyEnv = "󰌠",
     OpenBSD = "",
+    PyEnv = "󰌠",
     Squirrel = "",
     Tag = "",
     Tree = "",
-    Vbar = "│",
     Vim = "",
     Watch = "",
     Windows = "",
+  },
+  lines = {
+    Hbar = "─",
+    RighArrow = ">",
+    RoundLeftBottom = "╰",
+    RoundLeftTop = "╭",
+    RoundRightBottom = "╯",
+    RoundRightTop = "╮",
+    Vbar = "│",
+    VbarLeftOffset = "▎",
   },
   cmp = {
     -- Add source-specific icons here
@@ -243,7 +252,7 @@ local data = {
 }
 
 ---Get a specific icon set.
----@param category "kind"|"type"|"documents"|"git"|"ui"|"diagnostics"|"misc"|"cmp"|"dap"|"codicons"
+---@param category "kind"|"type"|"documents"|"git"|"ui"|"diagnostics"|"misc"|"lines"|"cmp"|"dap"|"codicons"
 ---@param add_space? boolean @Add trailing space after the icon.
 function icons.get(category, add_space)
   if add_space then

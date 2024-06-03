@@ -1,6 +1,7 @@
 return function ()
   local icons = {
-    misc = require("configs.ui.icons").get("misc")
+    misc = require("configs.ui.icons").get("misc"),
+    lines = require("configs.ui.icons").get("lines")
   }
   local utils = require("envutils")
   local palette = utils.get_palette()
@@ -37,7 +38,7 @@ return function ()
   encoding.colors = { fg = palette.yellow }
   encoding.update = function (configs)
     local enc = vim.bo.fenc ~= "" and vim.bo.fenc or vim.o.enc
-    return (configs[enc] or enc or "") .. " " .. icons.misc.Vbar .. (vim.bo.ff or "")
+    return (configs[enc] or enc or "") .. " " .. icons.lines.Vbar .. (vim.bo.ff or "")
   end
 
   local pomodoro = {

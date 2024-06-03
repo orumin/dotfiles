@@ -1,35 +1,65 @@
 local M = {}
 
-function M.indent_blankline()
-  local highlight = require("configs.ui.color").get_rainbow_highlights()
-  local ibl_opts = {
+function M.hlchunk()
+  local configs = require("configs")
+  local icons = {
+    lines = require("configs.ui.icons").get("lines"),
+  }
+  local utils = require("envutils")
+  local palette = utils.get_palette()
+  local opts = {
+    blank = {
+      enable = true,
+      priority = 9,
+      chars = { configs.listchars.space },
+      style = {
+        { bg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("cursorline")), "bg", "gui") },
+        { bg = "", fg = "" },
+      },
+    },
+    chunk = {
+      enable = true,
+      priority = 15,
+      style = {
+        { fg = palette.lavender },
+        { fg = palette.red },
+      },
+      use_treesitter = true,
+      chars = {
+        horizontal_line = icons.lines.Hbar,
+        vertical_line = icons.lines.Vbar,
+        left_top = icons.lines.RoundedLeftTop,
+        left_bottom = icons.lines.RoundedLeftBottom,
+        right_arrow = icons.lines.RightArrow,
+      },
+      textobject = "",
+      max_file_size = 1024 * 1024,
+      error_sign = true,
+    },
     indent = {
-      char = '▏',
-      highlight = {"IblIndent", "IblWhitespace"},
+      enable = true,
+      priority = 10,
+      style = { vim.api.nvim_get_hl(0, { name = "Whitespace" }) },
+      use_treesitter = false,
+      chars = { icons.lines.VbarLeftOffset },
+      ahead_lines = 5,
     },
-    whitespace = {
-      highlight = {"IblIndent", "IblWhitespace"},
-      remove_blankline_trail = false,
+    line_num = {
+      enable = true,
+      style = palette.lavender,
+      priority = 10,
+      use_treesitter = false,
     },
-    scope = {
-      char = '▏',
-      enabled = true,
-      show_start = true,
-      show_end = false,
-      injected_languages = false,
-      highlight = highlight
-    }
   }
 
-  local hooks = require("ibl.hooks")
-  hooks.register(hooks.type.HIGHLIGHT_SETUP, function ()
-  end)
+  for _, v in pairs(opts) do
+    v.exclude_filetypes = {
+      aerial = true,
+      dashboard = true,
+    }
+  end
 
-  require("configs.ui.color").set_treesitter_rainbow_hl()
-
-  require("ibl").setup(ibl_opts)
-
-  hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+  require("hlchunk").setup(opts)
 end
 
 function M.rainbow_delimiters()

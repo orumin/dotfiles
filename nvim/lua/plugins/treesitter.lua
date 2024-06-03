@@ -19,12 +19,11 @@ return {
     end,
     config = require("editor.treesitter"),
   },
-  -- indent
+  -- blank,chunk,indent and line_num
   {
-    "lukas-reineke/indent-blankline.nvim",
-    event = { "BufReadPost" },
-    main = "ibl",
-    config = require("editor.treesitter_addons").indent_blankline,
+    "shellRaining/hlchunk.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = require("editor.treesitter_addons").hlchunk,
   },
   -- parentheses
   {
