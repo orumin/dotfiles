@@ -128,14 +128,10 @@ local function on_lsp_attach(client, bufnr)
 end
 
 local md_namespace = vim.api.nvim_create_namespace("LSP_float")
----@param bufnr integer
----@param winnr integer
----@return any?
-local function enhanced_float_win(bufnr, winnr)
-  -- Conceal everything.
-  vim.wo[winnr].concealcursor = 'n'
 
-  -- Extra highlights.
+--- Adds extra inline highlights to the given buffer.
+--- @param bufnr integer
+local function add_inline_highlights(bufnr)
   for l, line in ipairs(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)) do
     for pattern, hl_group in pairs {
       ['|%S-|'] = '@text.reference',
@@ -159,37 +155,16 @@ local function enhanced_float_win(bufnr, winnr)
       end
     end
   end
-
-  -- Add keymaps for opening links.
-  if not vim.b[bufnr].markdown_keys then
-    vim.keymap.set('n', 'K', function()
-      -- Vim help links.
-      local url = (vim.fn.expand '<cWORD>' --[[@as string]]):match '|(%S-)|'
-      if url then
-        return vim.cmd.help(url)
-      end
-
-      -- Markdown links.
-      local col = vim.api.nvim_win_get_cursor(0)[2] + 1
-      local from, to
-      from, to, url = vim.api.nvim_get_current_line():find '%[.-%]%((%S-)%)'
-      if from and col >= from and col <= to then
-        vim.system({ 'open', url }, nil, function(res)
-          if res.code ~= 0 then
-            vim.notify('Failed to open URL' .. url, vim.log.levels.ERROR)
-          end
-        end)
-      end
-    end, { buffer = bufnr, silent = true })
-    vim.b[bufnr].markdown_keys = true
-  end
 end
 
+-- below function taken from https://github.com/MariaSolOs/dotfiles/blob/fedora/.config/nvim/lua/lsp.lua
+-- TODO: clearfy license
 ---LSP handler that adds extra inline highlights, keymaps, and window options.
 ---Code inspired from `noice`.
----@param handler fun(err: lsp.ResponseError|nil, result: table?, context: lsp.HandlerContext, config: table|nil): any?
+---@param handler fun(err: lsp.ResponseError|nil, result: table?, context: lsp.HandlerContext, config: table|nil): integer?, integer?
+---@param focusable boolean
 ---@return function
-local function enhanced_float_handler(handler)
+local function enhanced_float_handler(handler, focusable)
   return function(err, result, ctx, config)
     local configs = require("configs")
     local bufnr, winnr = handler(
@@ -198,6 +173,7 @@ local function enhanced_float_handler(handler)
       ctx,
       vim.tbl_deep_extend('force', config or {}, {
         border = configs.window_style.border,
+        focusable = focusable,
         max_height = math.floor(vim.o.lines * 0.5),
         max_width = math.floor(vim.o.columns * 0.4),
         winblend = configs.window_style.winblend
@@ -208,7 +184,35 @@ local function enhanced_float_handler(handler)
       return
     end
 
-    enhanced_float_win(bufnr, winnr)
+      -- Conceal everything.
+    vim.wo[winnr].concealcursor = 'n'
+
+    -- Extra highlights.
+    add_inline_highlights(bufnr)
+
+    -- Add keymaps for opening links.
+    if focusable and not vim.b[bufnr].markdown_keys then
+      vim.keymap.set('n', 'K', function()
+        -- Vim help links.
+        local url = (vim.fn.expand '<cWORD>' --[[@as string]]):match '|(%S-)|'
+        if url then
+          return vim.cmd.help(url)
+        end
+
+        -- Markdown links.
+        local col = vim.api.nvim_win_get_cursor(0)[2] + 1
+        local from, to
+        from, to, url = vim.api.nvim_get_current_line():find '%[.-%]%((%S-)%)'
+        if from and col >= from and col <= to then
+          vim.system({ 'open', url }, nil, function(res)
+            if res.code ~= 0 then
+              vim.notify('Failed to open URL' .. url, vim.log.levels.ERROR)
+            end
+          end)
+        end
+      end, { buffer = bufnr, silent = true })
+      vim.b[bufnr].markdown_keys = true
+    end
   end
 end
 
@@ -400,8 +404,26 @@ M.setup_handlers = function()
 
   local methods = vim.lsp.protocol.Methods
   -- LSP handlers
-  vim.lsp.handlers[methods.textDocument_hover] = enhanced_float_handler(vim.lsp.handlers.hover)
-  vim.lsp.handlers[methods.textDocument_signatureHelp] = enhanced_float_handler(vim.lsp.handlers.signature_help)
+  vim.lsp.handlers[methods.textDocument_hover] = enhanced_float_handler(vim.lsp.handlers.hover, true)
+  vim.lsp.handlers[methods.textDocument_signatureHelp] = enhanced_float_handler(vim.lsp.handlers.signature_help, false)
+  --- HACK: Override `vim.lsp.util.stylize_markdown` to use Treesitter.
+  ---@param bufnr integer
+  ---@param contents string[]
+  ---@param stylize_opts table
+  ---@return string[]
+  ---@diagnostic disable-next-line: duplicate-set-field
+  vim.lsp.util.stylize_markdown = function(bufnr, contents, stylize_opts)
+    contents = vim.lsp.util._normalize_markdown(contents, {
+      width = vim.lsp.util._make_floating_popup_size(contents, stylize_opts),
+    })
+    vim.bo[bufnr].filetype = 'markdown'
+    vim.treesitter.start(bufnr)
+    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, contents)
+
+    add_inline_highlights(bufnr)
+
+    return contents
+  end
 
   ---@param server_name string
   local function mason_handler(server_name)
@@ -439,23 +461,33 @@ M.setup_handlers = function()
 end
 
 M.setup = function()
+  vim.lsp.set_log_level(vim.lsp.log_levels.ERROR)
   local configs = require("configs")
   local diagnostic_icons = require("configs.ui.icons").get("diagnostics")
   local signs = {
-    ERROR = diagnostic_icons.Error,
-    WARN = diagnostic_icons.Warning,
-    INFO = diagnostic_icons.Information,
-    HINT = diagnostic_icons.Hint_alt,
+    text = {
+      [vim.diagnostic.severity.ERROR] = diagnostic_icons.Error,
+      [vim.diagnostic.severity.WARN] = diagnostic_icons.Warning,
+      [vim.diagnostic.severity.INFO] = diagnostic_icons.Information,
+      [vim.diagnostic.severity.HINT] = diagnostic_icons.Hint,
+    },
+    texthl = {
+      [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+      [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+      [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+      [vim.diagnostic.severity.HINT] = "DIagnosticSignHint",
+    },
+    numhl = {
+      [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+      [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+      [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+      [vim.diagnostic.severity.HINT] = "DIagnosticSignHint",
+    },
   }
-
-  -- Define the diagnostic signs
-  for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type:sub(1,1) .. type:sub(2):lower()
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
 
   -- Diagnostic configuration
   vim.diagnostic.config({
+    signs = signs,
     virtual_lines = {
       only_current_line = true
     },
@@ -478,7 +510,6 @@ M.setup = function()
         return prefix, "Diagnostic" .. level:gsub("^%l", string.upper)
       end
     },
-    signs = true
   })
   require("lsp_lines").setup() -- override diagnostic handlers
   -- Update mappings when registering dynamic capabilites.
