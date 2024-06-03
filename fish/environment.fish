@@ -94,11 +94,8 @@ if test "$COLORTERM" = truecolor
     set -g fish_term24bit 1
 end
 
-set -lqx XDG_CONFIG_HOME
-or set -x XDG_CONFIG_HOME $HOME/.config
+set -x XDG_CONFIG_HOME $HOME/.config
 
-set -lqx XDG_CACHE_HOME
-or set -x XDG_CACHE_HOME $HOME/.cache
+set -x XDG_CACHE_HOME $HOME/.cache
 
-set -lqx $N_PREFIX
-or set -x N_PREFIX $HOME/node
+set -x N_PREFIX $HOME/node

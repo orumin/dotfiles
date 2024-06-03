@@ -22,9 +22,9 @@ local function on_lsp_attach(client, bufnr)
   local methods = vim.lsp.protocol.Methods
 
   vim.wo.signcolumn = 'yes'
-  vim.bo[bufnr].formatexpr = "v:lua.vim.lsp.formatexpr()"
-  vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-  vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
+  -- vim.bo[bufnr].formatexpr = "v:lua.vim.lsp.formatexpr"
+  -- vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+  -- vim.bo[bufnr].tagfunc = "v:lua.vim.lsp.tagfunc"
 
   ---@param method_prefix string
   ---@param keymap_table table

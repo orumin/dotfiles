@@ -47,7 +47,7 @@ return {
       { "K", vim.lsp.buf.hover, mode = "n", silent = true, desc = "LSP hover document" },
     },
     diagnostic = {
-      { "<leader>cd", vim.diagnostic.open_float, mode = "n", silent = true, desc = "LSP line diagnostics" },
+      { "<C-w>d", vim.diagnostic.open_float, mode = "n", silent = true, desc = "LSP line diagnostics" },
       { "[d", vim.diagnostic.goto_prev, mode = "n", silent = true, desc = "LSP previous diagnostic" },
       { "]d", vim.diagnostic.goto_next, mode = "n", silent = true, desc = "LSP next diagnostic" },
       { "[e", function () vim.diagnostic.goto_prev({severity=vim.diagnostic.severity.ERROR}) end,
