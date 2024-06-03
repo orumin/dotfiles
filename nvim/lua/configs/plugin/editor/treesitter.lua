@@ -3,7 +3,7 @@ return function()
   parser_config.asciidoc = {
     install_info = {
       url = "https://github.com/cathaysia/tree-sitter-asciidoc",
-      files = { "src/parser.c", "src/scanner.c" },
+      files = { "tree-sitter-asciidoc/src/parser.c", "tree-sitter-asciidoc/src/scanner.c" },
       branch = "master",
       generate_requires_npm = false,
       requires_generate_from_grammar = false,
