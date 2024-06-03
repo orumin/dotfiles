@@ -6,7 +6,6 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     dependencies = {
-      { "folke/neodev.nvim" },
       { "williamboman/mason.nvim" },
       { "williamboman/mason-lspconfig.nvim" },
     },
@@ -20,10 +19,6 @@ return {
       end
     end,
     config = require("core.lsp").setup_handlers,
-  },
-  {
-    "folke/neodev.nvim",
-    ft = "lua",
   },
   {
       "williamboman/mason.nvim",

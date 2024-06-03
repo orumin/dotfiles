@@ -17,6 +17,24 @@ return {
     "vim-pandoc/vim-pandoc-syntax",
     ft = "pandoc",
   },
+  -- Lua (NeoVim)
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        "luvit-meta/library",
+      },
+    },
+    dependencies = {
+      { "Bilal2453/luvit-meta" },
+    }
+  },
+  { -- optional `vim.uv` typings
+    "Bilal2453/luvit-meta",
+    event = "VeryLazy"
+  },
+
   -- Rust
   {
     "simrat39/rust-tools.nvim",

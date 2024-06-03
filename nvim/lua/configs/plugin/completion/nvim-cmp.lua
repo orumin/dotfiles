@@ -80,6 +80,7 @@ return function()
       {name = "nvim_lsp_signature_help"},
       {name = "luasnip", option = { show_autosnippets = true } },
       {name = "luasnip_choice"},
+      {name = "lazydev", group_index = 0},
       configs.use_copilot and {name = "copilot"} or {},
       {name = "buffer"},
       {name = "path"},
