@@ -1,11 +1,30 @@
 local opts = { mode = "n", buffer = true, silent = true }
 local maps = {
-  { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "toggle Trouble" },
-  { "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Trouble workspace diagnostics" },
-  { "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Trouble document diagnostics" },
-  { "<leader>xl", "<cmd>TroubleToggle loclist<cr>", desc = "Trouble loclist" },
-  { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", desc = "Trouble quickfix" },
-  { "gR", "<cmd>TroubleToggle lsp_references<cr>", desc = "Trouble LSP references" },
+  {
+    "<leader>xx",
+    "<cmd>Trouble diagnostics toggle<cr>",
+    desc = "Diagnostics (Trouble)"
+  },
+  {
+    "<leader>xX",
+    "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+    desc = "Buffer Diagnostics (Trouble)"
+  },
+  {
+    "<leader>cL",
+    "<cmd>Trouble loclist toggle<cr>",
+    desc = "Location List (Trouble)"
+  },
+  {
+    "<leader>xQ",
+    "<cmd>Trouble qflist toggle<cr>",
+    desc = "Quickfix List (Trouble)"
+  },
+  {
+    "grR",
+    "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+    desc = "LSP Definitions / references / ... (Trouble)"
+  },
 }
 
 for _, v in ipairs(maps) do

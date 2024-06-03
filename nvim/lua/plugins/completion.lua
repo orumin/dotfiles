@@ -44,6 +44,12 @@ return {
     },
     config = require("completion.nvim-cmp")
   },
+  {
+    "L3MON4D3/LuaSnip",
+    tag = "v2.*",
+    event = "VeryLazy",
+    build = "make install_jsregexp"
+  },
   -- Copilot (trial)
   {
     "zbirenbaum/copilot.lua",

@@ -104,11 +104,17 @@ return {
   },
   -- Gist
   {
-    "lambdalisue/vim-gista",
-    cmd = "Gista",
-    config = function()
-      vim.g["gista#github_user"] = "orumin"
-    end
+    "Rawnly/gist.nvim",
+    cmd = {"GistCreate", "GistCreateFromFile", "GistsList"},
+    config = true,
+    dependencies = {
+      {
+        "samjwill/nvim-unception",
+        init = function ()
+          vim.g.unception_block_while_host_edits = true
+        end
+      }
+    }
   },
   -- show GitHub PR comment through folke/trouble.nvim
   {
