@@ -15,6 +15,18 @@ local function set_keymaps(bufnr, maps)
   end
 end
 
+-- this function comes from https://gist.github.com/MariaSolOs/2e44a86f569323c478e5a078d0cf98cc
+---For replacing certain <C-x>... keymaps.
+---@param keys string
+local function feedkeys(keys)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "n", true)
+end
+
+---Is the completion menu open?
+local function pumvisible()
+  return tonumber(vim.fn.pumvisible()) ~= 0
+end
+
 ---@param client vim.lsp.Client
 ---@param bufnr integer
 local function on_lsp_attach(client, bufnr)
@@ -39,6 +51,11 @@ local function on_lsp_attach(client, bufnr)
   set_keymaps_for_supported_methods("callHierarchy_", keymaps["callHierarchy"])
   set_keymaps_for_supported_methods("workspace_", keymaps["workspace"])
 
+  -- set-up LSP completion
+  --if client.supports_method(methods["textDocument_completion"]) then
+  --  vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+  --end
+
   -- show signatureHelp by nvim-cmp. so didn't create keymaps to call vim.lsp.buf.signature_help
   --if client.supports_method(methods["textDocument_signatureHelp"]) then
   --  local signature_help_group = vim.api.nvim_create_augroup("LSP_signatureHelp", { clear = false })
@@ -50,6 +67,7 @@ local function on_lsp_attach(client, bufnr)
   --  })
   --end
 
+  -- highlight word under cursor
   if client.supports_method(methods["textDocument_documentHighlight"]) then
     local under_cursor_highlights_group =
       vim.api.nvim_create_augroup('LSP_documentHighlights', { clear = false })
@@ -67,6 +85,7 @@ local function on_lsp_attach(client, bufnr)
     })
   end
 
+  -- set-up 'code lens'
   if client.supports_method(methods["textDocument_codeLens"]) then
     local codelens_group = vim.api.nvim_create_augroup('LSP_codeLens', { clear = false })
     vim.api.nvim_create_autocmd('InsertEnter', {
@@ -90,6 +109,7 @@ local function on_lsp_attach(client, bufnr)
     vim.lsp.codelens.refresh({ bufnr = bufnr })
   end
 
+  -- set-up 'inlay hint'
   if client.supports_method(methods["textDocument_inlayHint"]) then
     local ltype = type(vim.lsp.inlay_hint)
     local toggle_inlay_hint = (ltype == "function") and vim.lsp.inlay_hint
