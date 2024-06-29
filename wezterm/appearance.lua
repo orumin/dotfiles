@@ -1,8 +1,36 @@
 local M = {}
 
+M.decrease_opacity = function (window)
+  local overrides = window:get_config_overrides() or {}
+  if not overrides.window_background_opacity then
+    overrides.window_background_opacity = 1.0
+  end
+  overrides.window_background_opacity = overrides.window_background_opacity - 0.1
+  if overrides.window_background_opacity < 0.1 then
+    overrides.window_background_opacity = 0.1
+  end
+  window:set_config_overrides(overrides)
+end
+
+M.increase_opacity = function (window)
+  local overrides = window:get_config_overrides() or {}
+  if not overrides.window_background_opacity then
+    overrides.window_background_opacity = 1.0
+  end
+  overrides.window_background_opacity = overrides.window_background_opacity + 0.1
+  if overrides.window_background_opacity > 1.0 then
+    overrides.window_background_opacity = 1.0
+  end
+  window:set_config_overrides(overrides)
+end
+
+---@generic C
+---@param config `C`
+---@return `C`
 M.setup = function (config)
   local wezterm = require("wezterm")
-  local utils = require("utils")
+  ---@source ./utils.lua
+  local utils = require("utils") --[[@as wezutils]]
 
   local scheme = wezterm.get_builtin_color_schemes()["Catppuccin Mocha"]
   local bg = {}

@@ -1,7 +1,11 @@
 -- Embedding lua in wezterm has version 5.4 (wezterm/config/Cargo.toml -> dependencies -> mlua)
+---@source ./keymaps.lua
 local keymaps = require("keymaps")
-local utils = require("utils")
+---@source ./utils.lua
+local utils = require("utils") --[[@as wezutils]]
+---@source ./restore.lua
 local restore = require("restore")
+---@source ./status.lua
 local status = require("status")
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
@@ -9,8 +13,12 @@ local wezterm = require("wezterm")
 -- This table will hold the configuration.
 local config = wezterm.config_builder()
 
-config = require("appearance").setup(config)
+---@source ./appearance.lua
+local appearance = require("appearance")
+config = appearance.setup(config)
 
+wezterm.on("decrease-opacity", appearance.decrease_opacity)
+wezterm.on("increase-opacity", appearance.increase_opacity)
 wezterm.on("gui-startup", restore.save_window_size_on_startup)
 wezterm.on("window-resized", restore.save_window_size_on_resize)
 wezterm.on("update-right-status", status.update_right_status)

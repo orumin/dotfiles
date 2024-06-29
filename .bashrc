@@ -61,3 +61,4 @@ fi
 if [ -n "$(command -v bat)" ]; then
     alias cat='bat'
 fi
+. "$HOME/.cargo/env"

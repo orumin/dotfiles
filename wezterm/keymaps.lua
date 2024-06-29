@@ -29,6 +29,8 @@ M.keys = {
   { mods = "CTRL|SHIFT", key = "+", action = "IncreaseFontSize" },
   { mods = "CTRL", key = "=", action = "IncreaseFontSize" },
   { mods = "CTRL", key = "L", action = wezterm.action.ShowDebugOverlay },
+  { mods = "CMD|CTRL|SHIFT", key = "m", action = wezterm.action{ EmitEvent = "decrease-opacity" } },
+  { mods = "CMD|CTRL|SHIFT", key = "n", action = wezterm.action{ EmitEvent = "increase-opacity" } },
 }
 for i = 0, 9 do
   table.insert(M.keys, {

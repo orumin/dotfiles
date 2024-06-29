@@ -34,3 +34,4 @@ if [ -n "$WT_SESSION" ]; then
 fi
 
 export TMUX_VERSION=$(tmux -V | cut -c 6- | tr -d "[a-z]")
+. "$HOME/.cargo/env"
