@@ -5,7 +5,7 @@ M.decrease_opacity = function (window)
   if not overrides.window_background_opacity then
     overrides.window_background_opacity = 1.0
   end
-  overrides.window_background_opacity = overrides.window_background_opacity - 0.1
+  overrides.window_background_opacity = overrides.window_background_opacity - 0.05
   if overrides.window_background_opacity < 0.1 then
     overrides.window_background_opacity = 0.1
   end
@@ -17,7 +17,7 @@ M.increase_opacity = function (window)
   if not overrides.window_background_opacity then
     overrides.window_background_opacity = 1.0
   end
-  overrides.window_background_opacity = overrides.window_background_opacity + 0.1
+  overrides.window_background_opacity = overrides.window_background_opacity + 0.05
   if overrides.window_background_opacity > 1.0 then
     overrides.window_background_opacity = 1.0
   end
@@ -36,8 +36,8 @@ M.setup = function (config)
   local bg = {}
   bg.h, bg.s, bg.l, bg.a = wezterm.color.parse(scheme.background):hsla()
   local transparent_bg = ("hsla(%s %s %s %s)"):format(bg.h, bg.s*100 .. "%", bg.l*100 .. "%", "40%")
-  scheme.background = transparent_bg
-  scheme.tab_bar.background = transparent_bg
+--  scheme.background = transparent_bg
+--  scheme.tab_bar.background = transparent_bg
   local active_tab_bg = {}
   active_tab_bg.h, active_tab_bg.s, active_tab_bg.l, active_tab_bg.a =
     wezterm.color.parse(scheme.tab_bar.active_tab.bg_color):hsla()

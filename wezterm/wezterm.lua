@@ -40,7 +40,8 @@ local has_gpu = false
 for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
   if gpu.device_type ~= "Cpu" then has_gpu = true end
   if gpu.backend == "Vulkan" and gpu.device_type == "DiscreteGpu" then
-    config.front_end = "WebGpu"
+    --config.front_end = "WebGpu"
+    config.front_end = "OpenGL"
     config.webgpu_preferred_adapter = gpu
     config.webgpu_power_preference = "HighPerformance"
     config.max_fps = 60
