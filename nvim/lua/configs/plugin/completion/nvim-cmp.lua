@@ -43,27 +43,29 @@ return function()
         local lspkind_icons = vim.tbl_deep_extend("force", icons.kind, icons.type, icons.cmp) or {}
         local kind_text = vim_item.kind
         -- load lspkind icons
-        vim_item.kind = " " .. (lspkind_icons[vim_item.kind] or icons.cmp.undefined) .. " "
+        vim_item.kind = " " .. ((lspkind_icons[vim_item.kind] .. " ".. kind_text) or kind_text) .. " "
 
         local menu_item = setmetatable({
-          cmp_tabnine = icons.cmp.cmp_tabnine .. " [TN]",
-          copilot = icons.cmp.copilot .. " [CPLT]",
-          buffer = icons.cmp.buffer .. " [BUF]",
-          orgmode = icons.cmp.orgmode .. " [ORG]",
-          nvim_lsp = icons.cmp.nvim_lsp .. " [LSP]",
-          nvim_lua = icons.cmp.nvim_lua .. " [LUA]",
-          path = icons.cmp.path .. " [PATH]",
-          tmux = icons.cmp.tmux .. " [TMUX]",
-          treesitter = icons.cmp.treesitter .. " [TS]",
-          luasnip = icons.cmp.luasnip .. " [SNIP]",
-          spell = icons.cmp.spell .. " [SPELL]",
+          buffer = icons.cmp.buffer .. " ", -- " [BUF]",
+          cmdline_history = icons.cmp.cmdline_history .. " ", -- " [HIST]",
+          cmp_tabnine = icons.cmp.cmp_tabnine .. " ", --" [TN]",
+          copilot = icons.cmp.copilot .. " ", -- " [CPLT]",
+          luasnip = icons.cmp.luasnip .. " ", --" [SNIP]",
+          look = icons.cmp.spell .. " ", --" [LOOK]",
+          nvim_lsp = icons.cmp.nvim_lsp .. " ", --" [LSP]",
+          nvim_lua = icons.cmp.nvim_lua .. " ", --" [LUA]",
+          orgmode = icons.cmp.orgmode .. " ", --" [ORG]",
+          path = icons.cmp.path .. " ", --" [PATH]",
+          spell = icons.cmp.spell .. " ", --" [SPELL]",
+          tmux = icons.cmp.tmux .. " ", --" [TMUX]",
+          treesitter = icons.cmp.treesitter .. " ", --" [TS]",
           }, {
-            __index = function()
-              return " [BLTIN]" -- builtin/unknown source names
+            __index = function(_, k)
+              return icons.cmp.undefined .. " ["..k:upper().."]" -- builtin/unknown source names
             end,
         })[entry.source.name]
 
-        vim_item.menu = "   (" .. (kind_text or "") .. ")    " .. menu_item
+        vim_item.menu = "  " .. menu_item
 
         local label = vim_item.abbr
         local truncated_label = vim.fn.strcharpart(label, 0, 80)
@@ -84,8 +86,6 @@ return function()
       configs.use_copilot and {name = "copilot"} or {},
       {name = "buffer"},
       {name = "path"},
-      {name = "cmdline_history"},
-      {name = "cmdline"},
       {
         name = "look",
         keyword_length = 2,

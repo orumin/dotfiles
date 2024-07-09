@@ -233,6 +233,7 @@ local data = {
     tmux = "",
     treesitter = "",
     undefined = "",
+    cmdline_history = "󰋚",
   },
   dap = {
     Breakpoint = "󰝥",
