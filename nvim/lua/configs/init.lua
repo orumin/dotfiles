@@ -40,7 +40,6 @@ local settings = {
 --    lua = { "luacheck" },
     markdown = { "vale" },
 --    proto = { "buf_lint" },
-    python = { "mypy" },
     sh = { "shellcheck" },
     sql = { "sqlfluff" },
     yaml = { "yamllint" },
