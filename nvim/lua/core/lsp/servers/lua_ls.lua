@@ -1,6 +1,4 @@
 return function (opts)
-  local utils = require("envutils")
-  local G = utils:globals()
   opts = opts or {}
 
   local luals_opts = require("configs.plugin.lsp.servers.lua_ls_conf")
