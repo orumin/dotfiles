@@ -24,18 +24,18 @@ M.increase_opacity = function (window)
   window:set_config_overrides(overrides)
 end
 
----@generic C
----@param config `C`
----@return `C`
+
+---@param config table
+---@return table
 M.setup = function (config)
   local wezterm = require("wezterm")
   ---@source ./utils.lua
   local utils = require("utils") --[[@as wezutils]]
 
   local scheme = wezterm.get_builtin_color_schemes()["Catppuccin Mocha"]
-  local bg = {}
-  bg.h, bg.s, bg.l, bg.a = wezterm.color.parse(scheme.background):hsla()
-  local transparent_bg = ("hsla(%s %s %s %s)"):format(bg.h, bg.s*100 .. "%", bg.l*100 .. "%", "40%")
+  local original_bg_color = {}
+  original_bg_color.h, original_bg_color.s, original_bg_color.l, original_bg_color.a = wezterm.color.parse(scheme.background):hsla()
+  local transparent_bg = ("hsla(%s %s %s %s)"):format(original_bg_color.h, original_bg_color.s*100 .. "%", original_bg_color.l*100 .. "%", "40%")
 --  scheme.background = transparent_bg
 --  scheme.tab_bar.background = transparent_bg
   local active_tab_bg = {}
@@ -69,7 +69,7 @@ M.setup = function (config)
   end
 
   config.tab_max_width = 20
-  wezterm.on("format-tab-title", function (tab, tabs, panes, conf, hover, max_width)
+  wezterm.on("format-tab-title", function (tab, _, _, _, _, max_width)
     local active_bg = scheme.tab_bar.active_tab.bg_color
     local active_fg = scheme.tab_bar.active_tab.fg_color
     local inactive_bg = scheme.tab_bar.inactive_tab.bg_color

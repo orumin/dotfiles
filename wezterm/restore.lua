@@ -1,4 +1,5 @@
-local utils = require("utils")
+---@source ./utils.lua
+local utils = require("utils") --[[@as wezutils]]
 local wezterm = require("wezterm")
 local mux = wezterm.mux
 
