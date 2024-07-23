@@ -51,8 +51,8 @@ for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
     config.front_end = "WebGpu"
     config.webgpu_preferred_adapter = gpu
     config.webgpu_power_preference = "LowPower"
-    config.max_fps = 30
-    config.animation_fps = 30
+    config.max_fps = 60
+    config.animation_fps = 60
     break
   end
 end
