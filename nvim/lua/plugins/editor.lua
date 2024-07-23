@@ -187,6 +187,9 @@ return {
   -- cheetsheet
   {
     "folke/which-key.nvim",
+    dependencies = {
+      { "echasnovski/mini.icons" }
+    },
     event = "VeryLazy",
 --    event = { "CursorHold", "CursorHoldI" },
     config = require("editor.which-key_conf"),

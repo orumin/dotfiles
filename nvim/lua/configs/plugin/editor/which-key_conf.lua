@@ -21,12 +21,12 @@ return function ()
       separator = icons.misc.Vbar,
       group = icons.misc.Add,
     },
-    window = {
+    win = {
       border = "none",
-      position = "bottom",
-      margin = { 1, 0, 1, 0 },
       padding = { 1, 1, 1, 1 },
-      winblend = configs.winblend,
+      wo = {
+        winblend = configs.winblend,
+      },
     }
   })
 end
