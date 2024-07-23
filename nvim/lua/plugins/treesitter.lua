@@ -6,6 +6,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost" },
     dependencies = {
+      { "cathaysia/tree-sitter-loongdoc" },
       { "nvim-treesitter/nvim-treesitter-context" },
       {
         "NvChad/nvim-colorizer.lua",
