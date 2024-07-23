@@ -216,7 +216,10 @@ local function setting_clipboard()
         },
         cache_enabled = 1,
       }
-    elseif vim.env.TERM_PROGRAM == "WezTerm" then
+    --- Windows Terminal, and WezTerm are only support clipboard setting or clean.
+    --- Get content from system clipboard is not allowed there terminal.
+    elseif vim.env.TERM_PROGRAM == "WezTerm" or
+        vim.env.WT_SESSION ~= nil then --- Windows Terminal
       local my_paste = function()
         local content = vim.fn.getreg('"')
         return vim.split(content, "\n")
