@@ -31,6 +31,7 @@ M.keys = {
   { mods = "CTRL", key = "L", action = wezterm.action.ShowDebugOverlay },
   { mods = "CTRL|SHIFT", key = "m", action = wezterm.action{ EmitEvent = "decrease-opacity" } },
   { mods = "CTRL|SHIFT", key = "n", action = wezterm.action{ EmitEvent = "increase-opacity" } },
+  { mods = "LEADER", key = "/", action = wezterm.action{ Search = {CaseSensitiveString=""} } },
 }
 for i = 0, 9 do
   table.insert(M.keys, {
@@ -72,7 +73,8 @@ M.key_tables = {
   },
 
   search_mode = {
-    { mods = "NONE", key = "Escape", action = wezterm.action.CopyMode("ClearPattern") },
+    { mods = "NONE", key = "Enter", action = wezterm.action.CopyMode("PriorMatch") },
+    { mods = "NONE", key = "Escape", action = wezterm.action.CopyMode("Close") },
     { mods = "NONE", key = "n", action = wezterm.action.CopyMode("NextMatch") },
     { mods = "SHIFT", key = "N", action = wezterm.action.CopyMode("PriorMatch") },
   }
