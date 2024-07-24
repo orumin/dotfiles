@@ -225,7 +225,7 @@ M.setup = function (config)
       --family = "Monaspace Radon",
       --family = "Monaspace Krypton",
       weight="Regular",
-      harfbuzz_features = { "calt=1", "liga=1", "dlig=1", "ss01=1", "ss02=1", "ss03=1", "ss04=1", "ss05=1", "ss06=1", "ss07=0", "ss08=1" },
+      harfbuzz_features = { "calt", "liga", "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08", "ss09" },
     },
     "Symbols Nerd Font Mono",
     { family = jpfont, assume_emoji_presentation=false },
@@ -242,7 +242,7 @@ M.setup = function (config)
           weight="ExtraLight",
           stretch="Normal",
           style="Normal",
-          harfbuzz_features = { "calt=1", "liga=1", "dlig=1", "ss01=1", "ss02=1", "ss03=1", "ss04=1", "ss05=1", "ss06=1", "ss07=0", "ss08=1" },
+          harfbuzz_features = { "calt", "liga", "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08", "ss09" },
         },
         { family = jpfont, weight="Regular", italic=true, assume_emoji_presentation=false },
       })
@@ -257,7 +257,7 @@ M.setup = function (config)
           weight="Light",
           stretch="Normal",
           style="Normal",
-          harfbuzz_features = { "calt=1", "liga=1", "dlig=1", "ss01=1", "ss02=1", "ss03=1", "ss04=1", "ss05=1", "ss06=1", "ss07=0", "ss08=1" },
+          harfbuzz_features = { "calt", "liga", "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08", "ss09" },
         },
         { family = jpfont, weight="ExtraLight", italic=true, assume_emoji_presentation=false },
       })
@@ -272,7 +272,7 @@ M.setup = function (config)
           weight="Light",
           stretch="Normal",
           style="Normal",
-          harfbuzz_features = { "calt=1", "liga=1", "dlig=1", "ss01=1", "ss02=1", "ss03=1", "ss04=1", "ss05=1", "ss06=1", "ss07=0", "ss08=1" },
+          harfbuzz_features = { "calt", "liga", "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08", "ss09" },
         },
         { family = jpfont, weight="Regular", italic=true, assume_emoji_presentation=false },
       })
