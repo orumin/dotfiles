@@ -1,5 +1,27 @@
 local configs = require("configs")
 --###############################################################
+-- setup intro splash
+--###############################################################
+local is_read_stdin = false
+local introsplash_augroup = vim.api.nvim_create_augroup('introSplash', { clear = true })
+vim.api.nvim_create_autocmd("StdinReadPre", {
+  group = introsplash_augroup,
+  callback = function()
+    is_read_stdin = true
+  end
+})
+vim.api.nvim_create_autocmd("UIEnter", {
+  group = introsplash_augroup,
+  callback = function()
+    if vim.fn.argc() == 0 and
+      vim.api.nvim_buf_get_name(0) == "" and
+      not is_read_stdin then
+      require("core.intro")
+    end
+  end
+})
+
+--###############################################################
 -- remove trailing spaces on save
 --###############################################################
 local trailingsp_augroup = vim.api.nvim_create_augroup('trailingSpace', { clear = true })
