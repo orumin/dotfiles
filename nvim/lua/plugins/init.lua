@@ -125,7 +125,8 @@ require("lazy").setup(
       end,
       config = function()
         -- basic settings
-        require('core').finalize()
+        local core = require('core') --[[@as NvimConfMyCore]]
+        core.finalize()
         --require('core.encoding')
         require('core.keymaps')
 

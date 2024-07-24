@@ -1,5 +1,7 @@
+---@class NvimConfMyCore
 local M = {}
 
+--- disable some built-in plugins
 local function disable_rtp_plugins()
   local configs = require("configs")
   local get_flag = function (name)
@@ -52,6 +54,7 @@ local function disable_rtp_plugins()
   vim.g.loaded_remote_plugins     = get_flag("rplugin")
 end
 
+--- automatically detect system shell
 local function setting_shell()
   local configs = require("configs")
   local G = require("envutils"):globals()
@@ -200,6 +203,7 @@ local function legacy_clipboard_settings()
   return ret
 end
 
+--- automatically detect system clipboard and settings for that
 local function setting_clipboard()
   local G = require("envutils"):globals()
   if vim.fn.has("nvim-0.10") == 1 then

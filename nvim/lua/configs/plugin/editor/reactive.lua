@@ -1,5 +1,3 @@
 return {
-  load = {
-    "catpuccin-mocha-cursor", "catppuccin-mocha-cursorline"
-  }
+  load = { 'catppuccin-mocha-cursor', 'catppuccin-mocha-cursorline' }
 }
