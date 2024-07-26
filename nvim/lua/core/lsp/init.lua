@@ -112,9 +112,10 @@ local function on_lsp_attach(client, bufnr)
   -- set-up 'inlay hint'
   if client.supports_method(methods["textDocument_inlayHint"]) then
     local ltype = type(vim.lsp.inlay_hint)
-    local toggle_inlay_hint = (ltype == "function") and vim.lsp.inlay_hint
+    ---@type fun(enable?: boolean, filter?: vim.lsp.inlay_hint.enable.Filter)
+    local toggle_inlay_hint = (ltype == "function") and vim.lsp.inlay_hint --[[@as function]]
                               or (ltype == "table" and vim.lsp.inlay_hint.enable)
-                              or function () end
+                              or function (enable, filter) local _, _ = enable, filter end
     local inlay_hints_group = vim.api.nvim_create_augroup('LSP_inlayHints', { clear = false })
 
     -- Initial inlay hint display.
