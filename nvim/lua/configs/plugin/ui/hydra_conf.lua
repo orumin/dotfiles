@@ -1,10 +1,20 @@
+---@module 'hydra'
+
+---@class HydraInput
+---@field name string
+---@field hint string
+---@field config hydra.Config
+---@field mode string|string[]
+---@field body? string
+---@field heads table<string, hydra.Head>
+
+---@class HydraConfigs
 local M = {}
 
----@type { [string]: fun(): Hydra }
+---@type { [string]: fun(): HydraInput }
 M.setup = {
 }
 
----@return Hydra
 M.setup["git"] = function()
   local keymaps = require("configs.keymap.hydra")
   local gitsigns = require("gitsigns")
@@ -16,30 +26,38 @@ M.setup["git"] = function()
  ^ ^              _<Enter>_: Neogit              _q_: exit
 ]]
 
-  return {
+  ---@class HydraInput
+  local opts = {
     name = keymaps["git"].desc,
     hint = hint,
     config = {
+      debug = false,
+      exit = false,
+      timeout = false,
       color = "pink",
       invoke_on_body = true,
       hint = {
+        show_name = true,
+        offset = 0,
         type = "window",
-        position = "bottom",
+        position = { "bottom" },
       },
       on_enter = function ()
-        vim.cmd.mkview()
         vim.cmd "silent! %foldopen!"
         vim.bo.modifiable = false
-        gitsigns.toggle_signs(true)
         gitsigns.toggle_linehl(true)
+        gitsigns.toggle_numhl(true)
+        gitsigns.toggle_word_diff(true)
+        gitsigns.toggle_current_line_blame(true)
+        gitsigns.toggle_signs(true)
       end,
       on_exit = function ()
-        local cursor_pos = vim.api.nvim_win_get_cursor(0)
-        vim.cmd.loadview()
-        vim.api.nvim_win_set_cursor(0, cursor_pos)
-        vim.cmd.normal('zv')
         gitsigns.toggle_linehl(false)
+        gitsigns.toggle_numhl(false)
+        gitsigns.toggle_word_diff(false)
+        gitsigns.toggle_current_line_blame(false)
         gitsigns.toggle_deleted(false)
+        gitsigns.toggle_signs(false)
       end
     },
     mode = keymaps["git"].mode,
@@ -75,9 +93,9 @@ M.setup["git"] = function()
       { "q", nil, { exit = true, nowait = true, desc = "exit" } },
     }
   }
+  return opts
 end
 
----@return Hydra
 M.setup["telescope"] = function()
   local keymaps = require("configs.keymap.hydra")
   local builtin = require("telescope.builtin")
@@ -94,15 +112,21 @@ M.setup["telescope"] = function()
                  _<Enter>_: Telescope           _<Esc>_
 ]]
 
-  return {
+  ---@class HydraInput
+  local opts = {
     name = keymaps["telescope"].desc,
     hint = hint,
     config = {
+      debug = false,
+      exit = false,
+      timeout = false,
       color = 'teal',
       invoke_on_body = true,
       hint = {
+        show_name = true,
+        offset = 0,
         type = "window",
-        position = 'middle',
+        position = { 'middle' },
       },
     },
     mode = keymaps["telescope"].mode,
@@ -126,9 +150,9 @@ M.setup["telescope"] = function()
       { '<Esc>', nil, { exit = true, nowait = true } },
     }
   }
+  return opts
 end
 
----@return Hydra
 M.setup["dap"] = function()
   local keymaps = require("configs.keymap.hydra")
   local dap = require("dap")
@@ -142,15 +166,21 @@ M.setup["dap"] = function()
  ^ ^              _q_: exit
 ]]
 
-  return {
+  ---@class HydraInput
+  local opts = {
     name = keymaps["dap"].desc,
     hint = hint,
     config = {
+      debug = false,
+      exit = false,
+      timeout = false,
       color = 'pink',
       invoke_on_body = true,
       hint = {
+        show_name = true,
+        offset = 0,
         type = 'window',
-        position = 'bottom',
+        position = { 'bottom' },
       },
       on_enter = function ()
         dapui.open()
@@ -181,9 +211,9 @@ M.setup["dap"] = function()
       { 'q', nil, {exit=true, nowait=true} },
     }
   }
+  return opts
 end
 
----@return Hydra
 M.setup["venn"] = function ()
   local keymaps = require("configs.keymap.hydra")
   local hint = [[
@@ -193,18 +223,30 @@ M.setup["venn"] = function ()
  ^ ^ _J_ ^ ^
 ]]
 
-  return {
+  local virtualedit_backup
+
+  ---@class HydraInput
+  local opts = {
     name = keymaps["venn"].desc,
     hint = hint,
     config = {
+      debug = false,
+      exit = false,
+      timeout = false,
       color = 'pink',
       invoke_on_body = true,
       hint = {
+        show_name = true,
+        offset = 0,
         type = 'window',
-        position = 'bottom',
+        position = { 'bottom' },
       },
       on_enter = function ()
+        virtualedit_backup = vim.o.virtualedit
         vim.o.virtualedit = "all"
+      end,
+      on_exit = function ()
+        vim.o.virtualedit = virtualedit_backup
       end,
     },
     mode = keymaps["venn"].mode,
@@ -218,6 +260,7 @@ M.setup["venn"] = function ()
       {"<ESC>", nil, {exit = true}},
     }
   }
+  return opts
 end
 
 return M
