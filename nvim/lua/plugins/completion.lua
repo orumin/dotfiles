@@ -48,7 +48,36 @@ return {
     "L3MON4D3/LuaSnip",
     version = "v2.*",
     event = "VeryLazy",
-    build = "make install_jsregexp"
+    build = function ()
+      local scoop_path = os.getenv("SCOOP")
+      local utils = require("envutils")
+      if utils:globals().is_win then
+        if scoop_path and vim.fn.executable("msys2.cmd") == 1 then
+          local luasnip_install_dir = utils:path_convert(utils:path_concat({utils:globals().nvim_data_dir, "lazy", "LuaSnip"}))
+          local msys_sys_path = utils:path_concat({scoop_path, "apps", "msys2", "current", "usr", "bin"}) .. utils:globals().path_sep
+          local msys_path = utils:path_concat({scoop_path, "shims", "msys2.cmd"})
+          vim.fn.system({msys_sys_path .. "pacman.exe", "--noconfirm", "-Syu"})
+          vim.fn.system({msys_sys_path .. "pacman.exe", "--noconfirm", "-S",
+            "git",
+            "mingw-w64-ucrt-x86_64-luajit",
+            "mingw-w64-ucrt-x86_64-make",
+            "mingw-w64-ucrt-x86_64-gcc",
+            "pkg-config",
+          })
+          local build_cmd = 'cd ' ..  luasnip_install_dir .. '; ' ..
+                            'mingw32-make ' ..
+                            'CC=gcc CFLAGS=$(pkg-config --cflags luajit) ' ..
+                            'LDFLAGS=$(pkg-config --libs luajit) ' ..
+                            'install_jsregexp'
+          vim.notify(build_cmd)
+          vim.fn.system({msys_path, '-mingw64', '-ucrt64', '-c', build_cmd})
+        else
+          vim.notify("msys2 is not installed yet. do 'scoop install msys2'", vim.log.levels.WARN)
+        end
+      else
+        os.execute("make install_jsregexp")
+      end
+    end
   },
   -- Copilot (trial)
   {

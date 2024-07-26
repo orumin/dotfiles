@@ -35,6 +35,8 @@ local uv = vim.uv
 ---@field get_root fun(): string
 ---@field get_keymap_opts fun(table): table
 ---@field path_concat fun(self: utils, dir_table: string[]): string
+---convert windows path to unix path. if you use unix, return passed string without modify
+---@field path_convert fun(self: utils, win_path: string): string
 ---@field mkdir_p fun(self: utils, path: string, mode: integer): (success: boolean?, err_name: string?, err_msg: string?)
 
 ---@type utils
@@ -257,6 +259,19 @@ function M:path_concat(dir_table)
   end
 
   return table.concat(dir_table, self:globals().path_sep)
+end
+
+function M:path_convert(win_path)
+  local ret = win_path
+  if self:globals().is_win then
+    local drive_letter = win_path:match("^(%w+):")
+    ret = win_path:gsub("\\", "/")
+    if drive_letter then
+      ---@cast drive_letter string
+      ret = ret:gsub("^%w+:", "/" .. drive_letter:lower())
+    end
+  end
+  return ret
 end
 
 function M:mkdir_p(path, mode)
