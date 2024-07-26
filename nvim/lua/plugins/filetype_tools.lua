@@ -13,6 +13,14 @@ return {
     ft = { "c", "cpp", "objc", "objcpp" },
     opts = require("configs.plugin.lsp.servers.clangd_conf").ext_opts
   },
+  -- C (qmk firmware)
+  {
+    "codethread/qmk.nvim",
+    -- TODO: restrict load this plugin when open QMK firmware's source code
+    ft = { "c", "cpp", "objc", "objcpp" },
+    config = require("tools.qmk")
+  },
+  -- pandoc markdown
   {
     "vim-pandoc/vim-pandoc-syntax",
     ft = "pandoc",
