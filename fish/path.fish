@@ -122,6 +122,12 @@ else if type -q -f rbenv
     source (rbenv init - | psub)
 end
 
+if test -n "(uname -r | grep "WSL")"
+    if not contains -- "/mnt/c/Users/$USER/scoop/apps/win32yank/current" $PATH
+        set -x PATH $PATH "/mnt/c/Users/$USER/scoop/apps/win32yank/current"
+    end
+end
+
 if test -z "$DISPLAY$WAYLAND_DISPLAY"
     if type -q carbonyl
         set -x BROWSER carbonyl
