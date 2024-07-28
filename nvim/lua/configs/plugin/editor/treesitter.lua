@@ -40,7 +40,7 @@ return function()
 
   local tsconfig = {
     modules = {},
-    sync_install = true,
+    sync_install = false,
     ensure_installed = {
       "bash", "bibtex", "bitbake", "c", "cmake", "comment", "cpp", "css", "csv", "cue",
       "devicetree", "diff", "dockerfile", "doxygen", "elvish", "fennel", "fish",
