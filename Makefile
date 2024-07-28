@@ -31,10 +31,12 @@ deploy: init
 	make link SOURCE:="$(abspath catppuccin/powershell)" TARGET:="$(HOME)/.local/share/powershell/Modules/Catppuccin"
 
 deploy_win: init
+#	mkdir $(LOCALAPPDATA)\clink
 	make link SOURCE:="$(abspath powershell\Microsoft.PowerShell_profile.ps1)" TARGET:="$(HOME)\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
 	make link SOURCE:="$(abspath catppuccin\powershell)" TARGET:="$(HOME)\Documents\PowerShell\Modules\Catppuccin"
 	make link SOURCE:="$(abspath nvim)" TARGET:="$(LOCALAPPDATA)\nvim"
 	make link SOURCE:="$(abspath firenvim)" TARGET:="$(LOCALAPPDATA)\firenvim"
+	make link SOURCE:="$(abspath clink)\starship.lua" TARGET:="$(LOCALAPPDATA)\clink\starship.lua"
 
 init: $(CONFIG_DIR)
 
