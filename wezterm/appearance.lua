@@ -199,7 +199,7 @@ M.setup = function (config)
 
   config.colors = scheme
   config.window_background_opacity = 1
-  config.text_background_opacity = 0.7
+  config.text_background_opacity = 0.85
   --if utils.is_win then
   --  config.win32_system_backdrop = "Acrylic"
   --end

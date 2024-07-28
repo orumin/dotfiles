@@ -13,6 +13,10 @@ local wezterm = require("wezterm")
 -- This table will hold the configuration.
 local config = wezterm.config_builder()
 
+---@source ./gpu.lua
+local gpu_config = require("gpu") --[[@as WezConfigGpu]]
+config = gpu_config.setup(config)
+
 ---@source ./appearance.lua
 local appearance = require("appearance")
 config = appearance.setup(config)
@@ -34,32 +38,6 @@ config.key_tables = key_tables
 config.default_prog = { utils.shell_prog }
 if not utils.is_win then
   config.default_prog[#config.default_prog+1] = "-l"
-end
-
-local has_gpu = false
-for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
-  if gpu.device_type ~= "Cpu" then has_gpu = true end
-  if gpu.backend == "Vulkan" and gpu.device_type == "DiscreteGpu" then
-    --config.front_end = "WebGpu"
-    config.front_end = "OpenGL"
-    config.webgpu_preferred_adapter = gpu
-    config.webgpu_power_preference = "HighPerformance"
-    config.max_fps = 60
-    config.animation_fps = 60
-    break
-  elseif gpu.backend == "Vulkan" and gpu.device_type == "IntegratedGpu" then
-    config.front_end = "WebGpu"
-    config.webgpu_preferred_adapter = gpu
-    config.webgpu_power_preference = "LowPower"
-    config.max_fps = 60
-    config.animation_fps = 60
-    break
-  end
-end
-
-if not has_gpu then
-  config.front_end="Software"
-  config.animation_fps = 1
 end
 
 config.use_ime = true
