@@ -71,6 +71,7 @@ M.setup = function (config)
     else
       config.front_end = "OpenGL"
     end
+    config.mux_output_parser_coalesce_delay_ms = 0
   elseif has_gpu["igpu"] then
     for k, v in pairs(frontend_configs["low"]) do config[k] = v end
     if prefer_webgpu then
@@ -80,6 +81,7 @@ M.setup = function (config)
     else
       config.front_end = "OpenGL"
     end
+    config.mux_output_parser_coalesce_delay_ms = 0
   else
     for k, v in pairs(frontend_configs["software"]) do config[k] = v end
   end

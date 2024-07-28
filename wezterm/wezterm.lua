@@ -76,15 +76,25 @@ for host, ssh_config in pairs(wezterm.enumerate_ssh_hosts()) do
   })
 end
 
-config.serial_ports = {
-  {
-    name = "USB tty",
-    port = "/dev/ttyUSB0",
-    baud = 115200
-  }
-}
+local serial_ports = {}
+for idx=0,9 do
+  if not utils.is_win then
+    table.insert(serial_ports, {
+      name = "USB tty (ttyUSB"..idx..")",
+      port = "/dev/ttyUSB"..idx,
+      baud = 115200
+    })
+  else
+    table.insert(serial_ports, {
+      name = "serial COM"..idx.."",
+      port = "COM"..idx,
+      baud = 115200
+    })
+  end
+end
 
 config.launch_menu = launch_menu
 config.ssh_domains = ssh_domains
+config.serial_ports = serial_ports
 
 return config
