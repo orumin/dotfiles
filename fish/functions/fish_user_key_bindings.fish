@@ -16,6 +16,6 @@ function fish_user_key_bindings
     bind -M insert \cf forward-char
     bind -M insert \ef forward-word
 
-    bind -M insert \cq push-line
-    bind -M default \cq push-line
+    #    bind -M insert \cq push-line
+    #    bind -M default \cq push-line
 end

@@ -12,12 +12,6 @@ if test -n (echo $terminal_string | grep pty > /dev/null)
     alias tmux='env TERM=xterm-256color tmux'
 end
 
-if type -q bat
-    alias cat='bat'
-end
-if type -q exa
-    alias ls='exa --icons'
-end
 alias la='ls -aF'
 alias lf='ls -FA'
 alias ll='ls -lAF'
