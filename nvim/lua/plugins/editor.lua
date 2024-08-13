@@ -39,12 +39,6 @@ return {
       { "nvim-tree/nvim-web-devicons" },
       { "fdschmidt93/telescope-egrepify.nvim" },
       { "folke/trouble.nvim" },
-      {
-        "rmagatti/session-lens",
-        dependencies = {
-          { "rmagatti/auto-session" }
-        }
-      },
       { "debugloop/telescope-undo.nvim" },
       { "nvimtools/hydra.nvim" }
     },
@@ -113,15 +107,6 @@ return {
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     config = true
   },
-  -- save/restore session like IDE
-  {
-    "rmagatti/auto-session",
-    cmd = { "Autosession", "SessionSave", "SessionRestore", "SessionDelete" },
-    init = function ()
-      vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
-    end,
-    config = require("editor.auto-session")
-  },
   -- rename improve
   {
     "cshuaimin/ssr.nvim",
@@ -142,6 +127,13 @@ return {
   {
     "ojroques/nvim-bufdel",
     cmd = { "BufDel", "BufDelAll", "BufDelOthers" }
+  },
+  -- manage session
+  {
+    "folke/persistence.nvim",
+    event = "BufReadPre",
+    opts = require("editor.persistence_conf"),
+    keys = require("configs.keymap.persistence"),
   },
   -- create and management window layout
   {
