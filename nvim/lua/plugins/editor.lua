@@ -9,6 +9,18 @@ return {
     cond = require("configs").use_denops or require("configs").use_skk,
   },
 ---------------------------------------------------------------
+-- options toggle menu
+---------------------------------------------------------------
+{
+    "gregorias/toggle.nvim",
+    event = "VeryLazy",
+    version = "2.0",
+    dependencies = {
+      { "folke/which-key.nvim" }
+    },
+    config = true,
+  },
+---------------------------------------------------------------
 -- File tree explorer
 ---------------------------------------------------------------
   {
