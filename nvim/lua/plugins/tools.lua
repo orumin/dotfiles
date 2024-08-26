@@ -93,6 +93,12 @@ return {
     "hotwatermorning/auto-git-diff",
     ft = "gitrebase"
   },
+  {
+    "isakbm/gitgraph.nvim",
+    dependencies = { "sindrets/diffview.nvim" },
+    opts = require("tools.gitgraph_conf"),
+    keys = require("configs.keymap.gitgraph"),
+  },
   -- diff tool
   {
     "sindrets/diffview.nvim",
