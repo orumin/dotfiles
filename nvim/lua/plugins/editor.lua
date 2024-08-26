@@ -180,7 +180,13 @@ return {
     keys = require("configs.keymap.spectre"),
     config = true
   },
-  -- support write regex
+  -- buffer navigation
+  {
+    "leath-dub/snipe.nvim",
+    keys = require("configs.keymap.snipe"),
+    config = true,
+  },
+  -- encourage regex writing
   {
     "tomiis4/Hypersonic.nvim",
     name = "hypersonic",
