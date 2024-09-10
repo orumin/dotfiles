@@ -52,6 +52,8 @@ Set-PSReadLineKeyHandler -Chord 'Ctrl+Oem4' -Function ViCommandMode
 Set-PSReadlineKeyHandler -Key 'Ctrl+p' -Function HistorySearchBackward
 Set-PSReadlineKeyHandler -Key 'Ctrl+n' -Function HistorySearchForward
 Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+Set-PSReadLineKeyHandler -Chord "Ctrl+f" -Function ForwardChar
+Set-PSReadLineKeyHandler -Chord "Alt+f" -Function ForwardWord
 
 
 ## scoop completion
