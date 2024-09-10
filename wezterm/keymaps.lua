@@ -21,7 +21,7 @@ M.keys = {
   { mods = "LEADER|SHIFT", key = "L", action = wezterm.action.AdjustPaneSize{"Right", 5} },
   { mods = "LEADER", key = "n", action = wezterm.action.ActivateTabRelative(1) },
   { mods = "LEADER", key = "p", action = wezterm.action.ActivateTabRelative(-1) },
-  { mods = "LEADER|SHIFT", key = "&", action = wezterm.action.CloseCurrentTab{confirm=true} },
+  { mods = "LEADER", key = "w", action = wezterm.action.CloseCurrentTab{confirm=true} },
   { mods = "LEADER", key = "x", action = wezterm.action.CloseCurrentPane{confirm=true} },
   { mods = "LEADER", key = "[", action = "ActivateCopyMode" },
   { mods = "LEADER", key = "]", action = wezterm.action.PasteFrom("Clipboard") },
