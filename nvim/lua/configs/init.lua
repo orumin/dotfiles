@@ -53,8 +53,8 @@ local settings = {
     precedes = "❮"
   },
   lsp_default_servers = {
-    "bashls", "bufls", "clangd", "docker_compose_language_service", "dockerls",
-    "gopls", "html", "jsonls", "luau_lsp", "marksman", "powershell_es", "tsserver",
+    "bashls", "buf_ls", "clangd", "docker_compose_language_service", "dockerls",
+    "gopls", "html", "jsonls", "luau_lsp", "marksman", "powershell_es", "ts_ls",
     "lua_ls", "pyright", "texlab", "rust_analyzer", "vimls"
   },
   lsp_disabled_servers = {
