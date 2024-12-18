@@ -35,10 +35,10 @@ key_tables.copy_mode = keymaps.key_tables.copy_mode
 key_tables.search_mode = keymaps.key_tables.search_mode
 config.key_tables = key_tables
 
-config.default_prog = { utils.shell_prog }
-if not utils.is_win then
-  config.default_prog[#config.default_prog+1] = "-l"
-end
+local default_prog = { utils.shell_prog }
+--if not utils.is_win then
+--  config.default_prog[#config.default_prog+1] = "-l"
+--end
 
 config.use_ime = true
 
@@ -51,7 +51,7 @@ config.automatically_reload_config = true
 local launch_menu = {}
 table.insert(launch_menu, {
   label = "system shell",
-  args = config.default_prog
+  args = default_prog
 })
 local btop_prog = {}
 if utils.is_win then
