@@ -7,6 +7,7 @@ return {
     "saghen/blink.cmp",
     dependencies = {
       "rafamadriz/friendly-snippets",
+      { "giuxtaposition/blink-cmp-copilot", dependencies = "zbirenbaum/copilot.lua" },
     },
     version = "v0.*",
     config = require("completion.blink_cmp_conf")

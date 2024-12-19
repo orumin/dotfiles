@@ -1,3 +1,4 @@
+local configs = require("configs")
 return function()
   require("configs.ui.color").set_nvim_cmp_hl()
   local icons = {
@@ -15,6 +16,8 @@ return function()
       use_nvim_cmp_as_default = false,
       nerd_font_variant = "mono",
       kind_icons = {
+        Copilot = icons.cmp.copilot,
+
         Text = icons.kind.Text,
         Method = icons.kind.Method,
         Function = icons.kind.Method,
@@ -47,15 +50,32 @@ return function()
         TypeParameter = icons.kind.TypeParameter,
       },
     },
-    ---@diagnostic disable-next-line: missing-fields
     sources = {
-      default = { "lsp", "path", "snippets", "buffer" },
+      providers = {
+        copilot = configs.use_copilot and {
+          name = "copilot",
+          module = "blink-cmp-copilot",
+          score_offset = 100,
+          async = true,
+          transform_items = function (_, items)
+            local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+            local kind_idx = #CompletionItemKind + 1
+            CompletionItemKind[kind_idx] = "Copilot"
+            for _, item in ipairs(items) do
+              item.kind = kind_idx
+            end
+            return items
+          end,
+        } or {}
+      },
+      completion = {
+        enabled_providers = { "lsp", "path", "snippets", "buffer", configs.use_copilot and "copilot" or nil }
+      }
     },
     ---@diagnostic disable-next-line: missing-fields
     signature = { enabled = true },
     window = {
       winhighlight = "Normal:Pmenu,FloatBoard:Pmenu,Search:None",
-
     },
   }
 
