@@ -3,7 +3,7 @@ return function ()
     integrations = {
       alpha = true,
       bufferline = true,
-      cmp = true,
+      blink_cmp = true,
       colorful_winsep = {
         enabled = true,
         color = "lavender"

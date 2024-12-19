@@ -241,18 +241,17 @@ end
 local function make_capabilities()
   local utils = require("envutils")
   local G = utils:globals()
-  local ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+  local ok, blink_cmp = pcall(require, "blink.cmp")
   if not ok then
     G.pr_error("error loading cmp_nvim_lsp")
-    cmp_nvim_lsp = nil
+    blink_cmp = nil
   end
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  if cmp_nvim_lsp ~= nil then
+  if blink_cmp then
     capabilities = vim.tbl_deep_extend(
       "force",
-      capabilities,
-      cmp_nvim_lsp.default_capabilities(capabilities),
+      blink_cmp.get_lsp_capabilities(capabilities),
       {
         workspace = {
           -- PERF: didChangeWatchedFiles is too slow
