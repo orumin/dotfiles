@@ -5,6 +5,7 @@ return {
   -- blink.cmp
   {
     "saghen/blink.cmp",
+    event = "InsertEnter",
     dependencies = {
       "rafamadriz/friendly-snippets",
       { "giuxtaposition/blink-cmp-copilot", dependencies = "zbirenbaum/copilot.lua" },

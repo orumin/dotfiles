@@ -77,6 +77,18 @@ return function()
     window = {
       winhighlight = "Normal:Pmenu,FloatBoard:Pmenu,Search:None",
     },
+    ---@diagnostic disable-next-line: missing-fields
+    completion = {
+      ---@diagnostic disable-next-line: missing-fields
+      menu = {
+        border = configs.window_style.border,
+        winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
+      },
+      ---@diagnostic disable-next-line: missing-fields
+      documentation = {
+        border = configs.window_style.border,
+      },
+    }
   }
 
   require("blink.cmp").setup(opts)
