@@ -151,7 +151,8 @@ return {
   {
     "folke/edgy.nvim",
     event = "VeryLazy",
-    config = require("editor.edgy_conf")
+    config = require("editor.edgy_conf"),
+    cond = false,
   },
   -- smooth scroll
   {
