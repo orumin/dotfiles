@@ -44,15 +44,15 @@ return {
       end, mode = "n", silent = true, desc = "LSP document link" },
     },
     hover = {
-      { "K", vim.lsp.buf.hover, mode = "n", silent = true, desc = "LSP hover document" },
+      { "K", function () vim.lsp.buf.hover({border=require("configs").window_style.border}) end, mode = "n", silent = true, desc = "LSP hover document" },
     },
     diagnostic = {
       { "<C-w>d", vim.diagnostic.open_float, mode = "n", silent = true, desc = "LSP line diagnostics" },
-      { "[d", vim.diagnostic.goto_prev, mode = "n", silent = true, desc = "LSP previous diagnostic" },
-      { "]d", vim.diagnostic.goto_next, mode = "n", silent = true, desc = "LSP next diagnostic" },
-      { "[e", function () vim.diagnostic.goto_prev({severity=vim.diagnostic.severity.ERROR}) end,
+      { "[d", function () vim.diagnostic.jump({count=-1, float=true}) end, mode = "n", silent = true, desc = "LSP previous diagnostic" },
+      { "]d", function () vim.diagnostic.jump({count=1, float=true}) end, mode = "n", silent = true, desc = "LSP next diagnostic" },
+      { "[e", function () vim.diagnostic.jump({count=-1, float=true, severity=vim.diagnostic.severity.ERROR}) end,
         mode = "n", silent = true, desc = "LSP previous error" },
-      { "]e", function () vim.diagnostic.goto_next({severity=vim.diagnostic.severity.ERROR}) end,
+      { "]e", function () vim.diagnostic.jump({count=1, float=true, severity=vim.diagnostic.severity.ERROR}) end,
         mode = "n", silent = true, desc = "LSP next error" },
     },
     codeLens = {
@@ -81,11 +81,11 @@ return {
   workspace = {
     diagnostic = {
       { "<leader>cd", vim.diagnostic.open_float, mode = "n", silent = true, desc = "LSP line diagnostics" },
-      { "[d", vim.diagnostic.goto_prev, mode = "n", silent = true, desc = "LSP previous diagnostic" },
-      { "]d", vim.diagnostic.goto_next, mode = "n", silent = true, desc = "LSP next diagnostic" },
-      { "[e", function () vim.diagnostic.goto_prev({severity=vim.diagnostic.severity.ERROR}) end,
+      { "[d", function () vim.diagnostic.jump({count=-1, float=true}) end, mode = "n", silent = true, desc = "LSP previous diagnostic" },
+      { "]d", function () vim.diagnostic.jump({count=1, float=true}) end, mode = "n", silent = true, desc = "LSP next diagnostic" },
+      { "[e", function () vim.diagnostic.jump({count=-1, float=true, severity=vim.diagnostic.severity.ERROR}) end,
         mode = "n", silent = true, desc = "LSP previous error" },
-      { "]e", function () vim.diagnostic.goto_next({severity=vim.diagnostic.severity.ERROR}) end,
+      { "]e", function () vim.diagnostic.jump({count=1, float=true, severity=vim.diagnostic.severity.ERROR}) end,
         mode = "n", silent = true, desc = "LSP next error" },
     },
     workspaceFolders = {
