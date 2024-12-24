@@ -215,6 +215,7 @@ local data = {
     RoundRightTop = "╮",
     Vbar = "│",
     VbarLeftOffset = "▎",
+    VbarQuadrupleDash = "┊",
   },
   cmp = {
     -- Add source-specific icons here

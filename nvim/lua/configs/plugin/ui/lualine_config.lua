@@ -80,7 +80,7 @@ return {
         always_visible = false,   -- Show diagnostics even if there are none.
       },
     },
-    lualine_c = {'filename', auto_session, require("piccolo-pomodoro").status },
+    lualine_c = {'filename', auto_session, },
     lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}

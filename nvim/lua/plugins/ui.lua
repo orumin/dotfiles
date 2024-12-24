@@ -70,10 +70,12 @@ return {
   },
   -- status line
   {
-    "sontungexpt/sttusline",
-    branch = "table_version",
+    "nvim-lualine/lualine.nvim",
     event = { "BufEnter" },
-    config = require("ui.sttusline_conf"),
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = require("ui.lualine_config"),
   },
   -- scroll minimap
   {
