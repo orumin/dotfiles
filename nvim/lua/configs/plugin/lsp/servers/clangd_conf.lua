@@ -16,7 +16,7 @@ M.lsp_opts = {
     semanticHighlighting = true,
   },
   on_attach = function (_, bufnr)
-    vim.keymap.set("n", "<C-k>", vim.lsp.buf.hover, { buffer = bufnr })
+    vim.keymap.set("n", "<C-k>", function() vim.lsp.buf.hover({border=require("configs").window_style.border}) end, { buffer = bufnr })
     vim.keymap.set("n", "K", function()
       vim.cmd(vim.o.keywordprg .. " " .. vim.fn.expand("<cword>"))
     end, { buffer = bufnr, desc = "search document by cword" })

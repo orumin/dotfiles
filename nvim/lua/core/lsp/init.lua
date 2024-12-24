@@ -225,7 +225,7 @@ local function preview_location_cb(err, result, context, config)
   if not result or vim.tbl_isempty(result) then
     local log = require("vim.lsp.log")
     log.info(context, "No location found.")
-    vim.lsp.buf.hover()
+    vim.lsp.buf.hover({border=require("configs").window_style.border})
     return nil
   end
   local current_bufnr = vim.api.nvim_get_current_buf()
