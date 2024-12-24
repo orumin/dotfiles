@@ -70,16 +70,29 @@ return function()
         } or {}
       },
     },
-    ---@diagnostic disable-next-line: missing-fields
-    signature = { enabled = true },
-    ---@diagnostic disable-next-line: missing-fields
     completion = {
-      ---@diagnostic disable-next-line: missing-fields
+      -- 'prefix' will fuzzy match on the text before the cursor
+      -- 'full' will fuzzy match on the text before *and* after the cursor
+      -- example: 'foo_|_bar' will match 'foo_' for 'prefix' and 'foo__bar' for 'full'
+      keyword = { range = 'full' },
+
+      -- Disable auto brackets
+      -- NOTE: some LSPs may add auto brackets themselves anyway
+      accept = { auto_brackets = { enabled = false } },
+
+      -- Insert completion item on selection, don't select by default
+      -- list = { selection = 'auto_insert' },
+      -- or set per mode
+      list = { selection = function(ctx) return ctx.mode == 'cmdline' and 'auto_insert' or 'preselect' end },
+
       menu = {
+        auto_show = true,
         border = configs.window_style.border,
         winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
       },
-    }
+    },
+
+    signature = { enabled = true },
   }
 
   require("blink.cmp").setup(opts)
