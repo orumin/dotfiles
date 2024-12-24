@@ -67,7 +67,7 @@ return function()
             end
             return items
           end,
-        } or {}
+        } or nil
       },
     },
     completion = {
