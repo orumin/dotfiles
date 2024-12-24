@@ -51,6 +51,7 @@ return function()
       },
     },
     sources = {
+      default = { "lsp", "path", "snippets", "buffer", configs.use_copilot and "copilot" or nil },
       providers = {
         copilot = configs.use_copilot and {
           name = "copilot",
@@ -68,25 +69,15 @@ return function()
           end,
         } or {}
       },
-      completion = {
-        enabled_providers = { "lsp", "path", "snippets", "buffer", configs.use_copilot and "copilot" or nil }
-      }
     },
     ---@diagnostic disable-next-line: missing-fields
     signature = { enabled = true },
-    window = {
-      winhighlight = "Normal:Pmenu,FloatBoard:Pmenu,Search:None",
-    },
     ---@diagnostic disable-next-line: missing-fields
     completion = {
       ---@diagnostic disable-next-line: missing-fields
       menu = {
         border = configs.window_style.border,
         winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
-      },
-      ---@diagnostic disable-next-line: missing-fields
-      documentation = {
-        border = configs.window_style.border,
       },
     }
   }
