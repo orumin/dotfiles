@@ -37,7 +37,37 @@ end
 local lazy_opts = {
   root = utils:path_concat({G.nvim_data_dir, "lazy"}),
   defauls = { lazy = true, version = nil, cond = nil },
+  spec = nil,
+  local_spec = true,
   lockfile = utils:path_concat({G.nvim_config_dir, "lazy-lock.json"}),
+  concurrency = jit.os:find("Windows") and (vim.uv.available_parallelism() * 2) or nil,
+  git = {
+    log = { "-8" },
+    timeout = 120,
+    url_format = "https://github.com/%s.git",
+    filter = true,
+    throttole = {
+      enabled = false,
+      rate = 2,
+      duration = 5 * 1000, -- in ms
+    },
+    cooldown = 0,
+  },
+  pkg = {
+    enabled = true,
+    cache = utils:path_concat({G.nvim_state_dir, "lazy", "pkg-cache.lua"}),
+    sources = {
+      "lazy",
+      "rockspec",
+      "packspec"
+    },
+  },
+  rocks = {
+    enabled = true,
+    root = utils:path_concat({G.nvim_data_dir, "lazy-rocks"}),
+    server = "https://nvim-neorocks.github.io/rocks-binaries/",
+    hererocks = nil,
+  },
   install = {
     missing = true,
     colorscheme = { "catppuccin" },
@@ -74,6 +104,7 @@ local lazy_opts = {
       },
     },
   },
+  browser = G.browser,
   performance = {
     cache = {
       enabled = true,
@@ -84,56 +115,66 @@ local lazy_opts = {
       paths = {},
       disabled_plugins = disabled_plugins,
     },
+  },
+  readme = {
+    enabled = true,
+    root = utils:path_concat({G.nvim_state_dir, "lazy", "readme"}),
+    files = { "README.md", "lua/**/README.md" },
+    skip_if_doc_exists = true,
+  },
+  state = utils:path_concat({G.nvim_state_dir, "lazy", "state.json"}),
+  profiling = {
+    loader = true,
+    require = true,
   }
 }
 
 vim.opt.runtimepath:prepend(lazypath)
-require("lazy").setup(
+lazy_opts.spec = {
   {
-    {
-      "catppuccin/nvim",
-      lazy = true,
-      name = "catppuccin",
-      priority = 1000,
-      init = function ()
-        local termcolor = require("configs.ui.termcolor")
-        for k, v in pairs(termcolor) do
-          vim.g[k] = v
-        end
-
-        vim.cmd.colorscheme("catppuccin")
-      end,
-      config = require("ui.catppuccin_conf"),
-    },
-    { import = "plugins.editor" },
-    { import = "plugins.ui" },
-    { import = "plugins.treesitter" },
-    { import = "plugins.lsp" },
-    { import = "plugins.completion" },
-    { import = "plugins.tools" },
-    { import = "plugins.filetype_tools" },
-    { import = "plugins.misc" },
-    {
-      "options",
-      lazy = true,
-      event = "VeryLazy",
-      dir = require("envutils"):globals().nvim_config_dir,
-      init = function()
-        require('core.autocmd')
-        require('core.filetypes')
-        require('core.lsp').setup()
-      end,
-      config = function()
-        -- basic settings
-        local core = require('core') --[[@as NvimConfMyCore]]
-        core.finalize()
-        --require('core.encoding')
-        require('core.keymaps')
-
-        -- setup neovide
-        require("configs.neovide")
-        pcall(vim.cmd.rshada, { bang = true })
+    "catppuccin/nvim",
+    lazy = true,
+    name = "catppuccin",
+    priority = 1000,
+    init = function ()
+      local termcolor = require("configs.ui.termcolor")
+      for k, v in pairs(termcolor) do
+        vim.g[k] = v
       end
-    }
+
+      vim.cmd.colorscheme("catppuccin")
+    end,
+    config = require("ui.catppuccin_conf"),
   },
-  lazy_opts)
+  { import = "plugins.editor" },
+  { import = "plugins.ui" },
+  { import = "plugins.treesitter" },
+  { import = "plugins.lsp" },
+  { import = "plugins.completion" },
+  { import = "plugins.tools" },
+  { import = "plugins.filetype_tools" },
+  { import = "plugins.misc" },
+  {
+    "options",
+    lazy = true,
+    event = "VeryLazy",
+    dir = G.nvim_config_dir,
+    init = function()
+      require('core.autocmd')
+      require('core.filetypes')
+      require('core.lsp').setup()
+    end,
+    config = function()
+      -- basic settings
+      local core = require('core') --[[@as NvimConfMyCore]]
+      core.finalize()
+      --require('core.encoding')
+      require('core.keymaps')
+
+      -- setup neovide
+      require("configs.neovide")
+      pcall(vim.cmd.rshada, { bang = true })
+    end
+  }
+}
+require("lazy").setup(lazy_opts)
