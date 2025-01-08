@@ -52,7 +52,7 @@ return {
       { "fdschmidt93/telescope-egrepify.nvim" },
       { "folke/trouble.nvim" },
       { "debugloop/telescope-undo.nvim" },
-      { "nvimtools/hydra.nvim" }
+      { "cathyprime/hydra.nvim" }
     },
     keys = require("configs.keymap.hydra").telescope,
     config = function ()
@@ -82,7 +82,7 @@ return {
       { "rcarriga/nvim-dap-ui" },
       { "theHamsta/nvim-dap-virtual-text" },
       { "jbyuki/one-small-step-for-vimkind" },
-      { "nvimtools/hydra.nvim" }
+      { "cathyprime/hydra.nvim" }
     },
     keys = require("configs.keymap.hydra").dap,
     config = function ()
