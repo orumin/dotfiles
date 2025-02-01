@@ -36,6 +36,7 @@ key_tables.search_mode = keymaps.key_tables.search_mode
 config.key_tables = key_tables
 
 local default_prog = { utils.shell_prog }
+--config.default_prog = default_prog
 --if not utils.is_win then
 --  config.default_prog[#config.default_prog+1] = "-l"
 --end

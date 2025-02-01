@@ -84,3 +84,8 @@ if (Get-Command "starship") {
     # The above example requires the automatic variable $PSStyle to be available, so can be only used in PS 7.2+
     # Replace $PSStyle.Reset with "`e[0m" for PS 6.0 through PS 7.1 or "$([char]27)[0m" for PS 5.1
 }
+
+#f45873b3-b655-43a6-b217-97c00aa0db58 PowerToys CommandNotFound module
+
+Import-Module -Name Microsoft.WinGet.CommandNotFound
+#f45873b3-b655-43a6-b217-97c00aa0db58

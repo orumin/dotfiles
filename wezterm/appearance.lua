@@ -31,11 +31,12 @@ M.setup = function (config)
   local wezterm = require("wezterm")
   ---@source ./utils.lua
   local utils = require("utils") --[[@as wezutils]]
+  local icons = utils.icons
 
   local scheme = wezterm.get_builtin_color_schemes()["Catppuccin Mocha"]
-  local original_bg_color = {}
-  original_bg_color.h, original_bg_color.s, original_bg_color.l, original_bg_color.a = wezterm.color.parse(scheme.background):hsla()
-  local transparent_bg = ("hsla(%s %s %s %s)"):format(original_bg_color.h, original_bg_color.s*100 .. "%", original_bg_color.l*100 .. "%", "40%")
+--  local original_bg_color = {}
+--  original_bg_color.h, original_bg_color.s, original_bg_color.l, original_bg_color.a = wezterm.color.parse(scheme.background):hsla()
+--  local transparent_bg = ("hsla(%s %s %s %s)"):format(original_bg_color.h, original_bg_color.s*100 .. "%", original_bg_color.l*100 .. "%", "40%")
 --  scheme.background = transparent_bg
 --  scheme.tab_bar.background = transparent_bg
   local active_tab_bg = {}
@@ -58,8 +59,8 @@ M.setup = function (config)
   )
 
   config.use_fancy_tab_bar = false
-  local SOFT_LEFT_ALLOW = wezterm.nerdfonts.pl_left_soft_divider
-  local SOLID_LEFT_ALLOW = wezterm.nerdfonts.pl_left_hard_divider
+  local SOFT_LEFT_ARROW = wezterm.nerdfonts.pl_left_soft_divider
+  local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
   local function tab_title(tab_info)
     local title = tab_info.tab_title
     if title and #title > 0 then
@@ -68,7 +69,7 @@ M.setup = function (config)
     return tab_info.active_pane.title
   end
 
-  config.tab_max_width = 20
+  config.tab_max_width = 30
   wezterm.on("format-tab-title", function (tab, _, _, _, _, max_width)
     local active_bg = scheme.tab_bar.active_tab.bg_color
     local active_fg = scheme.tab_bar.active_tab.fg_color
@@ -87,10 +88,10 @@ M.setup = function (config)
       fg = active_fg
       left_edge_bg = active_bg
       left_edge_fg = inactive_bg
-      left_edge = SOLID_LEFT_ALLOW
+      left_edge = SOLID_LEFT_ARROW
       right_edge_bg = inactive_bg
       right_edge_fg = active_bg
-      right_edge = SOLID_LEFT_ALLOW
+      right_edge = SOLID_LEFT_ARROW
     else
       bg = inactive_bg
       fg = inactive_fg
@@ -99,20 +100,39 @@ M.setup = function (config)
       left_edge = " "
       right_edge_bg = inactive_bg
       right_edge_fg = inactive_fg
-      right_edge = SOFT_LEFT_ALLOW
+      right_edge = SOFT_LEFT_ARROW
     end
 
-    local title_prefix = " " .. tab.tab_index .. ":"
+
+    local title_prefix = " "
     local pane = tab.active_pane
+    local tab_title_lenlimit = 5
+    local tab_title_str = tab_title(tab)
     if pane.domain_name then
-      title_prefix = title_prefix .. "(" .. pane.domain_name .. "):"
+      local domname = pane.domain_name
+      if pane.domain_name ~= "local" then
+        if string.find(domname, "WSL") then
+          domname = "WSL"
+        end
+        title_prefix = title_prefix .. "(" .. domname .. "):"
+      end
+      tab_title_lenlimit = tab_title_lenlimit + string.len(title_prefix)
     end
-    local title = wezterm.truncate_right(title_prefix .. tab_title(tab), max_width - 3) .. " "
+
+    local proc_icon = utils.get_icon(tab_title_str)
+
+    local title = title_prefix .. tab_title_str .. " "
+    if string.len(title) > config.tab_max_width then
+      title = title_prefix .. wezterm.truncate_left(tab_title_str, max_width - tab_title_lenlimit) .. " "
+    end
 
     return {
       { Background = { Color = left_edge_bg } },
       { Foreground = { Color = left_edge_fg } },
       { Text = left_edge },
+      { Background = { Color = bg } },
+      { Foreground = { Color = proc_icon.color.fg } },
+      { Text = proc_icon[1] },
       { Background = { Color = bg } },
       { Foreground = { Color = fg } },
       { Text = title },
@@ -138,54 +158,42 @@ M.setup = function (config)
   if utils.is_mac then
     config.integrated_title_buttons = {"Close", "Hide", "Maximize"}
     config.integrated_title_button_alignment = "Left"
-    config.tab_bar_style ={
-      window_hide = wezterm.format({
-        { Background = { Color = transparent_bg } },
-        { Foreground = { Color = "#FFBD44" } },
-        { Text = " " .. wezterm.nerdfonts.md_circle_medium .. "  " }
-      }),
-      window_hide_hover = wezterm.format({
-        { Background = { Color = transparent_bg } },
-        { Foreground = { Color = "#FFBD44" } },
-        { Text = " " .. wezterm.nerdfonts.md_minus_circle .. "  " }
-      }),
-      window_maximize = wezterm.format({
-        { Background = { Color = transparent_bg } },
-        { Foreground = { Color = "#00CA4E" } },
-        { Text = " " .. wezterm.nerdfonts.md_circle_medium .. "  " }
-      }),
-      window_maximize_hover = wezterm.format({
-        { Background = { Color = transparent_bg } },
-        { Foreground = { Color = "#00CA4E" } },
-        { Text = " " .. wezterm.nerdfonts.md_share_circle .. "  " }
-      }),
-      window_close = wezterm.format({
-        { Background = { Color = transparent_bg } },
-        { Foreground = { Color = "#FF605C" } },
-        { Text = " " .. wezterm.nerdfonts.md_circle_medium .. "  " }
-      }),
-      window_close_hover = wezterm.format({
-        { Background = { Color = transparent_bg } },
-        { Foreground = { Color = "#FF605C" } },
-        { Text = " " .. wezterm.nerdfonts.md_close_circle .. "  " }
-      })
-    }
   else
     config.integrated_title_buttons = {"Hide", "Maximize", "Close"}
     config.integrated_title_button_alignment = "Right"
-    config.tab_bar_style ={
-      window_hide = " " .. wezterm.nerdfonts.fa_window_minimize .. "  ",
-      window_hide_hover = " " .. wezterm.nerdfonts.fa_window_minimize .. "  ",
-      window_maximize = " " .. wezterm.nerdfonts.fa_window_maximize .. "  ",
-      window_maximize_hover = " " .. wezterm.nerdfonts.fa_window_maximize .. "  ",
-      window_close = " " .. wezterm.nerdfonts.cod_chrome_close .. "  ",
-      window_close_hover = wezterm.format({
-        { Background = { Color = "red" } },
-        { Foreground = { Color = "white" } },
-        { Text = " " .. wezterm.nerdfonts.cod_chrome_close .. "  " }
-      })
-    }
   end
+  config.tab_bar_style ={
+    window_hide = wezterm.format({
+      { Background = { Color = icons.window.hide.color.bg(scheme.background) } },
+      { Foreground = { Color = icons.window.hide.color.fg("white") } },
+      { Text = icons.window.hide[1] }
+    }),
+    window_hide_hover = wezterm.format({
+      { Background = { Color = icons.window.hide.hover.color.bg(scheme.background) } },
+      { Foreground = { Color = icons.window.hide.hover.color.fg("white") } },
+      { Text = icons.window.hide.hover[1] }
+    }),
+    window_maximize = wezterm.format({
+      { Background = { Color = icons.window.maximize.color.bg(scheme.background) } },
+      { Foreground = { Color = icons.window.maximize.color.fg("white") } },
+      { Text = icons.window.maximize[1] }
+    }),
+    window_maximize_hover = wezterm.format({
+      { Background = { Color = icons.window.maximize.hover.color.bg(scheme.background) } },
+      { Foreground = { Color = icons.window.maximize.hover.color.fg("white") } },
+      { Text = icons.window.maximize.hover[1] }
+    }),
+    window_close = wezterm.format({
+      { Background = { Color = icons.window.close.color.bg(scheme.background) } },
+      { Foreground = { Color = icons.window.close.color.fg("white") } },
+      { Text = icons.window.close[1] }
+    }),
+    window_close_hover = wezterm.format({
+      { Background = { Color = icons.window.close.hover.color.bg(scheme.background) } },
+      { Foreground = { Color = icons.window.close.hover.color.fg("white") } },
+      { Text = icons.window.close.hover[1] }
+    })
+  }
 
   config.window_padding = {
     left = "0.5cell",
