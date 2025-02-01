@@ -75,7 +75,6 @@ M.setup = function ()
     }
   })
 
-  --telescope.load_extension("session-lens")
   telescope.load_extension("undo")
 end
 
