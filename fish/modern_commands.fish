@@ -1,7 +1,7 @@
 function replace_posix
     set real_command (which $argv[1])
     set modern_command $argv[2]
-    if type -q $modern_command and
+    if type -q $modern_command
         if test "$argv[4]" = "classic"
             $real_command $argv[5..-1]
         else
