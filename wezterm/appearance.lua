@@ -26,7 +26,7 @@ end
 
 
 ---@param config Config
----@return table
+---@return Config config
 M.setup = function (config)
   ---@type Wezterm
   local wezterm = require("wezterm")

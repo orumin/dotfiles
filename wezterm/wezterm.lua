@@ -12,6 +12,7 @@ local status = require("status")
 local wezterm = require("wezterm")
 
 -- This table will hold the configuration.
+---@type Config
 local config = wezterm.config_builder()
 
 ---@source ./gpu.lua

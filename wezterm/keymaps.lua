@@ -45,7 +45,7 @@ M.keys = {
   -- paste
   { mods = "LEADER", key = "]", action = wezterm.action.PasteFrom("PrimarySelection") },
 
-  { mods = "LEADER|SHIFT", key = "C", action = wezterm.action.ShowLauncher },
+  { mods = "LEADER|SHIFT", key = "C", action = wezterm.action.ShowLauncherArgs{ flags = "DOMAINS|LAUNCH_MENU_ITEMS|WORKSPACES" } },
   { mods = "CTRL", key = "L", action = wezterm.action.ShowDebugOverlay },
 }
 for i = 0, 9 do
