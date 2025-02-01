@@ -1,29 +1,29 @@
 return function()
   vim.filetype.add({
     extension = {
-      adoc = "loongdoc"
+      adoc = "asciidoc"
     }
   })
 
   ---@class MyParserConfig : { [string]: ParserInfo}
   local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-  parser_config.loongdoc = {
+  parser_config.asciidoc = {
     filetype = "asciidoc",
     maintainers = {"cathayasia"},
     install_info = {
-      url = "https://github.com/cathaysia/tree-sitter-loongdoc.git",
-      files = { "tree-sitter-loongdoc/src/parser.c", "tree-sitter-loongdoc/src/scanner.c" },
+      url = "https://github.com/cathaysia/tree-sitter-asciidoc.git",
+      files = { "tree-sitter-asciidoc/src/parser.c", "tree-sitter-asciidoc/src/scanner.c" },
       branch = "master",
       generate_requires_npm = false,
       requires_generate_from_grammar = false,
     },
   }
-  parser_config.loongdoc_inline = {
+  parser_config.asciidoc_inline = {
     filetype = "asciidoc",
     maintainers = {"cathayasia"},
     install_info = {
-      url = "https://github.com/cathaysia/tree-sitter-loongdoc.git",
-      files = { "tree-sitter-loongdoc_inline/src/parser.c", "tree-sitter-loongdoc_inline/src/scanner.c" },
+      url = "https://github.com/cathaysia/tree-sitter-asciidoc.git",
+      files = { "tree-sitter-asciidoc_inline/src/parser.c", "tree-sitter-asciidoc_inline/src/scanner.c" },
       branch = "master",
       generate_requires_npm = false,
       requires_generate_from_grammar = false,
