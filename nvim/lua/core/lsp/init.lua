@@ -42,7 +42,7 @@ local function on_lsp_attach(client, bufnr)
   ---@param keymap_table table
   local function set_keymaps_for_supported_methods(method_prefix, keymap_table)
     for k, v in pairs(keymap_table) do
-      if client.supports_method(methods[method_prefix .. k]) then
+      if client:supports_method(methods[method_prefix .. k], bufnr) then
         set_keymaps(bufnr, v)
       end
     end
@@ -68,7 +68,7 @@ local function on_lsp_attach(client, bufnr)
   --end
 
   -- highlight word under cursor
-  if client.supports_method(methods["textDocument_documentHighlight"]) then
+  if client:supports_method(methods["textDocument_documentHighlight"], bufnr) then
     local under_cursor_highlights_group =
       vim.api.nvim_create_augroup('LSP_documentHighlights', { clear = false })
     vim.api.nvim_create_autocmd({ 'CursorHold', 'InsertLeave', 'BufEnter' }, {
@@ -86,7 +86,7 @@ local function on_lsp_attach(client, bufnr)
   end
 
   -- set-up 'code lens'
-  if client.supports_method(methods["textDocument_codeLens"]) then
+  if client:supports_method(methods["textDocument_codeLens"], bufnr) then
     local codelens_group = vim.api.nvim_create_augroup('LSP_codeLens', { clear = false })
     vim.api.nvim_create_autocmd('InsertEnter', {
       group = codelens_group,
@@ -110,7 +110,7 @@ local function on_lsp_attach(client, bufnr)
   end
 
   -- set-up 'inlay hint'
-  if client.supports_method(methods["textDocument_inlayHint"]) then
+  if client:supports_method(methods["textDocument_inlayHint"], bufnr) then
     local ltype = type(vim.lsp.inlay_hint)
     ---@type fun(enable?: boolean, filter?: vim.lsp.inlay_hint.enable.Filter)
     local toggle_inlay_hint = (ltype == "function") and vim.lsp.inlay_hint --[[@as function]]
@@ -185,7 +185,6 @@ local function make_capabilities()
   local ok, blink_cmp = pcall(require, "blink.cmp")
   if not ok then
     G.pr_error("error loading cmp_nvim_lsp")
-    blink_cmp = nil
   end
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -331,8 +330,8 @@ end
 ---iterate all clients and call their `cancel_request()` methods.
 M.peek_definition = function()
   local methods = vim.lsp.protocol.Methods
-  local params = vim.lsp.util.make_position_params()
-  return vim.lsp.buf_request(0, methods.textDocument_definition, params, preview_location_cb)
+  local params = vim.lsp.util.make_position_params(vim.api.nvim_get_current_win(), 'utf-8')
+  return vim.lsp.buf_request(vim.api.get_current_buf(), methods.textDocument_definition, params, preview_location_cb)
 end
 
 ---@return table<integer, integer> client_request_ids Map of client-id:request-id pairs
@@ -342,8 +341,8 @@ end
 ---iterate all clients and call their `cancel_request()` methods.
 M.peek_type_definition = function()
   local methods = vim.lsp.protocol.Methods
-  local params = vim.lsp.util.make_position_params()
-  return vim.lsp.buf_request(0, methods.textDocument_typeDefinition, params, preview_location_cb)
+  local params = vim.lsp.util.make_position_params(vim.api.nvim_get_current_win(), 'utf-8')
+  return vim.lsp.buf_request(vim.api.get_current_buf(), methods.textDocument_typeDefinition, params, preview_location_cb)
 end
 
 ---@return table<integer, integer> client_request_ids Map of client-id:request-id pairs
@@ -353,8 +352,8 @@ end
 ---iterate all clients and call their `cancel_request()` methods.
 M.peek_implementation = function()
   local methods = vim.lsp.protocol.Methods
-  local params = vim.lsp.util.make_position_params()
-  return vim.lsp.buf_request(0, methods.textDocument_implementation, params, preview_location_cb)
+  local params = vim.lsp.util.make_position_params(vim.api.nvim_get_current_win(), 'utf-8')
+  return vim.lsp.buf_request(vim.api.get_current_buf(), methods.textDocument_implementation, params, preview_location_cb)
 end
 
 M.setup_handlers = function()
@@ -412,6 +411,7 @@ M.setup_handlers = function()
   local servers = configs.lsp_default_servers
   local mason_lspconfig = require("mason-lspconfig")
   mason_lspconfig.setup({
+    automatic_installation = true,
     ensure_installed = servers,
   })
   mason_lspconfig.setup_handlers({ mason_handler })

@@ -45,9 +45,9 @@ return function()
       "bash", "bibtex", "bitbake", "c", "cmake", "comment", "cpp", "css", "csv", "cue",
       "devicetree", "diff", "dockerfile", "doxygen", "elvish", "fennel", "fish",
       "git_config", "git_rebase", "gitattributes", "gitcommit", "gitignore",
-      "html", "http", "ini", "java", "javascript", "jq", "json", "json5", "jsonc", "latex", "llvm",
+      "html", "http", "ini", "java", "javascript", "jq", "json", "json5", "jsonc", --[["latex",]] "llvm",
       "lua", "luadoc", "luap", "luau", "make", "markdown", "markdown_inline", "mermaid", "meson", "nasm", "ninja", "nix",
-      "objc", "ocaml", "ocaml_interface", "ocamllex", "pascal", "passwd", "perl", "proto", "python", "query", "regex",
+      "objc", "ocaml", "ocaml_interface", --[["ocamllex",]] "pascal", "passwd", "perl", "proto", "python", "query", "regex",
       "requirements", "rst", "ruby", "rust", "scss", "sql", "ssh_config", "strace", "systemtap",
       "textproto", "todotxt", "toml", "typescript", "vim", "vimdoc", "vue", "xml", "yaml"
     },
