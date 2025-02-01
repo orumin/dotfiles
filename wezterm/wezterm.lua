@@ -26,7 +26,45 @@ wezterm.on("decrease-opacity", appearance.decrease_opacity)
 wezterm.on("increase-opacity", appearance.increase_opacity)
 wezterm.on("gui-startup", restore.save_window_size_on_startup)
 wezterm.on("window-resized", restore.save_window_size_on_resize)
-wezterm.on("update-right-status", status.update_right_status)
+--wezterm.on("update-right-status", status.update_right_status)
+local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+tabline.setup {
+  options = {
+    icons_enabled = true,
+    theme = 'Catppuccin Mocha',
+    tabs_enabled = true,
+    theme_overrides = {},
+    section_separators = {
+      left = wezterm.nerdfonts.pl_left_hard_divider,
+      right = wezterm.nerdfonts.pl_right_hard_divider,
+    },
+    component_separators = {
+      left = wezterm.nerdfonts.pl_left_soft_divider,
+      right = wezterm.nerdfonts.pl_right_soft_divider,
+    },
+    tab_separators = {
+      left = wezterm.nerdfonts.pl_left_hard_divider,
+      right = wezterm.nerdfonts.pl_right_hard_divider,
+    },
+  },
+  sections = {
+    tabline_a = { 'mode' },
+    tabline_b = { 'workspace' },
+    tabline_c = { ' ' },
+    tab_active = {
+      'index',
+      { 'parent', padding = 0 },
+      '/',
+      { 'cwd', padding = { left = 0, right = 1 } },
+      { 'zoomed', padding = 0 },
+    },
+    tab_inactive = { 'index', { 'process', padding = { left = 0, right = 1 } } },
+    tabline_x = { 'ram', 'cpu' },
+    tabline_y = { 'datetime', 'battery' },
+    tabline_z = { 'domain' },
+  },
+  extensions = {},
+}
 
 config.leader = keymaps.leader
 config.disable_default_key_bindings = keymaps.disable_default_key_bindings

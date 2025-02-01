@@ -72,77 +72,77 @@ M.setup = function (config)
   end
 
   config.tab_max_width = 30
-  wezterm.on("format-tab-title", function (tab, _, _, _, _, max_width)
-    local active_bg = scheme.tab_bar.active_tab.bg_color
-    local active_fg = scheme.tab_bar.active_tab.fg_color
-    local inactive_bg = scheme.tab_bar.inactive_tab.bg_color
-    local inactive_fg = scheme.tab_bar.inactive_tab.fg_color
-    local bg
-    local fg
-    local left_edge_bg
-    local left_edge_fg
-    local right_edge_bg
-    local right_edge_fg
-    local right_edge
-    local left_edge
-    if tab.is_active then
-      bg = active_bg
-      fg = active_fg
-      left_edge_bg = active_bg
-      left_edge_fg = inactive_bg
-      left_edge = SOLID_LEFT_ARROW
-      right_edge_bg = inactive_bg
-      right_edge_fg = active_bg
-      right_edge = SOLID_LEFT_ARROW
-    else
-      bg = inactive_bg
-      fg = inactive_fg
-      left_edge_bg = inactive_bg
-      left_edge_fg = inactive_bg
-      left_edge = " "
-      right_edge_bg = inactive_bg
-      right_edge_fg = inactive_fg
-      right_edge = SOFT_LEFT_ARROW
-    end
+--  wezterm.on("format-tab-title", function (tab, _, _, _, _, max_width)
+--    local active_bg = scheme.tab_bar.active_tab.bg_color
+--    local active_fg = scheme.tab_bar.active_tab.fg_color
+--    local inactive_bg = scheme.tab_bar.inactive_tab.bg_color
+--    local inactive_fg = scheme.tab_bar.inactive_tab.fg_color
+--    local bg
+--    local fg
+--    local left_edge_bg
+--    local left_edge_fg
+--    local right_edge_bg
+--    local right_edge_fg
+--    local right_edge
+--    local left_edge
+--    if tab.is_active then
+--      bg = active_bg
+--      fg = active_fg
+--      left_edge_bg = active_bg
+--      left_edge_fg = inactive_bg
+--      left_edge = SOLID_LEFT_ARROW
+--      right_edge_bg = inactive_bg
+--      right_edge_fg = active_bg
+--      right_edge = SOLID_LEFT_ARROW
+--    else
+--      bg = inactive_bg
+--      fg = inactive_fg
+--      left_edge_bg = inactive_bg
+--      left_edge_fg = inactive_bg
+--      left_edge = " "
+--      right_edge_bg = inactive_bg
+--      right_edge_fg = inactive_fg
+--      right_edge = SOFT_LEFT_ARROW
+--    end
+--
+--
+--    local title_prefix = " "
+--    local pane = tab.active_pane
+--    local tab_title_lenlimit = 5
+--    local tab_title_str = tab_title(tab)
+--    if pane.domain_name then
+--      local domname = pane.domain_name
+--      if pane.domain_name ~= "local" then
+--        if string.find(domname, "WSL") then
+--          domname = "WSL"
+--        end
+--        title_prefix = title_prefix .. "(" .. domname .. "):"
+--      end
+--      tab_title_lenlimit = tab_title_lenlimit + string.len(title_prefix)
+--    end
+--
+--    local proc_icon = utils.get_icon(tab_title_str)
+--
+--    local title = title_prefix .. tab_title_str .. " "
+--    if string.len(title) > config.tab_max_width then
+--      title = title_prefix .. wezterm.truncate_left(tab_title_str, max_width - tab_title_lenlimit) .. " "
+--    end
 
-
-    local title_prefix = " "
-    local pane = tab.active_pane
-    local tab_title_lenlimit = 5
-    local tab_title_str = tab_title(tab)
-    if pane.domain_name then
-      local domname = pane.domain_name
-      if pane.domain_name ~= "local" then
-        if string.find(domname, "WSL") then
-          domname = "WSL"
-        end
-        title_prefix = title_prefix .. "(" .. domname .. "):"
-      end
-      tab_title_lenlimit = tab_title_lenlimit + string.len(title_prefix)
-    end
-
-    local proc_icon = utils.get_icon(tab_title_str)
-
-    local title = title_prefix .. tab_title_str .. " "
-    if string.len(title) > config.tab_max_width then
-      title = title_prefix .. wezterm.truncate_left(tab_title_str, max_width - tab_title_lenlimit) .. " "
-    end
-
-    return {
-      { Background = { Color = left_edge_bg } },
-      { Foreground = { Color = left_edge_fg } },
-      { Text = left_edge },
-      { Background = { Color = bg } },
-      { Foreground = { Color = proc_icon.color.fg } },
-      { Text = proc_icon[1] },
-      { Background = { Color = bg } },
-      { Foreground = { Color = fg } },
-      { Text = title },
-      { Background = { Color = right_edge_bg } },
-      { Foreground = { Color = right_edge_fg } },
-      { Text = right_edge },
-    }
-  end)
+--    return {
+--      { Background = { Color = left_edge_bg } },
+--      { Foreground = { Color = left_edge_fg } },
+--      { Text = left_edge },
+--      { Background = { Color = bg } },
+--      { Foreground = { Color = proc_icon.color.fg } },
+--      { Text = proc_icon[1] },
+--      { Background = { Color = bg } },
+--      { Foreground = { Color = fg } },
+--      { Text = title },
+--      { Background = { Color = right_edge_bg } },
+--      { Foreground = { Color = right_edge_fg } },
+--      { Text = right_edge },
+--    }
+--  end)
 
   config.window_frame = {
     active_titlebar_fg = "hsla(0 0% 0% 0%)",
