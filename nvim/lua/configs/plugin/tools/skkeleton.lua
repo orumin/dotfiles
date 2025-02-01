@@ -54,7 +54,6 @@ return function ()
       { dict_dir .. "SKK-JISYO.china_taiwan", "euc-jp"},
       dict_dir .. "SKK-JISYO.pinyin",
     },
-    usePopup = false,
     userDictionary = userDictionary
   })
 end
