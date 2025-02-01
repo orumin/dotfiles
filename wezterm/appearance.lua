@@ -25,9 +25,10 @@ M.increase_opacity = function (window)
 end
 
 
----@param config table
+---@param config Config
 ---@return table
 M.setup = function (config)
+  ---@type Wezterm
   local wezterm = require("wezterm")
   ---@source ./utils.lua
   local utils = require("utils") --[[@as wezutils]]
@@ -61,6 +62,7 @@ M.setup = function (config)
   config.use_fancy_tab_bar = false
   local SOFT_LEFT_ARROW = wezterm.nerdfonts.pl_left_soft_divider
   local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
+  ---@param tab_info MuxTabObj
   local function tab_title(tab_info)
     local title = tab_info.tab_title
     if title and #title > 0 then

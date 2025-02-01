@@ -1,13 +1,14 @@
 ---@source ./utils.lua
 local utils = require("utils") --[[@as wezutils]]
 -- Pull in the wezterm API
+---@source Wezterm
 local wezterm = require("wezterm")
 
 ---@class WezConfigGpu
 local M = {}
 
----@param config table
----@return table config
+---@param config Config
+---@return Config config
 M.setup = function (config)
   local frontend_configs = {
     ["low"] = {

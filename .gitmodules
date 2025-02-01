@@ -25,3 +25,6 @@
 [submodule "catppuccin/powershell"]
 	path = catppuccin/powershell
 	url = https://github.com/catppuccin/powershell
+[submodule "wezterm/wezterm-types"]
+	path = wezterm/wezterm-types
+	url = https://github.com/justinsgithub/wezterm-types

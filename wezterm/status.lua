@@ -1,3 +1,4 @@
+---@type Wezterm
 local wezterm = require("wezterm")
 local M = {}
 
@@ -33,8 +34,8 @@ local bat_icon = {
   }
 }
 
----@param window any
----@param pane  any
+---@param window Window
+---@param pane Pane
 function M.update_right_status(window, pane)
   local _ = pane
   local scheme = wezterm.get_builtin_color_schemes()["Catppuccin Mocha"]

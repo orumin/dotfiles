@@ -3,7 +3,6 @@
     "runtime.version": "Lua 5.4",
     "hint.enable": true,
     "workspace" : {
-        "checkThirdParty": false
-    },
-    "workspace.checkThirdParty": false
+        "library" : ["./wezterm-types/types"]
+    }
 }

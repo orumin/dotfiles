@@ -8,6 +8,7 @@ local restore = require("restore")
 ---@source ./status.lua
 local status = require("status")
 -- Pull in the wezterm API
+---@type Wezterm
 local wezterm = require("wezterm")
 
 -- This table will hold the configuration.
