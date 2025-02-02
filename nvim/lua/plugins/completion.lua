@@ -8,7 +8,7 @@ return {
     event = "InsertEnter",
     dependencies = {
       "rafamadriz/friendly-snippets",
-      require("configs").use_copilot and { "giuxtaposition/blink-cmp-copilot", dependencies = "zbirenbaum/copilot.lua" } or nil,
+      { "giuxtaposition/blink-cmp-copilot", dependencies = "zbirenbaum/copilot.lua" },
     },
     version = "v0.*",
     config = require("completion.blink_cmp_conf")
