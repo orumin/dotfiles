@@ -81,7 +81,7 @@ switch $OSTYPE
 if test \( (uname -r | sed -e 's/#1-\(Microsoft\).*/\1/') = "Microsoft" \) \
     -o \( (uname -r | sed -e 's/#1-\(microsoft\).*/\1/') = "microsoft" \) \
     -o \( (uname -r | awk -F- '{print $4}') = "WSL2" \)
-    set -x DISPLAY localhost:0.0
+    set -x DISPLAY ":0"
     set -x COLORTERM truecolor
 end
 
