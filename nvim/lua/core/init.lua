@@ -339,6 +339,11 @@ M.init = function ()
   -- eol = false,
   vim.opt.fixeol = false
 
+  -- https://reddit.com/r/neovim/comments/1ihpvaf/the_linematch_diffopt_makes_builtin_diff_so_sweat/
+  -- https://github.com/neovim/neovim/pull/14537
+  -- vimdiff
+  vim.opt.diffopt = "internal,filler,closeoff,linematch:60"
+
   -- setting edit
   vim.opt.autoindent = true
   vim.opt.smartindent = true
