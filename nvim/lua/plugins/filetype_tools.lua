@@ -51,6 +51,11 @@ return {
       "nvim-lua/plenary.nvim"
     },
   },
+  -- vimdoc
+  {
+    "OXY2DEV/helpview.nvim",
+    lazy = false
+  },
   -- x86 asm
   {
     "shiracamus/vim-syntax-x86-objdump-d",
