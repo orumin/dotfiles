@@ -92,6 +92,7 @@ return {
     },
     keys = require("configs.keymap.hydra").git,
     config = function()
+      require("gitsigns").setup()
       local Hydra = require("hydra")
       Hydra(require("ui.hydra_conf").setup["git"]())
     end
