@@ -149,6 +149,12 @@ return {
     init = require("configs.ui.color").set_skkeleton_indicator_hl(),
     config = true,
   },
+  -- CSV/TSV viewer
+  {
+    "hat0uma/csvview.nvim",
+    opts = require("tools.csvview_conf"),
+    cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
+  },
   -- writing table in plain text
   {
     "mattn/vim-maketable",
