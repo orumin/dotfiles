@@ -1,4 +1,5 @@
 return {
+  -- tweet your neovim per type any character, by voice of 'Natori Sana'
   {
     "himanoa/ttene.nvim",
     event = { "InsertEnter" },
@@ -15,6 +16,7 @@ return {
       end
     end,
   },
+  -- show mini pets on your neovim
   {
     "giusgad/pets.nvim",
     cmd = {
@@ -38,5 +40,13 @@ return {
       row = 8,
       col = 8
     }
+  },
+  -- make your code to cellular automaton (lifegame, scramble, etc)
+  {
+    "Eandrju/cellular-automaton.nvim",
+    cmd = "CellularAutomaton",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
   },
 }

@@ -43,12 +43,4 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
   },
-  -- joke with treesitter
-  {
-    "Eandrju/cellular-automaton.nvim",
-    cmd = "CellularAutomaton",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-  },
 }
