@@ -49,4 +49,13 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
   },
+  -- play casino!
+  {
+    "steveslatky/vimcino",
+    ----- optional custom options
+    -----@field vimcino.Config
+    -- opts = {},
+    config = true,
+    cmd = { "Vimcino", "VimcinoStats" },
+  },
 }

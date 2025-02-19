@@ -110,6 +110,7 @@
   "vim-pandoc-syntax": { "branch": "master", "commit": "16939cda184ff555938cc895cc62477c172997f9" },
   "vim-startuptime": { "branch": "master", "commit": "b6f0d93f6b8cf6eee0b4c94450198ba2d6a05ff6" },
   "vim-syntax-x86-objdump-d": { "branch": "master", "commit": "d231a44b4d9f7b1027d344cbb9288f8cfbb6204d" },
+  "vimcino": { "branch": "main", "commit": "e168aeef8dd947ee4475e6de3bc0800e967f7714" },
   "which-key.nvim": { "branch": "main", "commit": "5bf7a73fe851896d5ac26d313db849bf00f45b78" },
   "window-picker": { "branch": "main", "commit": "0dfef64eaf063e1cd27983ab11a30e7bc5b74fac" },
   "windows.nvim": { "branch": "main", "commit": "c7492552b23d0ab30325e90b56066ec51242adc8" }
