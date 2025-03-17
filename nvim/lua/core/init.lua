@@ -97,8 +97,8 @@ local function legacy_clipboard_settings()
   if G.is_mac then
     ret = {
       name = "macOS-clipboard",
-      copy = { ["+"] = "pbcopy", ["*"] = "pbcopy", },
-      paste = { ["+"] = "pbpaste", ["*"] = "pbpaste", },
+      copy = { ["+"] = {"pbcopy"}, ["*"] = {"pbcopy"}, },
+      paste = { ["+"] = {"pbpaste"}, ["*"] = {"pbpaste"}, },
       cache_enabled = 0,
     }
     return ret
@@ -126,7 +126,7 @@ local function legacy_clipboard_settings()
         or "powershell.exe"
       ret = {
         name = "windows-Clipboard",
-        copy = { ["+"] = "clip.exe", ["*"] = "clip.exe", },
+        copy = { ["+"] = {"clip.exe"}, ["*"] = {"clip.exe"}, },
         paste = {
           ["+"] = {pwsh, "-Command", '[Console]::Out.Write($(Get-Clipboard -Raw)).tostring().replace("`r", ""))'},
           ["*"] = {pwsh, "-Command", '[Console]::Out.Write($(Get-Clipboard -Raw)).tostring().replace("`r", ""))'},
@@ -207,7 +207,7 @@ end
 local function setting_clipboard()
   local G = require("envutils"):globals()
   if vim.fn.has("nvim-0.10") == 1 then
-    if vim.env.TMUX ~= nil and not G.is_headless then
+    if vim.env.TMUX ~= nil and not G.is_headless and not vim.g.neovide then
       vim.g.clipboard = {
         name = "tmuxClipboard",
         copy = {
@@ -289,7 +289,7 @@ M.init = function ()
 
   -- font for GUI client
   if G.is_win then
-    vim.opt.guifont = "Monaspace Argon,Symbols Nerd Font Mono,BIZ UDゴシック,Noto Color Emoji:h10:#h-slight"
+    vim.opt.guifont = "Monaspace Argon,BIZ UDゴシック,:h10:#h-slight"
   else
     vim.opt.guifont = "Monaspace Argon,Symbols Nerd Font Mono,PlemolJP Console NF,Noto Color Emoji:h10:#h-slight"
   end

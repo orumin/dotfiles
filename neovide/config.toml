@@ -1,5 +1,5 @@
 [font]
-size = 10.0
+size = 8.0
 hinting = "slight"
 edging = "antialias"
 
@@ -7,43 +7,27 @@ edging = "antialias"
 family = "Monaspace Argon"
 style = "Regular"
 [[font.normal]]
-family = "Symbols Nerd Font Mono"
-[[font.normal]]
 family = "BIZ UDゴシック"
-[[font.normal]]
-family = "Noto Color Emoji"
 
 [[font.italic]]
 family = "Monaspace Radon"
 style = "ExtraLight"
 [[font.italic]]
-family = "Symbols Nerd Font Mono"
-[[font.italic]]
 family = "BIZ UDゴシック"
 style = "Regular"
-[[font.italic]]
-family = "Noto Color Emoji"
 
 [[font.bold]]
 family = "Monaspace Krypton"
 style = "Light"
-[[font.bold]]
-family = "Symbols Nerd Font Mono"
 [[font.bold]]
 family = "BIZ UDゴシック"
 style = "ExtraLight"
-[[font.bold]]
-family = "Noto Color Emoji"
 
 [[font.bold_italic]]
 family = "Monaspace Krypton"
 style = "Light"
 [[font.bold_italic]]
-family = "Symbols Nerd Font Mono"
-[[font.bold_italic]]
 family = "BIZ UDゴシック"
-[[font.bold_italic]]
-family = "Noto Color Emoji"
 
 [font.features]
 "Monaspace Argon" = ["calt", "liga", "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08", "ss09"]
