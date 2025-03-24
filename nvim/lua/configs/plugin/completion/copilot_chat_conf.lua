@@ -51,11 +51,11 @@ local opts = {
       normal = "gmd",
     },
     -- Show the prompt
-    show_system_prompt = {
+    show_info = {
       normal = "gmp",
     },
     -- Show the user selection
-    show_user_selection = {
+    show_context = {
       normal = "gms",
     },
   },

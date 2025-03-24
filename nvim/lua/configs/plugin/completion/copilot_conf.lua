@@ -1,6 +1,7 @@
 return function ()
   if require("configs").use_copilot then
-    require("copilot").setup({
+    ---@type copilot_config
+    local opts = {
       suggestion = { enabled = false },
       panel = { enabled = false },
       filetypes = {
@@ -23,6 +24,7 @@ return function ()
         end,
         ["*"] = false
       },
+      --copilot_model = "gpt-35-turbo",
       server_opts_overrides = {
         trace = "verbose",
         settings = {
@@ -32,6 +34,7 @@ return function ()
           },
         },
       }
-    })
+    }
+    require("copilot").setup(opts)
   end
 end
