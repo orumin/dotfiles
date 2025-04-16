@@ -101,6 +101,11 @@ return {
 ---------------------------------------------------------------
 -- improve editor feature
 ---------------------------------------------------------------
+  {
+    "pteroctopus/faster.nvim",
+    lazy = false,
+    config = true,
+  },
   -- listchar
   {
     "fraso-dev/nvim-listchars",
