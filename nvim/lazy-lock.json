@@ -13,6 +13,8 @@
   "committia.vim": { "branch": "master", "commit": "c8c0f255e8090ed90dd9d5dd2e8672994f8e3671" },
   "compiler-explorer.nvim": { "branch": "master", "commit": "ee8e7a2808bdad67cd2acb61b5c9ffa7735c7ec9" },
   "conform.nvim": { "branch": "master", "commit": "372fc521f8421b7830ea6db4d6ea3bae1c77548c" },
+  "copilot-lsp": { "branch": "main", "commit": "3510b84737cab09e66714fce5ba18f6249fdf60c" },
+  "copilot-lualine": { "branch": "main", "commit": "6bc29ba1fcf8f0f9ba1f0eacec2f178d9be49333" },
   "copilot.lua": { "branch": "master", "commit": "7ba73866b9b3c696f80579c470c6eec374d3acec" },
   "csvview.nvim": { "branch": "main", "commit": "6eb9c7293d35c40a71ec1eb9c653d80e8de5a2e9" },
   "denops-lazy.nvim": { "branch": "main", "commit": "6e45635cb65d083f5c0787abf45eeda864f6747c" },
