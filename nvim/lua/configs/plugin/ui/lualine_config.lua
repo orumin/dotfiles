@@ -81,7 +81,7 @@ return {
       },
     },
     lualine_c = {'filename', auto_session, },
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_x = {'copilot', 'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },

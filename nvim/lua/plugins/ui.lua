@@ -74,8 +74,9 @@ return {
     event = { "BufEnter" },
     dependencies = {
       "nvim-tree/nvim-web-devicons",
+      "AndreM222/copilot-lualine",
     },
-    config = require("ui.lualine_config"),
+    opts = require("ui.lualine_config"),
   },
   -- scroll minimap
   {
