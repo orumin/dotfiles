@@ -10,11 +10,13 @@ return function ()
       },
       dap = true,
       dap_ui = true,
+      diffview = true,
       dropbar = {
         enabled = true,
         color_mode = true
       },
       fidget = true,
+      gitgraph = true,
       gitsigns = true,
       indent_blankline = {
         enabled = true,
