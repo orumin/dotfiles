@@ -5,6 +5,7 @@ local icons = {
   codicons = require("configs.ui.icons").get("codicons"),
 }
 
+---@type vim.lsp.Config
 M.lsp_opts = {
   filetypes = { "c", "cpp", "cuda", "objc", "objcpp" },
   capabilities = { offsetEncoding = { "utf-16", "utf-8" } },

@@ -1,4 +1,5 @@
-return {
+---@type vim.lsp.Config
+local opts = {
   settings = {
     Lua = {
       completion = {
@@ -23,3 +24,4 @@ return {
   }
 }
 
+return opts

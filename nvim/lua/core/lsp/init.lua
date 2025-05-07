@@ -357,11 +357,6 @@ M.peek_implementation = function()
 end
 
 M.setup_handlers = function()
-  local opts = {
-    autostart = true,
-    capabilities = make_capabilities(),
-  }
-
   --- HACK: Override `vim.lsp.util.stylize_markdown` to use Treesitter.
   ---@param bufnr integer
   ---@param contents string[]
@@ -381,40 +376,24 @@ M.setup_handlers = function()
     return contents
   end
 
-  ---@param server_name string
-  local function mason_handler(server_name)
-    local configs = require("configs")
-    local utils = require("envutils")
-    local G = utils:globals()
-    require("lspconfig.ui.windows").default_options.border = configs.window_style.border
-    local lspconfig = require("lspconfig")
-
-    if vim.iter(configs.lsp_disabled_servers):find(server_name) ~= nil then
-      G.pr_info("skip setup language_server, " .. server_name, {title = "nvim-lspconfig"})
-      return
-    end
-
-    local ok, custom_handler = pcall(require, "core.lsp.servers." .. server_name)
-    if not ok then
-      lspconfig[server_name].setup(opts)
-    elseif type(custom_handler) == "function" then
-      custom_handler(opts)
-    elseif type(custom_handler) == "table" then
-      lspconfig[server_name].setup(vim.tbl_deep_extend("force", opts, custom_handler))
-    else
-      G.pr_error("Failed to setup [" .. server_name .. "]. fix core/lsp/servers/" .. server_name .. ".lua",
-        {title = "nvim-lspconfig"})
-    end
-  end
-
   local configs = require("configs")
+  require("lspconfig.ui.windows").default_options.border = configs.window_style.border
+
   local servers = configs.lsp_default_servers
   local mason_lspconfig = require("mason-lspconfig")
   mason_lspconfig.setup({
+    automatic_enable = false,
     automatic_installation = true,
     ensure_installed = servers,
   })
-  mason_lspconfig.setup_handlers({ mason_handler })
+
+  local opts = {
+    autostart = true,
+    capabilities = make_capabilities(),
+  }
+
+  vim.lsp.config('*', opts)
+  vim.lsp.enable(require('mason-lspconfig').get_installed_servers())
 end
 
 M.setup = function()
@@ -485,6 +464,8 @@ M.setup = function()
       if client then on_lsp_attach(client, ev.buf) end
     end
   })
+
+  require("core.lsp.on_attach").setup()
 end
 
 return M

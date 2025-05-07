@@ -1,4 +1,5 @@
-return {
+---@type vim.lsp.Config
+local opts = {
   settings = {
     python = {
       venvPath = ".",
@@ -10,3 +11,4 @@ return {
   }
 }
 
+return opts
