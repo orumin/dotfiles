@@ -18,7 +18,15 @@ return {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
-    config = require("completion.copilot_conf")
+    config = require("completion.copilot_conf").setup
+  },
+  {
+    "copilotlsp-nvim/copilot-lsp",
+    event = "InsertEnter",
+    init = function()
+      vim.g.copilot_nes_debounce = 500
+    end,
+    config = require("completion.copilot_conf").setup_lsp
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
