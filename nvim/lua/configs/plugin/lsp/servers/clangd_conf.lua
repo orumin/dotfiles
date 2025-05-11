@@ -7,6 +7,12 @@ local icons = {
 
 ---@type vim.lsp.Config
 M.lsp_opts = {
+  cmd = {
+    "clangd",
+    "--clang-tidy",
+    "--background-index",
+    "--offset-encoding=utf-8"
+  },
   filetypes = { "c", "cpp", "cuda", "objc", "objcpp" },
   capabilities = { offsetEncoding = { "utf-16", "utf-8" } },
   single_file_support = true,
@@ -24,13 +30,13 @@ M.lsp_opts = {
       vim.cmd(vim.o.keywordprg .. " " .. vim.fn.expand("<cword>"))
     end, { buffer = bufnr, desc = "search document by cword" })
 
-    local ok, cmake_session = pcall(require, "cmake-tools.session")
-    if ok then
-      cmake_session.save({
-        build_directory = "build",
-        build_type = "Debug",
-      })
-    end
+    --local ok, cmake_session = pcall(require, "cmake-tools.session")
+    --if ok then
+    --  cmake_session.save({
+    --    build_directory = "build",
+    --    build_type = "Debug",
+    --  })
+    --end
   end,
 }
 

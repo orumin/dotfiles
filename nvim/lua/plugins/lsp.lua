@@ -6,8 +6,8 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     dependencies = {
-      { "williamboman/mason.nvim" },
-      { "williamboman/mason-lspconfig.nvim" },
+      { "mason-org/mason.nvim" },
+      { "mason-org/mason-lspconfig.nvim" },
     },
     init = function ()
       -- disable lsp watcher. Too slow on linux
@@ -21,7 +21,7 @@ return {
     config = require("core.lsp").setup_handlers,
   },
   {
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
     cmd = "Mason",
     config = require("lsp.mason_conf"),
   },
@@ -30,7 +30,7 @@ return {
     "mfussenegger/nvim-lint",
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     dependencies = {
-      { "williamboman/mason.nvim" },
+      { "mason-org/mason.nvim" },
       { "rshkarin/mason-nvim-lint" }
     },
     config = require("lsp.linter_config"),

@@ -77,7 +77,7 @@ return {
       "DapTerminate"
     },
     dependencies = {
-      { "williamboman/mason.nvim" },
+      { "mason-org/mason.nvim" },
       { "jay-babu/mason-nvim-dap.nvim" },
       { "rcarriga/nvim-dap-ui" },
       { "theHamsta/nvim-dap-virtual-text" },
