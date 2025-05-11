@@ -16,11 +16,21 @@ M.lsp_opts = {
     completeUnimported = true,
     semanticHighlighting = true,
   },
+  root_dir = require("lspconfig.util")
+               .root_pattern("build/compile_commands.json", ".git", "compile_commands.json", "compile_flags.txt"),
   on_attach = function (_, bufnr)
     vim.keymap.set("n", "<C-k>", function() vim.lsp.buf.hover({border=require("configs").window_style.border}) end, { buffer = bufnr })
     vim.keymap.set("n", "K", function()
       vim.cmd(vim.o.keywordprg .. " " .. vim.fn.expand("<cword>"))
     end, { buffer = bufnr, desc = "search document by cword" })
+
+    local ok, cmake_session = pcall(require, "cmake-tools.session")
+    if ok then
+      cmake_session.save({
+        build_directory = "build",
+        build_type = "Debug",
+      })
+    end
   end,
 }
 

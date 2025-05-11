@@ -464,8 +464,6 @@ M.setup = function()
       if client then on_lsp_attach(client, ev.buf) end
     end
   })
-
-  require("core.lsp.on_attach").setup()
 end
 
 return M
