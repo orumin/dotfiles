@@ -75,17 +75,6 @@ vim.api.nvim_create_autocmd({'FileType'}, {
 
 })
 
--- TODO: remove below block
--- if vim.lsp.enable is certainly worked
-local clangd_augroup = vim.api.nvim_create_augroup("launchClangd", {clear = true})
-vim.api.nvim_create_autocmd({'FileType'}, {
-  group = clangd_augroup,
-  pattern = {"c", "cpp", "objc", "objcpp"},
-  callback = function (ev)
-    vim.lsp.start(require("configs.plugin.lsp.servers.clangd_conf").lsp_opts)
-  end
-
-})
 --###############################################################
 -- Terminal
 --###############################################################

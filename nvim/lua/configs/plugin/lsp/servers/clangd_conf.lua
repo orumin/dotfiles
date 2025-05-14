@@ -22,8 +22,6 @@ M.lsp_opts = {
     completeUnimported = true,
     semanticHighlighting = true,
   },
-  root_dir = require("lspconfig.util")
-               .root_pattern("build/compile_commands.json", ".git", "compile_commands.json", "compile_flags.txt"),
   on_attach = function (_, bufnr)
     vim.keymap.set("n", "<C-k>", function() vim.lsp.buf.hover({border=require("configs").window_style.border}) end, { buffer = bufnr })
     vim.keymap.set("n", "K", function()
