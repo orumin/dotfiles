@@ -23,9 +23,6 @@ return {
   {
     "Bekaboo/dropbar.nvim",
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
-    dependencies = {
-      { "nvim-telescope/telescope-fzf-native.nvim" }
-    },
   },
   -- colorful window separator
   {

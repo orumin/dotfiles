@@ -39,7 +39,6 @@ return {
     },
     dependencies = {
       { "zbirenbaum/copilot.lua" },
-      { "nvim-telescope/telescope.nvim" },
       { "nvim-lua/plenary.nvim" },
     },
     -- TODO: use 'build' for only macOS or Linux

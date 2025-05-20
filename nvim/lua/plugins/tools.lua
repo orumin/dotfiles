@@ -2,6 +2,12 @@ return {
 ---------------------------------------------------------------
 -- Tools
 ---------------------------------------------------------------
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = require("tools.snacks_conf")
+  },
   -- auto correct
   {
     "https://git.sr.ht/~swaits/thethethe.nvim",
@@ -221,8 +227,7 @@ return {
   {
     "2kabhishek/nerdy.nvim",
     dependencies = {
-      { "stevearc/dressing.nvim" },
-      { "nvim-telescope/telescope.nvim" }
+      { "folke/snacks.nvim" }
     },
     cmd = "Nerdy",
   },

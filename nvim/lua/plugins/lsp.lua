@@ -69,7 +69,6 @@ return {
     cmd = { "Trouble", "TroubleToggle", "TroubleRefresh" },
     dependencies = {
       { "nvim-tree/nvim-web-devicons" },
-      { "nvim-telescope/telescope.nvim" }
     },
     keys = require("configs.keymap.trouble"),
     config = require("lsp.trouble"),

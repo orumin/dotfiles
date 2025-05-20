@@ -101,62 +101,62 @@ M.setup["git"] = function()
   return opts
 end
 
-M.setup["telescope"] = function()
-  local keymaps = require("configs.keymap.hydra")
-  local builtin = require("telescope.builtin")
-  local hint = [[
-                 _f_: files       _m_: marks
-   🭇🬭🬭🬭🬭🬭🬭🬭🬭🬼    _o_: old files   _g_: live grep
-  🭉🭁🭠🭘    🭣🭕🭌🬾   _p_: projects    _/_: search in file
-  🭅█ ▁     █🭐
-  ██🬿      🭊██   _r_: resume      _u_: undotree
- 🭋█🬝🮄🮄🮄🮄🮄🮄🮄🮄🬆█🭀  _h_: vim help    _c_: execute command
- 🭤🭒🬺🬹🬱🬭🬭🬭🬭🬵🬹🬹🭝🭙  _k_: keymaps     _;_: commands history
-                 _O_: options     _?_: search history
- ^
-                 _<Enter>_: Telescope           _<Esc>_
-]]
-
-  ---@class HydraInput
-  local opts = {
-    name = keymaps["telescope"].desc,
-    hint = hint,
-    config = {
-      debug = false,
-      exit = false,
-      timeout = false,
-      color = 'teal',
-      invoke_on_body = true,
-      hint = {
-        show_name = true,
-        offset = 0,
-        type = "window",
-        position = { 'middle' },
-      },
-    },
-    mode = keymaps["telescope"].mode,
-    body = keymaps["telescope"][1],
-    heads = {
-      { 'f', builtin.find_files, { desc = "find files" } },
-      { 'g', builtin.live_grep, { desc = "live grep" } },
-      { 'o', builtin.oldfiles, { desc = "recently opened files" } },
-      { 'h', builtin.help_tags, { desc = "vim help" } },
-      { 'm', builtin.marks, { desc = "marks" } },
-      { 'k', builtin.keymaps, { desc = "show keymaps" } },
-      { 'O', builtin.vim_options, { desc = "show vim options" } },
-      { 'r', builtin.resume, { desc = "telescope resume" } },
---      { 'p', require("session-lens").search_session, { desc = "projects" } },
-      { '/', builtin.current_buffer_fuzzy_find, { desc = "search in file" } },
-      { '?', builtin.search_history,  { desc = "search history" } },
-      { ';', builtin.command_history, { desc = "command-line history" } },
-      { 'c', builtin.commands, { desc = "execute command" } },
-      { 'u', require("telescope").extensions.undo.undo, { desc = "undotree" }},
-      { '<Enter>', builtin.builtin, { exit = true, desc = "list all pickers" } },
-      { '<Esc>', nil, { exit = true, nowait = true } },
-    }
-  }
-  return opts
-end
+--M.setup["telescope"] = function()
+--  local keymaps = require("configs.keymap.hydra")
+--  local builtin = require("telescope.builtin")
+--  local hint = [[
+--                 _f_: files       _m_: marks
+--   🭇🬭🬭🬭🬭🬭🬭🬭🬭🬼    _o_: old files   _g_: live grep
+--  🭉🭁🭠🭘    🭣🭕🭌🬾   _p_: projects    _/_: search in file
+--  🭅█ ▁     █🭐
+--  ██🬿      🭊██   _r_: resume      _u_: undotree
+-- 🭋█🬝🮄🮄🮄🮄🮄🮄🮄🮄🬆█🭀  _h_: vim help    _c_: execute command
+-- 🭤🭒🬺🬹🬱🬭🬭🬭🬭🬵🬹🬹🭝🭙  _k_: keymaps     _;_: commands history
+--                 _O_: options     _?_: search history
+-- ^
+--                 _<Enter>_: Telescope           _<Esc>_
+--]]
+--
+--  ---@class HydraInput
+--  local opts = {
+--    name = keymaps["telescope"].desc,
+--    hint = hint,
+--    config = {
+--      debug = false,
+--      exit = false,
+--      timeout = false,
+--      color = 'teal',
+--      invoke_on_body = true,
+--      hint = {
+--        show_name = true,
+--        offset = 0,
+--        type = "window",
+--        position = { 'middle' },
+--      },
+--    },
+--    mode = keymaps["telescope"].mode,
+--    body = keymaps["telescope"][1],
+--    heads = {
+--      { 'f', builtin.find_files, { desc = "find files" } },
+--      { 'g', builtin.live_grep, { desc = "live grep" } },
+--      { 'o', builtin.oldfiles, { desc = "recently opened files" } },
+--      { 'h', builtin.help_tags, { desc = "vim help" } },
+--      { 'm', builtin.marks, { desc = "marks" } },
+--      { 'k', builtin.keymaps, { desc = "show keymaps" } },
+--      { 'O', builtin.vim_options, { desc = "show vim options" } },
+--      { 'r', builtin.resume, { desc = "telescope resume" } },
+----      { 'p', require("session-lens").search_session, { desc = "projects" } },
+--      { '/', builtin.current_buffer_fuzzy_find, { desc = "search in file" } },
+--      { '?', builtin.search_history,  { desc = "search history" } },
+--      { ';', builtin.command_history, { desc = "command-line history" } },
+--      { 'c', builtin.commands, { desc = "execute command" } },
+--      { 'u', require("telescope").extensions.undo.undo, { desc = "undotree" }},
+--      { '<Enter>', builtin.builtin, { exit = true, desc = "list all pickers" } },
+--      { '<Esc>', nil, { exit = true, nowait = true } },
+--    }
+--  }
+--  return opts
+--end
 
 M.setup["dap"] = function()
   local keymaps = require("configs.keymap.hydra")

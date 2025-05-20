@@ -41,27 +41,6 @@ return {
     config = require("editor.neotree"),
   },
 ---------------------------------------------------------------
--- Fuzzy Finder
----------------------------------------------------------------
-  {
-    "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
-    dependencies = {
-      { "nvim-lua/plenary.nvim" },
-      { "nvim-tree/nvim-web-devicons" },
-      { "fdschmidt93/telescope-egrepify.nvim" },
-      { "folke/trouble.nvim" },
-      { "debugloop/telescope-undo.nvim" },
-      { "cathyprime/hydra.nvim" }
-    },
-    keys = require("configs.keymap.hydra").telescope,
-    config = function ()
-      local Hydra = require("hydra")
-      require("editor.telescope_conf").setup()
-      Hydra(require("ui.hydra_conf").setup["telescope"]())
-    end
-  },
----------------------------------------------------------------
 -- Debugger Adapter Protocol
 ---------------------------------------------------------------
   {
