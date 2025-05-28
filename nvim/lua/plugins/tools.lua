@@ -6,7 +6,8 @@ return {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
-    opts = require("tools.snacks_conf")
+    opts = require("tools.snacks_conf"),
+    keys = require("configs.keymap.snacks_picker"),
   },
   -- auto correct
   {
