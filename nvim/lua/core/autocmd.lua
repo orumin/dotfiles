@@ -45,7 +45,7 @@ vim.api.nvim_create_autocmd('FileType', {
 local indent_augroup = vim.api.nvim_create_augroup('setIndent', { clear = true })
 vim.api.nvim_create_autocmd('FileType', {
   group = indent_augroup,
-  pattern = {'ansible', 'cmake', 'lua', 'yaml'},
+  pattern = {'ansible', 'cmake', 'lua', 'typst', 'yaml'},
   callback = function()
     vim.bo.shiftwidth     = 2
     vim.bo.tabstop        = 2

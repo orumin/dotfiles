@@ -25,6 +25,16 @@ return {
     "vim-pandoc/vim-pandoc-syntax",
     ft = "pandoc",
   },
+  -- typst
+  {
+    "kaarmu/typst.vim",
+    ft = "typst",
+    init = function()
+      if vim.fn.executable("tdf") == 1 then
+        vim.g.typst_pdf_viewer = "tdf"
+      end
+    end,
+  },
   -- Lua (NeoVim)
   {
     "folke/lazydev.nvim",

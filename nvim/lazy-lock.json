@@ -102,6 +102,7 @@
   "tree-sitter-loongdoc": { "branch": "master", "commit": "5b6ccea9953b939959f447f7bfea699ae6968a99" },
   "trouble.nvim": { "branch": "main", "commit": "85bedb7eb7fa331a2ccbecb9202d8abba64d37b3" },
   "ttene.nvim": { "branch": "master", "commit": "7261125485b37311c39f730cc5342f85487e394c" },
+  "typst.vim": { "branch": "main", "commit": "323539709e29a537ff39dfce6c05f175a8921504" },
   "venn.nvim": { "branch": "main", "commit": "b09c2f36ddf70b498281845109bedcf08a7e0de0" },
   "vim-bitbake": { "branch": "master", "commit": "0a229746e4a8e9c5b3b4666e9452dec2cbe69c9b" },
   "vim-illuminate": { "branch": "master", "commit": "0d1e93684da00ab7c057410fecfc24f434698898" },

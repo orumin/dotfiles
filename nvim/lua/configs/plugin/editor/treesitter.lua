@@ -49,7 +49,7 @@ return function()
       "lua", "luadoc", "luap", "luau", "make", "markdown", "markdown_inline", "mermaid", "meson", "nasm", "ninja", "nix",
       "objc", "ocaml", "ocaml_interface", --[["ocamllex",]] "pascal", "passwd", "perl", "proto", "python", "query", "regex",
       "requirements", "rst", "ruby", "rust", "scss", "sql", "ssh_config", "strace", "systemtap",
-      "textproto", "todotxt", "toml", "typescript", "vim", "vimdoc", "vue", "xml", "yaml"
+      "textproto", "todotxt", "toml", "typescript", "typst", "vim", "vimdoc", "vue", "xml", "yaml"
     },
     auto_install = true,
     ignore_install = {},

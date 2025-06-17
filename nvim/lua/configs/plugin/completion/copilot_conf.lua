@@ -17,6 +17,7 @@ return {
             end
             return true
           end,
+          typst = true,
           lua = function ()
             if string.find(vim.api.nvim_buf_get_name(0), "dotfiles") then
               return true
