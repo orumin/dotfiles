@@ -11,7 +11,7 @@ return {
   {
     "p00f/clangd_extensions.nvim",
     ft = { "c", "cpp", "objc", "objcpp" },
-    opts = require("configs.plugin.lsp.servers.clangd_conf").ext_opts
+    opts = require("lsp.servers.clangd_conf").ext_opts
   },
   -- C (qmk firmware)
   {
