@@ -99,7 +99,6 @@
   "toggle.nvim": { "branch": "main", "commit": "50769ba8982d3d3a8fbd1d1a2e5cad63c73df662" },
   "toggleterm.nvim": { "branch": "main", "commit": "9a88eae817ef395952e08650b3283726786fb5fb" },
   "transparent.nvim": { "branch": "main", "commit": "8ac59883de84e9cd1850ea25cf087031c5ba7d54" },
-  "tree-sitter-loongdoc": { "branch": "master", "commit": "673baad6c970c51985b7aaae29f003e127dd6e43" },
   "trouble.nvim": { "branch": "main", "commit": "85bedb7eb7fa331a2ccbecb9202d8abba64d37b3" },
   "ttene.nvim": { "branch": "master", "commit": "7261125485b37311c39f730cc5342f85487e394c" },
   "typst.vim": { "branch": "main", "commit": "323539709e29a537ff39dfce6c05f175a8921504" },
