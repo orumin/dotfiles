@@ -55,11 +55,10 @@ return {
 
   -- Rust
   {
-    "simrat39/rust-tools.nvim",
+    "mrcjkb/rustaceanvim",
+    version = '^6',
     ft = "rust",
-    dependencies = {
-      "nvim-lua/plenary.nvim"
-    },
+    init = require("tools.rustaceanvim_conf")
   },
   -- vimdoc
   {

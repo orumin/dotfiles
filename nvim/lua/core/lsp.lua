@@ -393,7 +393,13 @@ M.setup_handlers = function()
   }
 
   vim.lsp.config('*', opts)
-  vim.lsp.enable(require('mason-lspconfig').get_installed_servers())
+  -- rust-analyzer will be enabled by 'rustaceanvim' plugin.
+  vim.lsp.enable(
+    vim.iter(require('mason-lspconfig').get_installed_servers())
+      :filter(function (v)
+        return v ~= "rust_analyzer"
+      end):totable()
+  )
 end
 
 M.setup = function()
