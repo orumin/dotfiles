@@ -85,7 +85,7 @@
   "qmk.nvim": { "branch": "main", "commit": "3c804c1480991e4837514900b22b9358cfd64fa1" },
   "rainbow-delimiters.nvim": { "branch": "master", "commit": "97bf4b8ef9298644a29fcd9dd41a0210cf08cac7" },
   "reactive.nvim": { "branch": "master", "commit": "e0a22a42811ca1e7aa7531f931c55619aad68b5d" },
-  "render-markdown": { "branch": "main", "commit": "5c0e241bdbd208b7ae546009378d6bc93c083ef3" },
+  "render-markdown.nvim": { "branch": "main", "commit": "5c0e241bdbd208b7ae546009378d6bc93c083ef3" },
   "rustaceanvim": { "branch": "master", "commit": "66398662c07d265b226897500ed50eafba3dffb4" },
   "skkeleton": { "branch": "main", "commit": "4412cfb90cd4dab8c03d8df88660f857fad370c2" },
   "skkeleton_indicator.nvim": { "branch": "v2", "commit": "f08532787cf842b996c8a5065be7e85cd3376c1f" },

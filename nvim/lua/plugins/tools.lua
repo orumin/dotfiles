@@ -41,15 +41,12 @@ return {
   },
   -- Markdown previewer
   {
-    "MeanderingProgrammer/markdown.nvim",
-    name = "render-markdown",
+    "MeanderingProgrammer/render-markdown.nvim",
     ft = "markdown",
     dependencies = {
       { "nvim-treesitter/nvim-treesitter" },
     },
-    config = function()
-      require("render-markdown").setup({})
-    end
+    opts = true,
   },
   {
     "orumin/glow.nvim",
