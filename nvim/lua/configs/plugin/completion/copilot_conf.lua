@@ -6,6 +6,7 @@ return {
         suggestion = { enabled = false },
         panel = { enabled = false },
         filetypes = {
+          asciidoc = true,
           cmake = true,
           gitcommit = true,
           gitrebase = true,
