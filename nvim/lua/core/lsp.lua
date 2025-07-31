@@ -331,7 +331,7 @@ end
 M.peek_definition = function()
   local methods = vim.lsp.protocol.Methods
   local params = vim.lsp.util.make_position_params(vim.api.nvim_get_current_win(), 'utf-8')
-  return vim.lsp.buf_request(vim.api.get_current_buf(), methods.textDocument_definition, params, preview_location_cb)
+  return vim.lsp.buf_request(vim.api.nvim_get_current_buf(), methods.textDocument_definition, params, preview_location_cb)
 end
 
 ---@return table<integer, integer> client_request_ids Map of client-id:request-id pairs
@@ -342,7 +342,7 @@ end
 M.peek_type_definition = function()
   local methods = vim.lsp.protocol.Methods
   local params = vim.lsp.util.make_position_params(vim.api.nvim_get_current_win(), 'utf-8')
-  return vim.lsp.buf_request(vim.api.get_current_buf(), methods.textDocument_typeDefinition, params, preview_location_cb)
+  return vim.lsp.buf_request(vim.api.nvim_get_current_buf(), methods.textDocument_typeDefinition, params, preview_location_cb)
 end
 
 ---@return table<integer, integer> client_request_ids Map of client-id:request-id pairs
@@ -353,7 +353,7 @@ end
 M.peek_implementation = function()
   local methods = vim.lsp.protocol.Methods
   local params = vim.lsp.util.make_position_params(vim.api.nvim_get_current_win(), 'utf-8')
-  return vim.lsp.buf_request(vim.api.get_current_buf(), methods.textDocument_implementation, params, preview_location_cb)
+  return vim.lsp.buf_request(vim.api.nvim_get_current_buf(), methods.textDocument_implementation, params, preview_location_cb)
 end
 
 M.setup_handlers = function()
