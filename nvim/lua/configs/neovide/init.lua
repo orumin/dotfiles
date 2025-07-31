@@ -25,10 +25,10 @@ end
 vim.g.transparency = 0.85
 
 if G.is_mac then
-  vim.g.neovide_transparency = 0.0
+  vim.g.neovide_opacity = 0.0
   vim.g.neovide_background_color = palette.base .. alpha()
 else
-  vim.g.neovide_transparency = 0.85
+  vim.g.neovide_opacity = 0.85
 end
 
 -- Blur
