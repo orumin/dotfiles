@@ -19,12 +19,6 @@ return {
     end,
     config = require("editor.treesitter"),
   },
-  -- blank,chunk,indent and line_num
-  {
-    "shellRaining/hlchunk.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    config = require("editor.treesitter_addons").hlchunk,
-  },
   -- parentheses
   {
     "HiPhish/rainbow-delimiters.nvim",
