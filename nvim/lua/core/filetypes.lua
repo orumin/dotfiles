@@ -6,6 +6,17 @@ else
   -- md as markdown, instead of modula2
   vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
     group = 'setFileType',
+    pattern = {"*.adoc"},
+    callback = function()
+      vim.o.filetype = 'asciidoc'
+    end
+  })
+
+
+  vim.api.nvim_create_augroup('setFileType', { clear = false })
+  -- md as markdown, instead of modula2
+  vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+    group = 'setFileType',
     pattern = {"*.md", "*.mdwn", "*.mkd", "*.mkdn", ".mark*"},
     callback = function()
       vim.o.filetype = 'markdown'
@@ -29,4 +40,14 @@ else
       vim.o.filetype = 'disassembly'
     end
   })
+
+  -- pu as plantuml
+  vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+    group = 'setFileType',
+    pattern = {"*.pu", "*.uml", "*.plantuml", "*.puml", "*.iuml"},
+    callback = function()
+      vim.o.filetype = 'plantuml'
+    end
+  })
+
 end

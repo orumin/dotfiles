@@ -1,10 +1,4 @@
 return function()
-  vim.filetype.add({
-    extension = {
-      adoc = "asciidoc"
-    }
-  })
-
   ---@class MyParserConfig : { [string]: ParserInfo}
   local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
   parser_config.asciidoc = {
@@ -27,6 +21,18 @@ return function()
       branch = "master",
       generate_requires_npm = false,
       requires_generate_from_grammar = false,
+    },
+  }
+
+  parser_config.plantuml = {
+    filetype = "plantuml",
+    maintainers = {"lyndsysimon"},
+    install_info = {
+      url = "https://github.com/lyndsysimon/tree-sitter-plantuml.git",
+      files = { "src/parser.c" },
+      branch = "main",
+      generate_requires_npm = true,
+      requires_generate_from_grammar = true,
     },
   }
 

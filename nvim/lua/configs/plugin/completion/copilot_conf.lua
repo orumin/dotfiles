@@ -11,6 +11,7 @@ return {
           gitcommit = true,
           gitrebase = true,
           markdown = true,
+          plantuml = true,
           sh = function ()
             local fname = vim.fs.basename(vim.api.nvim_buf_get_name(0))
             if fname and string.match(fname, '^%.env.*') then

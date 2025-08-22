@@ -392,6 +392,44 @@ M.setup_handlers = function()
     capabilities = make_capabilities(),
   }
 
+  local utils = require("envutils")
+  local G = utils:globals()
+  local plantuml_lsp_path_candidate = utils:path_concat({G.homedir, "go", "bin", "plantuml-lsp"})
+  local plantuml_lsp_path = vim.fn.executable("plantuml-lsp") == 1
+                           and "plantuml-lsp" or
+                         vim.fn.executalbe(plantuml_lsp_path_candidate) == 1
+                           and plantuml_lsp_path_candidate or nil
+  local plantuml_path = vim.fn.executable("plantuml") == 1
+                        and "plantuml" or nil
+  if plantuml_lsp_path and plantuml_path then
+    -- set-up additional LSP server
+    local lsp_default_configs = require("lspconfig.configs")
+    if not lsp_default_configs.plantuml_lsp then
+      lsp_default_configs.plantuml_lsp = {
+        default_config = {
+          cmd = {
+            plantuml_lsp_path,
+            --"--stdlib-path=$HOME/.local/share/plantuml/stdlib",
+
+            ----
+            ---- FOR DIAGNOSTICS (choose up to one of 'jar-path' and 'exec-path' flags):
+            ----
+            ---- Running plantuml via a .jar file:
+            --"--jar-path=/usr/share/plantuml/plantuml.jar",
+            ---- With plantuml executable and available from your PATH there is a simpler method:
+            --"--exec-path=/usr/bin/plantuml",
+          },
+          filetypes = { "plantuml" },
+          root_dir = function(fname)
+            return vim.fs.dirname(vim.fs.find('.git', { path = fname, upward = true })[1]) or vim.fs.dirname(fname)
+          end,
+          settings = {},
+        }
+      }
+    end
+    lsp_default_configs.plantuml_lsp.setup {}
+  end
+
   vim.lsp.config('*', opts)
   -- rust-analyzer will be enabled by 'rustaceanvim' plugin.
   vim.lsp.enable(
