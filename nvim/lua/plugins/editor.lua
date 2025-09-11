@@ -139,7 +139,7 @@ return {
   },
   -- smooth scroll
   {
-    "echasnovski/mini.animate",
+    "nvim-mini/mini.animate",
     event = "VeryLazy",
     config = function()
       local cond = not vim.g.neovide and not require("envutils"):globals().is_headless
@@ -182,7 +182,7 @@ return {
   {
     "folke/which-key.nvim",
     dependencies = {
-      { "echasnovski/mini.icons" }
+      { "nvim-mini/mini.icons" }
     },
     event = "VeryLazy",
 --    event = { "CursorHold", "CursorHoldI" },
