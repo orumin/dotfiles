@@ -5,7 +5,12 @@ local function wez_resize(wez, height_ratio)
   if not height_ratio then return end
   local window = wez:focusedWindow()
   local f = window:frame()
-  local max = window:screen():frame()
+  local screen = hs.mouse.getCurrentScreen()
+  if not screen then
+    print("hs.mouse.getCurrentScreen(): ", screen)
+    return
+  end
+  local max = screen:frame()
   f.x = max.x
   f.y = max.y
   f.w = max.w
@@ -22,7 +27,7 @@ hs.hotkey.bind({"ctrl"}, ";", function()
   else
     if wez:isFrontmost() then
       wez:hide()
-      wez_resize(wez, 0.0)
+      --wez_resize(wez, 0.0)
     else
       wez:activate()
       wez_resize(wez, 0.7)
