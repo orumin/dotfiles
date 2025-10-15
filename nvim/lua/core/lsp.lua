@@ -397,7 +397,7 @@ M.setup_handlers = function()
   local plantuml_lsp_path_candidate = utils:path_concat({G.homedir, "go", "bin", "plantuml-lsp"})
   local plantuml_lsp_path = vim.fn.executable("plantuml-lsp") == 1
                            and "plantuml-lsp" or
-                         vim.fn.executalbe(plantuml_lsp_path_candidate) == 1
+                         vim.fn.executable(plantuml_lsp_path_candidate) == 1
                            and plantuml_lsp_path_candidate or nil
   local plantuml_path = vim.fn.executable("plantuml") == 1
                         and "plantuml" or nil
