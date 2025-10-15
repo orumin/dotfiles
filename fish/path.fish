@@ -44,6 +44,10 @@ if not contains -- "$HOME/bin" $PATH
     set -x PATH "$HOME/bin" $PATH
 end
 
+if not contains -- "$HOME/brew/bin" $PATH
+    set -x PATH "$HOME/brew/bin" $PATH
+end
+
 if not contains -- "$PSPDEV" $PATH
     set -x PATH $PATH "$PSPDEV/bin"
     set -x PATH $PATH "$VITASDK/bin"
@@ -116,7 +120,7 @@ if not contains -- "/opt/pspsdk/man" $MANPATH
     set -x MANPATH $MANPATH "/opt/pspsdk/man" "/opt/pspsdk/psp/man" "/opt/pspsdk/psp/share/man"
 end
 
-if test $ostype = "Darwin"
+if test $ostype = "Darwin" -a -e ~/.rbenv_init
     source ~/.rbenv_init
 else if type -q -f rbenv
     source (rbenv init - | psub)

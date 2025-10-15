@@ -156,7 +156,11 @@ M.setup = function (config)
     border_bottom_color = "hsla(0 0% 0% 0%)",
   }
   config.integrated_title_button_color = "Auto"
-  config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+  if utils.is_mac then
+    config.window_decorations = "RESIZE"
+  else
+    config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+  end
   if utils.is_mac then
     config.integrated_title_buttons = {"Close", "Hide", "Maximize"}
     config.integrated_title_button_alignment = "Left"
@@ -210,6 +214,10 @@ M.setup = function (config)
   config.colors = scheme
   config.window_background_opacity = 1
   config.text_background_opacity = 0.85
+  if utils.is_mac then
+    config.macos_window_background_blur = 20
+    config.macos_fullscreen_extend_behind_notch = true
+  end
   --if utils.is_win then
   --  config.win32_system_backdrop = "Acrylic"
   --end
