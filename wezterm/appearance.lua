@@ -156,11 +156,8 @@ M.setup = function (config)
     border_bottom_color = "hsla(0 0% 0% 0%)",
   }
   config.integrated_title_button_color = "Auto"
-  if utils.is_mac then
-    config.window_decorations = "RESIZE"
-  else
-    config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
-  end
+  config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+  config.integrated_title_button_style = "Windows"
   if utils.is_mac then
     config.integrated_title_buttons = {"Close", "Hide", "Maximize"}
     config.integrated_title_button_alignment = "Left"
