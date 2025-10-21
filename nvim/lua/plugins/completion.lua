@@ -21,37 +21,28 @@ return {
     config = require("completion.copilot_conf").setup
   },
   {
-    "copilotlsp-nvim/copilot-lsp",
-    event = "InsertEnter",
-    init = function()
-      vim.g.copilot_nes_debounce = 500
-      vim.keymap.set("n", "<tab>", function()
-        local _ = require("copilot-lsp.nes").walk_cursor()
-            or (
-              require("copilot-lsp.nes").apply_pending_nes() and require("copilot-lsp.nes").walk_cursor_end_edit()
-            )
-      end, { expr = true, noremap = true })
-    end,
-    config = require("completion.copilot_conf").setup_lsp
-  },
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    cmd = {
-      "CopilotChatOpen",
-      "CopilotChatClose",
-      "CopilotChatToggle",
-      "CopilotChatReset",
-      "CopilotChatDebugInfo",
-    },
-    dependencies = {
-      { "zbirenbaum/copilot.lua" },
-      { "nvim-lua/plenary.nvim" },
-    },
-    -- TODO: use 'build' for only macOS or Linux
-    build = "make tiktoken",
-    branch = "main",
-    keys = require("configs.keymap.copilot_chat"),
-    config = require("completion.copilot_chat_conf"),
+    "folke/sidekick.nvim",
+    opts = {},
+    keys = require("configs.keymap.sidekick"),
   }
+--  {
+--    "CopilotC-Nvim/CopilotChat.nvim",
+--    cmd = {
+--      "CopilotChatOpen",
+--      "CopilotChatClose",
+--      "CopilotChatToggle",
+--      "CopilotChatReset",
+--      "CopilotChatDebugInfo",
+--    },
+--    dependencies = {
+--      { "zbirenbaum/copilot.lua" },
+--      { "nvim-lua/plenary.nvim" },
+--    },
+--    -- TODO: use 'build' for only macOS or Linux
+--    build = "make tiktoken",
+--    branch = "main",
+--    keys = require("configs.keymap.copilot_chat"),
+--    config = require("completion.copilot_chat_conf"),
+--  }
 }
 
