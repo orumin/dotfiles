@@ -40,6 +40,16 @@ return {
     },
     config = require("editor.neotree"),
   },
+  {
+    "A7Lavinraj/fyler.nvim",
+    cmd = "Fyler",
+    branch = "stable",
+    dependencies = {
+      { "nvim-mini/mini.icons" },
+    },
+    opts = {},
+  },
+
 ---------------------------------------------------------------
 -- Debugger Adapter Protocol
 ---------------------------------------------------------------
@@ -190,8 +200,7 @@ return {
   },
   -- project local setting
   {
-    "klen/nvim-config-local",
+    "folke/neoconf.nvim",
     event = "VeryLazy",
-    config = require("editor.local_conf")
   },
 }
