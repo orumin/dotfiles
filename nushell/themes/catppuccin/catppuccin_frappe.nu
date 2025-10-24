@@ -1,0 +1,1 @@
+../../../catppuccin/nushell/themes/catppuccin_frappe.nu
