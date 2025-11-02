@@ -35,6 +35,7 @@ deploy_win: init
 	make link SOURCE:="$(abspath powershell\Microsoft.PowerShell_profile.ps1)" TARGET:="$(HOME)\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
 	make link SOURCE:="$(abspath catppuccin\powershell)" TARGET:="$(HOME)\Documents\PowerShell\Modules\Catppuccin"
 	make link SOURCE:="$(abspath nvim)" TARGET:="$(LOCALAPPDATA)\nvim"
+	make link SOURCE:="$(abspath nushell)" TARGET:="$(LOCALAPPDATA)\nushell"
 	make link SOURCE:="$(abspath firenvim)" TARGET:="$(LOCALAPPDATA)\firenvim"
 	make link SOURCE:="$(abspath clink)\starship.lua" TARGET:="$(LOCALAPPDATA)\clink\starship.lua"
 
@@ -47,6 +48,7 @@ uninstall:
 uninstall_win:
 	make unlink Value:="$(HOME)\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
 	make unlink_dir Value:="$(LOCALAPPDATA)\nvim"
+	make unlink_dir Value:="$(LOCALAPPDATA)\nushell"
 	make unlink_dir Value:="$(LOCALAPPDATA)\firenvim"
 
 list:

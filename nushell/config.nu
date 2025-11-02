@@ -16,3 +16,17 @@
 # You can also pretty-print and page through the documentation for configuration
 # options using:
 #     config nu --doc | nu-highlight | less -R
+
+use functions/
+source conf.d/index.nu
+
+# setup theme
+if ($nu.default-config-dir | path join "themes/catppuccin/catppuccin_mocha.nu" | path exists) {
+  source themes/catppuccin/catppuccin_mocha.nu
+}
+
+# setup prompt
+if not ((which starship | is-empty) or ($nu.data-dir | path join "vendor/autoload/starship.nu" | path exists)) {
+  mkdir ($nu.data-dir | path join "vendor/autoload")
+  starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
+}

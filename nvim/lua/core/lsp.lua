@@ -438,6 +438,10 @@ M.setup_handlers = function()
         return v ~= "rust_analyzer"
       end):totable()
   )
+  -- nushell has built-in LSP server, and mason doesn't provide it.
+  if vim.fn.executable("nu") == 1 then
+    vim.lsp.enable('nushell')
+  end
 end
 
 M.setup = function()
