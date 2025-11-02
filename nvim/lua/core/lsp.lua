@@ -445,7 +445,11 @@ M.setup_handlers = function()
 end
 
 M.setup = function()
-  vim.lsp.set_log_level(vim.lsp.log_levels.ERROR)
+  if vim.lsp.log.set_level then
+    vim.lsp.log.set_level(vim.lsp.log_levels.ERROR)
+  else
+    vim.lsp.set_log_level(vim.lsp.log_levels.ERROR)
+  end
   local configs = require("configs")
   local diagnostic_icons = require("configs.ui.icons").get("diagnostics")
   local signs = {
