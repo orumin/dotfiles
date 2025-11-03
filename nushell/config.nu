@@ -30,3 +30,17 @@ if not ((which starship | is-empty) or ($nu.data-dir | path join "vendor/autoloa
   mkdir ($nu.data-dir | path join "vendor/autoload")
   starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 }
+
+# import package manager
+#
+use plugins/nupm/nupm
+$env.NUPM_HOME = ($env.XDG_CONFIG_HOME | path join "nushell/plugins")
+$env.NU_LIB_DIRS = [
+  ($env.NUPM_HOME | path join "modules")
+]
+
+$env.PATH = (
+  $env.PATH
+    | prepend ($env.NUPM_HOME | path join "scripts")
+    | uniq
+)

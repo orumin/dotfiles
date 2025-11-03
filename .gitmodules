@@ -22,6 +22,9 @@
 [submodule "catppuccin/wezterm"]
 	path = catppuccin/wezterm
 	url = https://github.com/catppuccin/wezterm
+[submodule "nushell/plugins/nupm"]
+	path = nushell/plugins/nupm
+	url = https://github.com/nushell/nupm
 [submodule "skk/dict"]
 	path = skk/dict
 	url = https://github.com/skk-dev/dict

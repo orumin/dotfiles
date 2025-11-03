@@ -6,6 +6,8 @@ let is_wsl: bool = ($ostype == "Linux" and ($kernel_release | str contains --ign
 let is_wsl_2: bool = $is_wsl and ($kernel_release | str contains "WSL2")
 
 $env.XDG_CONFIG_HOME = ($env.HOME | path join .config)
+$env.XDG_DATA_HOME = ($env.HOME | path join .local/share)
+$env.XDG_STATE_HOME = ($env.HOME | path join .local/state)
 $env.XDG_CACHE_HOME = ($env.HOME | path join .cache)
 
 $env.N_PREFIX = ($env.HOME | path join node)
