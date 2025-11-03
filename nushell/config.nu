@@ -31,6 +31,15 @@ if not ((which starship | is-empty) or ($nu.data-dir | path join "vendor/autoloa
   starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
 }
 
+if ($nu.data-dir | path join "vendor/autoload/starship.nu" | path exists) {
+  # Disable prompt from Nushell Because it is duplicated with that of Starship
+  $env.PROMPT_INDICATOR_VI_NORMAL = ""
+  $env.PROMPT_INDICATOR_VI_INSERT = ""
+  # Use cursor shapes to dieerentiate instead
+  $env.config.cursor_shape.vi_normal = "blink_block"
+  $env.config.cursor_shape.vi_insert = "blink_line"
+}
+
 # import package manager
 #
 use plugins/nupm/nupm
