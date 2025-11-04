@@ -58,8 +58,24 @@ end
 local function setting_shell()
   local configs = require("configs")
   local G = require("envutils"):globals()
-  if G.is_win then
-    if not (vim.fn.executable("pwsh") == 1 or vim.fn.executable("powershell") == 1) then
+
+  if not G.is_win then
+    vim.o.shell = configs.shell
+    return
+  elseif configs.shell == "nu" or configs.shell == "pwsh" or configs.shell == "powershell" then
+    vim.o.shell = configs.shell
+    return
+  else
+    if vim.fn.executable("pwsh") == 1 or vim.fn.executable("powershell") == 1 then
+      local basecmd = "-NoLogo -ExecutionPolicy RemoteSigned"
+      local ctrlcmd = "-Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8"
+      vim.o.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
+      vim.o.shellcmdflag = string.format("%s %s;", basecmd, ctrlcmd)
+      vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+      vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+      vim.o.shellquote = nil
+      vim.o.shellxquote = nil
+    else
       vim.notify(
         [[
   Failed to setup shell configuration
@@ -70,19 +86,7 @@ local function setting_shell()
   You're recommended to install PowerShell for better experience.]],
         vim.log.levels.WARN,
         { title = "[core] Runtime Warning" })
-      return
     end
-
-    local basecmd = "-NoLogo -ExecutionPolicy RemoteSigned"
-    local ctrlcmd = "-Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8"
-    vim.o.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
-    vim.o.shellcmdflag = string.format("%s %s;", basecmd, ctrlcmd)
-    vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-    vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-    vim.o.shellquote = nil
-    vim.o.shellxquote = nil
-  else
-    vim.o.shell = configs.shell
   end
 end
 
