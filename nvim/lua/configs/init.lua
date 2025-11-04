@@ -74,7 +74,7 @@ local settings = {
     winblend = 15
   },
   remove_trailing_space = true,
-  shell = "fish",
+  shell = "nu",
   use_copilot = false,
   use_denops = false,
   use_skk = true,
