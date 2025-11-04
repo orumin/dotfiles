@@ -58,35 +58,55 @@ end
 local function setting_shell()
   local configs = require("configs")
   local G = require("envutils"):globals()
+  local shelloptions = {}
+  setmetatable(shelloptions, {
+    __newindex = function () end,
+    ---@return table
+    __index = function (_, k)
+      if G.is_win then
+        if k == "nu" then
+          return {
+            shell = "nu",
+            shellcmdflag = "-c",
+            shellredir = "| save -f %s",
+            shellpipe = "|",
+            shellquote = "",
+            shellxquote = ""
+          }
+        elseif k == "pwsh" or k == "powershell" then
+          local pwsh_basecmd = "-NoLogo -ExecutionPolicy RemoteSigned"
+          local pwsh_ctrlcmd = "-Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8"
+          return {
+            shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell",
+            shellcmdflag = string.format("%s %s;", pwsh_basecmd, pwsh_ctrlcmd),
+            shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
+            shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
+            shellquote = "",
+            shellxquote = ""
+          }
+        else
+          vim.notify(
+            [[
+Failed to setup shell configuration
 
-  if not G.is_win then
-    vim.o.shell = configs.shell
-    return
-  elseif configs.shell == "nu" or configs.shell == "pwsh" or configs.shell == "powershell" then
-    vim.o.shell = configs.shell
-    return
-  else
-    if vim.fn.executable("pwsh") == 1 or vim.fn.executable("powershell") == 1 then
-      local basecmd = "-NoLogo -ExecutionPolicy RemoteSigned"
-      local ctrlcmd = "-Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8"
-      vim.o.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
-      vim.o.shellcmdflag = string.format("%s %s;", basecmd, ctrlcmd)
-      vim.o.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
-      vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-      vim.o.shellquote = ""
-      vim.o.shellxquote = ""
-    else
-      vim.notify(
-        [[
-  Failed to setup shell configuration
+PowerShell is either not installe, missing from PATH environment, or not executable;
+cmd.exe will be used instead for `:!`
 
-  PowerShell is either not installe, missing from PATH environment, or not executable;
-  cmd.exe will be used instead for `:!`
+You're recommended to install PowerShell for better experience.]],
+            vim.log.levels.WARN,
+            { title = "[core] Runtime Warning" })
+        end
+      else
+        return {
+          shell = k
+        }
+      end
+    end,
+  })
 
-  You're recommended to install PowerShell for better experience.]],
-        vim.log.levels.WARN,
-        { title = "[core] Runtime Warning" })
-    end
+  local opt = shelloptions[configs.shell]
+  for k, v in pairs(opt) do
+    vim.o[k] = v
   end
 end
 
