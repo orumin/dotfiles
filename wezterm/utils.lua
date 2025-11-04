@@ -259,7 +259,9 @@ function M.has_executable_in_path(name)
 end
 
 if M.is_win then
-  if M.has_executable_in_path("pwsh") ~= nil then
+  if M.has_executable_in_path("nu") ~= nil then
+    M.shell_prog = "nu.exe"
+  elseif M.has_executable_in_path("pwsh") ~= nil then
     M.shell_prog = "pwsh.exe"
   elseif M.has_executable_in_path("powershell") ~= nil then
     M.shell_prog = "powershell.exe"
