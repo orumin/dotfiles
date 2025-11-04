@@ -71,10 +71,10 @@ local function setting_shell()
       local ctrlcmd = "-Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8"
       vim.o.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
       vim.o.shellcmdflag = string.format("%s %s;", basecmd, ctrlcmd)
-      vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+      vim.o.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
       vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-      vim.o.shellquote = nil
-      vim.o.shellxquote = nil
+      vim.o.shellquote = ""
+      vim.o.shellxquote = ""
     else
       vim.notify(
         [[
