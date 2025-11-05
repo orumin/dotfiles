@@ -29,6 +29,7 @@ wezterm.on("gui-startup", restore.save_window_size_on_startup)
 wezterm.on("window-resized", restore.save_window_size_on_resize)
 --wezterm.on("update-right-status", status.update_right_status)
 local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+local scheme = wezterm.get_builtin_color_schemes()["Catppuccin Mocha"]
 tabline.setup {
   options = {
     icons_enabled = true,
@@ -59,7 +60,16 @@ tabline.setup {
       { 'cwd', padding = { left = 0, right = 1 } },
       { 'zoomed', padding = 0 },
     },
-    tab_inactive = { 'index', { 'process', padding = { left = 0, right = 1 } } },
+    tab_inactive = {
+      'index',
+      {
+        'process',
+        padding = { left = 0, right = 1 },
+        process_to_icon = {
+          ['nu'] = { wezterm.nerdfonts.md_chevron_right, color = { fg = scheme.ansi[3] } },
+        },
+      }
+    },
     tabline_x = { 'ram', 'cpu' },
     tabline_y = { 'datetime', 'battery' },
     tabline_z = { 'domain' },
