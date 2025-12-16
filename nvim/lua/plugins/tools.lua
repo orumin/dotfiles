@@ -149,6 +149,7 @@ return {
   },
   {
     "delphinus/skkeleton_indicator.nvim",
+    branch = "v2",
     event = { "InsertEnter", "CmdlineEnter" },
     init = require("configs.ui.color").set_skkeleton_indicator_hl(),
     config = true,
