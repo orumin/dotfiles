@@ -3,6 +3,7 @@ palette = "catppuccin_mocha"
 format = """
 [░▒▓](subtext1)\
 $os\
+$custom\
 $username\
 [@](bg:subtext1 fg:base)\
 $hostname\
@@ -15,7 +16,9 @@ $git_status\
 $nodejs\
 $rust\
 $golang\
-$php\
+$cmake\
+$c\
+$cpp\
 [](fg:surface1 bg:base)\
 $time\
 [ ](fg:base)\
@@ -23,6 +26,14 @@ $line_break\
 $character"""
 
 add_newline = false
+
+[custom.wsl]
+os = 'linux'
+when = 'uname -r | grep -q WSL'
+shell = ['sh']
+symbol = ' '
+command = '''printf '(WSL)''''
+style = "bg:subtext1 fg:base"
 
 [character]
 # Note the use of Catppuccin color 'maroon'
@@ -39,16 +50,17 @@ format = "[$symbol]($style)"
 disabled = false
 
 [os.symbols]
-Fedora = ""
-FreeBSD = ""
-Gentoo = ""
+
+Fedora = ""
+FreeBSD = ""
+Gentoo = ""
 Illumos = ""
 Linux = ""
 Macos = "󰀵"
 OpenBSD = ""
 openSUSE = ""
-Ubuntu = ""
-Windows = ""
+Ubuntu = ""
+Windows = ""
 
 [username]
 format = "[ $user]($style)"
@@ -104,12 +116,22 @@ style = "bg:surface1"
 format = '[[ $symbol ($version) ](fg:blue bg:surface1)]($style)'
 
 [golang]
-symbol = ""
+symbol = ""
 style = "bg:surface1"
 format = '[[ $symbol ($version) ](fg:blue bg:surface1)]($style)'
 
 [php]
-symbol = ""
+symbol = ""
+style = "bg:surface1"
+format = '[[ $symbol ($version) ](fg:blue bg:surface1)]($style)'
+
+[c]
+symbol = "󰙱"
+style = "bg:surface1"
+format = '[[ $symbol ($version) ](fg:blue bg:surface1)]($style)'
+
+[cpp]
+symbol = "󰙲"
 style = "bg:surface1"
 format = '[[ $symbol ($version) ](fg:blue bg:surface1)]($style)'
 
