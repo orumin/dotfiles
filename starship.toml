@@ -13,6 +13,7 @@ $directory\
 $git_branch\
 $git_status\
 [](fg:surface2 bg:surface1)\
+$typst\
 $nodejs\
 $rust\
 $golang\
@@ -125,6 +126,10 @@ symbol = ""
 style = "bg:surface1"
 format = '[[ $symbol ($version) ](fg:blue bg:surface1)]($style)'
 
+[cmake]
+style = "bg:surface1"
+format = '[[ $symbol ($version) ](fg:blue bg:surface1)]($style)'
+
 [c]
 symbol = "󰙱"
 style = "bg:surface1"
@@ -132,6 +137,10 @@ format = '[[ $symbol ($version) ](fg:blue bg:surface1)]($style)'
 
 [cpp]
 symbol = "󰙲"
+style = "bg:surface1"
+format = '[[ $symbol ($version) ](fg:blue bg:surface1)]($style)'
+
+[typst]
 style = "bg:surface1"
 format = '[[ $symbol ($version) ](fg:blue bg:surface1)]($style)'
 
