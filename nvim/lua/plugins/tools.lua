@@ -229,6 +229,7 @@ return {
       { "folke/snacks.nvim" }
     },
     cmd = "Nerdy",
+    config = true,
   },
   -- pmodoro timer
   {
