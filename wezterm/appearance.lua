@@ -1,4 +1,6 @@
 local M = {}
+local scheme_name = "Catppuccin Mocha"
+local _scheme
 
 M.decrease_opacity = function (window)
   local overrides = window:get_config_overrides() or {}
@@ -24,17 +26,27 @@ M.increase_opacity = function (window)
   window:set_config_overrides(overrides)
 end
 
+---@return Palette? scheme
+M.get_colorscheme = function()
+  return _scheme
+end
 
 ---@param config Config
----@return Config config
+---@return Config? config
 M.setup = function (config)
-  ---@type Wezterm
+  ---Pull in the wezterm API
+  ---@module 'wezterm-types.lua.wezterm.types.wezterm'
   local wezterm = require("wezterm")
+  ---@type Wezterm.Color
+  local color = wezterm.color
   ---@source ./utils.lua
   local utils = require("utils") --[[@as wezutils]]
   local icons = utils.icons
-
-  local scheme = wezterm.get_builtin_color_schemes()["Catppuccin Mocha"]
+  _scheme = color.get_builtin_schemes()[scheme_name]
+  if not _scheme then
+    wezterm.log_error("color scheme,", scheme_name, "is not found")
+    return nil
+  end
 --  local original_bg_color = {}
 --  original_bg_color.h, original_bg_color.s, original_bg_color.l, original_bg_color.a = wezterm.color.parse(scheme.background):hsla()
 --  local transparent_bg = ("hsla(%s %s %s %s)"):format(original_bg_color.h, original_bg_color.s*100 .. "%", original_bg_color.l*100 .. "%", "40%")
@@ -42,8 +54,8 @@ M.setup = function (config)
 --  scheme.tab_bar.background = transparent_bg
   local active_tab_bg = {}
   active_tab_bg.h, active_tab_bg.s, active_tab_bg.l, active_tab_bg.a =
-    wezterm.color.parse(scheme.tab_bar.active_tab.bg_color):hsla()
-  scheme.tab_bar.active_tab.bg_color = ("hsla(%s %s %s %s)"):format(
+    wezterm.color.parse(_scheme.tab_bar.active_tab.bg_color):hsla()
+  _scheme.tab_bar.active_tab.bg_color = ("hsla(%s %s %s %s)"):format(
     active_tab_bg.h,
     active_tab_bg.s*100 .. "%",
     active_tab_bg.l*100 .. "%",
@@ -51,27 +63,27 @@ M.setup = function (config)
   )
   local inactive_tab_bg = {}
   inactive_tab_bg.h, inactive_tab_bg.s, inactive_tab_bg.l, inactive_tab_bg.a =
-  wezterm.color.parse(scheme.tab_bar.active_tab.bg_color):hsla()
-  scheme.tab_bar.active_tab.bg_color = ("hsla(%s %s %s %s)"):format(
+  wezterm.color.parse(_scheme.tab_bar.active_tab.bg_color):hsla()
+  _scheme.tab_bar.active_tab.bg_color = ("hsla(%s %s %s %s)"):format(
     inactive_tab_bg.h,
     inactive_tab_bg.s*100 .. "%",
     inactive_tab_bg.l*100 .. "%",
     "100%"
   )
 
-  config.use_fancy_tab_bar = false
-  local SOFT_LEFT_ARROW = wezterm.nerdfonts.pl_left_soft_divider
-  local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
-  ---@param tab_info MuxTabObj
-  local function tab_title(tab_info)
-    local title = tab_info.tab_title
-    if title and #title > 0 then
-      return title
-    end
-    return tab_info.active_pane.title
-  end
-
   config.tab_max_width = 30
+  config.use_fancy_tab_bar = false
+
+--  ---@param tab_info MuxTab
+--  local function tab_title(tab_info)
+--    local title = tab_info:get_title()
+--    if title and #title > 0 then
+--      return title
+--    end
+--    return tab_info:active_pane():get_title()
+--  end
+--  local SOFT_LEFT_ARROW = wezterm.nerdfonts.pl_left_soft_divider
+--  local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_left_hard_divider
 --  wezterm.on("format-tab-title", function (tab, _, _, _, _, max_width)
 --    local active_bg = scheme.tab_bar.active_tab.bg_color
 --    local active_fg = scheme.tab_bar.active_tab.fg_color
@@ -156,7 +168,7 @@ M.setup = function (config)
     border_bottom_color = "hsla(0 0% 0% 0%)",
   }
   config.integrated_title_button_color = "Auto"
-  config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+  config.window_decorations = "RESIZE|INTEGRATED_BUTTONS"
   config.integrated_title_button_style = "Windows"
   if utils.is_mac then
     config.integrated_title_buttons = {"Close", "Hide", "Maximize"}
@@ -167,32 +179,32 @@ M.setup = function (config)
   end
   config.tab_bar_style ={
     window_hide = wezterm.format({
-      { Background = { Color = icons.window.hide.color.bg(scheme.background) } },
+      { Background = { Color = icons.window.hide.color.bg(_scheme.background) } },
       { Foreground = { Color = icons.window.hide.color.fg("white") } },
       { Text = icons.window.hide[1] }
     }),
     window_hide_hover = wezterm.format({
-      { Background = { Color = icons.window.hide.hover.color.bg(scheme.background) } },
+      { Background = { Color = icons.window.hide.hover.color.bg(_scheme.background) } },
       { Foreground = { Color = icons.window.hide.hover.color.fg("white") } },
       { Text = icons.window.hide.hover[1] }
     }),
     window_maximize = wezterm.format({
-      { Background = { Color = icons.window.maximize.color.bg(scheme.background) } },
+      { Background = { Color = icons.window.maximize.color.bg(_scheme.background) } },
       { Foreground = { Color = icons.window.maximize.color.fg("white") } },
       { Text = icons.window.maximize[1] }
     }),
     window_maximize_hover = wezterm.format({
-      { Background = { Color = icons.window.maximize.hover.color.bg(scheme.background) } },
+      { Background = { Color = icons.window.maximize.hover.color.bg(_scheme.background) } },
       { Foreground = { Color = icons.window.maximize.hover.color.fg("white") } },
       { Text = icons.window.maximize.hover[1] }
     }),
     window_close = wezterm.format({
-      { Background = { Color = icons.window.close.color.bg(scheme.background) } },
+      { Background = { Color = icons.window.close.color.bg(_scheme.background) } },
       { Foreground = { Color = icons.window.close.color.fg("white") } },
       { Text = icons.window.close[1] }
     }),
     window_close_hover = wezterm.format({
-      { Background = { Color = icons.window.close.hover.color.bg(scheme.background) } },
+      { Background = { Color = icons.window.close.hover.color.bg(_scheme.background) } },
       { Foreground = { Color = icons.window.close.hover.color.fg("white") } },
       { Text = icons.window.close.hover[1] }
     })
@@ -208,8 +220,9 @@ M.setup = function (config)
   config.show_new_tab_button_in_tab_bar = false
   config.tab_bar_at_bottom = true
 
-  config.colors = scheme
+  config.colors = _scheme
   config.window_background_opacity = 1
+  ---@diagnostic disable-next-line: inject-field
   config.text_background_opacity = 0.85
   if utils.is_mac then
     config.macos_window_background_blur = 20
@@ -295,7 +308,9 @@ M.setup = function (config)
   }
 
   config.freetype_interpreter_version = 40
-  config.freetype_load_flags = "NO_HINTING|NO_BITMAP|MONOCHROME"
+  ---NOTE: wezterm-types v1.0.0-1 has wrong annotation for freetype_load_flags.
+  ---@diagnostic disable-next-line: assign-type-mismatch
+  config.freetype_load_flags = "MONOCHROME|NO_HINTING|NO_BITMAP"
   config.freetype_load_target = "Light"
   config.freetype_render_target = "Normal"
 

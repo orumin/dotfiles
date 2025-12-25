@@ -5,23 +5,40 @@ local keymaps = require("keymaps")
 local utils = require("utils") --[[@as wezutils]]
 ---@source ./restore.lua
 local restore = require("restore")
----@source ./status.lua
-local status = require("status")
+
+-- deprecated. use 'tabline' plugin instead of this.
+-----@source ./status.lua
+--local status = require("status")
+
 -- Pull in the wezterm API
 ---@type Wezterm
 local wezterm = require("wezterm")
 
 -- This table will hold the configuration.
 ---@type Config
-local config = wezterm.config_builder()
+local _config = wezterm.config_builder()
 
 ---@source ./gpu.lua
 local gpu_config = require("gpu") --[[@as WezConfigGpu]]
-config = gpu_config.setup(config)
+---@type Config?
+local config = gpu_config.setup(_config)
+if not config then
+  return _config
+end
+_config = config
 
 ---@source ./appearance.lua
 local appearance = require("appearance")
 config = appearance.setup(config)
+if not config then
+  return _config
+end
+_config = config
+
+local scheme = appearance.get_colorscheme()
+if not scheme then
+  return config
+end
 
 wezterm.on("decrease-opacity", appearance.decrease_opacity)
 wezterm.on("increase-opacity", appearance.increase_opacity)
@@ -29,7 +46,7 @@ wezterm.on("gui-startup", restore.save_window_size_on_startup)
 wezterm.on("window-resized", restore.save_window_size_on_resize)
 --wezterm.on("update-right-status", status.update_right_status)
 local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
-local scheme = wezterm.get_builtin_color_schemes()["Catppuccin Mocha"]
+
 tabline.setup {
   options = {
     icons_enabled = true,

@@ -1,4 +1,5 @@
----@type Wezterm
+---Pull in the wezterm API
+---@module 'wezterm-types.lua.wezterm.types.wezterm'
 local wezterm = require("wezterm")
 local M = {}
 
@@ -105,6 +106,8 @@ M.key_tables = {
     { mods = "CTRL", key = "v", action = wezterm.action.CopyMode{ SetSelectionMode = "Block" } },
 
     { mods = "NONE", key = "y", action = wezterm.action.Multiple{
+        ---ActionFuncClass or ActionClass requires only one action at least.
+        ---@diagnostic disable-next-line: missing-fields
         { CopyTo = "ClipboardAndPrimarySelection" }, { CopyMode = "Close" }
       },
     },

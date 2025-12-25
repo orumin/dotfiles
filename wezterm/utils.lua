@@ -1,4 +1,5 @@
----@type Wezterm
+---Pull in the wezterm API
+---@module 'wezterm-types.lua.wezterm.types.wezterm'
 local wezterm = require("wezterm")
 
 ---@class wezutils
@@ -20,6 +21,7 @@ M.path_sep = M.is_win and "\\" or "/"
 M.icons = {
   process = {
     cmake = {
+      ---@diagnostic disable-next-line: undefined-field
       wezterm.nerdfonts.dev_cmake,
       color = {
         fg = "#FFFFFF"
@@ -32,6 +34,7 @@ M.icons = {
       },
     },
     gcc = {
+      ---@diagnostic disable-next-line: undefined-field
       wezterm.nerdfonts.dev_gcc,
       color = {
         fg = "#FFCFAB",
@@ -80,6 +83,7 @@ M.icons = {
       },
     },
     nvim = {
+      ---@diagnostic disable-next-line: undefined-field
       wezterm.nerdfonts.linux_neovim,
       color = {
         fg = "#32CD32",

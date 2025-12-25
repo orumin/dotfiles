@@ -1,6 +1,9 @@
----@type Wezterm
+---Pull in the wezterm API
+---@module 'wezterm-types.lua.wezterm.types.wezterm'
 local wezterm = require("wezterm")
 local M = {}
+
+local _scheme = nil
 
 local bat_icon = {
   unknown = {
@@ -34,14 +37,21 @@ local bat_icon = {
   }
 }
 
+---@param scheme Palette
+function M.set_colorscheme(scheme)
+  _scheme = scheme
+end
+
 ---@param window Window
 ---@param pane Pane
 function M.update_right_status(window, pane)
+  if not _scheme then
+    return
+  end
   local _ = pane
-  local scheme = wezterm.get_builtin_color_schemes()["Catppuccin Mocha"]
-  local active_bg = scheme.tab_bar.active_tab.bg_color
-  local active_fg = scheme.tab_bar.active_tab.fg_color
-  local inactive_bg = scheme.tab_bar.inactive_tab.bg_color
+  local active_bg = _scheme.tab_bar.active_tab.bg_color
+  local active_fg = _scheme.tab_bar.active_tab.fg_color
+  local inactive_bg = _scheme.tab_bar.inactive_tab.bg_color
   --local inactive_fg = scheme.tab_bar.inactive_tab.fg_color
   --local SOFT_RIGHT_ARROW = wezterm.nerdfonts.pl_right_soft_divider
   local SOLID_RIGHT_ARROW = wezterm.nerdfonts.pl_right_hard_divider

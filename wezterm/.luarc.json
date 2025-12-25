@@ -1,5 +1,5 @@
 {
-    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+    "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/refs/heads/master/setting/schema.json",
     "runtime.version": "Lua 5.4",
     "hint.enable": true,
     "workspace" : {

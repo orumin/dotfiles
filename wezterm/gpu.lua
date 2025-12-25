@@ -1,7 +1,7 @@
 ---@source ./utils.lua
 local utils = require("utils") --[[@as wezutils]]
--- Pull in the wezterm API
----@source Wezterm
+---Pull in the wezterm API
+---@module 'wezterm-types.lua.wezterm.types.wezterm'
 local wezterm = require("wezterm")
 
 ---@class WezConfigGpu
@@ -72,7 +72,10 @@ M.setup = function (config)
     else
       config.front_end = "OpenGL"
     end
-    config.mux_output_parser_coalesce_delay_ms = 0
+    --- missing 'mux_output_parser_coalesce_delay_ms' field in document https://wezterm.org/config/lua/config/index.html
+    --- but introduced at 20220903-194523-3bb1ed61 https://wezterm.org/changelog.html#20220903-194523-3bb1ed61
+    ---@diagnostic disable-next-line: inject-field
+    config.mux_outpu_parser_coalesce_delay_ms = 0
   elseif has_gpu["igpu"] then
     for k, v in pairs(frontend_configs["low"]) do config[k] = v end
     if prefer_webgpu then
@@ -82,6 +85,7 @@ M.setup = function (config)
     else
       config.front_end = "OpenGL"
     end
+    ---@diagnostic disable-next-line: inject-field
     config.mux_output_parser_coalesce_delay_ms = 0
   else
     for k, v in pairs(frontend_configs["software"]) do config[k] = v end
