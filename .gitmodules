@@ -30,4 +30,4 @@
 	url = https://github.com/skk-dev/dict
 [submodule "wezterm/wezterm-types"]
 	path = wezterm/wezterm-types
-	url = https://github.com/justinsgithub/wezterm-types
+	url = https://github.com/DrKJeff16/wezterm-types
