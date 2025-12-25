@@ -10,7 +10,7 @@ local state_file_path = utils.path_concat({utils.cache_dir, "window_size"})
 -- https://github.com/wez/wezterm/issues/256#issuecomment-1501101484
 ---@class wezWindowSize
 ---@field save_window_size_on_startup fun()
----@field save_window_size_on_resize fun(window: any, pane: any)
+---@field save_window_size_on_resize fun(window: Window, pane: Pane)
 local M = {}
 
 function M.save_window_size_on_startup()

@@ -2,6 +2,7 @@ local M = {}
 local scheme_name = "Catppuccin Mocha"
 local _scheme
 
+---@param window Window
 M.decrease_opacity = function (window)
   local overrides = window:get_config_overrides() or {}
   if not overrides.window_background_opacity then
@@ -14,6 +15,7 @@ M.decrease_opacity = function (window)
   window:set_config_overrides(overrides)
 end
 
+---@param window Window
 M.increase_opacity = function (window)
   local overrides = window:get_config_overrides() or {}
   if not overrides.window_background_opacity then
