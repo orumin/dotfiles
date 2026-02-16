@@ -75,7 +75,7 @@ M.setup = function (config)
     --- missing 'mux_output_parser_coalesce_delay_ms' field in document https://wezterm.org/config/lua/config/index.html
     --- but introduced at 20220903-194523-3bb1ed61 https://wezterm.org/changelog.html#20220903-194523-3bb1ed61
     ---@diagnostic disable-next-line: inject-field
-    config.mux_outpu_parser_coalesce_delay_ms = 0
+    config.mux_output_parser_coalesce_delay_ms = 0
   elseif has_gpu["igpu"] then
     for k, v in pairs(frontend_configs["low"]) do config[k] = v end
     if prefer_webgpu then
