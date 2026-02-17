@@ -146,6 +146,7 @@ lazy_opts.spec = {
     end,
     config = require("ui.catppuccin_conf"),
   },
+  { import = "plugins.ai_agent" },
   { import = "plugins.editor" },
   { import = "plugins.ui" },
   { import = "plugins.treesitter" },
