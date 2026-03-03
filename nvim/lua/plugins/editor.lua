@@ -113,6 +113,13 @@ return {
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     config = true
   },
+  -- show dotfile's insight
+  {
+    "aikhe/wrapped.nvim",
+    dependencies = { "nvzone/volt" },
+    cmd = { "NvimWrapped" },
+    config = true,
+  },
   -- rename improve
   {
     "cshuaimin/ssr.nvim",
