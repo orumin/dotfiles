@@ -8,11 +8,11 @@ local icons = {
 local function setup_cpp()
   local dap = require("dap")
 
-  dap.adapters.gdb= {
+  dap.adapters.gdb = {
     id = 'gdb',
     type = 'executable',
     command = 'gdb',
-      args = { "-i", "dap" },
+      args = { "--interpreter=dap", "--eval-command", "set print pretty on" },
   }
 
   local cppdbg_options = nil
@@ -33,6 +33,31 @@ local function setup_cpp()
       name = "Launch file (gdb)",
       type = "gdb",
       request = "launch",
+      program = function ()
+        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+      end,
+      args = {},
+      cwd = "${workspaceFolder}",
+      stopAtBeginningOfMainSubProgram = false,
+    },
+    {
+      name = "Select and attach to process (gdb)",
+      type = "gdb",
+      request = "attach",
+      program = function ()
+        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+      end,
+      pid = function ()
+        local name = vim.fn.ipnut("Executable name (filter): ")
+        return require("dap.utils").pick_process({ filter = name })
+      end,
+      cwd = "${workspaceFolder}",
+    },
+    {
+      name = "Attach to gdbserver :1234 (gdb)",
+      type = "gdb",
+      request = "attach",
+      miDebuggerServerAddress = "localhost:1234",
       program = function ()
         return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
       end,
@@ -66,7 +91,54 @@ local function setup_cpp()
   }
 
   dap.configurations["c"] = dap.configurations.cpp
-  dap.configurations["rust"] = dap.configurations.cpp
+end
+
+local function setup_rust()
+  local dap = require("dap")
+
+  dap.adapters["rust-gdb"]= {
+    id = 'gdb',
+    type = 'executable',
+    command = 'rust-gdb',
+      args = { "--interpreter=dap", "--eval-command", "set print pretty on" },
+  }
+
+  dap.configurations["rust"] = {
+    {
+      name = "Launch",
+      type = "rust-gdb",
+      request = "launch",
+      program = function ()
+        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+      end,
+      args = {},
+      cwd = "${workspaceFolder}",
+      stopAtBeginningOfMainSubProgram = false,
+    },
+    {
+      name = "Select and attach to process",
+      type = "rust-gdb",
+      request = "attach",
+      program = function ()
+        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+      end,
+      pid = function ()
+        local name = vim.fn.ipnut("Executable name (filter): ")
+        return require("dap.utils").pick_process({ filter = name })
+      end,
+      cwd = "${workspaceFolder}",
+    },
+    {
+      name = "Attach to gdbserver :1234 (gdb)",
+      type = "rust-gdb",
+      request = "attach",
+      miDebuggerServerAddress = "localhost:1234",
+      program = function ()
+        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+      end,
+      cwd = "${workspaceFolder}",
+    },
+  }
 end
 
 local function setup_bash()
@@ -96,6 +168,7 @@ local function setup_bash()
       pathMkfifo = "mkfifo",
       pathPkill = "pkill",
       args = {},
+      argString = "",
       env = {},
       terminalKind = "integrated"
     }
@@ -119,23 +192,35 @@ local function setup_lua()
   }
 end
 
-return function ()
-  require("dap")
-  require("mason-nvim-dap").setup({
-    automatic_installation = true,
-    ensure_installed = require("configs").dap_default_servers
-  })
-  local dapui = require("dapui")
-  local dap_virt_text = require("nvim-dap-virtual-text")
+return {
+  ["dap"] = function ()
+    require("dap")
+    require("mason-nvim-dap").setup({
+      automatic_installation = true,
+      ensure_installed = require("configs").dap_default_servers
+    })
+    local dap_virt_text = require("nvim-dap-virtual-text")
 
-  vim.fn.sign_define("DapBreakpoint", { text = icons.dap.Breakpoint, texthl = "DapBreakpoint", linehl = "", numhl = ""})
-  vim.fn.sign_define("DapBreakpointCondition", { text = icons.dap.BreakpointCondition, texthl = "DapBreakpointCondition", linehl = "", numhl = ""})
-  vim.fn.sign_define("DapLogPoint", { text = icons.dap.LogPoint, texthl = "DapLogPoint", linehl = "", numhl = ""})
+    vim.fn.sign_define("DapBreakpoint", { text = icons.dap.Breakpoint, texthl = "DapBreakpoint", linehl = "", numhl = ""})
+    vim.fn.sign_define("DapBreakpointCondition", { text = icons.dap.BreakpointCondition, texthl = "DapBreakpointCondition", linehl = "", numhl = ""})
+    vim.fn.sign_define("DapLogPoint", { text = icons.dap.LogPoint, texthl = "DapLogPoint", linehl = "", numhl = ""})
 
-  setup_bash()
-  setup_cpp()
-  setup_lua()
+    setup_bash()
+    setup_cpp()
+    setup_lua()
+    setup_rust()
 
-  dapui.setup()
-  dap_virt_text.setup({})
-end
+    dap_virt_text.setup({})
+  end,
+  ["dap-view"] = function ()
+    require("dap-view").setup({
+      auto_toggle = true,
+      winbar = {
+        controls = {
+          enabled = true,
+          position = "left"
+        }
+      }
+    })
+  end
+}

@@ -68,24 +68,17 @@ return {
     dependencies = {
       { "mason-org/mason.nvim" },
       { "jay-babu/mason-nvim-dap.nvim" },
-      { "rcarriga/nvim-dap-ui" },
+      { "igorlfs/nvim-dap-view" },
       { "theHamsta/nvim-dap-virtual-text" },
-      { "jbyuki/one-small-step-for-vimkind" },
-      { "cathyprime/hydra.nvim" }
+      { "jbyuki/one-small-step-for-vimkind" }, -- for debug Lua provided adapter from Neovim instance
     },
-    keys = require("configs.keymap.hydra").dap,
-    config = function ()
-      local Hydra = require("hydra")
-      require("editor.dap_conf")()
-      Hydra(require("ui.hydra_conf").setup["dap"]())
-    end,
+    keys = require("configs.keymap.dap_key")["dap"],
+    config = require("editor.dap_conf")["dap"]
   },
   {
-    "rcarriga/nvim-dap-ui",
-    event = "VeryLazy",
-    dependencies = {
-      "nvim-neotest/nvim-nio"
-    }
+    "igorlfs/nvim-dap-view",
+    keys = require("configs.keymap.dap_key")["dap-view"],
+    config = require("editor.dap_conf")["dap-view"]
   },
 ---------------------------------------------------------------
 -- improve editor feature
