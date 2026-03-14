@@ -2,7 +2,7 @@ local diagnostic_icons = require("configs.ui.icons").get("diagnostics", true)
 
 local options = {
   icons_enabled = true,
-  theme = vim.g.truecolor and "catppuccin" or "auto",
+  theme = vim.g.truecolor and "catppuccin-nvim" or "auto",
   globalstatus = true,
   --component_separators = { left = '', right = ''},
   --section_separators = { left = '', right = ''},

@@ -70,7 +70,7 @@ local lazy_opts = {
   },
   install = {
     missing = true,
-    colorscheme = { "catppuccin" },
+    colorscheme = { "catppuccin-nvim" },
   },
   diff = { cmd = "git" },
   ui = {
@@ -142,7 +142,7 @@ lazy_opts.spec = {
         vim.g[k] = v
       end
 
-      vim.cmd.colorscheme("catppuccin")
+      vim.cmd.colorscheme("catppuccin-nvim")
     end,
     config = require("ui.catppuccin_conf"),
   },
