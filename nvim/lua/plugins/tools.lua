@@ -190,7 +190,7 @@ return {
   {
     "Punity122333/hexinspector.nvim",
     cmd = {"HexInspect", "HexEdit" },
-    config = true,
+    opts = require("tools.hexinspector_conf"),
   },
   -- godbolt Compiler Explorer
   {
