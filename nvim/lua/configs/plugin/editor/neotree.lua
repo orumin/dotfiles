@@ -24,9 +24,12 @@ return function ()
         expander_expanded = icons.ui.ArrowOpen,
       },
       icon = {
+        default = icons.ui.File,
         folder_closed = icons.ui.Folder,
         folder_open = icons.ui.FolderOpen,
         folder_empty = icons.ui.EmptyFolder,
+        folder_empty_open = icons.ui.EmptyFolderOpen,
+        use_filtered_colors = true,
       },
       modified = {
         symbol = icons.ui.Modified,
