@@ -15,6 +15,7 @@ M.lsp_opts = {
   },
   filetypes = { "c", "cpp", "cuda", "objc", "objcpp" },
   capabilities = { offsetEncoding = { "utf-16", "utf-8" } },
+  root_markers = { "compile_commands.json", ".git" },
   single_file_support = true,
   init_options = {
     clangdFileStatus = true,

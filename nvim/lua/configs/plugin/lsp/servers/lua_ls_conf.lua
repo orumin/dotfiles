@@ -1,5 +1,6 @@
 ---@type vim.lsp.Config
 local opts = {
+  root_markers = { ".luarc.json", ".git" },
   settings = {
     Lua = {
       completion = {
