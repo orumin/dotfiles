@@ -86,7 +86,7 @@ return {
     "lewis6991/gitsigns.nvim",
     event = {"CursorHold", "CursorHoldI"},
     dependencies = {
-      { "cathyprime/hydra.nvim" }
+      { "nvimtools/hydra.nvim" }
     },
     keys = require("configs.keymap.hydra").git,
     config = function()
@@ -97,7 +97,7 @@ return {
   },
   -- Hydra
   {
-    "cathyprime/hydra.nvim",
+    "nvimtools/hydra.nvim",
     lazy = true
   }
 }

@@ -170,7 +170,7 @@ return {
     "jbyuki/venn.nvim",
     cmd = "VBox",
     dependencies = {
-      { "cathyprime/hydra.nvim" }
+      { "nvimtools/hydra.nvim" }
     },
     keys = require("configs.keymap.hydra").venn,
     config = function ()
