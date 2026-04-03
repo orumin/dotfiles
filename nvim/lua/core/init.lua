@@ -288,7 +288,7 @@ end
 
 M.init = function ()
   vim.env.IN_NVIM = "1"
-  --require("setup_profiler").init()
+  --require("core.setup_profiler").init()
   vim.loader.enable()
 
   if vim.g.vscode then
