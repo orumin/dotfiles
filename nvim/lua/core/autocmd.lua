@@ -28,7 +28,6 @@ local trailingsp_augroup = vim.api.nvim_create_augroup('trailingSpace', { clear 
 if configs.remove_trailing_space then
   vim.api.nvim_create_autocmd('BufWritePre', {
     group = trailingsp_augroup,
-    pattern = '',
     command = ":%s/\\s\\+$//e"
   })
 end
