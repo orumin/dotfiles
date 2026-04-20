@@ -69,7 +69,7 @@ local lazy_opts = {
     hererocks = nil,
   },
   install = {
-    missing = true,
+    missing = false,
     colorscheme = { "catppuccin-nvim" },
   },
   diff = { cmd = "git" },
