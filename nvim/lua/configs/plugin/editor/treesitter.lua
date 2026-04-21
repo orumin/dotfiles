@@ -1,74 +1,93 @@
-return function()
-  ---@class MyParserConfig : { [string]: ParserInfo}
-  local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-  parser_config.asciidoc = {
-    filetype = "asciidoc",
-    maintainers = {"cathayasia"},
-    install_info = {
-      url = "https://github.com/cathaysia/tree-sitter-asciidoc.git",
-      files = { "tree-sitter-asciidoc/src/parser.c", "tree-sitter-asciidoc/src/scanner.c" },
-      branch = "master",
-      generate_requires_npm = false,
-      requires_generate_from_grammar = false,
-    },
-  }
-  parser_config.asciidoc_inline = {
-    filetype = "asciidoc",
-    maintainers = {"cathayasia"},
-    install_info = {
-      url = "https://github.com/cathaysia/tree-sitter-asciidoc.git",
-      files = { "tree-sitter-asciidoc_inline/src/parser.c", "tree-sitter-asciidoc_inline/src/scanner.c" },
-      branch = "master",
-      generate_requires_npm = false,
-      requires_generate_from_grammar = false,
-    },
-  }
+return {
+  config = function()
+    local treesitter = require('nvim-treesitter')
+    if not treesitter then
+      vim.notify("nvim-treesitter not found!", vim.log.levels.ERROR)
+      return
+    end
 
-  parser_config.plantuml = {
-    filetype = "plantuml",
-    maintainers = {"lyndsysimon"},
-    install_info = {
-      url = "https://github.com/lyndsysimon/tree-sitter-plantuml.git",
-      files = { "src/parser.c" },
-      branch = "main",
-      generate_requires_npm = true,
-      requires_generate_from_grammar = true,
-    },
-  }
-
-  local treesitter_config = require("nvim-treesitter.configs")
-
-  vim.treesitter.language.register('yaml', 'ansible')
-  vim.treesitter.language.register('markdown', 'copilot-chat')
-
-  vim.o.foldmethod = "expr"
-  vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-
-  local tsconfig = {
-    modules = {},
-    sync_install = false,
-    ensure_installed = {
+    local ensure_installed = {
       "bash", "bibtex", "bitbake", "c", "cmake", "comment", "cpp", "css", "csv", "cue",
       "devicetree", "diff", "dockerfile", "doxygen", "elvish", "fennel", "fish",
       "git_config", "git_rebase", "gitattributes", "gitcommit", "gitignore",
-      "html", "http", "ini", "java", "javascript", "jq", "json", "json5", "jsonc", --[["latex",]] "llvm",
+      "html", "http", "ini", "java", "javascript", "jq", "json", "json5", "latex", "llvm",
       "lua", "luadoc", "luap", "luau", "make", "markdown", "markdown_inline", "mermaid", "meson", "nasm", "ninja", "nix", "nu",
-      "objc", "ocaml", "ocaml_interface", --[["ocamllex",]] "pascal", "passwd", "perl", "proto", "python", "query", "regex",
+      "objc", "ocaml", "ocaml_interface", "ocamllex", "pascal", "passwd", "perl", "proto", "python", "query", "regex",
       "requirements", "rst", "ruby", "rust", "scss", "sql", "ssh_config", "strace", "systemtap",
       "textproto", "todotxt", "toml", "typescript", "typst", "vim", "vimdoc", "vue", "xml", "yaml"
-    },
-    auto_install = true,
-    ignore_install = {},
-    parser_install_dir = nil,
-    highlight = {
-      enable = true, -- false will disable the whole extension
-      --additional_vim_regex_highlighting = { "c", "cpp" },
-      additional_vim_regex_highlighting = false,
-    },
-    indent = {
-      enable = true,
-    },
-  }
+    }
+    local already_installed = require('nvim-treesitter.config').get_installed()
+    if not already_installed then
+      already_installed = {}
+    end
+    local parsers_to_install = vim.iter(ensure_installed)
+      :filter(function(parser)
+        return not vim.tbl_contains(already_installed, parser)
+      end)
+      :totable()
+    treesitter.install(parsers_to_install)
 
-  treesitter_config.setup(tsconfig)
-end
+    vim.api.nvim_create_autocmd('FileType', {
+      callback = function()
+        -- Enable treesitter highlighting and disable regex syntax
+        pcall(vim.treesitter.start)
+        -- Enable treesitter-based indentation
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end,
+    })
+
+    vim.api.nvim_create_autocmd('User', { pattern = 'TSUpdate',
+      callback = function()
+        local parsers = require('nvim-treesitter.parsers')
+        if not parsers then
+          vim.notify("Failed to get parser configs!", vim.log.levels.ERROR)
+          return
+        end
+        parsers.asciidoc = {
+          tier = 1,
+          maintainers = {"cathayasia"},
+          install_info = {
+            url = "https://github.com/cathaysia/tree-sitter-asciidoc.git",
+            branch = "master",
+            revision = "v0.7.0",
+            location = "tree-sitter-asciidoc",
+            queries = "tree-sitter-asciidoc/queries",
+          }
+        }
+        --parsers.asciidoc_inline = {
+        --  tier = 1,
+        --  maintainers = {"cathayasia"},
+        --  install_info = {
+        --    url = "https://github.com/cathaysia/tree-sitter-asciidoc.git",
+        --    branch = "master",
+        --    revision = "v0.7.0",
+        --    location = "tree-sitter-asciidoc-inline",
+        --    queries = "tree-sitter-asciidoc-inline/queries",
+        --  },
+        --}
+        parsers.plantuml = {
+          tier = 1,
+          maintainers = {"Szeliga"},
+          install_info = {
+            url = "https://github.com/Szeliga/tree-sitter-plantuml.git",
+            branch = "master",
+            revision = "a3cfbf844d727b077f0070769e6d1c0977cc58f9",
+            queries = "queries/plantuml",
+          },
+        }
+      end
+    })
+
+    vim.treesitter.language.register('asciidoc', 'asciidoc')
+    vim.treesitter.language.register('plantuml', 'plantuml')
+    vim.treesitter.language.register('yaml', 'ansible')
+    vim.treesitter.language.register('markdown', 'copilot-chat')
+
+    vim.o.foldmethod = "expr"
+    vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+    treesitter.setup({
+      install_dir = vim.fn.stdpath("data") .. "/tree-sitter",
+    })
+  end
+}

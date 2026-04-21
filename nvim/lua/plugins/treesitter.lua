@@ -4,6 +4,7 @@ return {
 ---------------------------------------------------------------
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     event = { "BufReadPost" },
     dependencies = {
       { "nvim-treesitter/nvim-treesitter-context" },
@@ -17,7 +18,7 @@ return {
       local ts_update = require("nvim-treesitter.install").update({with_sync = true})
       ts_update()
     end,
-    config = require("editor.treesitter"),
+    config = require("editor.treesitter").config,
   },
   -- parentheses
   {
