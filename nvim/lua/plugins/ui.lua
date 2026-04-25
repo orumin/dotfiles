@@ -61,7 +61,6 @@ return {
           })
         end
       },
-      { "nvim-treesitter/nvim-treesitter" }
     },
     config = require("ui.noice_conf")
   },

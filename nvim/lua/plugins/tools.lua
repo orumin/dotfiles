@@ -44,7 +44,7 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = "markdown",
     dependencies = {
-      { "nvim-treesitter/nvim-treesitter" },
+      { "romus204/tree-sitter-manager.nvim" },
     },
     opts = true,
   },
@@ -68,7 +68,6 @@ return {
     event = "VeryLazy",
     dependencies = {
       { "nvim-lua/plenary.nvim" },
-      { "nvim-treesitter/nvim-treesitter" },
     }
   },
   -- show coverage
