@@ -132,16 +132,30 @@ table.insert(launch_menu, {
   args = btop_prog
 })
 
+local local_info = require("local")
+
+local table_has = function(t, e)
+  if not e then return false end
+  for _, v in pairs(t or {}) do
+    if e == v then return true end
+  end
+  return false
+end
+
 local ssh_domains = {}
 for host, ssh_config in pairs(wezterm.enumerate_ssh_hosts()) do
+  if table_has(local_info.ignore_host, host) then
+    goto continue
+  end
   table.insert(ssh_domains, {
     name = host,
     remote_address = ssh_config.hostname,
-    --multiplexing = "None",
+    multiplexing = table_has(local_info.remote_none_host, host) and "None" or "WezTerm",
     assume_shell = "Posix",
     ssh_option = ssh_config
 
   })
+  ::continue::
 end
 
 local serial_ports = {}
