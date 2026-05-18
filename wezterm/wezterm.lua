@@ -132,7 +132,13 @@ table.insert(launch_menu, {
   args = btop_prog
 })
 
-local local_info = require("local")
+local ok, local_info = pcall(require, "local")
+if not ok then
+  local_info = {
+    ignore_host = {},
+    remote_note_host = {},
+  }
+end
 
 local table_has = function(t, e)
   if not e then return false end
