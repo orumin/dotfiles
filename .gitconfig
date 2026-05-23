@@ -5,7 +5,7 @@
 [user]
 	email = dev@orum.in
 	name = orumin
-	signingkey = BDD66ECC
+	signingkey = 4B0E6DE5AC47B2B9
 [push]
 	default = simple
 [commit]
