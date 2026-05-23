@@ -27,10 +27,9 @@ return {
   -- colorful window separator
   {
     "nvim-zh/colorful-winsep.nvim",
+    branch = "main",
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
-    config = function ()
-      require("colorful-winsep").setup()
-    end,
+    config = true,
   },
   -- transparency
   {
