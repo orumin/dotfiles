@@ -73,7 +73,7 @@ return {
     vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
     ts_manager.setup({
-      ensure_installed = ensure_installed,
+      --ensure_installed = ensure_installed,
       auto_install = false,
       languages = languages,
       parser_dir = utils:path_concat({G.nvim_data_dir, "tree-sitter", "parsers"}),
