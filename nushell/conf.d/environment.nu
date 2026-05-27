@@ -89,6 +89,10 @@ if (which lesspipe | is-not-empty) {
   $env.LESSCLOSE = $lesspipe_path + ' %s %s'
 }
 
+if not $is_wsl and not $is_wsl_2 and (which gpg-agent | is-not-empty) {
+  $env.SSH_AUTH_SOCK = (gpgconf --list-dirs agent-ssh-socket)
+}
+
 $env.MINICOM = '-l -L -w -c on -a on'
 
 if $is_wsl_2 {
