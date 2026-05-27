@@ -185,4 +185,23 @@ config.launch_menu = launch_menu
 config.ssh_domains = ssh_domains
 config.serial_ports = serial_ports
 
+-- default backend 'Libssh' doesn't support ssh-agent
+config.ssh_backend = 'Ssh2'
+
+if utils.is_win then
+  config.default_ssh_auth_sock = "\\\\.\\pipe\\openssh-ssh-agent"
+else
+  local GNUPGHOME = os.getenv("GNUPGHOME")
+  if GNUPGHOME then
+    config.default_ssh_auth_sock = string.format("%s/.gnupg/S.gpg-agent.ssh", GNUPGHOME)
+  else
+    config.default_ssh_auth_sock = string.format("%s/.gnupg/S.gpg-agent.ssh", os.getenv("HOME"))
+  end
+end
+
+config.mux_env_remove = {
+  'SSH_CLIENT',
+  'SSH_CONNECTION'
+}
+
 return config
