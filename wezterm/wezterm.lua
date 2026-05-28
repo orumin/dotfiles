@@ -109,6 +109,8 @@ if not utils.is_win then
 end
 
 config.use_ime = true
+--to use AquaSKK/macSKK on WezTerm
+config.macos_forward_to_ime_modifier_mask = 'SHIFT|CTRL'
 
 config.adjust_window_size_when_changing_font_size = false
 
