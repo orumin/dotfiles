@@ -21,7 +21,9 @@ return {
   },
   -- breadcrumbs (winbar)
   {
-    "Bekaboo/dropbar.nvim",
+    --"Bekaboo/dropbar.nvim",
+    "cubewhy/dropbar.nvim",
+    branch = "fix-event",
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
   },
   -- colorful window separator
