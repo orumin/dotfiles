@@ -138,7 +138,7 @@ local ok, local_info = pcall(require, "local")
 if not ok then
   local_info = {
     ignore_host = {},
-    remote_note_host = {},
+    remote_none_host = {},
   }
 end
 
