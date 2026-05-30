@@ -7,5 +7,6 @@ if $is_wsl {
   $env.config.shell_integration.osc133 = false
 } else if (which gpg-agent | is-not-empty) {
   $env.GPG_TTY = (tty)
+  $env.SSH_AUTH_SOCK = (gpgconf --list-dirs agent-ssh-socket)
   gpg-connect-agent updatestartuptty /bye | complete
 }

@@ -10,3 +10,5 @@ $env.config.keybindings = $env.config.keybindings | append {
   mode: vi_insert
   event: { send: ViChangeMode mode: normal }
 }
+
+$env.SSH_AUTH_SOCK = '\\.\pipe\openssh-ssh-agent'
