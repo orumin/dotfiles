@@ -47,8 +47,6 @@ local settings = {
     markdown = { "vale" },
 --    proto = { "buf_lint" },
     sh = { "shellcheck" },
-    sql = { "sqlfluff" },
-    yaml = { "yamllint" },
   },
   listchars = {
     trail = "-",
@@ -59,9 +57,9 @@ local settings = {
     precedes = "❮"
   },
   lsp_default_servers = {
-    "bashls", "buf_ls", "clangd", "docker_compose_language_service", "dockerls",
-    "gopls", "html", "jsonls", "luau_lsp", "marksman", "powershell_es", "ts_ls",
-    "tinymist", "lua_ls", "pyright", "texlab", "rust_analyzer", "vimls"
+    "buf_ls", "clangd", "luau_lsp",
+    "marksman", "powershell_es",
+    "tinymist", "lua_ls", "texlab",
   },
   lsp_disabled_servers = {
 --    "ltex"
@@ -80,27 +78,54 @@ local settings = {
   use_skk = true,
   use_ttene = false,
 }
-
-if not vim.fn.has("win32") == 1 then
-  table.insert(settings.lsp_default_servers, "awk_ls")
-  table.insert(settings.lsp_default_servers, "cmake")
+---skkeleton requires deno
+---if deno isn't installed, override
+if vim.fn.executable("deno") ~= 1 then
+  settings.use_denops = false
+  settings.use_skk = false
 end
 
 if vim.fn.executable("cargo") == 1 then
   table.insert(settings.lsp_default_servers, "asm_lsp")
   table.insert(settings.lsp_default_servers, "fennel_language_server")
+  table.insert(settings.lsp_default_servers, "rust_analyzer")
 end
 
 if vim.fn.executable("gem") == 1 then
   table.insert(settings.lsp_default_servers, "solargraph")
 end
 
+if vim.fn.executable("go") == 1 then
+  table.insert(settings.lsp_default_servers, "gopls")
+end
+
 if vim.fn.executable("mvn") == 1 then
   table.insert(settings.lsp_default_servers, "java_language_server")
 end
 
+if vim.fn.executable("npm") == 1 then
+  table.insert(settings.lsp_default_servers, "bashls")
+  table.insert(settings.lsp_default_servers, "docker_compose_language_service")
+  table.insert(settings.lsp_default_servers, "dockerls")
+  table.insert(settings.lsp_default_servers, "html")
+  table.insert(settings.lsp_default_servers, "jsonls")
+  table.insert(settings.lsp_default_servers, "ts_ls")
+  table.insert(settings.lsp_default_servers, "pyright")
+  table.insert(settings.lsp_default_servers, "vimls")
+end
+
+if vim.fn.executable("python3") == 1 then
+  settings.linters.sql = { "sqlfluff" }
+  settings.linters.yaml = { "yamllint" }
+end
+
 if vim.fn.executable("opam") == 1 then
   table.insert(settings.lsp_default_servers, "ocamllsp")
+end
+
+if not vim.fn.has("win32") == 1 then
+  table.insert(settings.lsp_default_servers, "awk_ls")
+  table.insert(settings.lsp_default_servers, "cmake")
 end
 
 return settings
