@@ -57,8 +57,7 @@ local settings = {
     precedes = "❮"
   },
   lsp_default_servers = {
-    "buf_ls", "clangd", "luau_lsp",
-    "marksman", "powershell_es",
+    "buf_ls", "clangd", "marksman",
     "tinymist", "lua_ls", "texlab",
   },
   lsp_disabled_servers = {
@@ -125,7 +124,14 @@ end
 
 if not vim.fn.has("win32") == 1 then
   table.insert(settings.lsp_default_servers, "awk_ls")
-  table.insert(settings.lsp_default_servers, "cmake")
+  if vim.fn.executable("unzip") == 1 then
+    table.insert(settings.lsp_default_servers, "cmake")
+    table.insert(settings.lsp_default_servers, "luau_lsp")
+    table.insert(settings.lsp_default_servers, "powershell_es")
+  end
+else
+  table.insert(settings.lsp_default_servers, "luau_lsp")
+  table.insert(settings.lsp_default_servers, "powershell_es")
 end
 
 return settings
