@@ -7,7 +7,8 @@ return {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
-    config = require("completion.copilot_conf").setup
+    config = require("completion.copilot_conf").setup,
+    cond = require("configs").use_copilot,
   },
   {
     "folke/sidekick.nvim",

@@ -57,7 +57,7 @@ local settings = {
     precedes = "❮"
   },
   lsp_default_servers = {
-    "buf_ls", "clangd", "marksman",
+    "buf_ls", "marksman",
     "tinymist", "lua_ls", "texlab",
   },
   lsp_disabled_servers = {
@@ -77,12 +77,25 @@ local settings = {
   use_skk = true,
   use_ttene = false,
 }
+
+---
+--- override settings
+---
+
 ---skkeleton requires deno
 ---if deno isn't installed, override
 if vim.fn.executable("deno") ~= 1 then
   settings.use_denops = false
   settings.use_skk = false
 end
+
+if vim.fn.executable("node") ~= 1 then
+  settings.use_copilot = false
+end
+
+---
+--- append lsp servers for default installation
+---
 
 if vim.fn.executable("cargo") == 1 then
   table.insert(settings.lsp_default_servers, "asm_lsp")
@@ -103,6 +116,7 @@ if vim.fn.executable("mvn") == 1 then
 end
 
 if vim.fn.executable("npm") == 1 then
+  table.insert(settings.lsp_default_servers, "awk_ls")
   table.insert(settings.lsp_default_servers, "bashls")
   table.insert(settings.lsp_default_servers, "docker_compose_language_service")
   table.insert(settings.lsp_default_servers, "dockerls")
@@ -113,23 +127,44 @@ if vim.fn.executable("npm") == 1 then
   table.insert(settings.lsp_default_servers, "vimls")
 end
 
+local python_ver_check = function()
+  local ret = false
+  local handle = io.popen("python3 -V")
+  if not handle then
+    vim.notify("cannot open pipe", vim.log.levels.ERROR, { title = "[configs] Runtime error" })
+    return ret
+  end
+  local major, minor, patch = handle:read("*a"):match("Python (%d+).(%d+).(%d+)")
+  if major == nil or minor == nil or patch == nil then
+    vim.notify("failed to retrieve python version", vim.log.levels.WARN, { title = "[configs] Python version" })
+    return ret
+  end
+  if tonumber(minor) >= 14 then
+    vim.notify("python minor version is too newer: "..major.."."..minor.."."..patch, vim.log.levels.WARN, { title = "[configs] Python version" })
+    goto out
+  end
+
+  ret = true
+::out::
+  handle:close()
+  return ret
+end
+
 if vim.fn.executable("python3") == 1 then
-  settings.linters.sql = { "sqlfluff" }
-  settings.linters.yaml = { "yamllint" }
+  if python_ver_check() then
+    table.insert(settings.lsp_default_servers, "cmake")
+    settings.linters.sql = { "sqlfluff" }
+    settings.linters.yaml = { "yamllint" }
+  end
 end
 
 if vim.fn.executable("opam") == 1 then
   table.insert(settings.lsp_default_servers, "ocamllsp")
 end
 
-if not vim.fn.has("win32") == 1 then
-  table.insert(settings.lsp_default_servers, "awk_ls")
-  if vim.fn.executable("unzip") == 1 then
-    table.insert(settings.lsp_default_servers, "cmake")
-    table.insert(settings.lsp_default_servers, "luau_lsp")
-    table.insert(settings.lsp_default_servers, "powershell_es")
-  end
-else
+if vim.fn.has("win32") == 1 or
+  vim.fn.executable("unzip") == 1 then
+  table.insert(settings.lsp_default_servers, "clangd")
   table.insert(settings.lsp_default_servers, "luau_lsp")
   table.insert(settings.lsp_default_servers, "powershell_es")
 end

@@ -145,6 +145,7 @@ return {
       { "yuki-yano/denops-lazy.nvim" },
     },
     config = require("tools.skkeleton"),
+    cond = require("configs").use_skk,
   },
   {
     "delphinus/skkeleton_indicator.nvim",
@@ -152,6 +153,7 @@ return {
     event = { "InsertEnter", "CmdlineEnter" },
     init = require("configs.ui.color").set_skkeleton_indicator_hl(),
     config = true,
+    cond = require("configs").use_skk,
   },
   -- CSV/TSV viewer
   {
