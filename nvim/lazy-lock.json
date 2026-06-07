@@ -88,6 +88,7 @@
   "skkeleton_indicator.nvim": { "branch": "v2", "commit": "b3e5379db47ed86a2f0f6fd9ae2c30a0e8119c23" },
   "snacks.nvim": { "branch": "main", "commit": "882c996cf28183f4d63640de0b4c02ec886d01f2" },
   "snipe.nvim": { "branch": "main", "commit": "d2d196c335919767803f905d573ce66340e33ee6" },
+  "splitasm.nvim": { "branch": "master", "commit": "0f5302ef02540c6ea662691c6806703fcf1b0737" },
   "ssr.nvim": { "branch": "main", "commit": "7839acf6f940dc1c9210823a7c8b378df122765b" },
   "suda.vim": { "branch": "master", "commit": "c492741b4679b3cdd4d9e34138209784e061d916" },
   "symbol-usage.nvim": { "branch": "main", "commit": "6a449e6b37be61a110606e9a67a7a308774f120f" },

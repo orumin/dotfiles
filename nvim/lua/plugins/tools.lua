@@ -208,6 +208,19 @@ return {
       "CEGotoLabel"
     }
   },
+  {
+    "NickTsaizer/splitasm.nvim",
+    cmd = {
+      "SplitAsm",
+      "SplitAsmOpen",
+      "SplitAsmSetup",
+      "SplitAsmConfig",
+      "SplitAsmToggleSync",
+      "SplitAsmToggleLineNumbers",
+      "SplitAsmToggleHideAddress",
+    },
+    config = true,
+  },
   -- translation
   {
     "potamides/pantran.nvim",
