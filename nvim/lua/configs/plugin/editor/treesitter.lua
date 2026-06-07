@@ -76,8 +76,6 @@ return {
       --ensure_installed = ensure_installed,
       auto_install = false,
       languages = languages,
-      parser_dir = utils:path_concat({G.nvim_data_dir, "tree-sitter", "parsers"}),
-      query_dir = utils:path_concat({G.nvim_data_dir, "tree-sitter", "queries"}),
     })
   end
 }

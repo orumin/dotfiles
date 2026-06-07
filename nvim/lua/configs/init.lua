@@ -158,12 +158,13 @@ if has_npm then
   table.insert(settings.lsp_default_servers, "ts_ls")
   table.insert(settings.lsp_default_servers, "pyright")
   table.insert(settings.lsp_default_servers, "vimls")
+  table.insert(settings.lsp_default_servers, "yamlls")
 end
 
 if has_python3 and python_ver_check() then
   table.insert(settings.lsp_default_servers, "cmake")
   settings.linters.sql = { "sqlfluff" }
-  settings.linters.yaml = { "yamllint" }
+  --settings.linters.yaml = { "yamllint" }
 end
 
 if has_npm and has_python3 then
