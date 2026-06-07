@@ -85,6 +85,22 @@ local function on_lsp_attach(client, bufnr)
     })
   end
 
+  local toggle_codelens = function(enable, bufnr, client_id)
+    if enable then
+      if vim.fn.has("nvim-0.12") == 1 then
+        vim.lsp.codelens.enable(true, {bufnr=bufnr})
+      else
+        vim.lsp.codelens.clear(client_id, bufnr)
+      end
+    else
+      if vim.fn.has("nvim-0.12") == 1 then
+        vim.lsp.codelens.enable(false, {bufnr=buf})
+      else
+        vim.lsp.codelens.refresh({bufnr=buf})
+      end
+    end
+  end
+
   -- set-up 'code lens'
   if client:supports_method(methods["textDocument_codeLens"], bufnr) then
     local codelens_group = vim.api.nvim_create_augroup('LSP_codeLens', { clear = false })
@@ -93,7 +109,7 @@ local function on_lsp_attach(client, bufnr)
       desc = 'Disable CodeLens in insert mode',
       buffer = bufnr,
       callback = function()
-        vim.lsp.codelens.enable(false, {bufnr=bufnr})
+        toggle_codelens(false, bufnr, client.id)
       end,
     })
     vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'InsertLeave' }, {
@@ -101,12 +117,12 @@ local function on_lsp_attach(client, bufnr)
       desc = 'Refresh CodeLens',
       buffer = bufnr,
       callback = function()
-        vim.lsp.codelens.enable(true, {bufnr=bufnr})
+        toggle_codelens(true, bufnr, client.id)
       end,
     })
 
     -- Initial CodeLens display.
-    vim.lsp.codelens.enable(true, {bufnr=bufnr})
+    toggle_codelens(true, bufnr, client.id)
   end
 
   -- set-up 'inlay hint'
