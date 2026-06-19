@@ -6,7 +6,12 @@ return {
     "romus204/tree-sitter-manager.nvim",
     branch = "main",
     event = { "BufReadPost" },
-    cmd = { "TSManager" },
+    cmd = {
+      "TSManager",
+      "TSInstall",
+      "TSUninstall",
+      "TSUpdate"
+    },
     dependencies = {
       { "nvim-treesitter/nvim-treesitter-context" },
       {
